@@ -6,6 +6,8 @@
   <title>Wabash Systems — E-Commerce Consulting for Small Business</title>
   <meta name="description" content="Wabash Systems helps small businesses launch, grow, and manage profitable online stores. E-commerce consulting, store setup, SEO, and Google Ads — serving Illinois, Indiana, and remote clients nationwide." />
   <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="favicon.png" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -609,6 +611,7 @@
     }
 
     .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     /* ── FOOTER ── */
     footer {
@@ -656,6 +659,30 @@
       gap: 12px;
     }
 
+    /* ── ANNOUNCEMENT BANNER ── */
+    .announcement-banner {
+      background: var(--orange);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 101;
+    }
+
+    .announcement-banner span {
+      opacity: 0.85;
+      font-weight: 400;
+      margin-left: 8px;
+    }
+
+    nav { top: 38px; }
+
+    .hero { padding-top: 158px; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .intro, .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -674,6 +701,11 @@
   </style>
 </head>
 <body>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="announcement-banner">
+  🚀 Opening Spring 2027 in Southeastern Illinois<span>— Now Accepting Early Clients</span>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -712,7 +744,7 @@
     <h1>Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
     <p class="hero-sub">Wabash Systems helps local businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Book a Free Consultation</a>
+      <a href="https://cal.com/wabashsystems" target="_blank" class="btn-primary">Book a Free Consultation</a>
       <a href="#services" class="btn-secondary">See What We Do</a>
     </div>
     <div class="hero-stats">
@@ -855,7 +887,7 @@
         <div class="step-number">3</div>
         <div class="step-content">
           <div class="step-title">Build & Launch</div>
-          <p class="step-desc">We get to work. You'll have a direct line to us throughout the project — no account managers, no middlemen. Just the person doing the work keeping you updated.</p>
+          <p class="step-desc">We get to work. You'll have a direct line to our team throughout the project — no account managers, no middlemen. Just the people doing the work keeping you updated.</p>
         </div>
       </div>
       <div class="process-step">
@@ -876,9 +908,9 @@
       <span class="section-label">About Wabash Systems</span>
       <h2 class="section-title">20 Years of E-Commerce. Now Working for You.</h2>
       <div class="about-body">
-        <p>Wabash Systems was founded by Andy Gray, an e-commerce operator and web developer with over 20 years of hands-on experience building and running successful online businesses.</p>
-        <p>For two decades, Andy managed a full-scale national e-commerce operation — from platform architecture on Magento and BigCommerce, to SEO, Google Ads, and everything in between. He's done the platform migrations, fixed the broken ad campaigns, and built the product catalogs that actually sell.</p>
-        <p>Now he's bringing that experience directly to small businesses in southeastern Illinois and beyond — as a consultant, not a corporation. When you work with Wabash Systems, you work with Andy.</p>
+        <p>Wabash Systems is a boutique e-commerce consulting team built on over 20 years of hands-on experience operating successful online businesses — not theory, not agency fluff. We've been in the trenches.</p>
+        <p>Our team has managed full-scale national e-commerce operations from the ground up — platform architecture on Magento and BigCommerce, SEO, Google Ads, platform migrations, and everything in between. We've fixed the broken campaigns, built the catalogs that actually sell, and kept complex operations running smoothly for two decades.</p>
+        <p>Now we're bringing that operator-level experience directly to small businesses in southeastern Illinois and beyond. When you work with Wabash Systems, you work with a team that has done exactly what they're recommending — not consultants who read about it.</p>
       </div>
     </div>
     <div class="about-highlights">
@@ -887,12 +919,12 @@
         <div class="highlight-desc">Ran a national online retail operation from the ground up — Magento, BigCommerce, SEO, Google Ads, and full platform migrations.</div>
       </div>
       <div class="highlight-item">
-        <div class="highlight-title">Real Operator, Not Just a Consultant</div>
-        <div class="highlight-desc">Everything we recommend is something we've done ourselves in production — not theory from a textbook.</div>
+        <div class="highlight-title">Real Operators, Not Just Consultants</div>
+        <div class="highlight-desc">Everything we recommend is something our team has done in production — not theory from a textbook.</div>
       </div>
       <div class="highlight-item">
         <div class="highlight-title">Local, Personal Service</div>
-        <div class="highlight-desc">Based in southeastern Illinois. No call centers, no account managers — you deal directly with the person doing the work.</div>
+        <div class="highlight-desc">Based in southeastern Illinois. No call centers, no runaround — you work directly with our team, not a revolving door of account managers.</div>
       </div>
       <div class="highlight-item">
         <div class="highlight-title">Transparent Pricing, No Surprises</div>
@@ -945,7 +977,7 @@
 <section class="cta-section">
   <h2 class="section-title">Ready to Start Selling Online?</h2>
   <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch — just an honest conversation about your business and what's possible.</p>
-  <a href="#contact" class="btn-white">Book Your Free Call</a>
+  <a href="https://cal.com/wabashsystems" target="_blank" class="btn-white">Book Your Free Call</a>
 </section>
 
 <!-- CONTACT -->
@@ -976,12 +1008,19 @@
           <div class="contact-detail-value">Within 1 business day</div>
         </div>
       </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📅</div>
+        <div>
+          <div class="contact-detail-label">Schedule a Call</div>
+          <div class="contact-detail-value"><a href="https://cal.com/wabashsystems" target="_blank" style="color:var(--orange);font-weight:600;text-decoration:none;">cal.com/wabashsystems</a></div>
+        </div>
+      </div>
     </div>
-    <form class="contact-form" onsubmit="return false;">
+    <form class="contact-form" id="contactForm">
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name</label>
-          <input type="text" id="fname" placeholder="Jane" />
+          <input type="text" id="fname" placeholder="Jane" required />
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
@@ -990,7 +1029,7 @@
       </div>
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="jane@yourbusiness.com" />
+        <input type="email" id="email" placeholder="jane@yourbusiness.com" required />
       </div>
       <div class="form-group">
         <label for="business">Business Name</label>
@@ -1011,10 +1050,61 @@
       </div>
       <div class="form-group">
         <label for="message">Tell Us About Your Business</label>
-        <textarea id="message" placeholder="What do you sell? Where are you at today? What's your goal?"></textarea>
+        <textarea id="message" placeholder="What do you sell? Where are you at today? What's your goal?" required></textarea>
       </div>
-      <button type="submit" class="form-submit">Send Message →</button>
+      <div id="formStatus" style="display:none; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;"></div>
+      <button type="submit" class="form-submit" id="formSubmit">Send Message →</button>
     </form>
+
+    <script>
+      document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('formSubmit');
+        const status = document.getElementById('formStatus');
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        status.style.display = 'none';
+
+        const payload = {
+          fname: document.getElementById('fname').value.trim(),
+          lname: document.getElementById('lname').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          business: document.getElementById('business').value.trim(),
+          service: document.getElementById('service').value,
+          message: document.getElementById('message').value.trim(),
+        };
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            status.style.display = 'block';
+            status.style.background = '#f0fdf4';
+            status.style.color = '#166534';
+            status.style.border = '1px solid #bbf7d0';
+            status.textContent = "Message sent! We'll get back to you within one business day.";
+            document.getElementById('contactForm').reset();
+          } else {
+            throw new Error(data.error || 'Unknown error');
+          }
+        } catch (err) {
+          status.style.display = 'block';
+          status.style.background = '#fef2f2';
+          status.style.color = '#991b1b';
+          status.style.border = '1px solid #fecaca';
+          status.textContent = 'Something went wrong. Please email us directly at info@wabashsystems.com';
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Send Message →';
+        }
+      });
+    </script>
   </div>
 </section>
 
@@ -1026,7 +1116,7 @@
         <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
         <span class="nav-brand-sub">Systems</span>
       </div>
-      <p>E-commerce consulting for small businesses ready to grow online. Based in southeastern Illinois. Serving clients locally and remotely.</p>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in southeastern Illinois. Serving clients locally and remotely.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>
@@ -1056,4 +1146,3 @@
 </footer>
 
 </body>
-</html>
