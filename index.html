@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wabash Systems — E-Commerce Consulting for Small Business</title>
+  <meta name="description" content="Wabash Systems helps small businesses launch, grow, and manage profitable online stores. E-commerce consulting, store setup, SEO, and Google Ads — serving Illinois, Indiana, and remote clients nationwide." />
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1a2a;
+      --navy-mid: #1a2e44;
+      --navy-light: #1a4a6e;
+      --orange: #c4622d;
+      --orange-light: #e8834d;
+      --cream: #f8f6f1;
+      --gray-light: #f2f4f7;
+      --gray-mid: #6b7280;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg {
+      width: 52px;
+      height: 31px;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-brand-top {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--cream);
+    }
+
+    .nav-brand-sub {
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--orange);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--orange-light); }
+
+    .nav-cta {
+      background: var(--orange) !important;
+      color: var(--white) !important;
+      padding: 10px 22px !important;
+      border-radius: 6px !important;
+      opacity: 1 !important;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--orange-light) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-wave {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 780px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(36px, 5vw, 62px);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(248,246,241,0.75);
+      max-width: 580px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--cream);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(248,246,241,0.3);
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange-light); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: Georgia, serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--orange);
+      display: block;
+    }
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(248,246,241,0.5);
+      margin-top: 4px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 5%; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray-mid);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .intro-visual {
+      background: var(--gray-light);
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .intro-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .intro-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+
+    .intro-card-text { font-size: 14px; font-weight: 500; color: var(--navy); }
+    .intro-card-sub { font-size: 12px; color: var(--gray-mid); margin-top: 2px; }
+
+    /* ── SERVICES ── */
+    .services-section { background: var(--gray-light); }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+    .services-header { margin-bottom: 56px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 36px 32px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+      transform-origin: left;
+    }
+
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .service-title {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 1.7;
+    }
+
+    .service-price {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-light);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    /* ── PROCESS ── */
+    .process-section { background: var(--white); }
+    .process-inner { max-width: 1000px; margin: 0 auto; }
+
+    .process-steps {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 64px;
+      bottom: 0;
+      width: 2px;
+      background: var(--gray-light);
+    }
+
+    .step-number {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 3px solid var(--orange);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content { padding-top: 12px; }
+    .step-title { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .step-desc { font-size: 15px; color: var(--gray-mid); line-height: 1.7; }
+
+    /* ── ABOUT ── */
+    .about-section { background: var(--navy); }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-section .section-title { color: var(--cream); }
+    .about-section .section-label { color: var(--orange); }
+
+    .about-body {
+      font-size: 16px;
+      color: rgba(248,246,241,0.75);
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+
+    .about-body p + p { margin-top: 16px; }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .highlight-item {
+      background: var(--navy-mid);
+      border-radius: 12px;
+      padding: 24px 28px;
+      border-left: 3px solid var(--orange);
+    }
+
+    .highlight-title { font-weight: 600; color: var(--cream); margin-bottom: 6px; font-size: 15px; }
+    .highlight-desc { font-size: 13px; color: rgba(248,246,241,0.6); line-height: 1.6; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-section { background: var(--gray-light); }
+    .portfolio-inner { max-width: 1100px; margin: 0 auto; }
+
+    .portfolio-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .portfolio-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+
+    .portfolio-thumb {
+      height: 200px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-thumb-wave {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.15;
+    }
+
+    .portfolio-info { padding: 28px 32px; }
+    .portfolio-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 10px; }
+    .portfolio-name { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .portfolio-desc { font-size: 14px; color: var(--gray-mid); line-height: 1.7; margin-bottom: 20px; }
+    .portfolio-link { font-size: 14px; font-weight: 600; color: var(--orange); text-decoration: none; }
+    .portfolio-link:hover { color: var(--orange-light); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--orange);
+      text-align: center;
+      padding: 96px 5%;
+    }
+
+    .cta-section .section-title { color: var(--white); }
+
+    .cta-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      max-width: 520px;
+      margin: 16px auto 40px;
+      line-height: 1.7;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--orange);
+      padding: 18px 44px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+
+    /* ── CONTACT ── */
+    .contact-section { background: var(--white); }
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info { padding-top: 8px; }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .contact-detail-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 4px; }
+    .contact-detail-value { font-size: 15px; font-weight: 500; color: var(--navy); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.5px; }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 14px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--orange); }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      background: var(--orange);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 56px 5% 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(248,246,241,0.55);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 300px;
+    }
+
+    .footer-col-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      font-size: 13px;
+      color: rgba(248,246,241,0.35);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .intro, .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#nc)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#nc)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#nc)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none">
+    <path d="M0 280 Q180 160 360 240 Q540 320 720 200 Q900 80 1080 200 Q1260 320 1440 210" fill="none" stroke="#c4622d" stroke-width="60"/>
+    <path d="M0 320 Q180 200 360 280 Q540 360 720 240 Q900 120 1080 240 Q1260 360 1440 250" fill="none" stroke="#c4622d" stroke-width="20"/>
+  </svg>
+  <div class="hero-content">
+    <span class="hero-eyebrow">E-Commerce Consulting</span>
+    <h1>Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
+    <p class="hero-sub">Wabash Systems helps local businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Free Consultation</a>
+      <a href="#services" class="btn-secondary">See What We Do</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">20+</span>
+        <span class="stat-label">Years E-Commerce</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">$0</span>
+        <span class="stat-label">Setup Consultation</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">50mi</span>
+        <span class="stat-label">Local Service Area</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section style="padding: 96px 5%;">
+  <div class="intro">
+    <div>
+      <span class="section-label">Why Wabash Systems</span>
+      <h2 class="section-title">Your Business Deserves More Than a Brochure Website</h2>
+      <p class="section-sub">Most small businesses in our region have no online sales presence — or worse, a site that looks outdated and doesn't convert visitors into customers. We fix that with a hands-on, results-driven approach built on two decades of real e-commerce experience.</p>
+      <a href="#contact" class="btn-primary" style="margin-top: 32px; display: inline-block;">Let's Talk</a>
+    </div>
+    <div class="intro-visual">
+      <div class="intro-card">
+        <div class="intro-card-icon">🛒</div>
+        <div>
+          <div class="intro-card-text">Store Setup & Launch</div>
+          <div class="intro-card-sub">Shopify, BigCommerce, WooCommerce</div>
+        </div>
+      </div>
+      <div class="intro-card">
+        <div class="intro-card-icon">📈</div>
+        <div>
+          <div class="intro-card-text">SEO & Google Ads</div>
+          <div class="intro-card-sub">Rank higher, drive qualified traffic</div>
+        </div>
+      </div>
+      <div class="intro-card">
+        <div class="intro-card-icon">🔄</div>
+        <div>
+          <div class="intro-card-text">Platform Migration</div>
+          <div class="intro-card-sub">Move without losing data or rankings</div>
+        </div>
+      </div>
+      <div class="intro-card">
+        <div class="intro-card-icon">📊</div>
+        <div>
+          <div class="intro-card-text">Ongoing Monthly Management</div>
+          <div class="intro-card-sub">Your e-commerce department, outsourced</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Services Built for Real Business Growth</h2>
+      <p class="section-sub">Every service we offer is something we've done ourselves — not theory, not templates. Real e-commerce work with real results.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <span class="service-icon">🛒</span>
+        <div class="service-title">Store Setup & Launch</div>
+        <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce — product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
+        <div class="service-price">Starting at $1,500 — one-time</div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🔄</span>
+        <div class="service-title">Platform Migration</div>
+        <p class="service-desc">Outgrown your current platform? We migrate your store — products, customer data, order history, and SEO rankings — to a modern platform without downtime or data loss.</p>
+        <div class="service-price">Custom quote based on catalog size</div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🔍</span>
+        <div class="service-title">SEO Management</div>
+        <p class="service-desc">Get found by customers actively searching for what you sell. We handle on-page optimization, product descriptions, local SEO, and technical SEO — month after month.</p>
+        <div class="service-price">From $500/month</div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">📢</span>
+        <div class="service-title">Google Ads Management</div>
+        <p class="service-desc">Stop wasting ad budget on clicks that don't convert. We build, manage, and optimize Google Shopping and Search campaigns that drive real buyers to your store.</p>
+        <div class="service-price">From $400/month + ad spend</div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <div class="service-title">Monthly Store Management</div>
+        <p class="service-desc">Your outsourced e-commerce department. We handle product updates, promotions, analytics, and ongoing optimization so your store keeps growing without consuming your time.</p>
+        <div class="service-price">From $750/month</div>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">💻</span>
+        <div class="service-title">Web Design & Development</div>
+        <p class="service-desc">Need a professional website that actually converts? We build clean, fast, mobile-ready sites for small businesses — no bloated page builders, no cookie-cutter templates.</p>
+        <div class="service-price">Starting at $800 — one-time</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="process-inner">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Simple. Transparent. No Surprises.</h2>
+    <p class="section-sub">We keep things straightforward — no jargon, no mystery invoices, no scope creep. Here's exactly what working with us looks like.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Free Discovery Call</div>
+          <p class="step-desc">We start with a no-pressure conversation about your business, your goals, and where you are today. No sales pitch — just an honest assessment of what's possible and what it would take to get there.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Custom Proposal</div>
+          <p class="step-desc">Based on our conversation, we put together a clear proposal — specific services, specific pricing, specific deliverables. You'll know exactly what you're getting before you sign anything.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Build & Launch</div>
+          <p class="step-desc">We get to work. You'll have a direct line to us throughout the project — no account managers, no middlemen. Just the person doing the work keeping you updated.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Grow Together</div>
+          <p class="step-desc">Once live, we move into ongoing management and optimization. Monthly reporting shows exactly what's working, what we're adjusting, and where your revenue is coming from.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div>
+      <span class="section-label">About Wabash Systems</span>
+      <h2 class="section-title">20 Years of E-Commerce. Now Working for You.</h2>
+      <div class="about-body">
+        <p>Wabash Systems was founded by Andy Gray, an e-commerce operator and web developer with over 20 years of hands-on experience building and running successful online businesses.</p>
+        <p>For two decades, Andy managed a full-scale national e-commerce operation — from platform architecture on Magento and BigCommerce, to SEO, Google Ads, and everything in between. He's done the platform migrations, fixed the broken ad campaigns, and built the product catalogs that actually sell.</p>
+        <p>Now he's bringing that experience directly to small businesses in southeastern Illinois and beyond — as a consultant, not a corporation. When you work with Wabash Systems, you work with Andy.</p>
+      </div>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <div class="highlight-title">20+ Years E-Commerce Experience</div>
+        <div class="highlight-desc">Ran a national online retail operation from the ground up — Magento, BigCommerce, SEO, Google Ads, and full platform migrations.</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-title">Real Operator, Not Just a Consultant</div>
+        <div class="highlight-desc">Everything we recommend is something we've done ourselves in production — not theory from a textbook.</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-title">Local, Personal Service</div>
+        <div class="highlight-desc">Based in southeastern Illinois. No call centers, no account managers — you deal directly with the person doing the work.</div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-title">Transparent Pricing, No Surprises</div>
+        <div class="highlight-desc">Flat monthly retainers and clear project quotes. You know what you're paying and what you're getting before we start.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="portfolio-inner">
+    <span class="section-label">Portfolio</span>
+    <h2 class="section-title">Work We're Proud Of</h2>
+    <p class="section-sub">We don't just consult — we build and run real stores. Here's a look at what we've done.</p>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <svg class="portfolio-thumb-wave" viewBox="0 0 600 200" preserveAspectRatio="none">
+            <path d="M0 100 Q150 40 300 80 Q450 120 600 60" fill="none" stroke="#c4622d" stroke-width="40"/>
+          </svg>
+          <span style="position:relative;z-index:1;font-size:56px;">🌿</span>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">E-Commerce Store</div>
+          <div class="portfolio-name">WeatheredPorch.com</div>
+          <p class="portfolio-desc">A drop-ship home décor and outdoor living store built from scratch — product curation, store setup, SEO foundation, and ongoing management. Our own live proof of concept.</p>
+          <a href="https://weatheredporch.com" target="_blank" class="portfolio-link">Visit Site →</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: var(--navy-mid);">
+          <span style="position:relative;z-index:1;font-size:56px;">🤝</span>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Your Business Here</div>
+          <div class="portfolio-name">Let's Build Something Together</div>
+          <p class="portfolio-desc">We're actively taking on new clients in the southeastern Illinois area and remotely. If you've been thinking about getting your business online, now is the right time.</p>
+          <a href="#contact" class="portfolio-link">Get in Touch →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-section">
+  <h2 class="section-title">Ready to Start Selling Online?</h2>
+  <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch — just an honest conversation about your business and what's possible.</p>
+  <a href="#contact" class="btn-white">Book Your Free Call</a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <span class="section-label">Get In Touch</span>
+      <h2 class="section-title">Let's Talk About Your Business</h2>
+      <p class="section-sub">Fill out the form and we'll get back to you within one business day. Or reach out directly — whichever is easier.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📧</div>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">info@wabashsystems.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div>
+          <div class="contact-detail-label">Service Area</div>
+          <div class="contact-detail-value">Southeastern Illinois &amp; Remote</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">⏱️</div>
+        <div>
+          <div class="contact-detail-label">Response Time</div>
+          <div class="contact-detail-value">Within 1 business day</div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Smith" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="jane@yourbusiness.com" />
+      </div>
+      <div class="form-group">
+        <label for="business">Business Name</label>
+        <input type="text" id="business" placeholder="Smith's Hardware" />
+      </div>
+      <div class="form-group">
+        <label for="service">What Are You Interested In?</label>
+        <select id="service">
+          <option value="">Select a service...</option>
+          <option>Store Setup &amp; Launch</option>
+          <option>Platform Migration</option>
+          <option>SEO Management</option>
+          <option>Google Ads Management</option>
+          <option>Monthly Store Management</option>
+          <option>Web Design &amp; Development</option>
+          <option>Not sure yet — just exploring</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Tell Us About Your Business</label>
+        <textarea id="message" placeholder="What do you sell? Where are you at today? What's your goal?"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>E-commerce consulting for small businesses ready to grow online. Based in southeastern Illinois. Serving clients locally and remotely.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Store Setup & Launch</a></li>
+        <li><a href="#services">Platform Migration</a></li>
+        <li><a href="#services">SEO Management</a></li>
+        <li><a href="#services">Google Ads</a></li>
+        <li><a href="#services">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Free Consultation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Wabash Systems. All rights reserved.</span>
+    <span>Southeastern Illinois · Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+</body>
+</html>
