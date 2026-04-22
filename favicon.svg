@@ -1,0 +1,7 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="#0d1a2a"/>
+  <clipPath id="fc"><rect width="32" height="32" rx="6"/></clipPath>
+  <path d="M0 18 Q4 10 8 14 Q12 18 16 11 Q20 4 24 10 Q28 15 32 12" fill="none" stroke="#1a4a6e" stroke-width="5" stroke-linecap="round" clip-path="url(#fc)"/>
+  <path d="M0 18 Q4 10 8 14 Q12 18 16 11 Q20 4 24 10 Q28 15 32 12" fill="none" stroke="#c4622d" stroke-width="1.5" stroke-linecap="round" clip-path="url(#fc)"/>
+  <text x="16" y="27" text-anchor="middle" font-family="Georgia, serif" font-size="8" font-weight="700" letter-spacing="0.5" fill="#f8f6f1">WS</text>
+</svg>
