@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
   const { request, env } = context;
   try {
     const body = await request.json();
-    const { fname, lname, email, business, service, message, phone, sms_consent } = body;
+    const { fname, lname, email, business, service, message, phone, smsOptIn: sms_consent } = body;
 
     if (!fname || !email || !message) {
       return jsonResponse({ success: false, error: 'Missing required fields.' }, 400);
