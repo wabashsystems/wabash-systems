@@ -1242,6 +1242,23 @@
         <label for="message">Tell Us About Your Business <span class="required-mark" aria-hidden="true">*</span></label>
         <textarea id="message" name="message" placeholder="What do you sell? Where are you at today? What's your goal?" required aria-required="true"></textarea>
       </div>
+      <!-- Opt-in consent -->
+      <div class="form-group" style="margin-top:8px;">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:16px;background:var(--gray-light);border-radius:8px;border:1px solid #e5e7eb;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;font-weight:400;color:var(--gray-mid);margin:0;">
+            <input type="checkbox" id="emailOptIn" name="emailOptIn" style="margin-top:2px;accent-color:var(--orange);flex-shrink:0;" />
+            <span>Yes, send me occasional tips and updates about e-commerce for my business. I can unsubscribe anytime.</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;font-weight:400;color:var(--gray-mid);margin:0;">
+            <input type="checkbox" id="smsOptIn" name="smsOptIn" style="margin-top:2px;accent-color:var(--orange);flex-shrink:0;" />
+            <span>Yes, you can text me about my inquiry. Message &amp; data rates may apply. Reply STOP to opt out anytime.</span>
+          </label>
+          <div id="smsPhoneWrap" style="display:none;">
+            <label for="phone" style="font-size:13px;color:var(--gray-mid);display:block;margin-bottom:4px;">Mobile Number (required for texts)</label>
+            <input type="tel" id="phone" name="phone" placeholder="(618) 555-0100" autocomplete="tel" style="width:100%;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:6px;font-size:15px;font-family:inherit;" />
+          </div>
+        </div>
+      </div>
       <div id="formStatus" role="alert" aria-live="polite" style="display:none; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;"></div>
       <button type="submit" class="form-submit" id="formSubmit">Send Message <span aria-hidden="true">→</span></button>
     </form>
@@ -1302,9 +1319,12 @@
       fname: document.getElementById('fname').value.trim(),
       lname: document.getElementById('lname').value.trim(),
       email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
       business: document.getElementById('business').value.trim(),
       service: document.getElementById('service').value,
       message: document.getElementById('message').value.trim(),
+      emailOptIn: document.getElementById('emailOptIn').checked,
+      smsOptIn: document.getElementById('smsOptIn').checked,
     };
 
     try {
@@ -1335,6 +1355,12 @@
       btn.disabled = false;
       btn.innerHTML = 'Send Message <span aria-hidden="true">\u2192</span>';
     }
+  });
+
+  /* ── SMS OPT-IN TOGGLE ── */
+  document.getElementById('smsOptIn').addEventListener('change', function() {
+    document.getElementById('smsPhoneWrap').style.display = this.checked ? 'block' : 'none';
+    document.getElementById('phone').required = this.checked;
   });
 
   /* ── MOBILE NAV ── */
