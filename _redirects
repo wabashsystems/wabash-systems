@@ -1,0 +1,4 @@
+# Cloudflare Pages URL rewrites
+# 200 = rewrite (serve content without changing the URL in the browser)
+
+/booking    /booking.html    200

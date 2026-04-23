@@ -3,8 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wabash Systems — E-Commerce Consulting for Small Business</title>
-  <meta name="description" content="Wabash Systems helps small businesses launch, grow, and manage profitable online stores. E-commerce consulting, store setup, SEO, and Google Ads — serving Illinois, Indiana, and remote clients nationwide." />
+  <title>E-Commerce Consulting for Southeastern Illinois Small Businesses | Wabash Systems</title>
+  <meta name="description" content="Wabash Systems helps small businesses in southeastern Illinois launch, grow, and manage profitable online stores. E-commerce consulting, store setup, SEO, and Google Ads — serving Robinson, Lawrenceville, Mt. Carmel, Olney, and remote clients nationwide." />
+  <link rel="canonical" href="https://www.wabashsystems.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/" />
+  <meta property="og:title" content="E-Commerce Consulting for Southeastern Illinois Small Businesses | Wabash Systems" />
+  <meta property="og:description" content="Wabash Systems helps small businesses in southeastern Illinois launch, grow, and manage profitable online stores — Robinson, Lawrenceville, Mt. Carmel, Olney, and beyond. E-commerce consulting, store setup, SEO, and Google Ads." />
+  <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta property="og:site_name" content="Wabash Systems" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="E-Commerce Consulting for Southeastern Illinois | Wabash Systems" />
+  <meta name="twitter:description" content="Wabash Systems helps small businesses in southeastern Illinois launch and grow profitable online stores." />
+
+  <!-- Local Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Wabash Systems",
+    "url": "https://www.wabashsystems.com",
+    "email": "info@wabashsystems.com",
+    "logo": "https://www.wabashsystems.com/favicon.svg",
+    "description": "E-commerce consulting for small businesses in southeastern Illinois. Services include store setup, SEO management, Google Ads management, platform migration, and ongoing monthly store management.",
+    "areaServed": [
+      { "@type": "City", "name": "Robinson", "containedInPlace": { "@type": "AdministrativeArea", "name": "Crawford County, Illinois" } },
+      { "@type": "City", "name": "Hutsonville", "containedInPlace": { "@type": "AdministrativeArea", "name": "Crawford County, Illinois" } },
+      { "@type": "City", "name": "Palestine", "containedInPlace": { "@type": "AdministrativeArea", "name": "Crawford County, Illinois" } },
+      { "@type": "City", "name": "Lawrenceville", "containedInPlace": { "@type": "AdministrativeArea", "name": "Lawrence County, Illinois" } },
+      { "@type": "City", "name": "Bridgeport", "containedInPlace": { "@type": "AdministrativeArea", "name": "Lawrence County, Illinois" } },
+      { "@type": "City", "name": "Mount Carmel", "containedInPlace": { "@type": "AdministrativeArea", "name": "Wabash County, Illinois" } },
+      { "@type": "City", "name": "Olney", "containedInPlace": { "@type": "AdministrativeArea", "name": "Richland County, Illinois" } },
+      { "@type": "City", "name": "Flora", "containedInPlace": { "@type": "AdministrativeArea", "name": "Clay County, Illinois" } },
+      { "@type": "City", "name": "Fairfield", "containedInPlace": { "@type": "AdministrativeArea", "name": "Wayne County, Illinois" } }
+    ],
+    "serviceType": [
+      "E-commerce consulting",
+      "Online store setup",
+      "SEO management",
+      "Google Ads management",
+      "Platform migration",
+      "Web design and development",
+      "Monthly store management"
+    ],
+    "priceRange": "$$",
+    "openingHours": "Mo-Fr 09:00-17:00"
+  }
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" type="image/png" href="favicon.png" />
@@ -17,6 +65,8 @@
       --navy-light: #1a4a6e;
       --orange: #c4622d;
       --orange-light: #e8834d;
+      /* Darker orange for text on light backgrounds — passes 4.5:1 on white */
+      --orange-text: #b05a28;
       --cream: #f8f6f1;
       --gray-light: #f2f4f7;
       --gray-mid: #6b7280;
@@ -32,10 +82,55 @@
       line-height: 1.6;
     }
 
+    /* ── SKIP NAV ── */
+    .skip-nav {
+      position: absolute;
+      left: -100%;
+      top: 8px;
+      background: var(--orange);
+      color: var(--white);
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 15px;
+      z-index: 9999;
+      text-decoration: none;
+      border-radius: 0 6px 6px 0;
+      transition: left 0.15s;
+    }
+    .skip-nav:focus { left: 0; }
+
+    /* ── GLOBAL FOCUS STYLES ── */
+    :focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ── ANNOUNCEMENT BANNER ── */
+    .announcement-banner {
+      background: var(--navy-mid);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      border-bottom: 2px solid var(--orange);
+    }
+    .announcement-banner span {
+      opacity: 0.85;
+      font-weight: 400;
+      margin-left: 8px;
+    }
+
     /* ── NAV ── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 38px; left: 0; right: 0;
       z-index: 100;
       background: var(--navy);
       display: flex;
@@ -52,18 +147,13 @@
       gap: 12px;
       text-decoration: none;
     }
-
-    .nav-logo svg {
-      width: 52px;
-      height: 31px;
-    }
+    .nav-logo svg { width: 52px; height: 31px; }
 
     .nav-brand {
       display: flex;
       flex-direction: column;
       line-height: 1.1;
     }
-
     .nav-brand-top {
       font-family: Georgia, serif;
       font-size: 16px;
@@ -71,11 +161,10 @@
       letter-spacing: 3px;
       color: var(--cream);
     }
-
     .nav-brand-sub {
       font-size: 9px;
       letter-spacing: 4px;
-      color: var(--orange);
+      color: var(--orange-light);
       text-transform: uppercase;
     }
 
@@ -85,7 +174,6 @@
       gap: 32px;
       list-style: none;
     }
-
     .nav-links a {
       color: var(--cream);
       text-decoration: none;
@@ -95,7 +183,6 @@
       opacity: 0.85;
       transition: opacity 0.2s, color 0.2s;
     }
-
     .nav-links a:hover { opacity: 1; color: var(--orange-light); }
 
     .nav-cta {
@@ -107,8 +194,109 @@
       font-weight: 600 !important;
       transition: background 0.2s !important;
     }
-
     .nav-cta:hover { background: var(--orange-light) !important; }
+
+    /* ── HAMBURGER BUTTON ── */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 2px solid rgba(248,246,241,0.3);
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 10px 12px;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+      pointer-events: none;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 299;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(320px, 85vw);
+      height: 100%;
+      background: var(--navy-mid);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      padding: 110px 40px 48px;
+      gap: 4px;
+      transition: right 0.3s ease;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+      overflow-y: auto;
+    }
+    .mobile-nav.open { right: 0; }
+
+    .mobile-nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s;
+      display: block;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a:focus-visible { color: var(--orange-light); }
+
+    .mobile-nav .mobile-cta {
+      margin-top: 24px;
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 18px 24px !important;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600 !important;
+      border-bottom: none !important;
+      transition: background 0.2s;
+    }
+    .mobile-nav .mobile-cta:hover { background: var(--orange-light); }
+
+    .mobile-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--cream);
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 24px;
+      line-height: 1;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-close:hover { color: var(--orange-light); }
 
     /* ── HERO ── */
     .hero {
@@ -117,11 +305,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 5% 80px;
+      padding: 158px 5% 80px;
       position: relative;
       overflow: hidden;
     }
-
     .hero-wave {
       position: absolute;
       top: 0; left: 0;
@@ -129,43 +316,37 @@
       opacity: 0.07;
       pointer-events: none;
     }
-
     .hero-content {
       max-width: 780px;
       text-align: center;
       position: relative;
       z-index: 2;
     }
-
     .hero-eyebrow {
       display: inline-block;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--orange-light);
       margin-bottom: 24px;
     }
-
     .hero h1 {
       font-family: Georgia, serif;
-      font-size: clamp(36px, 5vw, 62px);
+      font-size: clamp(32px, 5vw, 62px);
       font-weight: 700;
       color: var(--cream);
       line-height: 1.15;
       margin-bottom: 24px;
     }
-
-    .hero h1 span { color: var(--orange); }
-
+    .hero h1 span { color: var(--orange-light); }
     .hero-sub {
-      font-size: 18px;
-      color: rgba(248,246,241,0.75);
+      font-size: clamp(16px, 2.5vw, 18px);
+      color: rgba(248,246,241,0.8);
       max-width: 580px;
       margin: 0 auto 40px;
       line-height: 1.7;
     }
-
     .hero-actions {
       display: flex;
       gap: 16px;
@@ -183,8 +364,10 @@
       text-decoration: none;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
     }
-
     .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
 
     .btn-secondary {
@@ -196,10 +379,11 @@
       font-weight: 500;
       text-decoration: none;
       border: 1px solid rgba(248,246,241,0.3);
-      transition: border-color 0.2s, transform 0.2s;
-      display: inline-block;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      min-height: 52px;
     }
-
     .btn-secondary:hover { border-color: var(--orange); color: var(--orange-light); transform: translateY(-2px); }
 
     .hero-stats {
@@ -211,20 +395,19 @@
       border-top: 1px solid rgba(255,255,255,0.08);
       flex-wrap: wrap;
     }
-
     .stat { text-align: center; }
     .stat-number {
       font-family: Georgia, serif;
       font-size: 36px;
       font-weight: 700;
-      color: var(--orange);
+      color: var(--orange-light);
       display: block;
     }
     .stat-label {
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(248,246,241,0.5);
+      color: rgba(248,246,241,0.65);
       margin-top: 4px;
     }
 
@@ -236,20 +419,21 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--orange-text);
       margin-bottom: 16px;
       display: block;
     }
+    /* On dark navy backgrounds, lighter orange has sufficient contrast */
+    .about-section .section-label { color: var(--orange-light); }
 
     .section-title {
       font-family: Georgia, serif;
-      font-size: clamp(28px, 3.5vw, 44px);
+      font-size: clamp(26px, 3.5vw, 44px);
       font-weight: 700;
       color: var(--navy);
       line-height: 1.2;
       margin-bottom: 20px;
     }
-
     .section-sub {
       font-size: 17px;
       color: var(--gray-mid);
@@ -267,7 +451,6 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .intro-visual {
       background: var(--gray-light);
       border-radius: 16px;
@@ -276,7 +459,6 @@
       flex-direction: column;
       gap: 20px;
     }
-
     .intro-card {
       background: var(--white);
       border-radius: 10px;
@@ -286,7 +468,6 @@
       gap: 16px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
-
     .intro-card-icon {
       width: 44px;
       height: 44px;
@@ -298,7 +479,6 @@
       flex-shrink: 0;
       font-size: 20px;
     }
-
     .intro-card-text { font-size: 14px; font-weight: 500; color: var(--navy); }
     .intro-card-sub { font-size: 12px; color: var(--gray-mid); margin-top: 2px; }
 
@@ -312,7 +492,6 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 28px;
     }
-
     .service-card {
       background: var(--white);
       border-radius: 14px;
@@ -322,7 +501,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .service-card::before {
       content: '';
       position: absolute;
@@ -333,15 +511,10 @@
       transition: transform 0.2s;
       transform-origin: left;
     }
-
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
     .service-card:hover::before { transform: scaleX(1); }
 
-    .service-icon {
-      font-size: 32px;
-      margin-bottom: 20px;
-      display: block;
-    }
+    .service-icon { font-size: 32px; margin-bottom: 20px; display: block; }
 
     .service-title {
       font-family: Georgia, serif;
@@ -350,20 +523,14 @@
       color: var(--navy);
       margin-bottom: 12px;
     }
-
-    .service-desc {
-      font-size: 14px;
-      color: var(--gray-mid);
-      line-height: 1.7;
-    }
-
+    .service-desc { font-size: 14px; color: var(--gray-mid); line-height: 1.7; }
     .service-price {
       margin-top: 24px;
       padding-top: 20px;
       border-top: 1px solid var(--gray-light);
       font-size: 13px;
       font-weight: 600;
-      color: var(--orange);
+      color: var(--orange-text);
     }
 
     /* ── PROCESS ── */
@@ -375,8 +542,9 @@
       display: flex;
       flex-direction: column;
       gap: 0;
+      list-style: none;
+      padding: 0;
     }
-
     .process-step {
       display: grid;
       grid-template-columns: 80px 1fr;
@@ -384,7 +552,6 @@
       padding-bottom: 48px;
       position: relative;
     }
-
     .process-step:not(:last-child)::after {
       content: '';
       position: absolute;
@@ -394,7 +561,6 @@
       width: 2px;
       background: var(--gray-light);
     }
-
     .step-number {
       width: 64px;
       height: 64px;
@@ -412,14 +578,12 @@
       position: relative;
       z-index: 1;
     }
-
     .step-content { padding-top: 12px; }
     .step-title { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .step-desc { font-size: 15px; color: var(--gray-mid); line-height: 1.7; }
 
     /* ── ABOUT ── */
     .about-section { background: var(--navy); }
-
     .about-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -428,46 +592,33 @@
       gap: 80px;
       align-items: center;
     }
-
     .about-section .section-title { color: var(--cream); }
-    .about-section .section-label { color: var(--orange); }
-
     .about-body {
       font-size: 16px;
-      color: rgba(248,246,241,0.75);
+      color: rgba(248,246,241,0.8);
       line-height: 1.8;
       margin-top: 20px;
     }
-
     .about-body p + p { margin-top: 16px; }
-
-    .about-highlights {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
+    .about-highlights { display: flex; flex-direction: column; gap: 20px; }
     .highlight-item {
       background: var(--navy-mid);
       border-radius: 12px;
       padding: 24px 28px;
       border-left: 3px solid var(--orange);
     }
-
     .highlight-title { font-weight: 600; color: var(--cream); margin-bottom: 6px; font-size: 15px; }
-    .highlight-desc { font-size: 13px; color: rgba(248,246,241,0.6); line-height: 1.6; }
+    .highlight-desc { font-size: 13px; color: rgba(248,246,241,0.65); line-height: 1.6; }
 
     /* ── PORTFOLIO ── */
     .portfolio-section { background: var(--gray-light); }
     .portfolio-inner { max-width: 1100px; margin: 0 auto; }
-
     .portfolio-grid {
       margin-top: 56px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 32px;
     }
-
     .portfolio-card {
       background: var(--white);
       border-radius: 14px;
@@ -475,9 +626,7 @@
       box-shadow: 0 2px 16px rgba(0,0,0,0.07);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-
     .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
-
     .portfolio-thumb {
       height: 200px;
       background: var(--navy);
@@ -488,41 +637,43 @@
       position: relative;
       overflow: hidden;
     }
-
     .portfolio-thumb-wave {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       opacity: 0.15;
     }
-
     .portfolio-info { padding: 28px 32px; }
-    .portfolio-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 10px; }
+    .portfolio-tag {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange-text);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
     .portfolio-name { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .portfolio-desc { font-size: 14px; color: var(--gray-mid); line-height: 1.7; margin-bottom: 20px; }
-    .portfolio-link { font-size: 14px; font-weight: 600; color: var(--orange); text-decoration: none; }
-    .portfolio-link:hover { color: var(--orange-light); }
+    .portfolio-link { font-size: 14px; font-weight: 600; color: var(--orange-text); text-decoration: none; }
+    .portfolio-link:hover { color: var(--orange); }
 
-    /* ── CTA ── */
+    /* ── CTA BAND ── */
     .cta-section {
       background: var(--orange);
       text-align: center;
       padding: 96px 5%;
     }
-
     .cta-section .section-title { color: var(--white); }
-
     .cta-sub {
       font-size: 18px;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.92);
       max-width: 520px;
       margin: 16px auto 40px;
       line-height: 1.7;
     }
-
     .btn-white {
       background: var(--white);
-      color: var(--orange);
+      color: var(--navy);
       padding: 18px 44px;
       border-radius: 8px;
       font-size: 16px;
@@ -530,8 +681,10 @@
       text-decoration: none;
       display: inline-block;
       transition: transform 0.2s, box-shadow 0.2s;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
     }
-
     .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
 
     /* ── CONTACT ── */
@@ -544,16 +697,13 @@
       gap: 80px;
       align-items: start;
     }
-
     .contact-info { padding-top: 8px; }
-
     .contact-detail {
       display: flex;
       align-items: flex-start;
       gap: 16px;
       margin-top: 32px;
     }
-
     .contact-detail-icon {
       width: 44px;
       height: 44px;
@@ -565,17 +715,15 @@
       font-size: 18px;
       flex-shrink: 0;
     }
-
     .contact-detail-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 4px; }
     .contact-detail-value { font-size: 15px; font-weight: 500; color: var(--navy); }
 
+    /* ── FORM ── */
     .contact-form { display: flex; flex-direction: column; gap: 20px; }
-
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
     .form-group { display: flex; flex-direction: column; gap: 8px; }
-
     .form-group label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.5px; }
+    .required-mark { color: var(--orange-text); margin-left: 2px; }
 
     .form-group input,
     .form-group textarea,
@@ -587,14 +735,15 @@
       font-family: 'Inter', sans-serif;
       color: var(--navy);
       background: var(--white);
-      transition: border-color 0.2s;
-      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     .form-group input:focus,
     .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--orange); }
-
+    .form-group select:focus {
+      border-color: var(--orange);
+      outline: 2px solid rgba(196, 98, 45, 0.3);
+      outline-offset: 2px;
+    }
     .form-group textarea { resize: vertical; min-height: 120px; }
 
     .form-submit {
@@ -608,8 +757,8 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.2s;
       font-family: 'Inter', sans-serif;
+      min-height: 52px;
     }
-
     .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
     .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
@@ -618,7 +767,6 @@
       background: var(--navy);
       padding: 56px 5% 32px;
     }
-
     .footer-top {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -626,7 +774,6 @@
       padding-bottom: 48px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-
     .footer-brand p {
       font-size: 14px;
       color: rgba(248,246,241,0.55);
@@ -634,54 +781,27 @@
       margin-top: 16px;
       max-width: 300px;
     }
-
     .footer-col-title {
       font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--orange-light);
       font-weight: 600;
       margin-bottom: 20px;
     }
-
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--orange-light); }
-
     .footer-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 32px;
       font-size: 13px;
-      color: rgba(248,246,241,0.35);
+      color: rgba(248,246,241,0.4);
       flex-wrap: wrap;
       gap: 12px;
     }
-
-    /* ── ANNOUNCEMENT BANNER ── */
-    .announcement-banner {
-      background: var(--orange);
-      color: var(--white);
-      text-align: center;
-      padding: 10px 20px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 101;
-    }
-
-    .announcement-banner span {
-      opacity: 0.85;
-      font-weight: 400;
-      margin-left: 8px;
-    }
-
-    nav { top: 38px; }
-
-    .hero { padding-top: 158px; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -690,6 +810,7 @@
       .portfolio-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
+      .nav-toggle { display: flex; }
     }
 
     @media (max-width: 600px) {
@@ -697,20 +818,42 @@
       .form-row { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
       .hero-stats { gap: 28px; }
+      .intro-visual { padding: 28px; }
+      section { padding: 72px 5%; }
+      .hero { padding: 148px 5% 64px; }
+      .process-step { grid-template-columns: 56px 1fr; gap: 20px; }
+      .step-number { width: 48px; height: 48px; font-size: 18px; }
+      .process-step:not(:last-child)::after { left: 27px; top: 48px; }
+      .portfolio-info { padding: 20px 24px; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- SKIP NAVIGATION (hidden until focused by keyboard) -->
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
 <!-- ANNOUNCEMENT BANNER -->
-<div class="announcement-banner">
-  🚀 Opening Spring 2027 in Southeastern Illinois<span>— Now Accepting Early Clients</span>
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Opening Spring 2027 in Southeastern Illinois<span>— Now Accepting Early Clients</span>
 </div>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<!-- PRIMARY NAV -->
+<nav aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="Wabash Systems — return to top">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
       <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
       <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#nc)"/>
@@ -719,35 +862,56 @@
       <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
       <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
     </svg>
-    <div class="nav-brand">
+    <div class="nav-brand" aria-hidden="true">
       <span class="nav-brand-top">WABASH</span>
       <span class="nav-brand-sub">Systems</span>
     </div>
   </a>
-  <ul class="nav-links">
+
+  <ul class="nav-links" role="list">
     <li><a href="#services">Services</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
+    <li><a href="/booking" class="nav-cta">Free Consultation</a></li>
   </ul>
+
+  <button class="nav-toggle" id="navToggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
+<!-- MOBILE DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="#services">Services</a>
+  <a href="#process">Process</a>
+  <a href="#about">About</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="/booking" class="mobile-cta">Free Consultation</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
 <!-- HERO -->
-<section class="hero">
-  <svg class="hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none">
+<section class="hero" aria-labelledby="hero-heading">
+  <svg class="hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <path d="M0 280 Q180 160 360 240 Q540 320 720 200 Q900 80 1080 200 Q1260 320 1440 210" fill="none" stroke="#c4622d" stroke-width="60"/>
     <path d="M0 320 Q180 200 360 280 Q540 360 720 240 Q900 120 1080 240 Q1260 360 1440 250" fill="none" stroke="#c4622d" stroke-width="20"/>
   </svg>
   <div class="hero-content">
     <span class="hero-eyebrow">E-Commerce Consulting</span>
-    <h1>Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
+    <h1 id="hero-heading">Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
     <p class="hero-sub">Wabash Systems helps local businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
     <div class="hero-actions">
-      <a href="https://cal.com/wabashsystems" target="_blank" class="btn-primary">Book a Free Consultation</a>
+      <a href="/booking" class="btn-primary">Book a Free Consultation</a>
       <a href="#services" class="btn-secondary">See What We Do</a>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats" aria-label="At a glance">
       <div class="stat">
         <span class="stat-number">20+</span>
         <span class="stat-label">Years E-Commerce</span>
@@ -765,38 +929,39 @@
 </section>
 
 <!-- INTRO -->
-<section style="padding: 96px 5%;">
+<section aria-labelledby="intro-heading" style="padding: 96px 5%;">
   <div class="intro">
     <div>
       <span class="section-label">Why Wabash Systems</span>
-      <h2 class="section-title">Your Business Deserves More Than a Brochure Website</h2>
+      <h2 class="section-title" id="intro-heading">Your Business Deserves More Than a Brochure Website</h2>
       <p class="section-sub">Most small businesses in our region have no online sales presence — or worse, a site that looks outdated and doesn't convert visitors into customers. We fix that with a hands-on, results-driven approach built on two decades of real e-commerce experience.</p>
-      <a href="#contact" class="btn-primary" style="margin-top: 32px; display: inline-block;">Let's Talk</a>
+      <a href="#contact" class="btn-primary" style="margin-top: 32px;">Let's Talk</a>
     </div>
-    <div class="intro-visual">
+    <!-- Decorative feature list — duplicates services section, hidden from screen readers -->
+    <div class="intro-visual" aria-hidden="true">
       <div class="intro-card">
-        <div class="intro-card-icon">🛒</div>
+        <div class="intro-card-icon"><span aria-hidden="true">🛒</span></div>
         <div>
-          <div class="intro-card-text">Store Setup & Launch</div>
+          <div class="intro-card-text">Store Setup &amp; Launch</div>
           <div class="intro-card-sub">Shopify, BigCommerce, WooCommerce</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon">📈</div>
+        <div class="intro-card-icon"><span aria-hidden="true">📈</span></div>
         <div>
-          <div class="intro-card-text">SEO & Google Ads</div>
+          <div class="intro-card-text">SEO &amp; Google Ads</div>
           <div class="intro-card-sub">Rank higher, drive qualified traffic</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon">🔄</div>
+        <div class="intro-card-icon"><span aria-hidden="true">🔄</span></div>
         <div>
           <div class="intro-card-text">Platform Migration</div>
           <div class="intro-card-sub">Move without losing data or rankings</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon">📊</div>
+        <div class="intro-card-icon"><span aria-hidden="true">📊</span></div>
         <div>
           <div class="intro-card-text">Ongoing Monthly Management</div>
           <div class="intro-card-sub">Your e-commerce department, outsourced</div>
@@ -807,237 +972,242 @@
 </section>
 
 <!-- SERVICES -->
-<section class="services-section" id="services">
+<section class="services-section" id="services" aria-labelledby="services-heading">
   <div class="services-inner">
     <div class="services-header">
       <span class="section-label">What We Do</span>
-      <h2 class="section-title">Services Built for Real Business Growth</h2>
+      <h2 class="section-title" id="services-heading">Services Built for Real Business Growth</h2>
       <p class="section-sub">Every service we offer is something we've done ourselves — not theory, not templates. Real e-commerce work with real results.</p>
     </div>
     <div class="services-grid">
 
-      <div class="service-card">
-        <span class="service-icon">🛒</span>
-        <div class="service-title">Store Setup & Launch</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">🛒</span>
+        <h3 class="service-title">Store Setup &amp; Launch</h3>
         <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce — product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
         <div class="service-price">Starting at $1,500 — one-time</div>
-      </div>
+      </article>
 
-      <div class="service-card">
-        <span class="service-icon">🔄</span>
-        <div class="service-title">Platform Migration</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">🔄</span>
+        <h3 class="service-title">Platform Migration</h3>
         <p class="service-desc">Outgrown your current platform? We migrate your store — products, customer data, order history, and SEO rankings — to a modern platform without downtime or data loss.</p>
         <div class="service-price">Custom quote based on catalog size</div>
-      </div>
+      </article>
 
-      <div class="service-card">
-        <span class="service-icon">🔍</span>
-        <div class="service-title">SEO Management</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">🔍</span>
+        <h3 class="service-title">SEO Management</h3>
         <p class="service-desc">Get found by customers actively searching for what you sell. We handle on-page optimization, product descriptions, local SEO, and technical SEO — month after month.</p>
         <div class="service-price">From $500/month</div>
-      </div>
+      </article>
 
-      <div class="service-card">
-        <span class="service-icon">📢</span>
-        <div class="service-title">Google Ads Management</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">📢</span>
+        <h3 class="service-title">Google Ads Management</h3>
         <p class="service-desc">Stop wasting ad budget on clicks that don't convert. We build, manage, and optimize Google Shopping and Search campaigns that drive real buyers to your store.</p>
         <div class="service-price">From $400/month + ad spend</div>
-      </div>
+      </article>
 
-      <div class="service-card">
-        <span class="service-icon">📊</span>
-        <div class="service-title">Monthly Store Management</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">📊</span>
+        <h3 class="service-title">Monthly Store Management</h3>
         <p class="service-desc">Your outsourced e-commerce department. We handle product updates, promotions, analytics, and ongoing optimization so your store keeps growing without consuming your time.</p>
         <div class="service-price">From $750/month</div>
-      </div>
+      </article>
 
-      <div class="service-card">
-        <span class="service-icon">💻</span>
-        <div class="service-title">Web Design & Development</div>
+      <article class="service-card">
+        <span class="service-icon" aria-hidden="true">💻</span>
+        <h3 class="service-title">Web Design &amp; Development</h3>
         <p class="service-desc">Need a professional website that actually converts? We build clean, fast, mobile-ready sites for small businesses — no bloated page builders, no cookie-cutter templates.</p>
         <div class="service-price">Starting at $800 — one-time</div>
-      </div>
+      </article>
 
     </div>
   </div>
 </section>
 
 <!-- PROCESS -->
-<section class="process-section" id="process">
+<section class="process-section" id="process" aria-labelledby="process-heading">
   <div class="process-inner">
     <span class="section-label">How It Works</span>
-    <h2 class="section-title">Simple. Transparent. No Surprises.</h2>
+    <h2 class="section-title" id="process-heading">Simple. Transparent. No Surprises.</h2>
     <p class="section-sub">We keep things straightforward — no jargon, no mystery invoices, no scope creep. Here's exactly what working with us looks like.</p>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number">1</div>
+    <ol class="process-steps" aria-label="Our four-step process">
+      <li class="process-step">
+        <div class="step-number" aria-hidden="true">1</div>
         <div class="step-content">
-          <div class="step-title">Free Discovery Call</div>
+          <h3 class="step-title">Free Discovery Call</h3>
           <p class="step-desc">We start with a no-pressure conversation about your business, your goals, and where you are today. No sales pitch — just an honest assessment of what's possible and what it would take to get there.</p>
         </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">2</div>
+      </li>
+      <li class="process-step">
+        <div class="step-number" aria-hidden="true">2</div>
         <div class="step-content">
-          <div class="step-title">Custom Proposal</div>
+          <h3 class="step-title">Custom Proposal</h3>
           <p class="step-desc">Based on our conversation, we put together a clear proposal — specific services, specific pricing, specific deliverables. You'll know exactly what you're getting before you sign anything.</p>
         </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">3</div>
+      </li>
+      <li class="process-step">
+        <div class="step-number" aria-hidden="true">3</div>
         <div class="step-content">
-          <div class="step-title">Build & Launch</div>
+          <h3 class="step-title">Build &amp; Launch</h3>
           <p class="step-desc">We get to work. You'll have a direct line to our team throughout the project — no account managers, no middlemen. Just the people doing the work keeping you updated.</p>
         </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">4</div>
+      </li>
+      <li class="process-step">
+        <div class="step-number" aria-hidden="true">4</div>
         <div class="step-content">
-          <div class="step-title">Grow Together</div>
+          <h3 class="step-title">Grow Together</h3>
           <p class="step-desc">Once live, we move into ongoing management and optimization. Monthly reporting shows exactly what's working, what we're adjusting, and where your revenue is coming from.</p>
         </div>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="about-section" id="about">
+<section class="about-section" id="about" aria-labelledby="about-heading">
   <div class="about-inner">
     <div>
       <span class="section-label">About Wabash Systems</span>
-      <h2 class="section-title">20 Years of E-Commerce. Now Working for You.</h2>
+      <h2 class="section-title" id="about-heading">20 Years of E-Commerce. Now Working for You.</h2>
       <div class="about-body">
         <p>Wabash Systems is a boutique e-commerce consulting team built on over 20 years of hands-on experience operating successful online businesses — not theory, not agency fluff. We've been in the trenches.</p>
         <p>Our team has managed full-scale national e-commerce operations from the ground up — platform architecture on Magento and BigCommerce, SEO, Google Ads, platform migrations, and everything in between. We've fixed the broken campaigns, built the catalogs that actually sell, and kept complex operations running smoothly for two decades.</p>
-        <p>Now we're bringing that operator-level experience directly to small businesses in southeastern Illinois and beyond. When you work with Wabash Systems, you work with a team that has done exactly what they're recommending — not consultants who read about it.</p>
+        <p>Now we're bringing that operator-level experience directly to small businesses in southeastern Illinois — Robinson, Lawrenceville, Mt. Carmel, Olney, Bridgeport, and surrounding communities — and to remote clients nationwide. When you work with Wabash Systems, you work with a team that has done exactly what they're recommending — not consultants who read about it.</p>
       </div>
     </div>
     <div class="about-highlights">
       <div class="highlight-item">
-        <div class="highlight-title">20+ Years E-Commerce Experience</div>
-        <div class="highlight-desc">Ran a national online retail operation from the ground up — Magento, BigCommerce, SEO, Google Ads, and full platform migrations.</div>
+        <h3 class="highlight-title">20+ Years E-Commerce Experience</h3>
+        <p class="highlight-desc">Ran a national online retail operation from the ground up — Magento, BigCommerce, SEO, Google Ads, and full platform migrations.</p>
       </div>
       <div class="highlight-item">
-        <div class="highlight-title">Real Operators, Not Just Consultants</div>
-        <div class="highlight-desc">Everything we recommend is something our team has done in production — not theory from a textbook.</div>
+        <h3 class="highlight-title">Real Operators, Not Just Consultants</h3>
+        <p class="highlight-desc">Everything we recommend is something our team has done in production — not theory from a textbook.</p>
       </div>
       <div class="highlight-item">
-        <div class="highlight-title">Local, Personal Service</div>
-        <div class="highlight-desc">Based in southeastern Illinois. No call centers, no runaround — you work directly with our team, not a revolving door of account managers.</div>
+        <h3 class="highlight-title">Local, Personal Service</h3>
+        <p class="highlight-desc">Based in southeastern Illinois. No call centers, no runaround — you work directly with our team, not a revolving door of account managers.</p>
       </div>
       <div class="highlight-item">
-        <div class="highlight-title">Transparent Pricing, No Surprises</div>
-        <div class="highlight-desc">Flat monthly retainers and clear project quotes. You know what you're paying and what you're getting before we start.</div>
+        <h3 class="highlight-title">Transparent Pricing, No Surprises</h3>
+        <p class="highlight-desc">Flat monthly retainers and clear project quotes. You know what you're paying and what you're getting before we start.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
-<section class="portfolio-section" id="portfolio">
+<section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading">
   <div class="portfolio-inner">
     <span class="section-label">Portfolio</span>
-    <h2 class="section-title">Work We're Proud Of</h2>
+    <h2 class="section-title" id="portfolio-heading">Work We're Proud Of</h2>
     <p class="section-sub">We don't just consult — we build and run real stores. Here's a look at what we've done.</p>
     <div class="portfolio-grid">
 
-      <div class="portfolio-card">
-        <div class="portfolio-thumb">
-          <svg class="portfolio-thumb-wave" viewBox="0 0 600 200" preserveAspectRatio="none">
+      <article class="portfolio-card">
+        <div class="portfolio-thumb" aria-hidden="true">
+          <svg class="portfolio-thumb-wave" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
             <path d="M0 100 Q150 40 300 80 Q450 120 600 60" fill="none" stroke="#c4622d" stroke-width="40"/>
           </svg>
-          <span style="position:relative;z-index:1;font-size:56px;">🌿</span>
+          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">🌿</span>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-tag">E-Commerce Store</div>
-          <div class="portfolio-name">WeatheredPorch.com</div>
+          <h3 class="portfolio-name">WeatheredPorch.com</h3>
           <p class="portfolio-desc">A drop-ship home décor and outdoor living store built from scratch — product curation, store setup, SEO foundation, and ongoing management. Our own live proof of concept.</p>
-          <a href="https://weatheredporch.com" target="_blank" class="portfolio-link">Visit Site →</a>
+          <a href="https://weatheredporch.com" target="_blank" rel="noopener noreferrer" class="portfolio-link">Visit Site <span aria-hidden="true">→</span></a>
         </div>
-      </div>
+      </article>
 
-      <div class="portfolio-card">
-        <div class="portfolio-thumb" style="background: var(--navy-mid);">
-          <span style="position:relative;z-index:1;font-size:56px;">🤝</span>
+      <article class="portfolio-card">
+        <div class="portfolio-thumb" style="background: var(--navy-mid);" aria-hidden="true">
+          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">🤝</span>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-tag">Your Business Here</div>
-          <div class="portfolio-name">Let's Build Something Together</div>
+          <h3 class="portfolio-name">Let's Build Something Together</h3>
           <p class="portfolio-desc">We're actively taking on new clients in the southeastern Illinois area and remotely. If you've been thinking about getting your business online, now is the right time.</p>
-          <a href="#contact" class="portfolio-link">Get in Touch →</a>
+          <a href="#contact" class="portfolio-link">Get in Touch <span aria-hidden="true">→</span></a>
         </div>
-      </div>
+      </article>
 
     </div>
   </div>
 </section>
 
 <!-- CTA BAND -->
-<section class="cta-section">
-  <h2 class="section-title">Ready to Start Selling Online?</h2>
+<section class="cta-section" aria-labelledby="cta-heading">
+  <h2 class="section-title" id="cta-heading">Ready to Start Selling Online?</h2>
   <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch — just an honest conversation about your business and what's possible.</p>
-  <a href="https://cal.com/wabashsystems" target="_blank" class="btn-white">Book Your Free Call</a>
+  <a href="/booking" class="btn-white">Book Your Free Call</a>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
+<section class="contact-section" id="contact" aria-labelledby="contact-heading">
   <div class="contact-inner">
     <div class="contact-info">
       <span class="section-label">Get In Touch</span>
-      <h2 class="section-title">Let's Talk About Your Business</h2>
+      <h2 class="section-title" id="contact-heading">Let's Talk About Your Business</h2>
       <p class="section-sub">Fill out the form and we'll get back to you within one business day. Or reach out directly — whichever is easier.</p>
       <div class="contact-detail">
-        <div class="contact-detail-icon">📧</div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📧</span></div>
         <div>
           <div class="contact-detail-label">Email</div>
-          <div class="contact-detail-value">info@wabashsystems.com</div>
+          <div class="contact-detail-value">
+            <a href="mailto:info@wabashsystems.com" style="color:var(--navy);font-weight:500;text-decoration:none;">info@wabashsystems.com</a>
+          </div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📍</span></div>
         <div>
           <div class="contact-detail-label">Service Area</div>
-          <div class="contact-detail-value">Southeastern Illinois &amp; Remote</div>
+          <div class="contact-detail-value">Robinson · Lawrenceville · Mt. Carmel · Olney · Bridgeport · Flora · Fairfield — and remote clients everywhere</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon">⏱️</div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">⏱️</span></div>
         <div>
           <div class="contact-detail-label">Response Time</div>
           <div class="contact-detail-value">Within 1 business day</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon">📅</div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📅</span></div>
         <div>
           <div class="contact-detail-label">Schedule a Call</div>
-          <div class="contact-detail-value"><a href="https://cal.com/wabashsystems" target="_blank" style="color:var(--orange);font-weight:600;text-decoration:none;">cal.com/wabashsystems</a></div>
+          <div class="contact-detail-value">
+            <a href="/booking" style="color:var(--orange-text);font-weight:600;text-decoration:none;">Book a time →</a>
+          </div>
         </div>
       </div>
     </div>
-    <form class="contact-form" id="contactForm">
+
+    <form class="contact-form" id="contactForm" aria-label="Contact form" aria-describedby="formStatus">
       <div class="form-row">
         <div class="form-group">
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" placeholder="Jane" required />
+          <label for="fname">First Name <span class="required-mark" aria-hidden="true">*</span></label>
+          <input type="text" id="fname" name="fname" placeholder="Jane" required aria-required="true" autocomplete="given-name" />
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="Smith" />
+          <input type="text" id="lname" name="lname" placeholder="Smith" autocomplete="family-name" />
         </div>
       </div>
       <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="jane@yourbusiness.com" required />
+        <label for="email">Email Address <span class="required-mark" aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" placeholder="jane@yourbusiness.com" required aria-required="true" autocomplete="email" />
       </div>
       <div class="form-group">
         <label for="business">Business Name</label>
-        <input type="text" id="business" placeholder="Smith's Hardware" />
+        <input type="text" id="business" name="business" placeholder="Smith's Hardware" autocomplete="organization" />
       </div>
       <div class="form-group">
         <label for="service">What Are You Interested In?</label>
-        <select id="service">
+        <select id="service" name="service">
           <option value="">Select a service...</option>
           <option>Store Setup &amp; Launch</option>
           <option>Platform Migration</option>
@@ -1049,79 +1219,31 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="message">Tell Us About Your Business</label>
-        <textarea id="message" placeholder="What do you sell? Where are you at today? What's your goal?" required></textarea>
+        <label for="message">Tell Us About Your Business <span class="required-mark" aria-hidden="true">*</span></label>
+        <textarea id="message" name="message" placeholder="What do you sell? Where are you at today? What's your goal?" required aria-required="true"></textarea>
       </div>
-      <div id="formStatus" style="display:none; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;"></div>
-      <button type="submit" class="form-submit" id="formSubmit">Send Message →</button>
+      <div id="formStatus" role="alert" aria-live="polite" style="display:none; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;"></div>
+      <button type="submit" class="form-submit" id="formSubmit">Send Message <span aria-hidden="true">→</span></button>
     </form>
-
-    <script>
-      document.getElementById('contactForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('formSubmit');
-        const status = document.getElementById('formStatus');
-
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
-        status.style.display = 'none';
-
-        const payload = {
-          fname: document.getElementById('fname').value.trim(),
-          lname: document.getElementById('lname').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          business: document.getElementById('business').value.trim(),
-          service: document.getElementById('service').value,
-          message: document.getElementById('message').value.trim(),
-        };
-
-        try {
-          const res = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          const data = await res.json();
-
-          if (data.success) {
-            status.style.display = 'block';
-            status.style.background = '#f0fdf4';
-            status.style.color = '#166534';
-            status.style.border = '1px solid #bbf7d0';
-            status.textContent = "Message sent! We'll get back to you within one business day.";
-            document.getElementById('contactForm').reset();
-          } else {
-            throw new Error(data.error || 'Unknown error');
-          }
-        } catch (err) {
-          status.style.display = 'block';
-          status.style.background = '#fef2f2';
-          status.style.color = '#991b1b';
-          status.style.border = '1px solid #fecaca';
-          status.textContent = 'Something went wrong. Please email us directly at info@wabashsystems.com';
-        } finally {
-          btn.disabled = false;
-          btn.textContent = 'Send Message →';
-        }
-      });
-    </script>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="nav-brand">
+      <div class="nav-brand" aria-hidden="true">
         <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
         <span class="nav-brand-sub">Systems</span>
       </div>
-      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in southeastern Illinois. Serving clients locally and remotely.</p>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois — serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>
       <ul class="footer-links">
-        <li><a href="#services">Store Setup & Launch</a></li>
+        <li><a href="#services">Store Setup &amp; Launch</a></li>
         <li><a href="#services">Platform Migration</a></li>
         <li><a href="#services">SEO Management</a></li>
         <li><a href="#services">Google Ads</a></li>
@@ -1141,8 +1263,106 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Wabash Systems. All rights reserved.</span>
-    <span>Southeastern Illinois · Remote E-Commerce Consulting</span>
+    <span>Crawford County &amp; Southeastern Illinois · Remote E-Commerce Consulting</span>
   </div>
 </footer>
 
+<script>
+  /* ── CONTACT FORM ── */
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('formSubmit');
+    const status = document.getElementById('formStatus');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    const payload = {
+      fname: document.getElementById('fname').value.trim(),
+      lname: document.getElementById('lname').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      business: document.getElementById('business').value.trim(),
+      service: document.getElementById('service').value,
+      message: document.getElementById('message').value.trim(),
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        status.style.display = 'block';
+        status.style.background = '#f0fdf4';
+        status.style.color = '#166534';
+        status.style.border = '1px solid #bbf7d0';
+        status.textContent = "Message sent! We'll get back to you within one business day.";
+        document.getElementById('contactForm').reset();
+      } else {
+        throw new Error(data.error || 'Unknown error');
+      }
+    } catch (err) {
+      status.style.display = 'block';
+      status.style.background = '#fef2f2';
+      status.style.color = '#991b1b';
+      status.style.border = '1px solid #fecaca';
+      status.textContent = 'Something went wrong. Please email us directly at info@wabashsystems.com';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Message <span aria-hidden="true">\u2192</span>';
+    }
+  });
+
+  /* ── MOBILE NAV ── */
+  const toggle    = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const overlay   = document.getElementById('mobileOverlay');
+  const closeBtn  = document.getElementById('mobileClose');
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    mobileNav.removeAttribute('aria-hidden');
+    overlay.classList.add('open');
+    overlay.removeAttribute('aria-hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => {
+    toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav();
+  });
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', closeNav);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      closeNav();
+    }
+  });
+
+  // Close drawer when a nav link is clicked
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNav);
+  });
+</script>
+
 </body>
+</html>
