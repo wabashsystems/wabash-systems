@@ -1,1 +1,3 @@
-﻿Get-Clipboard | Out-File -FilePath "C:\Users\andy\wabash-systems\auto-push.ps1" -Encoding UTF8
+﻿git add -A
+git commit -m "Fix contact.js"
+wrangler pages deploy C:\Users\andy\wabash-systems --project-name=wabash-systems
