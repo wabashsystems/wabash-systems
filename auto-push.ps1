@@ -36,7 +36,7 @@ Set-Location $repo
 
 $changes = git status --porcelain
 if (-not $changes) {
-    Write-Host "$(Get-Date -Format 'HH:mm:ss') No changes — nothing to deploy." -ForegroundColor Yellow
+    Write-Host "$(Get-Date -Format 'HH:mm:ss') No changes - nothing to deploy." -ForegroundColor Yellow
     exit 0
 }
 
