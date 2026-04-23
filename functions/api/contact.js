@@ -1,4 +1,4 @@
-﻿export async function onRequestPost(context) {
+export async function onRequestPost(context) {
   const { request, env } = context;
   try {
     const body = await request.json();
@@ -40,37 +40,43 @@
       return jsonResponse({ success: false, error: 'Failed to send email.' }, 500);
     }
 
-    // Push to Klaviyo if API key is set — fire and forget, don't block form success
+    // Push to Klaviyo — fire and forget, don't block form success on Klaviyo errors
     if (env.KLAVIYO_PRIVATE_KEY) {
       // Normalize phone to E.164 (+1XXXXXXXXXX) — strip everything except digits
       const rawPhone = (phone || '').replace(/\D/g, '');
-      const e164Phone = rawPhone.length === 10 ? `+1${rawPhone}` : rawPhone.length === 11 && rawPhone.startsWith('1') ? `+${rawPhone}` : null;
-
-      // Build profile attributes
-      const profileAttrs = {
-        email,
-        first_name: fname,
-        last_name: lname || '',
-        ...(e164Phone && { phone_number: e164Phone }),
-        properties: {
-          business: business || '',
-          service_interest: service || '',
-          sms_consent: !!sms_consent,
-        },
-      };
+      const e164Phone = rawPhone.length === 10
+        ? `+1${rawPhone}`
+        : rawPhone.length === 11 && rawPhone.startsWith('1')
+          ? `+${rawPhone}`
+          : null;
 
       // Create/update profile in Klaviyo
       const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
         method: 'POST',
         headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
-        body: JSON.stringify({ data: { type: 'profile', attributes: profileAttrs } }),
+        body: JSON.stringify({
+          data: {
+            type: 'profile',
+            attributes: {
+              email,
+              first_name: fname,
+              last_name: lname || '',
+              ...(e164Phone && { phone_number: e164Phone }),
+              properties: {
+                business: business || '',
+                service_interest: service || '',
+                sms_consent: !!sms_consent,
+              },
+            },
+          },
+        }),
       });
 
       if (!profileRes.ok) {
         console.error('Klaviyo profile error:', profileRes.status, await profileRes.text());
       }
 
-      // Track "Contact Form Submitted" custom event — this is what triggers the SMS flow
+      // Track "Contact Form Submitted" custom event — triggers the SMS flow in Klaviyo
       const eventRes = await fetch('https://a.klaviyo.com/api/events/', {
         method: 'POST',
         headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
@@ -79,7 +85,15 @@
             type: 'event',
             attributes: {
               metric: { data: { type: 'metric', attributes: { name: 'Contact Form Submitted' } } },
-              profile: { data: { type: 'profile', attributes: { email, ...(e164Phone && { phone_number: e164Phone }) } } },
+              profile: {
+                data: {
+                  type: 'profile',
+                  attributes: {
+                    email,
+                    ...(e164Phone && { phone_number: e164Phone }),
+                  },
+                },
+              },
               properties: {
                 first_name: fname,
                 business: business || '',
@@ -114,26 +128,6 @@ function klaviyoHeaders(apiKey) {
     'Content-Type': 'application/json',
     'revision': '2024-10-15',
   };
-}
-
-function jsonResponse(data, status) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders() },
-  });
-}
-
-function corsHeaders() {
-  return {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
-}
-
-// Required for CORS preflight — browsers send OPTIONS before POST from JS fetch
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
 function jsonResponse(data, status) {
