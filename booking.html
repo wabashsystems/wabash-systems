@@ -439,6 +439,9 @@
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
       .reassurance-inner { grid-template-columns: 1fr; gap: 32px; }
+      /* Banner wraps to 2 lines on mobile — push nav down to clear it */
+      nav { top: 58px; }
+      .announcement-banner { font-size: 11px; padding: 8px 16px; }
     }
     @media (max-width: 600px) {
       .footer-top { grid-template-columns: 1fr; }
