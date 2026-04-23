@@ -238,7 +238,7 @@
 
     .mobile-nav {
       position: fixed;
-      top: 0; right: -100%;
+      top: 0; left: 100%;
       width: min(320px, 85vw);
       height: 100%;
       background: var(--navy-mid);
@@ -251,7 +251,7 @@
       box-shadow: -8px 0 40px rgba(0,0,0,0.5);
       overflow-y: auto;
     }
-    .mobile-nav.open { right: 0; }
+    .mobile-nav.open { left: auto; right: 0; }
 
     .mobile-nav a {
       color: var(--cream);
@@ -804,6 +804,13 @@
     }
 
     /* ── RESPONSIVE ── */
+    /* Explicit desktop rule — nav-toggle must never show above 900px */
+    @media (min-width: 901px) {
+      .nav-toggle { display: none !important; }
+      .nav-links { display: flex !important; }
+      .mobile-nav, .mobile-overlay { display: none !important; }
+    }
+
     @media (max-width: 900px) {
       .intro, .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
@@ -1324,6 +1331,7 @@
   const closeBtn  = document.getElementById('mobileClose');
 
   function openNav() {
+    if (window.innerWidth > 900) return; // never open on desktop
     mobileNav.classList.add('open');
     mobileNav.removeAttribute('aria-hidden');
     overlay.classList.add('open');
@@ -1361,6 +1369,13 @@
   // Close drawer when a nav link is clicked
   mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeNav);
+  });
+
+  // Auto-close if window is resized above mobile breakpoint
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && toggle.getAttribute('aria-expanded') === 'true') {
+      closeNav();
+    }
   });
 </script>
 

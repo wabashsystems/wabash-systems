@@ -187,7 +187,7 @@
 
     .mobile-nav {
       position: fixed;
-      top: 0; right: -100%;
+      top: 0; left: 100%;
       width: min(320px, 85vw);
       height: 100%;
       background: var(--navy-mid);
@@ -200,7 +200,7 @@
       box-shadow: -8px 0 40px rgba(0,0,0,0.5);
       overflow-y: auto;
     }
-    .mobile-nav.open { right: 0; }
+    .mobile-nav.open { left: auto; right: 0; }
     .mobile-nav a {
       color: var(--cream);
       text-decoration: none;
@@ -421,6 +421,12 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (min-width: 901px) {
+      .nav-toggle { display: none !important; }
+      .nav-links { display: flex !important; }
+      .mobile-nav, .mobile-overlay { display: none !important; }
+    }
+
     @media (max-width: 900px) {
       .footer-top { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
@@ -632,11 +638,33 @@
     document.body.style.overflow = '';
     toggle.focus();
   }
+  function openNav() {
+    if (window.innerWidth > 900) return;
+    mobileNav.classList.add('open');
+    mobileNav.removeAttribute('aria-hidden');
+    overlay.classList.add('open');
+    overlay.removeAttribute('aria-hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
   toggle.addEventListener('click', () => toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav());
   closeBtn.addEventListener('click', closeNav);
   overlay.addEventListener('click', closeNav);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeNav(); });
   mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
+  window.addEventListener('resize', () => { if (window.innerWidth > 900 && toggle.getAttribute('aria-expanded') === 'true') closeNav(); });
 </script>
 
 <!-- Cal.com embed — brand color matches site orange -->
