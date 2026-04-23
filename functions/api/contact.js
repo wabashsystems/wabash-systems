@@ -8,7 +8,6 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: false, error: 'Missing required fields.' }, 400);
     }
 
-    // Send email notification via Resend
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -40,9 +39,7 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: false, error: 'Failed to send email.' }, 500);
     }
 
-    // Push to Klaviyo — fire and forget, don't block form success on Klaviyo errors
     if (env.KLAVIYO_PRIVATE_KEY) {
-      // Normalize phone to E.164 (+1XXXXXXXXXX) — strip everything except digits
       const rawPhone = (phone || '').replace(/\D/g, '');
       const e164Phone = rawPhone.length === 10
         ? `+1${rawPhone}`
@@ -50,7 +47,6 @@ export async function onRequestPost(context) {
           ? `+${rawPhone}`
           : null;
 
-      // Create/update profile in Klaviyo
       const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
         method: 'POST',
         headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
@@ -76,7 +72,6 @@ export async function onRequestPost(context) {
         console.error('Klaviyo profile error:', profileRes.status, await profileRes.text());
       }
 
-      // Track "Contact Form Submitted" custom event — triggers the SMS flow in Klaviyo
       const eventRes = await fetch('https://a.klaviyo.com/api/events/', {
         method: 'POST',
         headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
@@ -111,16 +106,21 @@ export async function onRequestPost(context) {
     }
 
     if (env.WEBHOOK_SECRET) {
-      context.waitUntil(
-        fetch('https://admin.wabashsystems.com/webhook.php', {
+      try {
+        const webhookRes = await fetch('https://admin.wabashsystems.com/webhook.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'X-Webhook-Secret': env.WEBHOOK_SECRET,
           },
           body: JSON.stringify({ fname, lname, email, phone, business, service, message, smsOptIn: sms_consent }),
-        }).catch(err => console.error('Webhook error:', err.message))
-      );
+        });
+        if (!webhookRes.ok) {
+          console.error('Webhook error:', webhookRes.status, await webhookRes.text());
+        }
+      } catch (err) {
+        console.error('Webhook fetch error:', err.message);
+      }
     }
 
     return jsonResponse({ success: true }, 200);
@@ -130,7 +130,6 @@ export async function onRequestPost(context) {
   }
 }
 
-// Required for CORS preflight — browsers send OPTIONS before POST from JS fetch
 export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
