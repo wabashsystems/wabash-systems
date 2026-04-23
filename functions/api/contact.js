@@ -41,7 +41,7 @@
     }
 
     // Push to Klaviyo if API key is set — fire and forget, don't block form success
-    if (env.KLAVIYO_API_KEY) {
+    if (env.KLAVIYO_PRIVATE_KEY) {
       // Normalize phone to E.164 (+1XXXXXXXXXX) — strip everything except digits
       const rawPhone = (phone || '').replace(/\D/g, '');
       const e164Phone = rawPhone.length === 10 ? `+1${rawPhone}` : rawPhone.length === 11 && rawPhone.startsWith('1') ? `+${rawPhone}` : null;
@@ -62,7 +62,7 @@
       // Create/update profile in Klaviyo
       const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
         method: 'POST',
-        headers: klaviyoHeaders(env.KLAVIYO_API_KEY),
+        headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
         body: JSON.stringify({ data: { type: 'profile', attributes: profileAttrs } }),
       });
 
@@ -73,7 +73,7 @@
       // Track "Contact Form Submitted" custom event — this is what triggers the SMS flow
       const eventRes = await fetch('https://a.klaviyo.com/api/events/', {
         method: 'POST',
-        headers: klaviyoHeaders(env.KLAVIYO_API_KEY),
+        headers: klaviyoHeaders(env.KLAVIYO_PRIVATE_KEY),
         body: JSON.stringify({
           data: {
             type: 'event',
