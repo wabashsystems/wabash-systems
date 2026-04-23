@@ -31,6 +31,13 @@ if (Test-Path $funcSrc) {
     Copy-Item $funcSrc $funcDst -Recurse -Force
 }
 
+# Sync docs directory (business documents, pricing, agreements)
+$docsSrc = Join-Path $cowork "docs"
+$docsDst = Join-Path $repo "docs"
+if (Test-Path $docsSrc) {
+    Copy-Item $docsSrc $docsDst -Recurse -Force
+}
+
 # ── Git: commit and push if anything changed ──────────────────────────────────
 Set-Location $repo
 
