@@ -110,16 +110,17 @@ export async function onRequestPost(context) {
       }
     }
 
-    // Fire webhook to CRM — fire and forget, don't block on failure
     if (env.WEBHOOK_SECRET) {
-      fetch('https://admin.wabashsystems.com/webhook.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Webhook-Secret': env.WEBHOOK_SECRET,
-        },
-        body: JSON.stringify({ fname, lname, email, phone, business, service, message, smsOptIn: sms_consent }),
-      }).catch(err => console.error('Webhook error:', err.message));
+      context.waitUntil(
+        fetch('https://admin.wabashsystems.com/webhook.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Webhook-Secret': env.WEBHOOK_SECRET,
+          },
+          body: JSON.stringify({ fname, lname, email, phone, business, service, message, smsOptIn: sms_consent }),
+        }).catch(err => console.error('Webhook error:', err.message))
+      );
     }
 
     return jsonResponse({ success: true }, 200);
