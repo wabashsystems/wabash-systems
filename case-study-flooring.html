@@ -1,196 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Case Study: $10M Magento 1 Enterprise → BigCommerce Migration | Wabash Systems</title>
-<meta name="description" content="How we migrated a $10M online flooring retailer from Magento 1 Enterprise to BigCommerce with zero downtime, no SEO loss, and continued revenue through cutover. Nine-month engagement, three years running.">
-<link rel="canonical" href="https://wabashsystems.com/case-study-flooring.html">
-<meta property="og:title" content="$10M Magento 1 Enterprise → BigCommerce Migration — Case Study">
-<meta property="og:description" content="Zero downtime. Zero SEO loss. Revenue uninterrupted through cutover of a $10M store. Here's how.">
-<meta property="og:url" content="https://wabashsystems.com/case-study-flooring.html">
-<meta property="og:type" content="article">
-<meta property="og:image" content="https://wabashsystems.com/wabash-systems-logo.svg">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="$10M Magento 1 → BigCommerce Migration — Case Study">
-<meta name="twitter:description" content="Zero downtime. Zero SEO loss. Revenue uninterrupted.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="How we migrated a $10M online flooring retailer from Magento 1 Enterprise to BigCommerce with zero downtime and no SEO loss. Nine-month engagement, three years running." />
+<link rel="canonical" href="https://www.wabashsystems.com/case-study-flooring.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.wabashsystems.com/case-study-flooring.html" />
+<meta property="og:title" content="$10M Magento 1 Enterprise → BigCommerce Migration — Case Study | Wabash Systems" />
+<meta property="og:description" content="Zero downtime. Zero SEO loss. Revenue uninterrupted through cutover of a $10M store." />
+<meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+<meta property="og:site_name" content="Wabash Systems" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="$10M Magento 1 → BigCommerce Migration — Case Study" />
+<meta name="twitter:description" content="Zero downtime. Zero SEO loss. Revenue uninterrupted." />
+
+<link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="alternate icon" type="image/png" href="favicon.png" />
+
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --black: #0a0a0a;
-    --white: #f8f6f1;
-    --cream: #f0ece3;
-    --rust: #c4622d;
-    --rust-dark: #a04d22;
-    --gray: #6b7280;
-    --gray-dark: #4b5563;
-    --light-gray: #e5e1d8;
+    --navy: #0d1a2a;
+    --navy-mid: #1a2e44;
+    --navy-light: #1a4a6e;
+    --orange: #c4622d;
+    --orange-light: #e8834d;
+    --orange-text: #b05a28;
+    --cream: #f8f6f1;
+    --gray-light: #f2f4f7;
+    --gray-mid: #6b7280;
+    --gray-dark: #3a4556;
+    --white: #ffffff;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-  body { background: var(--white); color: var(--black); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; line-height: 1.6; }
 
-  /* Nav */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 4rem; background: rgba(248,246,241,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--light-gray); }
-  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--black); text-decoration: none; letter-spacing: -0.02em; }
-  .nav-logo span { color: var(--rust); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
-  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--rust); }
-  .nav-cta { background: var(--black); color: var(--white) !important; padding: 0.6rem 1.4rem; border-radius: 2px; transition: background 0.2s !important; }
-  .nav-cta:hover { background: var(--rust) !important; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    background: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-  /* Hero */
-  .hero { padding: 10rem 6rem 5rem; max-width: 1200px; margin: 0 auto; }
-  .hero-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.5rem; }
-  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.4rem, 4.5vw, 4rem); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.75rem; max-width: 950px; }
-  .hero-title em { font-style: italic; color: var(--rust); }
-  .hero-sub { font-size: 1.15rem; line-height: 1.7; color: var(--gray); max-width: 720px; margin-bottom: 3rem; }
+  /* ── SKIP NAV ── */
+  .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; font-size: 15px; z-index: 9999; text-decoration: none; border-radius: 0 6px 6px 0; transition: left 0.15s; }
+  .skip-nav:focus { left: 0; }
+  :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+  :focus:not(:focus-visible) { outline: none; }
 
-  /* Stat grid */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--light-gray); border: 1px solid var(--light-gray); margin-bottom: 4rem; }
-  .stat { background: var(--white); padding: 2rem; }
-  .stat-value { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--black); letter-spacing: -0.02em; line-height: 1; }
-  .stat-value em { color: var(--rust); font-style: normal; }
-  .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-top: 0.6rem; line-height: 1.4; }
+  /* ── ANNOUNCEMENT BANNER ── */
+  .announcement-banner {
+    background: var(--navy-mid);
+    color: var(--white);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    border-bottom: 2px solid var(--orange);
+  }
+  .announcement-banner span { opacity: 0.85; font-weight: 400; margin-left: 8px; }
 
-  /* Client snapshot */
-  .snapshot { background: var(--cream); padding: 2.5rem 3rem; border-left: 3px solid var(--rust); margin-bottom: 5rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
-  .snapshot-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.8rem; }
-  .snapshot-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 1rem; letter-spacing: -0.01em; }
-  .snapshot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 2.5rem; font-size: 0.95rem; color: var(--gray-dark); }
-  .snapshot-grid strong { color: var(--black); font-weight: 500; }
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 38px; left: 0; right: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo svg { width: 52px; height: 31px; }
+  .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+  .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
 
-  /* Section layout */
-  .section { padding: 5rem 6rem; max-width: 1100px; margin: 0 auto; }
-  .section-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.8rem; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3vw, 2.75rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 2rem; max-width: 780px; }
-  .section-title em { font-style: italic; color: var(--rust); }
-  .section-body { font-size: 1.02rem; line-height: 1.8; color: var(--gray-dark); max-width: 780px; }
-  .section-body p { margin-bottom: 1.2rem; }
-  .section-body strong { color: var(--black); font-weight: 500; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+  .nav-links a:hover { opacity: 1; color: var(--orange-light); }
+  .nav-links a.active { opacity: 1; color: var(--orange-light); }
+  .nav-cta {
+    background: var(--orange) !important;
+    color: var(--white) !important;
+    padding: 10px 22px !important;
+    border-radius: 6px !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; }
 
-  /* Alternating bg */
-  .bg-black { background: var(--black); color: var(--white); }
-  .bg-black .section-title { color: var(--white); }
-  .bg-black .section-body { color: rgba(248,246,241,0.78); }
-  .bg-black .section-body strong { color: var(--white); }
+  /* ── HAMBURGER ── */
+  .nav-toggle { display: none; background: transparent; border: 2px solid rgba(248,246,241,0.3); border-radius: 6px; cursor: pointer; padding: 10px 12px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; pointer-events: none; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* Challenge list */
-  .challenge-list { list-style: none; margin-top: 1.5rem; }
-  .challenge-list li { position: relative; padding: 0.8rem 0 0.8rem 2rem; border-top: 1px solid var(--light-gray); font-size: 0.98rem; line-height: 1.6; }
-  .challenge-list li:last-child { border-bottom: 1px solid var(--light-gray); }
-  .challenge-list li::before { content: '→'; position: absolute; left: 0; top: 0.8rem; color: var(--rust); font-family: 'DM Serif Display', serif; font-size: 1.1rem; }
-  .bg-black .challenge-list li { border-color: rgba(255,255,255,0.1); color: rgba(248,246,241,0.85); }
+  /* ── MOBILE DRAWER ── */
+  .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 299; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .mobile-overlay.open { opacity: 1; pointer-events: all; }
+  .mobile-nav { position: fixed; top: 0; right: 0; width: min(320px, 85vw); height: 100%; background: var(--navy-mid); z-index: 300; display: flex; flex-direction: column; padding: 110px 40px 48px; gap: 4px; transform: translateX(100%); visibility: hidden; transition: transform 0.3s ease, visibility 0s linear 0.3s; box-shadow: -8px 0 40px rgba(0,0,0,0.5); overflow-y: auto; }
+  .mobile-nav.open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease, visibility 0s linear 0s; }
+  .mobile-nav a { color: var(--cream); text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; display: block; }
+  .mobile-nav a:hover, .mobile-nav a:focus-visible { color: var(--orange-light); }
+  .mobile-nav .mobile-cta { margin-top: 24px; background: var(--orange); color: var(--white) !important; padding: 18px 24px !important; border-radius: 8px; text-align: center; font-weight: 600 !important; border-bottom: none !important; transition: background 0.2s; }
+  .mobile-nav .mobile-cta:hover { background: var(--orange-light); }
+  .mobile-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--cream); cursor: pointer; padding: 10px; border-radius: 6px; font-size: 24px; line-height: 1; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  .mobile-close:hover { color: var(--orange-light); }
 
-  /* Approach phases */
-  .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .phase { padding: 2rem; background: var(--white); border: 1px solid var(--light-gray); position: relative; }
-  .phase-number { font-family: 'DM Serif Display', serif; font-size: 0.85rem; color: var(--rust); margin-bottom: 1rem; letter-spacing: 0.05em; }
-  .phase-title { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 0.8rem; }
-  .phase-desc { font-size: 0.92rem; line-height: 1.65; color: var(--gray-dark); }
-  .phase-duration { font-size: 0.75rem; color: var(--gray); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--light-gray); letter-spacing: 0.05em; text-transform: uppercase; }
+  /* ── BUTTONS ── */
+  .btn-primary { background: var(--orange); color: var(--white); padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; display: inline-flex; align-items: center; min-height: 52px; }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--cream); padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid rgba(248,246,241,0.3); transition: border-color 0.2s, color 0.2s, transform 0.2s; display: inline-flex; align-items: center; min-height: 52px; }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange-light); transform: translateY(-2px); }
 
-  /* Results callout */
-  .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.15); margin-top: 3rem; }
-  .result { background: var(--black); padding: 2rem; }
-  .result-value { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--white); line-height: 1.1; letter-spacing: -0.02em; }
-  .result-value em { color: var(--rust); font-style: normal; }
-  .result-label { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,246,241,0.6); margin-top: 0.6rem; }
-  .result-desc { font-size: 0.9rem; color: rgba(248,246,241,0.8); margin-top: 0.8rem; line-height: 1.55; }
+  /* ── HERO (navy) ── */
+  .hero {
+    min-height: 70vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 170px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-wave {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .hero-content { max-width: 880px; text-align: center; position: relative; z-index: 2; }
+  .hero-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 24px; }
+  .hero h1 { font-family: Georgia, serif; font-size: clamp(30px, 4.5vw, 54px); font-weight: 700; color: var(--cream); line-height: 1.15; margin-bottom: 24px; }
+  .hero h1 span { color: var(--orange-light); }
+  .hero-sub { font-size: clamp(16px, 2.5vw, 18px); color: rgba(248,246,241,0.8); max-width: 680px; margin: 0 auto 48px; line-height: 1.7; }
 
-  /* Why it worked */
-  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .why-item { padding: 1.8rem; background: var(--cream); }
-  .why-item-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 0.7rem; }
-  .why-item-desc { font-size: 0.93rem; line-height: 1.65; color: var(--gray-dark); }
+  /* ── HERO STATS ── */
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-width: 900px; margin: 0 auto; border-top: 1px solid rgba(248,246,241,0.15); border-bottom: 1px solid rgba(248,246,241,0.15); }
+  .hero-stat { padding: 28px 20px; text-align: center; border-right: 1px solid rgba(248,246,241,0.15); }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-value { font-family: Georgia, serif; font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--cream); line-height: 1; letter-spacing: -0.01em; }
+  .hero-stat-value span { color: var(--orange-light); }
+  .hero-stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(248,246,241,0.6); margin-top: 10px; line-height: 1.5; }
 
-  /* CTA */
-  .cta { background: var(--black); color: var(--white); padding: 6rem 6rem; text-align: center; }
-  .cta-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; }
-  .cta-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
-  .cta-title em { font-style: italic; color: var(--rust); }
-  .cta-sub { font-size: 1.05rem; color: rgba(248,246,241,0.75); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
-  .btn-primary { background: var(--rust); color: var(--white); padding: 1rem 2.4rem; border: none; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; }
-  .btn-primary:hover { background: var(--rust-dark); transform: translateY(-1px); }
+  /* ── CLIENT SNAPSHOT ── */
+  .snapshot-section { background: var(--gray-light); padding: 64px 5%; }
+  .snapshot {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--white);
+    border-left: 4px solid var(--orange);
+    padding: 40px 48px;
+    box-shadow: 0 2px 20px rgba(13,26,42,0.06);
+    border-radius: 0 8px 8px 0;
+  }
+  .snapshot-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-text); font-weight: 700; margin-bottom: 10px; }
+  .snapshot-title { font-family: Georgia, serif; font-size: 24px; color: var(--navy); margin-bottom: 20px; }
+  .snapshot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 48px; font-size: 15px; color: var(--gray-dark); }
+  .snapshot-grid strong { color: var(--navy); font-weight: 600; }
 
-  /* Footer */
-  footer { background: var(--black); color: rgba(248,246,241,0.55); padding: 2.5rem 6rem; text-align: center; font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.08); letter-spacing: 0.05em; }
-  footer a { color: rgba(248,246,241,0.7); text-decoration: none; }
-  footer a:hover { color: var(--rust); }
+  /* ── SECTIONS ── */
+  .section { padding: 96px 5%; max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--orange-text); margin-bottom: 16px; }
+  .section-title { font-family: Georgia, serif; font-size: clamp(28px, 3.5vw, 40px); color: var(--navy); line-height: 1.2; margin-bottom: 32px; max-width: 780px; }
+  .section-title span { color: var(--orange-text); font-style: italic; }
+  .section-body { font-size: 17px; line-height: 1.8; color: var(--gray-dark); max-width: 780px; }
+  .section-body p { margin-bottom: 18px; }
+  .section-body strong { color: var(--navy); font-weight: 600; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; flex-wrap: wrap; gap: 1rem; }
-    .nav-links { gap: 1.2rem; }
-    .hero { padding: 8rem 1.5rem 3rem; }
-    .section, .cta { padding: 4rem 1.5rem; }
-    .snapshot { padding: 1.8rem 1.5rem; margin: 0 1rem 3rem; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
+  /* ── SECTION: dark variant ── */
+  .section-dark { background: var(--navy); color: var(--cream); padding: 96px 5%; position: relative; }
+  .section-dark-inner { max-width: 1100px; margin: 0 auto; }
+  .section-dark .section-title { color: var(--cream); }
+  .section-dark .section-title span { color: var(--orange-light); font-style: italic; }
+  .section-dark .section-body { color: rgba(248,246,241,0.8); }
+  .section-dark .section-body strong { color: var(--cream); }
+  .section-dark .section-eyebrow { color: var(--orange-light); }
+
+  /* ── CHALLENGE LIST ── */
+  .challenge-list { list-style: none; margin-top: 24px; }
+  .challenge-list li { position: relative; padding: 18px 0 18px 32px; border-top: 1px solid #e5e7eb; font-size: 16px; line-height: 1.65; color: var(--gray-dark); }
+  .challenge-list li:last-child { border-bottom: 1px solid #e5e7eb; }
+  .challenge-list li::before { content: ''; position: absolute; left: 0; top: 26px; width: 16px; height: 2px; background: var(--orange); }
+  .challenge-list li strong { color: var(--navy); font-weight: 600; }
+
+  /* ── PHASES ── */
+  .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .phase {
+    padding: 32px 28px;
+    background: var(--navy-mid);
+    border-radius: 8px;
+    border: 1px solid rgba(248,246,241,0.08);
+    position: relative;
+  }
+  .phase-number { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 16px; }
+  .phase-title { font-family: Georgia, serif; font-size: 20px; color: var(--cream); margin-bottom: 12px; }
+  .phase-desc { font-size: 14.5px; line-height: 1.7; color: rgba(248,246,241,0.72); }
+  .phase-duration { font-size: 11px; color: rgba(248,246,241,0.55); margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(248,246,241,0.1); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+  /* ── RESULTS GRID ── */
+  .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+  .result {
+    background: var(--white);
+    color: var(--navy);
+    padding: 32px;
+    border-radius: 8px;
+    border-left: 4px solid var(--orange);
+  }
+  .result-value { font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: var(--navy); line-height: 1.1; }
+  .result-value span { color: var(--orange-text); }
+  .result-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-text); font-weight: 700; margin-top: 12px; }
+  .result-desc { font-size: 14.5px; color: var(--gray-dark); margin-top: 14px; line-height: 1.6; }
+
+  /* ── WHY IT WORKED ── */
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .why-card { padding: 32px 28px; background: var(--gray-light); border-radius: 8px; border-top: 3px solid var(--orange); }
+  .why-card-title { font-family: Georgia, serif; font-size: 19px; color: var(--navy); margin-bottom: 12px; }
+  .why-card-desc { font-size: 14.5px; line-height: 1.7; color: var(--gray-dark); }
+
+  /* ── CTA ── */
+  .cta-section { background: var(--navy); padding: 96px 5%; text-align: center; position: relative; overflow: hidden; }
+  .cta-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+  .cta-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 20px; }
+  .cta-title { font-family: Georgia, serif; font-size: clamp(28px, 3.5vw, 40px); color: var(--cream); line-height: 1.2; margin-bottom: 20px; }
+  .cta-title span { color: var(--orange-light); font-style: italic; }
+  .cta-sub { font-size: 17px; color: rgba(248,246,241,0.75); margin-bottom: 40px; line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--navy); color: rgba(248,246,241,0.55); padding: 32px 5%; text-align: center; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.08); letter-spacing: 0.5px; }
+  footer a { color: rgba(248,246,241,0.75); text-decoration: none; }
+  footer a:hover { color: var(--orange-light); }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 769px) {
+    .nav-toggle { display: none !important; }
+    .nav-links { display: flex !important; }
+    .mobile-nav, .mobile-overlay { display: none !important; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-brand { display: none; }
+    .hero { padding: 148px 5% 64px; min-height: 60vh; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .hero-stat { border-right: none; border-bottom: 1px solid rgba(248,246,241,0.15); }
+    .hero-stat:nth-child(odd) { border-right: 1px solid rgba(248,246,241,0.15); }
+    .hero-stat:nth-last-child(-n+2) { border-bottom: none; }
+    .snapshot { padding: 28px 24px; }
+    .snapshot-grid { grid-template-columns: 1fr; gap: 10px; }
+    .section { padding: 64px 5%; }
+    .section-dark { padding: 64px 5%; }
     .phases, .why-grid, .results-grid { grid-template-columns: 1fr; }
-    .snapshot-grid { grid-template-columns: 1fr; }
-    footer { padding: 2rem 1.5rem; }
+    .cta-section { padding: 64px 5%; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo">Wabash<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
+<!-- SKIP NAV -->
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley — Illinois &amp; Indiana<span>— Now Accepting Early Clients</span>
+</div>
+
+<!-- PRIMARY NAV -->
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems — back to home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#nc)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#nc)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#nc)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" role="list">
     <li><a href="/#services">Services</a></li>
+    <li><a href="/#process">Process</a></li>
     <li><a href="/#about">About</a></li>
-    <li><a href="/booking" class="nav-cta">Book a Consultation</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/case-study-flooring.html" class="active">Case Study</a></li>
+    <li><a href="/booking" class="nav-cta">Free Consultation</a></li>
   </ul>
+
+  <button class="nav-toggle" id="navToggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section class="hero">
-  <div class="hero-tag">Case Study · Platform Migration</div>
-  <h1 class="hero-title">How we migrated a <em>$10M online flooring retailer</em> from Magento 1 Enterprise to BigCommerce — with zero downtime and no SEO loss.</h1>
-  <p class="hero-sub">A nine-month migration. Fifteen hundred SKUs. Three years running on the new platform with revenue intact. Here's exactly what went into it.</p>
+<!-- MOBILE DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="/#services">Services</a>
+  <a href="/#process">Process</a>
+  <a href="/#about">About</a>
+  <a href="/#portfolio">Portfolio</a>
+  <a href="/case-study-flooring.html">Case Study</a>
+  <a href="/booking" class="mobile-cta">Free Consultation</a>
+</nav>
 
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-value">$<em>10M</em></div>
-      <div class="stat-label">Annual revenue<br>through cutover</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value"><em>0</em> min</div>
-      <div class="stat-label">Downtime<br>at go-live</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value"><em>0%</em></div>
-      <div class="stat-label">SEO traffic<br>lost</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value"><em>9</em> mo</div>
-      <div class="stat-label">Kickoff to<br>live cutover</div>
+<main id="main-content">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-heading">
+  <svg class="hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 280 Q180 160 360 240 Q540 320 720 200 Q900 80 1080 200 Q1260 320 1440 210" fill="none" stroke="#c4622d" stroke-width="60"/>
+    <path d="M0 320 Q180 200 360 280 Q540 360 720 240 Q900 120 1080 240 Q1260 360 1440 250" fill="none" stroke="#c4622d" stroke-width="20"/>
+  </svg>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Case Study · Platform Migration</span>
+    <h1 id="hero-heading">Migrated a <span>$10M Online Flooring Retailer</span> from Magento 1 Enterprise to BigCommerce</h1>
+    <p class="hero-sub">Nine months. Fifteen hundred SKUs. Zero downtime at cutover. No SEO loss. Revenue uninterrupted. Three years later the store is still running on the platform we moved them to.</p>
+
+    <div class="hero-stats" aria-label="Migration outcomes at a glance">
+      <div class="hero-stat">
+        <div class="hero-stat-value">$<span>10M</span></div>
+        <div class="hero-stat-label">Annual revenue<br>through cutover</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value"><span>0</span> min</div>
+        <div class="hero-stat-label">Downtime<br>at go-live</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value"><span>0%</span></div>
+        <div class="hero-stat-label">SEO traffic<br>lost</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value"><span>9</span> mo</div>
+        <div class="hero-stat-label">Kickoff to<br>cutover</div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="snapshot">
-  <div class="snapshot-tag">The Client</div>
-  <div class="snapshot-title">Online flooring retailer · $10M annual revenue</div>
-  <div class="snapshot-grid">
-    <div><strong>Vertical:</strong> Ecommerce · Flooring</div>
-    <div><strong>Catalog:</strong> ~1,500 SKUs with variants</div>
-    <div><strong>Platform before:</strong> Magento 1 Enterprise</div>
-    <div><strong>Platform after:</strong> BigCommerce</div>
-    <div><strong>Team:</strong> Three engineers (including Andy as lead)</div>
-    <div><strong>Relationship:</strong> Ongoing · three years post-migration</div>
+<!-- CLIENT SNAPSHOT -->
+<section class="snapshot-section" aria-labelledby="snapshot-heading">
+  <div class="snapshot">
+    <div class="snapshot-tag">The Client</div>
+    <h2 class="snapshot-title" id="snapshot-heading">Online flooring retailer · $10M annual revenue</h2>
+    <div class="snapshot-grid">
+      <div><strong>Vertical:</strong> E-commerce · Flooring</div>
+      <div><strong>Catalog:</strong> ~1,500 SKUs with variants</div>
+      <div><strong>Platform before:</strong> Magento 1 Enterprise</div>
+      <div><strong>Platform after:</strong> BigCommerce</div>
+      <div><strong>Team:</strong> Three engineers, Andy leading</div>
+      <div><strong>Relationship:</strong> Ongoing · three years post-migration</div>
+    </div>
   </div>
-</div>
+</section>
 
-<section class="section">
-  <div class="section-tag">The Challenge</div>
-  <h2 class="section-title">Moving off a <em>dead platform</em> without losing the business.</h2>
+<!-- THE CHALLENGE -->
+<section class="section" aria-labelledby="challenge-heading">
+  <div class="section-eyebrow">The Challenge</div>
+  <h2 class="section-title" id="challenge-heading">Moving off a <span>dead platform</span> without losing the business.</h2>
   <div class="section-body">
-    <p>The store was running on <strong>Magento 1 Enterprise</strong> — Adobe's most customizable ecommerce platform, and also the one they officially killed in June 2020. Enterprise licensees were getting security patches but no roadmap, no new features, and a shrinking pool of agencies willing to touch it.</p>
+    <p>The store was running on <strong>Magento 1 Enterprise</strong> — Adobe's most customizable e-commerce platform, and also the one they officially killed in June 2020. Enterprise licensees were getting security patches but no roadmap, no new features, and a shrinking pool of agencies willing to touch it.</p>
     <p>Staying was not an option. But leaving M1 Enterprise is not like leaving a Shopify starter store.</p>
     <p>Every meaningful feature in an M1 Enterprise store tends to be a custom module, a theme override, or a database-level modification written by whichever developer was on the project five years ago. Moving to BigCommerce — which is semi-open-source, API-first, and deliberately <em>less</em> flexible than raw Magento — means rebuilding those features inside platform constraints instead of inheriting freedom.</p>
-    <p>Getting wrong:</p>
+    <p>What we couldn't get wrong:</p>
     <ul class="challenge-list">
       <li><strong>One hour of downtime</strong> at cutover would have cost more than four figures in lost sales and would have surfaced in every abandonment metric for a month.</li>
       <li><strong>A 10% drop in organic traffic</strong> would have meant rebuilding from a lower baseline — ad spend would have to compensate for months.</li>
@@ -200,100 +393,149 @@
   </div>
 </section>
 
-<section class="section bg-black">
-  <div class="section-tag">The Approach</div>
-  <h2 class="section-title">Rebuild the custom, keep the <em>invisible</em> working.</h2>
-  <div class="section-body">
-    <p>Enterprise M1 stores are full of invisible infrastructure — scripts that run nightly, integrations that don't show up in the admin, reports that one person in accounting depends on. You cannot rebuild what you haven't mapped first. The first month of the engagement was discovery — not coding.</p>
-    <p>Only after we had a full map of every custom module, every integration, every cron job, and every downstream dependency did the real work start.</p>
-  </div>
+<!-- THE APPROACH (dark) -->
+<section class="section-dark" aria-labelledby="approach-heading">
+  <div class="section-dark-inner">
+    <div class="section-eyebrow">The Approach</div>
+    <h2 class="section-title" id="approach-heading">Rebuild the custom, keep the <span>invisible</span> working.</h2>
+    <div class="section-body">
+      <p>Enterprise M1 stores are full of invisible infrastructure — scripts that run nightly, integrations that don't show up in the admin, reports that one person in accounting depends on. You cannot rebuild what you haven't mapped first. The first month of the engagement was discovery — not coding.</p>
+      <p>Only after we had a full map of every custom module, every integration, every cron job, and every downstream dependency did the real work start.</p>
+    </div>
 
-  <div class="phases">
-    <div class="phase">
-      <div class="phase-number">Phase 1</div>
-      <div class="phase-title">Discovery &amp; mapping</div>
-      <div class="phase-desc">Full audit of every custom module, cron, theme override, and integration. Identified which features would move to BigCommerce native, which needed apps, which needed custom work, and which could be retired.</div>
-      <div class="phase-duration">Month 1</div>
-    </div>
-    <div class="phase">
-      <div class="phase-number">Phase 2</div>
-      <div class="phase-title">Rebuild &amp; parallel run</div>
-      <div class="phase-desc">BigCommerce store stood up in parallel. Theme rebuilt to match the existing brand. Custom work included a shipping carrier API job to replace a Magento module. ERP kept separate — we built clean hooks rather than force a platform-level integration.</div>
-      <div class="phase-duration">Months 2–7</div>
-    </div>
-    <div class="phase">
-      <div class="phase-number">Phase 3</div>
-      <div class="phase-title">Cutover &amp; harden</div>
-      <div class="phase-desc">Full 301 redirect map from every M1 URL to its BigCommerce equivalent. SEO preservation was non-negotiable. DNS cutover executed with rollback ready. Post-launch monitoring for a full business cycle before closing the engagement.</div>
-      <div class="phase-duration">Months 8–9</div>
+    <div class="phases">
+      <article class="phase">
+        <div class="phase-number">Phase 1</div>
+        <h3 class="phase-title">Discovery &amp; mapping</h3>
+        <p class="phase-desc">Full audit of every custom module, cron, theme override, and integration. Identified which features would move to BigCommerce native, which needed apps, which needed custom work, and which could be retired.</p>
+        <div class="phase-duration">Month 1</div>
+      </article>
+      <article class="phase">
+        <div class="phase-number">Phase 2</div>
+        <h3 class="phase-title">Rebuild &amp; parallel run</h3>
+        <p class="phase-desc">BigCommerce stood up in parallel. Theme rebuilt to match brand. Custom shipping-carrier API job replaced a Magento module. ERP kept separate with clean hooks rather than forced into a platform-level integration.</p>
+        <div class="phase-duration">Months 2–7</div>
+      </article>
+      <article class="phase">
+        <div class="phase-number">Phase 3</div>
+        <h3 class="phase-title">Cutover &amp; harden</h3>
+        <p class="phase-desc">Full 301 redirect map from every M1 URL to its BigCommerce equivalent. DNS cutover executed with rollback ready. Post-launch monitoring for a full business cycle before closing the engagement.</p>
+        <div class="phase-duration">Months 8–9</div>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-tag">The Outcome</div>
-  <h2 class="section-title">Every metric that <em>mattered</em> held.</h2>
-  <div class="section-body">
-    <p>A good platform migration is invisible to customers and boring for stakeholders. No shipping delays. No checkout errors. No confused re-order emails from loyal customers asking where their account went. No traffic dip that shows up in the Monday report.</p>
-    <p>That was the outcome here. The store kept selling through the transition, the finance team kept running the same reports, and three years later the business is still on the platform we moved them to.</p>
-  </div>
+<!-- THE OUTCOME -->
+<section class="section-dark" aria-labelledby="outcome-heading" style="background: var(--navy-mid);">
+  <div class="section-dark-inner">
+    <div class="section-eyebrow">The Outcome</div>
+    <h2 class="section-title" id="outcome-heading">Every metric that <span>mattered</span> held.</h2>
+    <div class="section-body">
+      <p>A good platform migration is invisible to customers and boring for stakeholders. No shipping delays. No checkout errors. No confused re-order emails from loyal customers asking where their account went. No traffic dip that shows up in the Monday report.</p>
+      <p>That was the outcome here. The store kept selling through the transition, the finance team kept running the same reports, and three years later the business is still on the platform we moved them to.</p>
+    </div>
 
-  <div style="background: var(--black); padding: 3rem; margin-top: 3rem; color: var(--white);">
     <div class="results-grid">
       <div class="result">
-        <div class="result-value"><em>Zero</em> minutes</div>
+        <div class="result-value"><span>Zero</span> minutes</div>
         <div class="result-label">Downtime at cutover</div>
-        <div class="result-desc">DNS swap executed cleanly. No customer-facing outage.</div>
+        <div class="result-desc">DNS swap executed cleanly. No customer-facing outage. No support tickets about "the site is broken."</div>
       </div>
       <div class="result">
-        <div class="result-value">Revenue <em>held</em></div>
+        <div class="result-value">Revenue <span>held</span></div>
         <div class="result-label">Through the transition</div>
         <div class="result-desc">Sales continued at normal volume through the cutover week and the weeks immediately after.</div>
       </div>
       <div class="result">
-        <div class="result-value">Organic <em>flat</em></div>
+        <div class="result-value">Organic <span>flat</span></div>
         <div class="result-label">SEO traffic post-migration</div>
-        <div class="result-desc">Redirect map preserved rank and referral equity. No recovery period needed.</div>
+        <div class="result-desc">Redirect map preserved rank and referral equity. No recovery period required.</div>
       </div>
       <div class="result">
-        <div class="result-value"><em>3 yrs</em> live</div>
+        <div class="result-value"><span>3 yrs</span> live</div>
         <div class="result-label">Still on the platform</div>
-        <div class="result-desc">Ongoing relationship. Continued development and Google Ads management post-launch.</div>
+        <div class="result-desc">Ongoing relationship — continued development and Google Ads management post-launch.</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-tag">Why It Worked</div>
-  <h2 class="section-title">The difference between a <em>migration</em> and a <em>gamble</em>.</h2>
+<!-- WHY IT WORKED -->
+<section class="section" aria-labelledby="why-heading">
+  <div class="section-eyebrow">Why It Worked</div>
+  <h2 class="section-title" id="why-heading">The difference between a <span>migration</span> and a <span>gamble</span>.</h2>
 
   <div class="why-grid">
-    <div class="why-item">
-      <div class="why-item-title">Discovery first, code later</div>
-      <div class="why-item-desc">Most failed migrations skip or rush discovery. You can't rebuild what you haven't mapped. The first month was all interviews, audits, and inventory — no production code.</div>
-    </div>
-    <div class="why-item">
-      <div class="why-item-title">Parallel infrastructure, not big-bang</div>
-      <div class="why-item-desc">BigCommerce went live in parallel with Magento for months before cutover. Every integration was tested against real data before a single customer was routed to the new store.</div>
-    </div>
-    <div class="why-item">
-      <div class="why-item-title">A redirect map that wasn't an afterthought</div>
-      <div class="why-item-desc">Every M1 URL mapped to its BigCommerce equivalent before go-live, including legacy category paths and edge cases. SEO equity survived because it was protected deliberately, not hoped into existence.</div>
-    </div>
+    <article class="why-card">
+      <h3 class="why-card-title">Discovery first, code later</h3>
+      <p class="why-card-desc">Most failed migrations skip or rush discovery. You cannot rebuild what you haven't mapped. Month one was interviews, audits, and inventory — no production code shipped.</p>
+    </article>
+    <article class="why-card">
+      <h3 class="why-card-title">Parallel infrastructure, not big-bang</h3>
+      <p class="why-card-desc">BigCommerce ran in parallel with Magento for months before cutover. Every integration was tested against real data before a single customer was routed to the new store.</p>
+    </article>
+    <article class="why-card">
+      <h3 class="why-card-title">Redirects are not an afterthought</h3>
+      <p class="why-card-desc">Every M1 URL mapped to its BigCommerce equivalent before go-live, including legacy category paths and edge cases. SEO equity survived because it was protected deliberately.</p>
+    </article>
   </div>
 </section>
 
-<section class="cta">
-  <div class="cta-tag">Your Platform Migration</div>
-  <h2 class="cta-title">Thinking about leaving <em>Magento?</em></h2>
-  <p class="cta-sub">If you're on Magento 1, Magento 2 EOL'ing in your planning horizon, or an aging WooCommerce setup that's costing you in speed and maintenance — let's talk about what a clean migration looks like for your business.</p>
-  <a href="/booking" class="btn-primary">Book a Free Consultation</a>
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="cta-heading">
+  <svg class="hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 280 Q180 160 360 240 Q540 320 720 200 Q900 80 1080 200 Q1260 320 1440 210" fill="none" stroke="#c4622d" stroke-width="60"/>
+  </svg>
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Your Platform Migration</div>
+    <h2 class="cta-title" id="cta-heading">Thinking about leaving <span>Magento</span>?</h2>
+    <p class="cta-sub">If you're on Magento 1, Magento 2 EOL'ing in your planning horizon, or an aging WooCommerce setup that's costing you in speed and maintenance — let's talk about what a clean migration looks like for your business.</p>
+    <a href="/booking" class="btn-primary">Book a Free Consultation</a>
+  </div>
 </section>
+
+</main>
 
 <footer>
   &copy; 2026 Wabash Systems · Hutsonville, IL · <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>
 </footer>
+
+<script>
+  // Mobile nav toggle — mirrors index.html behavior
+  (function() {
+    const toggle  = document.getElementById('navToggle');
+    const close   = document.getElementById('mobileClose');
+    const nav     = document.getElementById('mobileNav');
+    const overlay = document.getElementById('mobileOverlay');
+    if (!toggle || !nav || !overlay) return;
+
+    function open() {
+      nav.classList.add('open');
+      overlay.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      nav.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function shut() {
+      nav.classList.remove('open');
+      overlay.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      nav.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      toggle.getAttribute('aria-expanded') === 'true' ? shut() : open();
+    });
+    close && close.addEventListener('click', shut);
+    overlay.addEventListener('click', shut);
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', shut));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
+  })();
+</script>
 
 </body>
 </html>
