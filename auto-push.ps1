@@ -30,7 +30,8 @@ $filesToSync = @(
     "booking.html",
     "_redirects",
     "favicon.svg",
-    "auto-push.ps1"
+    "auto-push.ps1",
+    "wrangler.toml"
 )
 
 foreach ($file in $filesToSync) {
@@ -94,8 +95,12 @@ Invoke-Git -Args @("commit","-m","Auto-sync: $timestamp") -FailMsg "git commit"
 Invoke-Git -Args @("push")                              -FailMsg "git push"
 
 # ── Cloudflare Pages: direct deploy (bypasses GitHub integration) ─────────────
+# --branch=main forces this to land as a Production deployment, which is
+# necessary for Plaintext env vars and KV bindings (those are environment-
+# scoped). Without this flag, wrangler creates a branch/preview deployment
+# that can't see Production-scoped variables.
 # Only reached if every git step above succeeded.
-& npx wrangler pages deploy . --project-name=wabash-systems --commit-dirty=true
+& npx wrangler pages deploy . --project-name=wabash-systems --branch=main --commit-dirty=true
 if ($LASTEXITCODE -ne 0) {
     Write-Host "WRANGLER FAILED (exit $LASTEXITCODE)" -ForegroundColor Red
     exit 1

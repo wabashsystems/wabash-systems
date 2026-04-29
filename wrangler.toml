@@ -1,3 +1,28 @@
- name = "wabash-systems"
-compatibility_date = "2024-09-23"
+# Cloudflare Pages configuration.
+#
+# As of late 2024, Pages projects manage Plaintext variables and resource
+# bindings (KV, R2, D1, Queues, etc.) via this file rather than the dashboard.
+# Secrets — like ADMIN_PASSWORD, KLAVIYO_PRIVATE_KEY, RESEND_API_KEY, and
+# WEBHOOK_SECRET — remain dashboard-managed and aren't repeated here.
+#
+# Top-level [vars] and [[kv_namespaces]] apply to all environments
+# (Production + Preview). If you ever need to scope something to one only,
+# use [env.production.vars] / [env.preview.vars] / etc.
+
+name = "wabash-systems"
+compatibility_date = "2026-04-18"
 pages_build_output_dir = "."
+
+# ── Plaintext environment variables ───────────────────────────────────────────
+# Available inside Pages Functions as env.<name>.
+[vars]
+KLAVIYO_LIST_ID = "Tmu2LC"
+FROM_EMAIL      = "agray@wabashsystems.com"
+TO_EMAIL        = "agray@wabashsystems.com"
+
+# ── KV bindings ───────────────────────────────────────────────────────────────
+# ADMIN_DATA backs the persistent state for the admin billing/time tracking
+# tool at /admin/api/data. Referenced in code as env.ADMIN_DATA.
+[[kv_namespaces]]
+binding = "ADMIN_DATA"
+id      = "f754ba46d89b49a29f26f1896457d626"
