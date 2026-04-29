@@ -16,9 +16,10 @@ pages_build_output_dir = "."
 # ── Plaintext environment variables ───────────────────────────────────────────
 # Available inside Pages Functions as env.<name>.
 [vars]
-KLAVIYO_LIST_ID = "Tmu2LC"
-FROM_EMAIL      = "agray@wabashsystems.com"
-TO_EMAIL        = "agray@wabashsystems.com"
+KLAVIYO_LIST_ID     = "Tmu2LC"
+KLAVIYO_SMS_LIST_ID = ""           # TODO: fill in your "Text Messaging List" ID from Klaviyo
+FROM_EMAIL          = "agray@wabashsystems.com"
+TO_EMAIL            = "agray@wabashsystems.com"
 
 # ── KV bindings ───────────────────────────────────────────────────────────────
 # ADMIN_DATA backs the persistent state for the admin billing/time tracking

@@ -1025,10 +1025,117 @@
       display: block;
     }
 
+    /* SMS opt-in checkbox row */
+    .lm-sms-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--navy);
+      cursor: pointer;
+      user-select: none;
+      padding: 6px 2px;
+    }
+    .lm-sms-toggle input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--orange);
+      cursor: pointer;
+      margin: 0;
+    }
+    .lm-form input[type="tel"] {
+      padding: 12px 14px;
+      border: 1px solid #d4d8dd;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--navy);
+      background: var(--white);
+      width: 100%;
+    }
+    .lm-form input[type="tel"]:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.15);
+    }
+
     @media (max-width: 480px) {
       .lm-header { padding: 22px 24px 20px; }
       .lm-body   { padding: 18px 24px 22px; }
       .lm-title  { font-size: 20px; }
+    }
+
+    /* ── STICKY BOTTOM BAR ───────────────────────────────────────────────
+       Slim, dismissible bar that slides up after 25 seconds of engagement.
+       Shares suppression key with the exit-intent modal so a user who has
+       seen one doesn't get the other. */
+    .sb-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--navy);
+      color: var(--white);
+      padding: 12px 16px;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
+      z-index: 9998;
+      transform: translateY(100%);
+      transition: transform 0.35s ease;
+      border-top: 3px solid var(--orange);
+      display: none;
+    }
+    .sb-bar.is-shown {
+      display: block;
+      transform: translateY(0);
+    }
+    .sb-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .sb-bar-text {
+      flex: 1;
+      min-width: 240px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .sb-bar-text strong { color: var(--orange); }
+    .sb-bar-cta {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .sb-bar-cta:hover { background: #d97338; }
+    .sb-bar-close {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 22px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .sb-bar-close:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    @media (max-width: 600px) {
+      .sb-bar { padding: 10px 14px; }
+      .sb-bar-text { font-size: 13px; min-width: 0; }
+      .sb-bar-cta { padding: 8px 14px; font-size: 13px; }
     }
   </style>
 </head>
@@ -1595,6 +1702,22 @@
 </script>
 
 <!-- ──────────────────────────────────────────────────────────────────────
+     STICKY BOTTOM BAR
+     Slim slide-up bar after 25 seconds. Shares suppression key with the
+     exit-intent modal so they never both fire on the same user.
+     ────────────────────────────────────────────────────────────────────── -->
+<div class="sb-bar" id="sbBar" role="region" aria-label="Free resource offer">
+  <div class="sb-bar-inner">
+    <div class="sb-bar-text">
+      <strong>Free:</strong> 10-Point E-Commerce Audit Checklist - find the
+      gaps costing you sales.
+    </div>
+    <button type="button" class="sb-bar-cta" id="sbBarCta">Get the Checklist</button>
+    <button type="button" class="sb-bar-close" id="sbBarClose" aria-label="Dismiss">&times;</button>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────────────────
      EXIT-INTENT LEAD-MAGNET MODAL
      Triggers when the user shows signal of leaving the page.
      Desktop: mouse heading toward the top of the viewport (close/tabs/URL bar).
@@ -1625,11 +1748,22 @@
         <input type="email" id="lmEmail" name="email" required
                autocomplete="email" placeholder="you@yourbusiness.com"
                aria-label="Your email address" />
+
+        <label class="lm-sms-toggle" for="lmSmsOptIn">
+          <input type="checkbox" id="lmSmsOptIn" />
+          <span>Also text me a quick tip each week (optional)</span>
+        </label>
+
+        <input type="tel" id="lmPhone" name="phone"
+               autocomplete="tel" placeholder="(555) 555-1234"
+               aria-label="Mobile phone number"
+               style="display:none;" />
+
         <button type="submit" class="lm-submit" id="lmSubmit">Send My Audit Checklist</button>
         <div class="lm-status" id="lmStatus" role="status" aria-live="polite"></div>
       </form>
       <p class="lm-foot">
-        We'll email it to you, no spam ever.
+        Email + optional text. No spam, unsubscribe anytime.
         <a id="lmDecline" tabindex="0" role="button">No thanks &rarr;</a>
       </p>
     </div>
@@ -1639,10 +1773,14 @@
 <script>
 (function () {
   // -- Configuration ------------------------------------------------------
-  var STORAGE_KEY  = 'wabash_lm_seen';
-  var SUPPRESS_MS  = 7 * 24 * 60 * 60 * 1000;  // 7 days
-  var MOBILE_DELAY = 45 * 1000;                // 45s on mobile
-  var TOP_THRESHOLD = 8;                       // px from top edge to trigger
+  // Single shared suppression key across the modal AND the sticky bar so a
+  // user who has dismissed (or signed up via) either surface won't see
+  // another popup for SUPPRESS_MS.
+  var STORAGE_KEY   = 'wabash_lm_seen';
+  var SUPPRESS_MS   = 7 * 24 * 60 * 60 * 1000;  // 7 days
+  var MOBILE_DELAY  = 45 * 1000;                // 45s on mobile for modal
+  var STICKY_DELAY  = 25 * 1000;                // 25s for sticky bar
+  var TOP_THRESHOLD = 8;                        // px from top to trigger exit-intent
 
   // Don't trigger on conversion pages where the user is already engaged.
   var path = location.pathname.replace(/\/$/, '').toLowerCase();
@@ -1650,61 +1788,89 @@
     return;
   }
 
-  // Suppress if recently seen
-  try {
-    var seen = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-    if (seen && (Date.now() - seen) < SUPPRESS_MS) return;
-  } catch (e) { /* ignore — user may have storage disabled */ }
+  function isSuppressed() {
+    try {
+      var seen = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+      return seen && (Date.now() - seen) < SUPPRESS_MS;
+    } catch (e) { return false; }
+  }
+  function markSeen() {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+  }
+  if (isSuppressed()) return;
 
-  var overlay  = document.getElementById('lmOverlay');
-  var closeBtn = document.getElementById('lmClose');
-  var decline  = document.getElementById('lmDecline');
-  var form     = document.getElementById('lmForm');
-  var emailEl  = document.getElementById('lmEmail');
-  var submit   = document.getElementById('lmSubmit');
-  var status   = document.getElementById('lmStatus');
-  if (!overlay) return;
+  // -- Element refs ------------------------------------------------------
+  var overlay   = document.getElementById('lmOverlay');
+  var closeBtn  = document.getElementById('lmClose');
+  var decline   = document.getElementById('lmDecline');
+  var form      = document.getElementById('lmForm');
+  var emailEl   = document.getElementById('lmEmail');
+  var smsToggle = document.getElementById('lmSmsOptIn');
+  var phoneEl   = document.getElementById('lmPhone');
+  var submit    = document.getElementById('lmSubmit');
+  var status    = document.getElementById('lmStatus');
 
-  var lastFocus = null;
-  var armed     = true;
+  var sbBar     = document.getElementById('sbBar');
+  var sbCta     = document.getElementById('sbBarCta');
+  var sbClose   = document.getElementById('sbBarClose');
 
-  function open() {
-    if (!armed) return;
-    armed = false;
+  if (!overlay || !sbBar) return;
+
+  var lastFocus  = null;
+  var modalArmed = true;
+  var barShown   = false;
+
+  // -- Modal open/close --------------------------------------------------
+  function openModal() {
+    if (!modalArmed) return;
+    modalArmed = false;
+    hideBar();  // sticky bar makes way for the modal
     lastFocus = document.activeElement;
     overlay.removeAttribute('hidden');
-    // Force reflow before adding class so transition runs
-    overlay.offsetHeight;
+    overlay.offsetHeight;  // force reflow before transition
     overlay.classList.add('is-open');
     setTimeout(function () { emailEl.focus(); }, 100);
     document.body.style.overflow = 'hidden';
   }
 
-  function close() {
+  function closeModal() {
     overlay.classList.remove('is-open');
     setTimeout(function () { overlay.setAttribute('hidden', ''); }, 250);
     document.body.style.overflow = '';
-    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+    markSeen();
+    hideBar();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  closeBtn.addEventListener('click', close);
-  decline.addEventListener('click', close);
+  closeBtn.addEventListener('click', closeModal);
+  decline.addEventListener('click', closeModal);
   decline.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeModal(); }
   });
-
-  // Click outside the card closes
   overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) close();
+    if (e.target === overlay) closeModal();
   });
-
-  // Escape closes
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
   });
 
-  // -- Form submit --------------------------------------------------------
+  // -- SMS opt-in field reveal ------------------------------------------
+  smsToggle.addEventListener('change', function () {
+    phoneEl.style.display = smsToggle.checked ? 'block' : 'none';
+    if (smsToggle.checked) phoneEl.focus();
+  });
+
+  // -- Phone normalization (loose; the function does the strict pass) ---
+  function normalizePhone(raw) {
+    var digits = (raw || '').replace(/\D/g, '');
+    if (!digits) return '';
+    // Default to US country code if 10 digits given
+    if (digits.length === 10) return '+1' + digits;
+    if (digits.length === 11 && digits[0] === '1') return '+' + digits;
+    return '+' + digits;  // best effort for other lengths/countries
+  }
+
+  // -- Form submit ------------------------------------------------------
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var email = emailEl.value.trim();
@@ -1713,6 +1879,17 @@
       status.textContent = 'Please enter a valid email address.';
       return;
     }
+    var phone = '';
+    if (smsToggle.checked) {
+      phone = normalizePhone(phoneEl.value);
+      if (!phone || phone.length < 11) {
+        status.className = 'lm-status is-error';
+        status.textContent = 'Please enter a valid mobile number, or uncheck the text option.';
+        phoneEl.focus();
+        return;
+      }
+    }
+
     submit.disabled = true;
     submit.textContent = 'Sending...';
     status.className = 'lm-status';
@@ -1721,60 +1898,67 @@
     fetch('/api/lead-magnet', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, source: 'exit-intent-audit' })
+      body: JSON.stringify({
+        email: email,
+        phone: phone || undefined,
+        sms_opt_in: !!smsToggle.checked,
+        source: barShown ? 'sticky-bar-audit' : 'exit-intent-audit'
+      })
     })
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
     .then(function (res) {
       if (!res.ok) throw new Error(res.body.error || 'Something went wrong.');
       status.className = 'lm-status is-success';
       status.textContent = 'Got it! Opening your checklist now...';
-      // Mark as seen so we don't pester them again
-      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
-      // Open the PDF in a new tab so the modal stays as confirmation
+      markSeen();
       setTimeout(function () {
         window.open('/lead-magnets/ecommerce-audit-checklist.pdf', '_blank');
       }, 800);
     })
     .catch(function (err) {
       status.className = 'lm-status is-error';
-      status.textContent = err.message || 'Could not save your email — please try again.';
+      status.textContent = err.message || 'Could not save your email - please try again.';
       submit.disabled = false;
       submit.textContent = 'Send My Audit Checklist';
     });
   });
 
-  // -- Triggers ----------------------------------------------------------
-  // Desktop: mouse leaving via top edge of viewport
+  // -- Sticky bar -------------------------------------------------------
+  function showBar() {
+    if (barShown || isSuppressed()) return;
+    barShown = true;
+    sbBar.classList.add('is-shown');
+  }
+  function hideBar() {
+    sbBar.classList.remove('is-shown');
+  }
+  sbCta.addEventListener('click', function () { openModal(); });
+  sbClose.addEventListener('click', function () {
+    hideBar();
+    markSeen();
+  });
+
+  // -- Triggers ---------------------------------------------------------
   function isTouchOnly() {
     return window.matchMedia('(hover: none)').matches;
   }
 
+  // Sticky bar fires first (25s) regardless of input device
+  setTimeout(function () {
+    if (!isSuppressed() && document.visibilityState === 'visible') showBar();
+  }, STICKY_DELAY);
+
+  // Modal triggers
   if (!isTouchOnly()) {
+    // Desktop: cursor exits through the top of the viewport
     document.addEventListener('mouseleave', function (e) {
-      // Only fire when cursor exits THROUGH THE TOP of the viewport.
-      // e.relatedTarget is null when leaving the document.
-      if (e.clientY <= TOP_THRESHOLD && !e.relatedTarget) open();
+      if (e.clientY <= TOP_THRESHOLD && !e.relatedTarget) openModal();
     });
   } else {
-    // Mobile/touch: open after 45s of being on the page
+    // Mobile/touch: 45s inactivity since no mouseleave equivalent exists
     setTimeout(function () {
-      // Only if the user is still here and hasn't navigated
-      if (document.visibilityState === 'visible') open();
+      if (document.visibilityState === 'visible') openModal();
     }, MOBILE_DELAY);
-  }
-
-  // Also fire on visibility change (user switching tabs) on desktop only,
-  // since switching tabs also signals leaving intent.
-  if (!isTouchOnly()) {
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') {
-        // Re-arm once they come back, but only show if they hadn't dismissed
-        // already during this session.
-      } else if (armed && document.visibilityState === 'visible') {
-        // No-op for now; mouseleave handles desktop. visibilitychange could
-        // be used as an additional signal but is too easy to mis-trigger.
-      }
-    });
   }
 })();
 </script>
