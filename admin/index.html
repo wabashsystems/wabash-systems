@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wabash Systems — Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1A2A;
+      --navy-mid: #162236;
+      --orange:   #C4622D;
+      --cream:    #F8F6F1;
+      --gray:     #6B7280;
+      --gray-lt:  #F3F4F6;
+      --white:    #FFFFFF;
+      --green:    #16A34A;
+      --red:      #DC2626;
+      --border:   #E5E7EB;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    header {
+      background: var(--navy);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { color: var(--white); font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+    .logo span { color: var(--orange); }
+    .header-sub { color: rgba(255,255,255,0.5); font-size: 13px; }
+
+    /* ── TABS ── */
+    .tabs {
+      background: var(--navy-mid);
+      display: flex;
+      gap: 4px;
+      padding: 0 32px;
+    }
+    .tab {
+      padding: 12px 22px;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .tab:hover { color: var(--white); }
+    .tab.active { color: var(--white); border-bottom-color: var(--orange); }
+
+    /* ── MAIN ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── FORM GRID ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      align-items: end;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+    input, select, textarea {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 14px;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+    textarea { resize: vertical; min-height: 70px; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--orange); color: var(--white); }
+    .btn-navy   { background: var(--navy);   color: var(--white); }
+    .btn-ghost  { background: transparent; color: var(--gray); border: 1px solid var(--border); }
+    .btn-danger { background: var(--red); color: var(--white); }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
+    .btn-green { background: var(--green); color: var(--white); }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray);
+      background: var(--gray-lt);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-open    { background: #FEF3C7; color: #92400E; }
+    .badge-paid    { background: #DCFCE7; color: #166534; }
+    .badge-overdue { background: #FEE2E2; color: #991B1B; }
+
+    .stat-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .stat {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 22px;
+      min-width: 160px;
+    }
+    .stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 4px; }
+    .stat-value { font-size: 24px; font-weight: 700; color: var(--navy); }
+    .stat-value.orange { color: var(--orange); }
+
+    /* ── INVOICE PREVIEW ── */
+    #invoicePreview {
+      display: none;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px;
+      margin-top: 24px;
+    }
+
+    .inv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+    .inv-logo { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: 1px; }
+    .inv-logo span { color: var(--orange); }
+    .inv-meta { text-align: right; }
+    .inv-title { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .inv-number { font-size: 14px; color: var(--gray); }
+
+    .inv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .inv-party-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 6px; }
+    .inv-party-name { font-size: 16px; font-weight: 700; color: var(--navy); }
+    .inv-party-detail { font-size: 13px; color: var(--gray); line-height: 1.6; margin-top: 2px; }
+
+    .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+    .inv-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .inv-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .inv-table tr:last-child td { border-bottom: none; }
+
+    .inv-totals { display: flex; justify-content: flex-end; }
+    .inv-totals-box { width: 280px; }
+    .inv-total-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+    .inv-total-row.grand { border-top: 2px solid var(--navy); margin-top: 6px; padding-top: 10px; font-size: 17px; font-weight: 700; }
+
+    .inv-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--gray); }
+
+    .inv-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+    /* ── CLIENT MANAGER ── */
+    .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .client-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .client-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .client-detail { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    .client-actions { margin-top: 12px; display: flex; gap: 8px; }
+
+    /* ── PRINT ── */
+    @media print {
+      body * { visibility: hidden; }
+      #invoicePreview, #invoicePreview * { visibility: visible; }
+      #invoicePreview { position: absolute; top: 0; left: 0; width: 100%; border: none; box-shadow: none; padding: 32px; }
+      .inv-actions { display: none !important; }
+      header, .tabs, .main > *:not(#invoicePanelWrap) { display: none !important; }
+    }
+
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--gray); font-size: 14px; }
+    .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+
+    .row-gap { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .filter-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    select.filter { padding: 7px 10px; font-size: 13px; }
+
+    /* ── SAVE STATUS ── */
+    .save-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .save-status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .status-ok      { color: #86EFAC; }
+    .status-saving  { color: #FCD34D; }
+    .status-loading { color: #FCD34D; }
+    .status-err     { color: #FCA5A5; }
+
+    .header-right { display: flex; align-items: center; gap: 16px; }
+
+    /* Loading overlay */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 26, 42, 0.85);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      z-index: 9999;
+    }
+    .loading-overlay.hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">WABASH <span>SYSTEMS</span></div>
+  <div class="header-right">
+    <span class="header-sub">Admin — Billing & Time Tracking</span>
+    <span id="saveStatus" class="save-status status-ok">Ready</span>
+  </div>
+</header>
+
+<div id="loadingOverlay" class="loading-overlay">Loading data&hellip;</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('time')">⏱ Time Log</div>
+  <div class="tab" onclick="switchTab('invoices')">🧾 Invoices</div>
+  <div class="tab" onclick="switchTab('clients')">👤 Clients</div>
+</div>
+
+<div class="main">
+
+  <!-- ══════════ TIME LOG ══════════ -->
+  <div class="panel active" id="panel-time">
+
+    <div class="stat-row" id="timeStats"></div>
+
+    <div class="card">
+      <div class="card-title">Log Time Entry</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="te-date" />
+        </div>
+        <div class="form-group">
+          <label>Client</label>
+          <select id="te-client"><option value="">— Select Client —</option></select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" id="te-desc" placeholder="e.g. Homepage redesign, SEO audit" />
+        </div>
+        <div class="form-group">
+          <label>Hours</label>
+          <input type="number" id="te-hours" step="0.25" min="0.25" placeholder="1.5" />
+        </div>
+        <div class="form-group">
+          <label>Rate ($/hr)</label>
+          <input type="number" id="te-rate" value="175" />
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" onclick="addTimeEntry()">+ Add Entry</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>Time Entries</span>
+        <div class="filter-row" style="margin:0;">
+          <select class="filter" id="te-filter-client" onchange="renderTimeLog()">
+            <option value="">All Clients</option>
+          </select>
+          <select class="filter" id="te-filter-invoiced" onchange="renderTimeLog()">
+            <option value="">All Status</option>
+            <option value="no">Uninvoiced Only</option>
+            <option value="yes">Invoiced Only</option>
+          </select>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Client</th>
+              <th>Description</th>
+              <th>Hours</th>
+              <th>Rate</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="timeLogBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ INVOICES ══════════ -->
+  <div class="panel" id="panel-invoices" id="invoicePanelWrap">
+
+    <div class="stat-row" id="invStats"></div>
+
+    <div class="card">
+      <div class="card-title">Generate Invoice</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Client</label>
+          <select id="inv-client"><option value="">— Select Client —</option></select>
+        </div>
+        <div class="form-group">
+          <label>From Date</label>
+          <input type="date" id="inv-from" />
+        </div>
+        <div class="form-group">
+          <label>To Date</label>
+          <input type="date" id="inv-to" />
+        </div>
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="date" id="inv-due" />
+        </div>
+        <div class="form-group">
+          <label>Invoice # (auto)</label>
+          <input type="text" id="inv-number" placeholder="INV-001" />
+        </div>
+        <div class="form-group">
+          <label>Notes (optional)</label>
+          <input type="text" id="inv-notes" placeholder="Net 15, thank you for your business" />
+        </div>
+        <div class="form-group" style="align-self:end;">
+          <label>&nbsp;</label>
+          <button class="btn btn-navy" onclick="previewInvoice()">Preview Invoice</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="invoicePreview">
+      <!-- Populated dynamically -->
+    </div>
+
+    <div class="card">
+      <div class="card-title">Invoice History</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Client</th>
+              <th>Date</th>
+              <th>Due</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="invoiceHistoryBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ CLIENTS ══════════ -->
+  <div class="panel" id="panel-clients">
+    <div class="card">
+      <div class="card-title">Add Client</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Business Name</label>
+          <input type="text" id="cl-name" placeholder="The Cottage House" />
+        </div>
+        <div class="form-group">
+          <label>Contact Name</label>
+          <input type="text" id="cl-contact" placeholder="Jane Smith" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="cl-email" placeholder="jane@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="cl-phone" placeholder="618-555-0100" />
+        </div>
+        <div class="form-group">
+          <label>Default Rate ($/hr)</label>
+          <input type="number" id="cl-rate" value="175" />
+        </div>
+        <div class="form-group">
+          <label>Monthly Retainer ($)</label>
+          <input type="number" id="cl-retainer" placeholder="400" />
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>Address / Notes</label>
+          <textarea id="cl-notes" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" onclick="addClient()">+ Add Client</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-grid" id="clientGrid"></div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA LAYER — Cloudflare KV via /admin/api/data
+// ══════════════════════════════════════════════════════
+const STATE = { clients: [], entries: [], invoices: [] };
+
+let saveTimer  = null;
+let savePending = false;
+let lastSaveOk = true;
+
+async function loadData() {
+  setStatus('loading', 'Loading');
+  try {
+    const res = await fetch('/admin/api/data', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    STATE.clients  = Array.isArray(data.clients)  ? data.clients  : [];
+    STATE.entries  = Array.isArray(data.entries)  ? data.entries  : [];
+    STATE.invoices = Array.isArray(data.invoices) ? data.invoices : [];
+    setStatus('ok', 'Saved');
+    return true;
+  } catch (err) {
+    console.error('Load failed:', err);
+    setStatus('err', 'Load failed');
+    alert('Could not load data from server: ' + err.message + '\n\nThe page will still load, but changes may not save until the connection is restored.');
+    return false;
+  }
+}
+
+function persist() {
+  // Debounce — coalesce rapid mutations into a single PUT
+  savePending = true;
+  setStatus('saving', 'Saving');
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(doSave, 250);
+}
+
+async function doSave() {
+  saveTimer = null;
+  const snapshot = JSON.stringify({
+    clients: STATE.clients,
+    entries: STATE.entries,
+    invoices: STATE.invoices,
+  });
+  try {
+    const res = await fetch('/admin/api/data', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    snapshot,
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error('HTTP ' + res.status + ': ' + text);
+    }
+    lastSaveOk  = true;
+    savePending = false;
+    setStatus('ok', 'Saved');
+  } catch (err) {
+    console.error('Save failed:', err);
+    lastSaveOk = false;
+    setStatus('err', 'Save failed - retrying');
+    // Single retry after 2s; user is also warned on unload if savePending is true
+    setTimeout(() => { if (!lastSaveOk) doSave(); }, 2000);
+  }
+}
+
+function setStatus(type, msg) {
+  const el = document.getElementById('saveStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.className   = 'save-status status-' + type;
+}
+
+const getClients  = () => STATE.clients;
+const getEntries  = () => STATE.entries;
+const getInvoices = () => STATE.invoices;
+const saveClients  = (d) => { STATE.clients  = d; persist(); };
+const saveEntries  = (d) => { STATE.entries  = d; persist(); };
+const saveInvoices = (d) => { STATE.invoices = d; persist(); };
+
+// Warn if the user navigates away while a save is in flight or failed
+window.addEventListener('beforeunload', (e) => {
+  if (savePending || !lastSaveOk) {
+    e.preventDefault();
+    e.returnValue = 'A save is still in progress. Leaving now may lose changes.';
+    return e.returnValue;
+  }
+});
+
+// ══════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const ids = ['time','invoices','clients'];
+    t.classList.toggle('active', ids[i] === tab);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  if (tab === 'time') { renderTimeLog(); renderTimeStats(); }
+  if (tab === 'invoices') { renderInvoiceHistory(); renderInvStats(); }
+  if (tab === 'clients') { renderClients(); }
+}
+
+// ══════════════════════════════════════════════════════
+// CLIENTS
+// ══════════════════════════════════════════════════════
+function addClient() {
+  const name = document.getElementById('cl-name').value.trim();
+  if (!name) { alert('Business name required.'); return; }
+  const clients = getClients();
+  clients.push({
+    id: Date.now().toString(),
+    name,
+    contact: document.getElementById('cl-contact').value.trim(),
+    email:   document.getElementById('cl-email').value.trim(),
+    phone:   document.getElementById('cl-phone').value.trim(),
+    rate:    parseFloat(document.getElementById('cl-rate').value) || 175,
+    retainer: parseFloat(document.getElementById('cl-retainer').value) || 0,
+    notes:   document.getElementById('cl-notes').value.trim(),
+  });
+  saveClients(clients);
+  ['cl-name','cl-contact','cl-email','cl-phone','cl-notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('cl-retainer').value = '';
+  document.getElementById('cl-rate').value = '175';
+  renderClients();
+  populateClientDropdowns();
+}
+
+function deleteClient(id) {
+  if (!confirm('Delete this client? Their time entries will still exist but be unlinked.')) return;
+  saveClients(getClients().filter(c => c.id !== id));
+  renderClients();
+  populateClientDropdowns();
+}
+
+function renderClients() {
+  const clients = getClients();
+  const grid = document.getElementById('clientGrid');
+  if (!clients.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">👤</div>No clients yet. Add your first one above.</div>';
+    return;
+  }
+  grid.innerHTML = clients.map(c => `
+    <div class="client-card">
+      <div class="client-name">${esc(c.name)}</div>
+      <div class="client-detail">
+        ${c.contact ? `<div>${esc(c.contact)}</div>` : ''}
+        ${c.email   ? `<div>${esc(c.email)}</div>`   : ''}
+        ${c.phone   ? `<div>${esc(c.phone)}</div>`   : ''}
+        ${c.retainer ? `<div style="margin-top:4px;font-weight:600;color:var(--orange);">Retainer: $${fmt(c.retainer)}/mo</div>` : ''}
+        <div>Rate: $${fmt(c.rate)}/hr</div>
+        ${c.notes ? `<div style="margin-top:6px;font-size:12px;">${esc(c.notes)}</div>` : ''}
+      </div>
+      <div class="client-actions">
+        <button class="btn btn-ghost btn-sm" onclick="deleteClient('${c.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function populateClientDropdowns() {
+  const clients = getClients();
+  const opts = '<option value="">— Select Client —</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  ['te-client','inv-client'].forEach(id => document.getElementById(id).innerHTML = opts);
+
+  const filterOpts = '<option value="">All Clients</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  document.getElementById('te-filter-client').innerHTML = filterOpts;
+}
+
+function clientById(id) {
+  return getClients().find(c => c.id === id) || null;
+}
+
+// When client selected in time log, auto-fill rate
+document.getElementById('te-client').addEventListener('change', function() {
+  const c = clientById(this.value);
+  if (c) document.getElementById('te-rate').value = c.rate;
+});
+
+// ══════════════════════════════════════════════════════
+// TIME ENTRIES
+// ══════════════════════════════════════════════════════
+function addTimeEntry() {
+  const clientId = document.getElementById('te-client').value;
+  const date     = document.getElementById('te-date').value;
+  const desc     = document.getElementById('te-desc').value.trim();
+  const hours    = parseFloat(document.getElementById('te-hours').value);
+  const rate     = parseFloat(document.getElementById('te-rate').value);
+
+  if (!clientId || !date || !desc || !hours || !rate) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const entries = getEntries();
+  entries.push({
+    id: Date.now().toString(),
+    clientId, date, desc, hours, rate,
+    amount: +(hours * rate).toFixed(2),
+    invoiced: false,
+    invoiceId: null,
+  });
+  saveEntries(entries);
+
+  document.getElementById('te-desc').value  = '';
+  document.getElementById('te-hours').value = '';
+  renderTimeLog();
+  renderTimeStats();
+}
+
+function deleteEntry(id) {
+  const entries = getEntries();
+  const entry = entries.find(e => e.id === id);
+  if (entry && entry.invoiced) {
+    if (!confirm('This entry is already invoiced. Delete anyway?')) return;
+  }
+  saveEntries(entries.filter(e => e.id !== id));
+  renderTimeLog();
+  renderTimeStats();
+}
+
+function renderTimeLog() {
+  const filterClient   = document.getElementById('te-filter-client').value;
+  const filterInvoiced = document.getElementById('te-filter-invoiced').value;
+
+  let entries = getEntries();
+  if (filterClient)   entries = entries.filter(e => e.clientId === filterClient);
+  if (filterInvoiced === 'no')  entries = entries.filter(e => !e.invoiced);
+  if (filterInvoiced === 'yes') entries = entries.filter(e => e.invoiced);
+
+  entries = entries.sort((a,b) => b.date.localeCompare(a.date));
+
+  const tbody = document.getElementById('timeLogBody');
+  if (!entries.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><div class="icon" style="font-size:24px;">⏱</div>No entries found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = entries.map(e => {
+    const c = clientById(e.clientId);
+    return `
+      <tr>
+        <td>${fmtDate(e.date)}</td>
+        <td>${c ? esc(c.name) : '<em style="color:var(--gray)">Unknown</em>'}</td>
+        <td>${esc(e.desc)}</td>
+        <td>${e.hours}</td>
+        <td>$${fmt(e.rate)}</td>
+        <td><strong>$${fmt(e.amount)}</strong></td>
+        <td>${e.invoiced
+          ? `<span class="badge badge-paid">Invoiced</span>`
+          : `<span class="badge badge-open">Pending</span>`}
+        </td>
+        <td>
+          ${!e.invoiced ? `<button class="btn btn-danger btn-sm" onclick="deleteEntry('${e.id}')">✕</button>` : ''}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderTimeStats() {
+  const entries = getEntries();
+  const uninvoiced = entries.filter(e => !e.invoiced);
+  const totalHours  = entries.reduce((s,e) => s + e.hours, 0);
+  const pendingAmt  = uninvoiced.reduce((s,e) => s + e.amount, 0);
+  const totalAmt    = entries.reduce((s,e) => s + e.amount, 0);
+
+  document.getElementById('timeStats').innerHTML = `
+    <div class="stat"><div class="stat-label">Total Hours Logged</div><div class="stat-value">${totalHours.toFixed(1)}</div></div>
+    <div class="stat"><div class="stat-label">Uninvoiced Amount</div><div class="stat-value orange">$${fmt(pendingAmt)}</div></div>
+    <div class="stat"><div class="stat-label">Total Billed (All Time)</div><div class="stat-value">$${fmt(totalAmt)}</div></div>
+    <div class="stat"><div class="stat-label">Pending Entries</div><div class="stat-value">${uninvoiced.length}</div></div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════
+// INVOICES
+// ══════════════════════════════════════════════════════
+function nextInvoiceNumber() {
+  const invoices = getInvoices();
+  if (!invoices.length) return 'INV-001';
+  const nums = invoices.map(i => parseInt(i.number.replace(/\D/g,''))).filter(Boolean);
+  const max  = Math.max(...nums, 0);
+  return 'INV-' + String(max + 1).padStart(3, '0');
+}
+
+function previewInvoice() {
+  const clientId = document.getElementById('inv-client').value;
+  const from     = document.getElementById('inv-from').value;
+  const to       = document.getElementById('inv-to').value;
+  const due      = document.getElementById('inv-due').value;
+  const notes    = document.getElementById('inv-notes').value.trim();
+  let   invNum   = document.getElementById('inv-number').value.trim() || nextInvoiceNumber();
+
+  if (!clientId) { alert('Select a client.'); return; }
+  if (!from || !to) { alert('Select a date range.'); return; }
+  if (!due) { alert('Set a due date.'); return; }
+
+  const client = clientById(clientId);
+  if (!client) { alert('Client not found.'); return; }
+
+  // Get uninvoiced entries for this client in range
+  const entries = getEntries().filter(e =>
+    e.clientId === clientId &&
+    !e.invoiced &&
+    e.date >= from &&
+    e.date <= to
+  ).sort((a,b) => a.date.localeCompare(b.date));
+
+  if (!entries.length) {
+    alert('No uninvoiced entries found for this client in that date range.');
+    return;
+  }
+
+  const subtotal = entries.reduce((s,e) => s + e.amount, 0);
+  const today    = new Date().toISOString().split('T')[0];
+
+  // Auto-fill invoice number field
+  document.getElementById('inv-number').value = invNum;
+
+  const preview = document.getElementById('invoicePreview');
+  preview.style.display = 'block';
+  preview.innerHTML = `
+    <div class="inv-header">
+      <div>
+        <div class="inv-logo">WABASH <span>SYSTEMS</span></div>
+        <div style="font-size:13px;color:var(--gray);margin-top:4px;">
+          Robinson, Illinois<br>
+          info@wabashsystems.com<br>
+          www.wabashsystems.com
+        </div>
+      </div>
+      <div class="inv-meta">
+        <div class="inv-title">INVOICE</div>
+        <div class="inv-number">${esc(invNum)}</div>
+        <div style="margin-top:8px;font-size:13px;color:var(--gray);">
+          <div>Date: ${fmtDate(today)}</div>
+          <div>Due: ${fmtDate(due)}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-parties">
+      <div>
+        <div class="inv-party-label">From</div>
+        <div class="inv-party-name">Wabash Systems</div>
+        <div class="inv-party-detail">
+          Robinson, Illinois<br>
+          info@wabashsystems.com<br>
+          www.wabashsystems.com
+        </div>
+      </div>
+      <div>
+        <div class="inv-party-label">Bill To</div>
+        <div class="inv-party-name">${esc(client.name)}</div>
+        <div class="inv-party-detail">
+          ${client.contact ? esc(client.contact) + '<br>' : ''}
+          ${client.email   ? esc(client.email)   + '<br>' : ''}
+          ${client.phone   ? esc(client.phone)   + '<br>' : ''}
+          ${client.notes   ? esc(client.notes)           : ''}
+        </div>
+      </div>
+    </div>
+
+    <table class="inv-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th style="text-align:center;">Hours</th>
+          <th style="text-align:right;">Rate</th>
+          <th style="text-align:right;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${entries.map(e => `
+          <tr>
+            <td>${fmtDate(e.date)}</td>
+            <td>${esc(e.desc)}</td>
+            <td style="text-align:center;">${e.hours}</td>
+            <td style="text-align:right;">$${fmt(e.rate)}/hr</td>
+            <td style="text-align:right;font-weight:600;">$${fmt(e.amount)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+
+    <div class="inv-totals">
+      <div class="inv-totals-box">
+        <div class="inv-total-row">
+          <span>Subtotal</span>
+          <span>$${fmt(subtotal)}</span>
+        </div>
+        <div class="inv-total-row grand">
+          <span>Total Due</span>
+          <span style="color:var(--orange);">$${fmt(subtotal)}</span>
+        </div>
+      </div>
+    </div>
+
+    ${notes ? `<div style="margin-top:24px;font-size:13px;color:var(--gray);"><strong>Notes:</strong> ${esc(notes)}</div>` : ''}
+
+    <div class="inv-footer">
+      Thank you for your business. Payment due by ${fmtDate(due)}.<br>
+      Please make checks payable to Wabash Systems or pay via the method we discussed.
+    </div>
+
+    <div class="inv-actions">
+      <button class="btn btn-green" onclick="saveInvoice('${clientId}','${invNum}','${today}','${due}',${subtotal},[${entries.map(e=>"'"+e.id+"'").join(',')}])">
+        ✓ Save & Mark Entries Invoiced
+      </button>
+      <button class="btn btn-navy" onclick="window.print()">🖨 Print / Save PDF</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('invoicePreview').style.display='none'">Cancel</button>
+    </div>
+  `;
+
+  preview.scrollIntoView({ behavior: 'smooth' });
+}
+
+function saveInvoice(clientId, number, date, due, amount, entryIds) {
+  const invoices = getInvoices();
+  invoices.push({ id: Date.now().toString(), clientId, number, date, due, amount, status: 'open' });
+  saveInvoices(invoices);
+
+  // Mark entries as invoiced
+  const entries = getEntries().map(e =>
+    entryIds.includes(e.id) ? { ...e, invoiced: true, invoiceId: number } : e
+  );
+  saveEntries(entries);
+
+  document.getElementById('invoicePreview').style.display = 'none';
+  document.getElementById('inv-number').value = '';
+  renderInvoiceHistory();
+  renderInvStats();
+  renderTimeLog();
+  renderTimeStats();
+  alert(`Invoice ${number} saved. Entries marked as invoiced.`);
+}
+
+function markPaid(id) {
+  const invoices = getInvoices().map(i => i.id === id ? { ...i, status: 'paid' } : i);
+  saveInvoices(invoices);
+  renderInvoiceHistory();
+  renderInvStats();
+}
+
+function renderInvoiceHistory() {
+  const invoices = getInvoices().sort((a,b) => b.date.localeCompare(a.date));
+  const tbody = document.getElementById('invoiceHistoryBody');
+  if (!invoices.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No invoices yet.</td></tr>';
+    return;
+  }
+  const today = new Date().toISOString().split('T')[0];
+  tbody.innerHTML = invoices.map(inv => {
+    const c = clientById(inv.clientId);
+    const overdue = inv.status === 'open' && inv.due < today;
+    const badge = inv.status === 'paid'
+      ? '<span class="badge badge-paid">Paid</span>'
+      : overdue
+        ? '<span class="badge badge-overdue">Overdue</span>'
+        : '<span class="badge badge-open">Open</span>';
+    return `
+      <tr>
+        <td><strong>${esc(inv.number)}</strong></td>
+        <td>${c ? esc(c.name) : '—'}</td>
+        <td>${fmtDate(inv.date)}</td>
+        <td>${fmtDate(inv.due)}</td>
+        <td><strong>$${fmt(inv.amount)}</strong></td>
+        <td>${badge}</td>
+        <td>
+          ${inv.status !== 'paid'
+            ? `<button class="btn btn-green btn-sm" onclick="markPaid('${inv.id}')">Mark Paid</button>`
+            : ''}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderInvStats() {
+  const invoices = getInvoices();
+  const today = new Date().toISOString().split('T')[0];
+  const open     = invoices.filter(i => i.status === 'open' && i.due >= today);
+  const overdue  = invoices.filter(i => i.status === 'open' && i.due < today);
+  const paid     = invoices.filter(i => i.status === 'paid');
+  const openAmt  = open.reduce((s,i) => s + i.amount, 0);
+  const overdueAmt = overdue.reduce((s,i) => s + i.amount, 0);
+  const paidAmt  = paid.reduce((s,i) => s + i.amount, 0);
+
+  document.getElementById('invStats').innerHTML = `
+    <div class="stat"><div class="stat-label">Open Invoices</div><div class="stat-value orange">$${fmt(openAmt)}</div></div>
+    <div class="stat"><div class="stat-label">Overdue</div><div class="stat-value" style="color:var(--red);">$${fmt(overdueAmt)}</div></div>
+    <div class="stat"><div class="stat-label">Collected (All Time)</div><div class="stat-value" style="color:var(--green);">$${fmt(paidAmt)}</div></div>
+    <div class="stat"><div class="stat-label">Total Invoiced</div><div class="stat-value">$${fmt(openAmt + overdueAmt + paidAmt)}</div></div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════
+function fmt(n) {
+  return Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  const [y,m,day] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[parseInt(m)-1]} ${parseInt(day)}, ${y}`;
+}
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+(async function init() {
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('te-date').value = today;
+  document.getElementById('inv-to').value  = today;
+
+  // Default due date = 15 days out
+  const due = new Date(); due.setDate(due.getDate() + 15);
+  document.getElementById('inv-due').value = due.toISOString().split('T')[0];
+
+  // First of current month
+  const firstOfMonth = today.substring(0,7) + '-01';
+  document.getElementById('inv-from').value = firstOfMonth;
+
+  // Load remote state before first render
+  await loadData();
+
+  document.getElementById('inv-number').value = nextInvoiceNumber();
+
+  populateClientDropdowns();
+  renderTimeLog();
+  renderTimeStats();
+  renderClients();
+
+  // Hide loading overlay
+  document.getElementById('loadingOverlay').classList.add('hidden');
+})();
+</script>
+</body>
+</html>
