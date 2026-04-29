@@ -50,10 +50,11 @@ foreach ($file in $filesToSync) {
 # Each Sync-Dir call copies the *contents* of the src dir into the dst dir.
 # This avoids the Copy-Item -Recurse path-doubling bug where an existing dst
 # causes the source folder to nest inside itself.
-Sync-Dir -Src (Join-Path $cowork "functions")    -Dst (Join-Path $repo "functions")
-Sync-Dir -Src (Join-Path $cowork "docs")         -Dst (Join-Path $repo "docs")
-Sync-Dir -Src (Join-Path $cowork "admin")        -Dst (Join-Path $repo "admin")
-Sync-Dir -Src (Join-Path $cowork "case-studies") -Dst (Join-Path $repo "case-studies")
+Sync-Dir -Src (Join-Path $cowork "functions")     -Dst (Join-Path $repo "functions")
+Sync-Dir -Src (Join-Path $cowork "docs")          -Dst (Join-Path $repo "docs")
+Sync-Dir -Src (Join-Path $cowork "admin")         -Dst (Join-Path $repo "admin")
+Sync-Dir -Src (Join-Path $cowork "case-studies")  -Dst (Join-Path $repo "case-studies")
+Sync-Dir -Src (Join-Path $cowork "lead-magnets")  -Dst (Join-Path $repo "lead-magnets")
 
 # -- Git: pull, commit, push if anything changed -------------------------------
 Set-Location $repo
