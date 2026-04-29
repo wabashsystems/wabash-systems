@@ -8,13 +8,7 @@ export async function onRequest(context) {
   const expectedPassword = env.ADMIN_PASSWORD;
   if (!expectedPassword) {
     // Fail closed — if env var isn't set, block access entirely.
-    // Diagnostic: dump the names of bindings the function CAN see so we can
-    // tell whether ADMIN_PASSWORD is missing, misnamed, or in the wrong env.
-    const visibleKeys = Object.keys(env || {}).sort().join(', ') || '(none)';
-    return new Response(
-      'Admin not configured.\n\nVisible env bindings: ' + visibleKeys,
-      { status: 503, headers: { 'Content-Type': 'text/plain' } }
-    );
+    return new Response('Admin not configured.', { status: 503 });
   }
 
   const auth = request.headers.get('Authorization') || '';
