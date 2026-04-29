@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study: Titan Machine Service | Wabash Systems</title>
+  <meta name="description" content="How Wabash Systems built a fast, lead-generating site for Titan Machine Service — a Tulsa-based CNC service company covering five states. Built on Astro, deployed on Cloudflare Pages, optimized for emergency-response lead capture." />
+  <link rel="canonical" href="https://www.wabashsystems.com/case-studies/titan-machine-service" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/case-studies/titan-machine-service" />
+  <meta property="og:title" content="Case Study: Titan Machine Service" />
+  <meta property="og:description" content="How Wabash Systems built a fast, lead-generating site for Titan Machine Service — Tulsa-based CNC service across five states." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0d1a2a;
+      --navy-mid:    #1a2e44;
+      --orange:      #c4622d;
+      --orange-text: #b05a28;
+      --cream:       #f8f6f1;
+      --gray-light:  #f2f4f7;
+      --gray-mid:    #6b7280;
+      --white:       #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    /* ── Skip nav for accessibility ── */
+    .skip-nav {
+      position: absolute;
+      left: -100%;
+      top: 8px;
+      background: var(--orange);
+      color: var(--white);
+      padding: 12px 24px;
+      font-weight: 600;
+      z-index: 9999;
+      text-decoration: none;
+    }
+    .skip-nav:focus { left: 0; }
+
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ── Top nav ── */
+    nav.site-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--orange-text); }
+    @media (max-width: 720px) {
+      nav.site-nav { padding: 14px 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 72px 32px 88px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: var(--orange);
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .breadcrumb {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .case-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--orange);
+      background: rgba(196, 98, 45, 0.12);
+      border: 1px solid rgba(196, 98, 45, 0.4);
+      padding: 6px 14px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      max-width: 800px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.78);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+    @media (max-width: 720px) {
+      .hero { padding: 48px 20px 64px; }
+      .hero h1 { font-size: 30px; }
+      .hero-sub { font-size: 16px; }
+    }
+
+    /* ── Project meta strip ── */
+    .meta-strip {
+      background: var(--cream);
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .meta-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .meta-cell .label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gray-mid);
+      margin-bottom: 6px;
+    }
+    .meta-cell .value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .meta-cell .value a { color: var(--orange-text); text-decoration: none; }
+    .meta-cell .value a:hover { color: var(--orange); }
+    @media (max-width: 720px) {
+      .meta-strip-inner { grid-template-columns: 1fr 1fr; gap: 20px; padding: 22px 20px; }
+    }
+
+    /* ── Body ── */
+    main { padding: 72px 32px; }
+    .body-inner { max-width: 800px; margin: 0 auto; }
+
+    .section-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange-text);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--navy);
+      margin-bottom: 18px;
+    }
+
+    .body-inner > section {
+      margin-bottom: 56px;
+    }
+
+    ul.body-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 24px;
+    }
+    ul.body-list li {
+      padding: 10px 0 10px 28px;
+      position: relative;
+      color: var(--navy);
+      font-size: 16px;
+    }
+    ul.body-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 17px;
+      width: 14px;
+      height: 2px;
+      background: var(--orange);
+    }
+    ul.body-list strong { color: var(--navy); font-weight: 700; }
+
+    /* ── Stack tags ── */
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 8px;
+    }
+    .stack-tag {
+      background: var(--gray-light);
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+
+    /* ── Results card ── */
+    .results-card {
+      background: var(--cream);
+      border-left: 4px solid var(--orange);
+      padding: 28px 32px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+    .results-card h3 {
+      margin-top: 0;
+      color: var(--orange-text);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* ── CTA band ── */
+    .visit-cta {
+      background: var(--navy);
+      color: var(--white);
+      padding: 56px 32px;
+      text-align: center;
+    }
+    .visit-cta h2 {
+      color: var(--white);
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+    .visit-cta p {
+      color: rgba(255,255,255,0.78);
+      max-width: 540px;
+      margin: 0 auto 24px;
+    }
+    .btn-orange {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-orange:hover { background: #d97338; transform: translateY(-1px); }
+
+    /* ── Bottom contact band ── */
+    .your-turn {
+      background: var(--cream);
+      padding: 56px 32px;
+      text-align: center;
+    }
+    .your-turn h2 {
+      color: var(--navy);
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .your-turn p {
+      color: var(--gray-mid);
+      max-width: 540px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+    }
+    .btn-navy {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      transition: background 0.15s;
+    }
+    .btn-navy:hover { background: var(--navy-mid); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      padding: 36px 32px;
+      text-align: center;
+      font-size: 13px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="logo">WABASH <span>SYSTEMS</span></a>
+  <div class="nav-links">
+    <a href="/#about">About</a>
+    <a href="/#services">Services</a>
+    <a href="/#portfolio">Portfolio</a>
+    <a href="/#contact">Contact</a>
+    <a href="/booking" class="nav-cta">Free Consultation</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/#portfolio">Portfolio</a> &nbsp;/&nbsp; Titan Machine Service
+    </div>
+    <span class="case-tag">Client Case Study</span>
+    <h1>Building a five-state lead engine for an emergency CNC service team.</h1>
+    <p class="hero-sub">
+      Titan Machine Service runs the kind of business where every minute a customer's
+      machine is down costs them money. They needed a website that matched the urgency
+      of their work — fast, mobile-friendly, and ruthlessly focused on getting a
+      service request from a panicked shop foreman to a dispatched tech in minutes.
+    </p>
+  </div>
+</header>
+
+<section class="meta-strip" aria-label="Project metadata">
+  <div class="meta-strip-inner">
+    <div class="meta-cell">
+      <div class="label">Client</div>
+      <div class="value">Titan Machine Service</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Industry</div>
+      <div class="value">CNC &amp; Machine Tool Service</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Service Area</div>
+      <div class="value">OK, KS, AR, MO, TX</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Live Site</div>
+      <div class="value"><a href="https://titan.wabashsystems.com" target="_blank" rel="noopener">titanmachineservice.com →</a></div>
+    </div>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+  <div class="body-inner">
+
+    <section>
+      <span class="section-label">The Challenge</span>
+      <h2>A high-stakes industry with no time for a slow website.</h2>
+      <p>
+        Titan Machine Service is a Tulsa-based field service company supporting CNC
+        and manual machine tools across Oklahoma, Kansas, Arkansas, Missouri, and
+        North Texas. They've earned 80+ combined years of experience and serve more
+        than 200 shops, but their digital presence wasn't keeping pace with the
+        business.
+      </p>
+      <p>
+        The brief was tight: when a shop owner has a machine down at 6 AM, the path
+        from "found on Google" to "tech dispatched" needs to be measured in seconds,
+        not minutes. The site had to load instantly, work flawlessly on a phone in a
+        loud shop, communicate technical credibility, and capture enough information
+        on the first form submission to dispatch correctly.
+      </p>
+    </section>
+
+    <section>
+      <span class="section-label">The Approach</span>
+      <h2>Static-fast, content-rich, lead-capture optimized.</h2>
+      <p>
+        We chose Astro for the build because it produces fully static HTML at deploy
+        time — no JavaScript framework runtime, no hydration overhead, no
+        server round-trips on the critical path. Pages render in milliseconds even
+        on a metered LTE connection in a rural shop. Cloudflare Pages handles global
+        edge delivery, so a request from Wichita hits a Dallas edge node, not a
+        server in Virginia.
+      </p>
+      <p>
+        On top of that foundation, every page was built around the lead-capture
+        funnel. The hero asks one question — "Machine down?" — and gives one answer
+        — a phone number and a service request form. Every navigation path leads
+        back to a CTA. The service request form pre-segments leads by urgency
+        (Emergency / Quote / PM Program) so dispatch knows the priority before
+        opening the email.
+      </p>
+    </section>
+
+    <section>
+      <span class="section-label">What We Built</span>
+      <h2>Eighteen pages, one cohesive lead engine.</h2>
+      <ul class="body-list">
+        <li><strong>Service request form</strong> with urgency triage, anti-spam (honeypot + Cloudflare Turnstile), and structured field collection so dispatch can act on it without a phone call.</li>
+        <li><strong>Five service detail pages</strong> — Preventive Maintenance, Emergency Repair, Accuracy Testing &amp; Ballbar, Machine Relocation, Diagnostic Visit — each ranking for its own search intent.</li>
+        <li><strong>Six brand landing pages</strong> for Haas, Mazak, Okuma, Fanuc, Mori Seiki, and Doosan / DN Solutions — capturing brand-specific search traffic that converts at higher intent than generic queries.</li>
+        <li><strong>PM Cost Estimator tool</strong> — an interactive calculator that lets prospects model unplanned downtime against PM contract pricing, generating mid-funnel engagement and qualified leads.</li>
+        <li><strong>Schema.org structured data</strong> (MachineShop type, GeoCoordinates, areaServed, opening hours) so Google understands the business correctly for local pack and knowledge panel surfacing.</li>
+        <li><strong>WCAG-compliant accessibility</strong> — skip-to-main link, semantic landmarks, focus management, ARIA labels — built in from day one rather than bolted on.</li>
+        <li><strong>Click-tracking instrumentation</strong> on every CTA (data-track attributes) so future analytics work has clean event data to query.</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="section-label">The Stack</span>
+      <h2>Built to be maintainable by a small team.</h2>
+      <div class="stack-grid">
+        <span class="stack-tag">Astro 5</span>
+        <span class="stack-tag">TypeScript</span>
+        <span class="stack-tag">Tailwind CSS</span>
+        <span class="stack-tag">Cloudflare Pages</span>
+        <span class="stack-tag">Cloudflare Turnstile</span>
+        <span class="stack-tag">Schema.org JSON-LD</span>
+        <span class="stack-tag">Custom design system</span>
+      </div>
+      <p>
+        Static-site generation through Astro means the entire site can be rebuilt
+        and redeployed in under two seconds. There's no CMS, no database, no
+        authentication layer — and therefore no runtime attack surface and no
+        monthly hosting cost beyond Cloudflare's free tier. When Titan needs to add
+        a service or update a brand page, the change is a one-line content edit
+        and a single Git push.
+      </p>
+    </section>
+
+    <section>
+      <span class="section-label">Outcomes</span>
+      <h2>A digital front door that matches the standard of the work behind it.</h2>
+      <div class="results-card">
+        <h3>What's live now</h3>
+        <ul class="body-list">
+          <li><strong>Sub-second page loads</strong> across all 18 pages, on mobile and desktop, from anywhere in the continental US.</li>
+          <li><strong>Lead capture pipeline</strong> live and segmenting incoming requests by urgency for prioritized dispatch.</li>
+          <li><strong>Search-ready</strong> with structured data, canonical URLs, and per-page Open Graph tags — Google has full context for indexing.</li>
+          <li><strong>Operationally simple</strong> — no monthly hosting fees, no CMS subscription, no database to back up.</li>
+        </ul>
+      </div>
+      <p>
+        The site is positioned to grow with Titan. As the business expands its
+        service area or adds brands and capabilities, the architecture supports
+        adding pages without re-platforming, and the design system keeps every
+        new page on-brand without designer intervention.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<section class="visit-cta" aria-label="Visit live site">
+  <h2>See the work live.</h2>
+  <p>The Titan Machine Service site is in production and serving real lead traffic. Take a look.</p>
+  <a href="https://titan.wabashsystems.com" target="_blank" rel="noopener" class="btn-orange">Visit Titan Machine Service →</a>
+</section>
+
+<section class="your-turn" aria-label="Get in touch">
+  <h2>Have a project that needs this kind of attention?</h2>
+  <p>
+    If you're a small or mid-sized business that needs a site that actually moves
+    the needle — not a brochure, not a template — let's talk.
+  </p>
+  <a href="/booking" class="btn-navy">Book a Free Consultation</a>
+</section>
+
+<footer>
+  &copy; 2026 Wabash Systems LLC · Hutsonville, Illinois ·
+  <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>
+</footer>
+
+</body>
+</html>
