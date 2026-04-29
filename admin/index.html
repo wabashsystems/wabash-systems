@@ -463,34 +463,28 @@
     .client-detail { font-size: 13px; color: var(--gray); line-height: 1.6; }
     .client-actions { margin-top: 12px; display: flex; gap: 8px; }
 
-    /* ── PRINT ── */
+    /* ══════════════════════════════════════════════════════════════════════
+       PRINT — handled by opening the invoice in a dedicated print window
+       (see printInvoice() in the script block). The rules below are only
+       a fallback in case someone hits Ctrl+P from the admin tab itself.
+       ══════════════════════════════════════════════════════════════════════ */
     @media print {
-      @page {
-        size: letter;
-        margin: 0.4in;
+      @page { size: letter; margin: 0.4in; }
+      body  { background: var(--white); }
+      header, .tabs, #panel-time, #panel-clients, #invStats, #loadingOverlay,
+      .card:not(#invoicePreview), .inv-actions {
+        display: none !important;
       }
-      body { background: var(--white); }
-      body * { visibility: hidden; }
-      #invoicePreview, #invoicePreview * { visibility: visible; }
       #invoicePreview {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
+        display: block !important;
+        position: static;
         max-width: none;
+        margin: 0;
         border: none;
         box-shadow: none;
-        margin: 0;
         border-radius: 0;
       }
-      .inv-actions { display: none !important; }
-      header, .tabs, .main > *:not(#invoicePanelWrap) { display: none !important; }
-      /* Reveal the URL text under the Pay button so it's actionable on a printed PDF */
       .inv-pay-url { display: block !important; }
-      /* Slightly tighter padding for print */
-      .inv-banner  { padding: 24px 40px 22px; }
-      .inv-body    { padding: 24px 40px; }
-      .inv-meta-cell { padding: 14px 20px; }
-      /* Avoid splitting key elements across pages */
       .inv-pay-cta, .inv-totals, .inv-table { page-break-inside: avoid; }
     }
 
@@ -1193,7 +1187,7 @@ function previewInvoice() {
     <!-- Action buttons (screen only — hidden in print via @media print) -->
     <div class="inv-actions">
       <button class="btn btn-green" id="invSaveBtn">✓ Save &amp; Mark Entries Invoiced</button>
-      <button class="btn btn-navy"  onclick="window.print()">🖨 Print / Save PDF</button>
+      <button class="btn btn-navy"  onclick="printInvoice()">🖨 Print / Save PDF</button>
       <button class="btn btn-ghost" onclick="document.getElementById('invoicePreview').style.display='none'">Cancel</button>
     </div>
   `;
@@ -1235,6 +1229,83 @@ function saveInvoice(clientId, number, date, due, amount, entryIds, payLink) {
   renderTimeLog();
   renderTimeStats();
   alert(`Invoice ${number} saved. Entries marked as invoiced.`);
+}
+
+// Open the rendered invoice in a dedicated print window.
+//
+// Why a popup instead of plain window.print() with @media print rules:
+// the visibility-hidden / display-none trick is fragile — it's easy for
+// a parent container with display:none to suppress the descendant invoice,
+// which produced blank PDFs in earlier versions of this tool. Rendering
+// the invoice in its own document with no app chrome to hide is reliable
+// across Chrome, Edge, Firefox, and Safari.
+//
+// Color printing note: print-color-adjust:exact is set so background fills
+// (navy banner, orange totals row, etc.) print without the user needing
+// to toggle "Background graphics" in the dialog.
+function printInvoice() {
+  const preview = document.getElementById('invoicePreview');
+  if (!preview || preview.style.display === 'none' || !preview.innerHTML.trim()) {
+    alert('Generate an invoice preview first, then click Print.');
+    return;
+  }
+
+  // Clone the rendered invoice and strip the in-app action buttons —
+  // those don't belong on the PDF.
+  const clone = preview.cloneNode(true);
+  const actions = clone.querySelector('.inv-actions');
+  if (actions) actions.remove();
+
+  // Carry forward every <style> block from the host page so the popup
+  // inherits the exact same brand colors, typography, and layout.
+  const styleHTML = Array.from(document.querySelectorAll('style'))
+    .map(s => `<style>${s.textContent}</style>`)
+    .join('');
+
+  const html = '<!DOCTYPE html>\n<html lang="en">\n<head>\n' +
+    '<meta charset="UTF-8">\n' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '<title>Wabash Systems Invoice</title>\n' +
+    styleHTML +
+    '<style>\n' +
+    '  body { background: #F8F6F1; margin: 0; padding: 24px 0;\n' +
+    '         -webkit-print-color-adjust: exact; print-color-adjust: exact; }\n' +
+    '  /* Override the host app rule that keeps #invoicePreview hidden by default. */\n' +
+    '  #invoicePreview { display: block !important; margin: 0 auto; }\n' +
+    '  @media print {\n' +
+    '    @page { size: letter; margin: 0.4in; }\n' +
+    '    body  { background: #FFFFFF; padding: 0; }\n' +
+    '    #invoicePreview { margin: 0; box-shadow: none; border: none; border-radius: 0; }\n' +
+    '    .inv-pay-url { display: block !important; }\n' +
+    '    .inv-pay-cta, .inv-totals, .inv-table { page-break-inside: avoid; }\n' +
+    '  }\n' +
+    '</style>\n' +
+    '</head>\n<body>\n' +
+    clone.outerHTML +
+    '\n</body>\n</html>';
+
+  const w = window.open('', 'wabash-invoice-print', 'width=900,height=1100');
+  if (!w) {
+    alert(
+      'Pop-up blocker prevented the print window from opening.\n\n' +
+      'Allow pop-ups for this site (click the blocked-popup icon in the\n' +
+      'address bar) and try the Print button again.'
+    );
+    return;
+  }
+
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+
+  // Auto-close the popup once the print dialog dismisses (Save as PDF or
+  // physical print or cancel — afterprint fires on all paths).
+  w.addEventListener('afterprint', () => setTimeout(() => w.close(), 200));
+
+  // Small delay before triggering print so fonts/layout fully settle —
+  // calling w.print() too early can yield a half-rendered preview in
+  // the dialog on some browsers.
+  setTimeout(() => { w.focus(); w.print(); }, 350);
 }
 
 function markPaid(id) {
