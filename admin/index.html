@@ -176,50 +176,280 @@
     .stat-value { font-size: 24px; font-weight: 700; color: var(--navy); }
     .stat-value.orange { color: var(--orange); }
 
-    /* ── INVOICE PREVIEW ── */
+    /* ══════════════════════════════════════════════════════════════════════
+       INVOICE PREVIEW — stylized for both screen and print-to-PDF.
+       Designed at letter width (8.5in @ 96dpi = 816px) so the digital
+       preview is true-to-print. Print CSS at the bottom of the file
+       removes chrome and lets the page take the full sheet.
+       ══════════════════════════════════════════════════════════════════════ */
     #invoicePreview {
       display: none;
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 48px;
       margin-top: 24px;
+      max-width: 816px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13, 26, 42, 0.08);
+      /* Forces background colors to print on all major browsers */
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
-    .inv-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
-    .inv-logo { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: 1px; }
+    /* ── Banner: navy hero with orange accent stripe ─────────────────────── */
+    .inv-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 36px 56px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      border-bottom: 6px solid var(--orange);
+    }
+    .inv-banner::after {
+      /* Diagonal accent at the right edge for visual interest */
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 140px; height: 6px;
+      background: var(--cream);
+      transform: skewX(-30deg);
+      transform-origin: bottom right;
+    }
+    .inv-logo-block { line-height: 1.1; }
+    .inv-logo {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--white);
+    }
     .inv-logo span { color: var(--orange); }
-    .inv-meta { text-align: right; }
-    .inv-title { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
-    .inv-number { font-size: 14px; color: var(--gray); }
+    .inv-tagline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-top: 6px;
+    }
+    .inv-id-block {
+      text-align: right;
+      line-height: 1;
+    }
+    .inv-title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: var(--white);
+    }
+    .inv-number {
+      margin-top: 8px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--orange);
+      font-weight: 600;
+    }
 
-    .inv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-    .inv-party-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 6px; }
-    .inv-party-name { font-size: 16px; font-weight: 700; color: var(--navy); }
-    .inv-party-detail { font-size: 13px; color: var(--gray); line-height: 1.6; margin-top: 2px; }
+    /* ── Meta strip: issued, due, amount ──────────────────────────────────── */
+    .inv-meta-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .inv-meta-cell {
+      padding: 18px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .inv-meta-cell:last-child { border-right: none; }
+    .inv-meta-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .inv-meta-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .inv-meta-cell.amount-due {
+      background: var(--white);
+    }
+    .inv-meta-cell.amount-due .inv-meta-value {
+      font-size: 22px;
+      color: var(--orange);
+    }
 
-    .inv-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+    /* ── Body padding for everything below the meta strip ─────────────────── */
+    .inv-body { padding: 36px 56px; }
+
+    /* ── Parties (From / Bill To) ─────────────────────────────────────────── */
+    .inv-parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 36px;
+    }
+    .inv-party-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--orange);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--orange);
+    }
+    .inv-party-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .inv-party-detail {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── Line item table ──────────────────────────────────────────────────── */
+    .inv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 28px;
+    }
     .inv-table th {
       background: var(--navy);
       color: var(--white);
-      padding: 10px 14px;
+      padding: 12px 16px;
       text-align: left;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .inv-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .inv-table tr:nth-child(even) td { background: rgba(248, 246, 241, 0.4); }
+    .inv-table tr:last-child td { border-bottom: 2px solid var(--navy); }
+
+    /* ── Totals box ───────────────────────────────────────────────────────── */
+    .inv-totals { display: flex; justify-content: flex-end; margin-bottom: 28px; }
+    .inv-totals-box { width: 320px; }
+    .inv-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--navy);
+    }
+    .inv-total-row.grand {
+      background: var(--navy);
+      color: var(--white);
+      margin-top: 10px;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 6px;
       letter-spacing: 0.5px;
     }
-    .inv-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .inv-table tr:last-child td { border-bottom: none; }
+    .inv-total-row.grand .inv-amount { color: var(--orange); }
 
-    .inv-totals { display: flex; justify-content: flex-end; }
-    .inv-totals-box { width: 280px; }
-    .inv-total-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
-    .inv-total-row.grand { border-top: 2px solid var(--navy); margin-top: 6px; padding-top: 10px; font-size: 17px; font-weight: 700; }
+    /* ── Payment CTA (the "Pay $X" button) ────────────────────────────────── */
+    .inv-pay-cta {
+      background: linear-gradient(135deg, var(--cream) 0%, #fff 100%);
+      border: 2px solid var(--orange);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .inv-pay-headline {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .inv-pay-subline {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    .inv-pay-button {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(196, 98, 45, 0.35);
+      transition: transform 0.1s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .inv-pay-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(196, 98, 45, 0.45);
+    }
+    .inv-pay-url {
+      display: none;  /* hidden on screen, revealed in print so URL is visible on PDF */
+      font-size: 11px;
+      color: var(--gray);
+      word-break: break-all;
+      margin-top: 8px;
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    }
 
-    .inv-footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--gray); }
+    /* ── Notes + footer ───────────────────────────────────────────────────── */
+    .inv-notes {
+      background: var(--gray-lt);
+      border-left: 3px solid var(--orange);
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--navy);
+      line-height: 1.6;
+    }
+    .inv-notes strong { color: var(--navy); }
 
-    .inv-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .inv-footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--gray);
+      line-height: 1.7;
+      text-align: center;
+    }
+    .inv-footer strong { color: var(--navy); }
+
+    /* ── Action buttons (only on screen, hidden in print) ─────────────────── */
+    .inv-actions {
+      display: flex;
+      gap: 10px;
+      padding: 20px 56px 28px;
+      border-top: 1px solid var(--border);
+      background: var(--gray-lt);
+      flex-wrap: wrap;
+    }
 
     /* ── CLIENT MANAGER ── */
     .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
@@ -235,11 +465,33 @@
 
     /* ── PRINT ── */
     @media print {
+      @page {
+        size: letter;
+        margin: 0.4in;
+      }
+      body { background: var(--white); }
       body * { visibility: hidden; }
       #invoicePreview, #invoicePreview * { visibility: visible; }
-      #invoicePreview { position: absolute; top: 0; left: 0; width: 100%; border: none; box-shadow: none; padding: 32px; }
+      #invoicePreview {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        max-width: none;
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
+      }
       .inv-actions { display: none !important; }
       header, .tabs, .main > *:not(#invoicePanelWrap) { display: none !important; }
+      /* Reveal the URL text under the Pay button so it's actionable on a printed PDF */
+      .inv-pay-url { display: block !important; }
+      /* Slightly tighter padding for print */
+      .inv-banner  { padding: 24px 40px 22px; }
+      .inv-body    { padding: 24px 40px; }
+      .inv-meta-cell { padding: 14px 20px; }
+      /* Avoid splitting key elements across pages */
+      .inv-pay-cta, .inv-totals, .inv-table { page-break-inside: avoid; }
     }
 
     .empty-state { text-align: center; padding: 48px 20px; color: var(--gray); font-size: 14px; }
@@ -406,7 +658,11 @@
           <label>Invoice # (auto)</label>
           <input type="text" id="inv-number" placeholder="INV-001" />
         </div>
-        <div class="form-group">
+        <div class="form-group" style="grid-column: span 2;">
+          <label>Payment Link (optional)</label>
+          <input type="url" id="inv-pay-link" placeholder="https://buy.stripe.com/... or PayPal/Square link" />
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
           <label>Notes (optional)</label>
           <input type="text" id="inv-notes" placeholder="Net 15, thank you for your business" />
         </div>
@@ -780,16 +1036,21 @@ function previewInvoice() {
   const to       = document.getElementById('inv-to').value;
   const due      = document.getElementById('inv-due').value;
   const notes    = document.getElementById('inv-notes').value.trim();
+  const payLink  = document.getElementById('inv-pay-link').value.trim();
   let   invNum   = document.getElementById('inv-number').value.trim() || nextInvoiceNumber();
 
-  if (!clientId) { alert('Select a client.'); return; }
-  if (!from || !to) { alert('Select a date range.'); return; }
-  if (!due) { alert('Set a due date.'); return; }
+  if (!clientId)    { alert('Select a client.');                return; }
+  if (!from || !to) { alert('Select a date range.');            return; }
+  if (!due)         { alert('Set a due date.');                 return; }
+
+  // Light URL sanity check — don't block the user, just warn them.
+  if (payLink && !/^https?:\/\//i.test(payLink)) {
+    if (!confirm('Payment link doesn\'t start with http(s)://. Continue anyway?')) return;
+  }
 
   const client = clientById(clientId);
   if (!client) { alert('Client not found.'); return; }
 
-  // Get uninvoiced entries for this client in range
   const entries = getEntries().filter(e =>
     e.clientId === clientId &&
     !e.invoiced &&
@@ -805,111 +1066,159 @@ function previewInvoice() {
   const subtotal = entries.reduce((s,e) => s + e.amount, 0);
   const today    = new Date().toISOString().split('T')[0];
 
-  // Auto-fill invoice number field
   document.getElementById('inv-number').value = invNum;
 
   const preview = document.getElementById('invoicePreview');
   preview.style.display = 'block';
   preview.innerHTML = `
-    <div class="inv-header">
-      <div>
+    <!-- ── Hero banner ── -->
+    <div class="inv-banner">
+      <div class="inv-logo-block">
         <div class="inv-logo">WABASH <span>SYSTEMS</span></div>
-        <div style="font-size:13px;color:var(--gray);margin-top:4px;">
-          Robinson, Illinois<br>
-          info@wabashsystems.com<br>
-          www.wabashsystems.com
-        </div>
+        <div class="inv-tagline">E-Commerce Consulting · Wabash Valley</div>
       </div>
-      <div class="inv-meta">
+      <div class="inv-id-block">
         <div class="inv-title">INVOICE</div>
         <div class="inv-number">${esc(invNum)}</div>
-        <div style="margin-top:8px;font-size:13px;color:var(--gray);">
-          <div>Date: ${fmtDate(today)}</div>
-          <div>Due: ${fmtDate(due)}</div>
-        </div>
       </div>
     </div>
 
-    <div class="inv-parties">
-      <div>
-        <div class="inv-party-label">From</div>
-        <div class="inv-party-name">Wabash Systems</div>
-        <div class="inv-party-detail">
-          Robinson, Illinois<br>
-          info@wabashsystems.com<br>
-          www.wabashsystems.com
-        </div>
+    <!-- ── Meta strip ── -->
+    <div class="inv-meta-strip">
+      <div class="inv-meta-cell">
+        <div class="inv-meta-label">Issued</div>
+        <div class="inv-meta-value">${fmtDate(today)}</div>
       </div>
-      <div>
-        <div class="inv-party-label">Bill To</div>
-        <div class="inv-party-name">${esc(client.name)}</div>
-        <div class="inv-party-detail">
-          ${client.contact ? esc(client.contact) + '<br>' : ''}
-          ${client.email   ? esc(client.email)   + '<br>' : ''}
-          ${client.phone   ? esc(client.phone)   + '<br>' : ''}
-          ${client.notes   ? esc(client.notes)           : ''}
-        </div>
+      <div class="inv-meta-cell">
+        <div class="inv-meta-label">Due By</div>
+        <div class="inv-meta-value">${fmtDate(due)}</div>
+      </div>
+      <div class="inv-meta-cell amount-due">
+        <div class="inv-meta-label">Amount Due</div>
+        <div class="inv-meta-value">$${fmt(subtotal)}</div>
       </div>
     </div>
 
-    <table class="inv-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th style="text-align:center;">Hours</th>
-          <th style="text-align:right;">Rate</th>
-          <th style="text-align:right;">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${entries.map(e => `
+    <!-- ── Body ── -->
+    <div class="inv-body">
+
+      <!-- Parties -->
+      <div class="inv-parties">
+        <div>
+          <div class="inv-party-label">From</div>
+          <div class="inv-party-name">Wabash Systems</div>
+          <div class="inv-party-detail">
+            Robinson, Illinois<br>
+            agray@wabashsystems.com<br>
+            www.wabashsystems.com
+          </div>
+        </div>
+        <div>
+          <div class="inv-party-label">Bill To</div>
+          <div class="inv-party-name">${esc(client.name)}</div>
+          <div class="inv-party-detail">
+            ${client.contact ? esc(client.contact) + '<br>' : ''}
+            ${client.email   ? esc(client.email)   + '<br>' : ''}
+            ${client.phone   ? esc(client.phone)   + '<br>' : ''}
+            ${client.notes   ? esc(client.notes)           : ''}
+          </div>
+        </div>
+      </div>
+
+      <!-- Line items -->
+      <table class="inv-table">
+        <thead>
           <tr>
-            <td>${fmtDate(e.date)}</td>
-            <td>${esc(e.desc)}</td>
-            <td style="text-align:center;">${e.hours}</td>
-            <td style="text-align:right;">$${fmt(e.rate)}/hr</td>
-            <td style="text-align:right;font-weight:600;">$${fmt(e.amount)}</td>
+            <th>Date</th>
+            <th>Description</th>
+            <th style="text-align:center;">Hours</th>
+            <th style="text-align:right;">Rate</th>
+            <th style="text-align:right;">Amount</th>
           </tr>
-        `).join('')}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          ${entries.map(e => `
+            <tr>
+              <td>${fmtDate(e.date)}</td>
+              <td>${esc(e.desc)}</td>
+              <td style="text-align:center;">${e.hours}</td>
+              <td style="text-align:right;">$${fmt(e.rate)}/hr</td>
+              <td style="text-align:right;font-weight:600;">$${fmt(e.amount)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
 
-    <div class="inv-totals">
-      <div class="inv-totals-box">
-        <div class="inv-total-row">
-          <span>Subtotal</span>
-          <span>$${fmt(subtotal)}</span>
+      <!-- Totals -->
+      <div class="inv-totals">
+        <div class="inv-totals-box">
+          <div class="inv-total-row">
+            <span>Subtotal</span>
+            <span>$${fmt(subtotal)}</span>
+          </div>
+          <div class="inv-total-row grand">
+            <span>Total Due</span>
+            <span class="inv-amount">$${fmt(subtotal)}</span>
+          </div>
         </div>
-        <div class="inv-total-row grand">
-          <span>Total Due</span>
-          <span style="color:var(--orange);">$${fmt(subtotal)}</span>
+      </div>
+
+      <!-- Payment CTA (only when a link was provided) -->
+      ${payLink ? `
+        <div class="inv-pay-cta">
+          <div style="flex:1;min-width:220px;">
+            <div class="inv-pay-headline">Pay Online — Fastest</div>
+            <div class="inv-pay-subline">
+              Click the button to settle this invoice securely. Receipt is sent automatically once payment clears.
+            </div>
+            <div class="inv-pay-url">${esc(payLink)}</div>
+          </div>
+          <a href="${esc(payLink)}" target="_blank" rel="noopener" class="inv-pay-button">
+            Pay $${fmt(subtotal)} &rarr;
+          </a>
         </div>
+      ` : ''}
+
+      <!-- Notes -->
+      ${notes ? `<div class="inv-notes"><strong>Notes:</strong> ${esc(notes)}</div>` : ''}
+
+      <!-- Footer -->
+      <div class="inv-footer">
+        <strong>Thank you for your business.</strong><br>
+        Payment due by ${fmtDate(due)}. Checks payable to Wabash Systems.<br>
+        Questions? Reach Andy at agray@wabashsystems.com.
       </div>
     </div>
 
-    ${notes ? `<div style="margin-top:24px;font-size:13px;color:var(--gray);"><strong>Notes:</strong> ${esc(notes)}</div>` : ''}
-
-    <div class="inv-footer">
-      Thank you for your business. Payment due by ${fmtDate(due)}.<br>
-      Please make checks payable to Wabash Systems or pay via the method we discussed.
-    </div>
-
+    <!-- Action buttons (screen only — hidden in print via @media print) -->
     <div class="inv-actions">
-      <button class="btn btn-green" onclick="saveInvoice('${clientId}','${invNum}','${today}','${due}',${subtotal},[${entries.map(e=>"'"+e.id+"'").join(',')}])">
-        ✓ Save & Mark Entries Invoiced
-      </button>
-      <button class="btn btn-navy" onclick="window.print()">🖨 Print / Save PDF</button>
+      <button class="btn btn-green" id="invSaveBtn">✓ Save &amp; Mark Entries Invoiced</button>
+      <button class="btn btn-navy"  onclick="window.print()">🖨 Print / Save PDF</button>
       <button class="btn btn-ghost" onclick="document.getElementById('invoicePreview').style.display='none'">Cancel</button>
     </div>
   `;
 
+  // Wire the Save button programmatically so we don't have to escape the
+  // payment link or entry IDs into an inline onclick attribute (URLs
+  // containing quotes or apostrophes would break HTML attribute parsing).
+  document.getElementById('invSaveBtn').addEventListener('click', () => {
+    saveInvoice(
+      clientId, invNum, today, due, subtotal,
+      entries.map(e => e.id), payLink
+    );
+  });
+
   preview.scrollIntoView({ behavior: 'smooth' });
 }
 
-function saveInvoice(clientId, number, date, due, amount, entryIds) {
+function saveInvoice(clientId, number, date, due, amount, entryIds, payLink) {
   const invoices = getInvoices();
-  invoices.push({ id: Date.now().toString(), clientId, number, date, due, amount, status: 'open' });
+  invoices.push({
+    id:       Date.now().toString(),
+    clientId, number, date, due, amount,
+    payLink:  payLink || '',
+    status:   'open',
+  });
   saveInvoices(invoices);
 
   // Mark entries as invoiced
@@ -919,7 +1228,8 @@ function saveInvoice(clientId, number, date, due, amount, entryIds) {
   saveEntries(entries);
 
   document.getElementById('invoicePreview').style.display = 'none';
-  document.getElementById('inv-number').value = '';
+  document.getElementById('inv-number').value   = '';
+  document.getElementById('inv-pay-link').value = '';
   renderInvoiceHistory();
   renderInvStats();
   renderTimeLog();
