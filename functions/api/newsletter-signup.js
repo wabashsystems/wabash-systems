@@ -3,11 +3,15 @@
 // POST /api/newsletter-signup
 // Captures email from the footer newsletter form on every public page.
 //
-// Two-step Klaviyo flow (this is what Klaviyo's docs actually recommend
-// in their 2025+ revision; the bulk-subscribe endpoint does NOT accept
-// custom properties on the profile, only email/phone/subscriptions):
-//   1. POST /profiles/  - create or update the profile with custom properties
-//   2. POST /profile-subscription-bulk-create-jobs/  - subscribe to the list
+// Two-step Klaviyo flow using SYNCHRONOUS endpoints (the async bulk-subscribe
+// endpoint silently dropped jobs in earlier iterations):
+//   1. POST /profiles/ - create the profile with email, custom properties,
+//      and subscription consent. Returns 201 with profile id, OR 409 if
+//      the profile already exists (in which case Klaviyo returns the
+//      existing profile id in error.meta.duplicate_profile_id).
+//   2. POST /lists/{list_id}/relationships/profiles/ - add the profile id
+//      to the list. Synchronous, returns 204 No Content on success and
+//      a hard 4xx if anything is wrong (no silent failures).
 //
 // Bindings expected:
 //   KLAVIYO_PRIVATE_KEY  (Secret)
@@ -28,23 +32,30 @@ const json = (body, status = 200) =>
 const isValidEmail = (e) =>
   typeof e === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
-async function klaviyoFetch(apiKey, path, payload) {
-  const res = await fetch(`${KLAVIYO_API}${path}`, {
-    method: 'POST',
+async function klaviyoFetch(apiKey, path, payload, method = 'POST') {
+  const opts = {
+    method,
     headers: {
       'Authorization': `Klaviyo-API-Key ${apiKey}`,
       'Content-Type': 'application/json',
       'Accept':       'application/json',
       'revision':     KLAVIYO_REVISION,
     },
-    body: JSON.stringify(payload),
-  });
-  // 200, 201, 202 are all success for these endpoints
-  if (res.status >= 200 && res.status < 300) {
-    return { ok: true, status: res.status };
-  }
+  };
+  if (payload !== undefined) opts.body = JSON.stringify(payload);
+
+  const res = await fetch(`${KLAVIYO_API}${path}`, opts);
   const text = await res.text();
-  return { ok: false, status: res.status, detail: text };
+  let body = null;
+  if (text) {
+    try { body = JSON.parse(text); } catch { /* leave body null on non-JSON */ }
+  }
+  return {
+    ok:      res.status >= 200 && res.status < 300,
+    status:  res.status,
+    body,
+    rawText: text,
+  };
 }
 
 export async function onRequestPost(context) {
@@ -71,10 +82,7 @@ export async function onRequestPost(context) {
     return json({ error: 'Please enter a valid email address.' }, 400);
   }
 
-  // ── Step 1: upsert profile with custom properties ─────────────────────
-  // Klaviyo's create-profile endpoint returns 409 if a profile with this
-  // email already exists - that's not actually an error for us, we just
-  // proceed to subscribe them. Treat 409 as success.
+  // ── Step 1: create profile (or grab existing one's id from 409 response) ─
   const profilePayload = {
     data: {
       type: 'profile',
@@ -84,51 +92,55 @@ export async function onRequestPost(context) {
           lead_source: source,
           signup_url:  new URL(request.url).origin,
         },
+        subscriptions: {
+          email: { marketing: { consent: 'SUBSCRIBED' } },
+        },
       },
     },
   };
-  const profileRes = await klaviyoFetch(apiKey, '/profiles/', profilePayload);
-  if (!profileRes.ok && profileRes.status !== 409) {
-    console.error('newsletter-signup: profile create failed', profileRes.status, profileRes.detail);
+
+  let profileId = null;
+  const createRes = await klaviyoFetch(apiKey, '/profiles/', profilePayload);
+
+  if (createRes.ok) {
+    profileId = createRes.body && createRes.body.data && createRes.body.data.id;
+  } else if (createRes.status === 409) {
+    // Duplicate - existing profile id is in the error metadata
+    const err = createRes.body && createRes.body.errors && createRes.body.errors[0];
+    profileId = err && err.meta && err.meta.duplicate_profile_id;
+  } else {
+    console.error('newsletter-signup: profile create failed', createRes.status, createRes.rawText);
     return json({
-      error:   'Could not save your email.',
-      // Surface the Klaviyo error to make debugging visible from the browser.
-      // Safe to return because the API key never appears in the response.
-      detail:  profileRes.detail,
-      step:    'profile-create',
+      error:  'Could not save your email.',
+      detail: createRes.rawText,
+      step:   'profile-create',
     }, 502);
   }
 
-  // ── Step 2: subscribe profile to the email list ────────────────────────
-  const subscribePayload = {
-    data: {
-      type: 'profile-subscription-bulk-create-job',
-      attributes: {
-        custom_source: 'wabashsystems-newsletter',
-        profiles: {
-          data: [{
-            type: 'profile',
-            attributes: {
-              email,
-              subscriptions: {
-                email: { marketing: { consent: 'SUBSCRIBED' } },
-              },
-            },
-          }],
-        },
-      },
-      relationships: {
-        list: { data: { type: 'list', id: listId } },
-      },
-    },
-  };
-  const subRes = await klaviyoFetch(apiKey, '/profile-subscription-bulk-create-jobs/', subscribePayload);
-  if (!subRes.ok) {
-    console.error('newsletter-signup: subscribe failed', subRes.status, subRes.detail);
+  if (!profileId) {
+    console.error('newsletter-signup: profile id missing from response', createRes.status, createRes.rawText);
     return json({
       error:  'Could not save your email.',
-      detail: subRes.detail,
-      step:   'subscribe',
+      detail: 'Profile created but ID not returned by Klaviyo.',
+      step:   'profile-id',
+      response: createRes.body,
+    }, 502);
+  }
+
+  // ── Step 2: add profile to list synchronously ────────────────────────────
+  const addRes = await klaviyoFetch(
+    apiKey,
+    `/lists/${listId}/relationships/profiles/`,
+    { data: [{ type: 'profile', id: profileId }] }
+  );
+
+  if (!addRes.ok) {
+    console.error('newsletter-signup: add to list failed', addRes.status, addRes.rawText);
+    return json({
+      error:      'Profile saved but could not add to list.',
+      detail:     addRes.rawText,
+      step:       'list-add',
+      profile_id: profileId,
     }, 502);
   }
 
