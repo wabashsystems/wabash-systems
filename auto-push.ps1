@@ -28,6 +28,55 @@ function Sync-Dir {
     Get-ChildItem -Path $Src -Force | Copy-Item -Destination $Dst -Recurse -Force
 }
 
+# Sync a single file between $Src (cowork) and $Dst (repo) using newer-wins
+# semantics. Why this exists: a plain "Copy-Item $Src $Dst -Force" overwrites
+# $Dst even when $Dst is newer - which silently regresses any edits made
+# directly to the repo (e.g. a quick fix committed via git, or my edits
+# pulled in from another machine via "git pull --rebase --autostash" earlier
+# in this script). Newer-wins preserves whichever side was edited most
+# recently. Tolerance of 1s handles NTFS/git timestamp precision drift.
+#
+# Bonus behavior: if $Src doesn't exist but $Dst does, scaffold $Src from
+# $Dst. This auto-seeds the cowork side when a new file is added to
+# $filesToSync (without that, you'd have to manually create the cowork copy
+# before the first run, which is exactly the regression we're trying to
+# avoid).
+function Sync-File {
+    param([string]$Src, [string]$Dst)
+
+    $srcExists = Test-Path $Src
+    $dstExists = Test-Path $Dst
+
+    if (-not $srcExists -and -not $dstExists) { return }
+
+    # Scaffold cowork from repo if cowork is missing the file entirely.
+    # Lets us add to $filesToSync without manually pre-seeding cowork.
+    if (-not $srcExists -and $dstExists) {
+        $srcDir = Split-Path $Src -Parent
+        if (-not (Test-Path $srcDir)) {
+            New-Item -ItemType Directory -Path $srcDir -Force | Out-Null
+        }
+        Copy-Item $Dst $Src -Force
+        Write-Host "  scaffolded cowork: $(Split-Path $Src -Leaf)" -ForegroundColor Cyan
+        return
+    }
+
+    # First-time copy when repo doesn't have the file yet.
+    if ($srcExists -and -not $dstExists) {
+        Copy-Item $Src $Dst -Force
+        return
+    }
+
+    # Both sides exist — newer wins. Only overwrite $Dst if $Src is strictly
+    # newer (mtime > by at least 1 second). Otherwise leave $Dst alone so
+    # direct-to-repo edits or git-pulled changes don't get clobbered.
+    $srcMtime = (Get-Item $Src).LastWriteTimeUtc
+    $dstMtime = (Get-Item $Dst).LastWriteTimeUtc
+    if ($srcMtime -gt $dstMtime.AddSeconds(1)) {
+        Copy-Item $Src $Dst -Force
+    }
+}
+
 # -- Sync top-level web files from Cowork workspace to git repo ----------------
 $filesToSync = @(
     "index.html",
@@ -44,11 +93,7 @@ $filesToSync = @(
 )
 
 foreach ($file in $filesToSync) {
-    $src = Join-Path $cowork $file
-    $dst = Join-Path $repo $file
-    if (Test-Path $src) {
-        Copy-Item $src $dst -Force
-    }
+    Sync-File -Src (Join-Path $cowork $file) -Dst (Join-Path $repo $file)
 }
 
 # -- Sync directories (mirror contents, NOT the parent folder) -----------------
