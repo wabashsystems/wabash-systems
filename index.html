@@ -1552,6 +1552,80 @@
 
 </main>
 
+<!-- ── NEWSLETTER ── -->
+<style>
+  .nl-band { background: var(--navy-mid); color: var(--white); padding: 56px 32px; border-top: 4px solid var(--orange); }
+  .nl-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .nl-headline { font-family: Georgia, serif; font-size: 26px; font-weight: 700; margin-bottom: 8px; color: var(--white); line-height: 1.25; }
+  .nl-sub { font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.6; margin: 0; }
+  .nl-form { display: flex; flex-direction: column; gap: 10px; margin: 0; }
+  .nl-row { display: flex; gap: 10px; }
+  .nl-row input[type="email"] { flex: 1; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); border-radius: 6px; color: var(--white); font-size: 15px; font-family: inherit; min-width: 0; }
+  .nl-row input[type="email"]:focus { outline: none; border-color: var(--orange); background: rgba(255,255,255,0.12); }
+  .nl-row input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+  .nl-row button { background: var(--orange); color: var(--white); border: none; padding: 12px 24px; border-radius: 6px; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit; letter-spacing: 0.3px; white-space: nowrap; }
+  .nl-row button:hover { background: var(--orange-light); }
+  .nl-row button:disabled { opacity: 0.6; cursor: wait; }
+  .nl-status { font-size: 13px; padding: 8px 12px; border-radius: 4px; display: none; }
+  .nl-status.is-error { background: rgba(220, 38, 38, 0.2); color: #fca5a5; display: block; }
+  .nl-status.is-success { background: rgba(22, 163, 74, 0.2); color: #86efac; display: block; }
+  .nl-fine { font-size: 12px; color: rgba(255,255,255,0.5); margin: 4px 0 0; }
+  @media (max-width: 720px) { .nl-band { padding: 40px 20px; } .nl-inner { grid-template-columns: 1fr; gap: 24px; } .nl-headline { font-size: 22px; } .nl-row { flex-direction: column; } }
+</style>
+<section class="nl-band" aria-labelledby="nl-heading">
+  <div class="nl-inner">
+    <div>
+      <h3 id="nl-heading" class="nl-headline">Get the monthly digest.</h3>
+      <p class="nl-sub">Practical e-commerce notes for small business owners across the Wabash Valley. One email a month, no spam, unsubscribe any time.</p>
+    </div>
+    <form id="nlForm" class="nl-form" novalidate>
+      <div class="nl-row">
+        <input type="email" id="nlEmail" name="email" required autocomplete="email" placeholder="you@yourbusiness.com" aria-label="Your email address" />
+        <button type="submit" class="nl-submit">Subscribe</button>
+      </div>
+      <div class="nl-status" id="nlStatus" role="status" aria-live="polite"></div>
+      <p class="nl-fine">By subscribing you consent to receive marketing emails from Wabash Systems. Unsubscribe any time.</p>
+    </form>
+  </div>
+</section>
+<script>
+(function () {
+  var form = document.getElementById('nlForm');
+  if (!form) return;
+  var emailEl = document.getElementById('nlEmail');
+  var status  = document.getElementById('nlStatus');
+  var submit  = form.querySelector('.nl-submit');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = emailEl.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.className = 'nl-status is-error';
+      status.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    submit.disabled = true; submit.textContent = 'Subscribing...';
+    status.className = 'nl-status'; status.textContent = '';
+    fetch('/api/newsletter-signup', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, source: 'footer-newsletter' })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+    .then(function (res) {
+      if (!res.ok) throw new Error(res.body.error || 'Something went wrong.');
+      status.className = 'nl-status is-success';
+      status.textContent = 'Got it! You are on the list.';
+      emailEl.value = ''; submit.textContent = 'Subscribed';
+      setTimeout(function () { submit.disabled = false; submit.textContent = 'Subscribe'; }, 3500);
+    })
+    .catch(function (err) {
+      status.className = 'nl-status is-error';
+      status.textContent = err.message || 'Could not subscribe - please try again.';
+      submit.disabled = false; submit.textContent = 'Subscribe';
+    });
+  });
+})();
+</script>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
