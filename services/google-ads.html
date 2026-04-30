@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Ads Management | Wabash Systems</title>
+  <meta name="description" content="Google Ads management for e-commerce. Shopping, Performance Max, and Search campaigns with ROAS tracking and conversion attribution. From $400/month plus ad spend." />
+  <link rel="canonical" href="https://www.wabashsystems.com/services/google-ads" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/services/google-ads" />
+  <meta property="og:title" content="Google Ads Management | Wabash Systems" />
+  <meta property="og:description" content="Google Ads run by someone who's hit 700%+ ROAS in real e-commerce. From $400/month." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Google Ads Management",
+    "provider": { "@type": "Organization", "name": "Wabash Systems", "url": "https://www.wabashsystems.com" },
+    "areaServed": "Wabash Valley (Illinois &amp; Indiana) and remote clients nationwide",
+    "description": "Google Ads campaign management for e-commerce stores including Shopping, Performance Max, Search, and Display.",
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "400", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 400, "maxPrice": 800, "billingIncrement": "P1M" } }
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #b05a28;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #6b7280; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    .svc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .svc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .svc-hero-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .svc-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+    .svc-hero h1 { font-family: Georgia, serif; font-size: 44px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .svc-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; }
+    @media (max-width: 720px) {
+      .svc-hero { padding: 48px 20px 64px; }
+      .svc-hero h1 { font-size: 30px; }
+      .svc-hero .lede { font-size: 15px; }
+    }
+
+    .quick-facts { background: var(--cream); border-bottom: 1px solid var(--gray-light); }
+    .quick-facts-inner { max-width: 1100px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .qf-cell .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-mid); margin-bottom: 6px; }
+    .qf-cell .value { font-size: 15px; font-weight: 600; color: var(--navy); }
+    @media (max-width: 720px) { .quick-facts-inner { grid-template-columns: 1fr; gap: 18px; padding: 22px 20px; } }
+
+    main { padding: 0; }
+    section.svc-section { padding: 64px 32px; }
+    section.svc-section.alt { background: var(--gray-light); }
+    .svc-inner { max-width: 800px; margin: 0 auto; }
+    .svc-section h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 700; color: var(--navy); margin-bottom: 18px; line-height: 1.2; }
+    .svc-section h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 24px; margin-bottom: 10px; }
+    .svc-section p { font-size: 17px; color: var(--navy); margin-bottom: 18px; }
+    .svc-section a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    .svc-section a:hover { color: var(--orange); }
+    .label-row { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-text); margin-bottom: 10px; }
+
+    .pricing-card {
+      background: var(--white); border: 2px solid var(--orange);
+      border-radius: 12px; padding: 32px; margin: 24px 0;
+    }
+    .pricing-card .price { font-family: Georgia, serif; font-size: 38px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .pricing-card .price-sub { font-size: 14px; color: var(--gray-mid); margin-bottom: 18px; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0; }
+    .pricing-card li { padding: 6px 0 6px 24px; position: relative; font-size: 15px; color: var(--navy); }
+    .pricing-card li::before { content: '+'; position: absolute; left: 0; top: 6px; color: var(--orange); font-weight: 700; }
+
+    ul.checklist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--navy); line-height: 1.6; }
+    ul.checklist li::before { content: '\2713'; position: absolute; left: 0; top: 8px; color: var(--orange); font-weight: 700; }
+    ul.crosslist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.crosslist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--gray-mid); }
+    ul.crosslist li::before { content: '\2715'; position: absolute; left: 0; top: 8px; color: var(--gray-mid); font-weight: 700; }
+
+    .stat-callout { background: var(--cream); border-left: 4px solid var(--orange); padding: 22px 28px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+    .stat-callout .big { font-family: Georgia, serif; font-size: 36px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .stat-callout .small { font-size: 15px; color: var(--navy); }
+
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--gray-light); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--navy); font-size: 17px; margin-bottom: 8px; }
+    .faq-a { font-size: 16px; color: var(--navy); margin-bottom: 0; }
+
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    .related { background: var(--cream); padding: 56px 32px; }
+    .related-inner { max-width: 1100px; margin: 0 auto; }
+    .related h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-mid); margin-bottom: 18px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .related-card { background: var(--white); border-radius: 8px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .related-card .name { font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .related-card .price { font-size: 13px; color: var(--orange-text); font-weight: 600; }
+    @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipGA"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipGA)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipGA)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipGA)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services" class="is-active">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/services/">Services</a> &nbsp;/&nbsp; Google Ads Management</div>
+    <div class="svc-eyebrow">E-Commerce Service</div>
+    <h1>Google Ads Management</h1>
+    <p class="lede">
+      Paid search and Shopping campaigns for e-commerce stores that
+      actually need to defend ROAS, not just spend a budget. I treat your
+      ad dollars like they're my own &mdash; because for years they were.
+      Currently running paid search for a $10M operation; happy to apply
+      the same discipline at small-business scale.
+    </p>
+  </div>
+</header>
+
+<section class="quick-facts">
+  <div class="quick-facts-inner">
+    <div class="qf-cell">
+      <div class="label">Management Fee</div>
+      <div class="value">$400 &ndash; $800 / month</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Recommended Ad Spend</div>
+      <div class="value">$1,500/mo minimum</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Best For</div>
+      <div class="value">Stores with proven product-market fit</div>
+    </div>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">What You're Paying For</span>
+      <h2>Pricing</h2>
+
+      <div class="pricing-card">
+        <div class="price">$400&ndash;$800/mo</div>
+        <div class="price-sub">management fee, separate from ad spend (you pay Google directly)</div>
+        <ul>
+          <li>$400/mo for accounts spending under $5K/month with 1&ndash;3 active campaigns</li>
+          <li>$600/mo for accounts spending $5K&ndash;$15K/month with broader campaign mix</li>
+          <li>$800/mo for accounts spending $15K+ with Performance Max, dynamic remarketing, and feed work</li>
+          <li>+$500 one-time onboarding for new accounts (audit, conversion setup, feed build)</li>
+        </ul>
+      </div>
+
+      <p>
+        Ad spend is paid directly to Google on your card &mdash; never through
+        me. This protects you (no markup, full transparency), keeps tax
+        accounting clean, and means I have no financial incentive to push
+        spend higher than what produces returns.
+      </p>
+
+      <p><strong>Why a minimum?</strong> Below about $1,500/month in ad spend, the management fee becomes a meaningful percentage of your total budget and the algorithm doesn't have enough conversion data to optimize against. If you're not ready to spend $1,500/mo on ads yet, paid search probably isn't the right channel for you yet either &mdash; SEO and email marketing usually pay back faster at small scale.</p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">What's In Scope</span>
+      <h2>Everything Included</h2>
+      <ul class="checklist">
+        <li><strong>Account audit and setup</strong> &mdash; conversion tracking verification (the #1 thing most accounts get wrong), campaign restructure, audience setup, exclusions</li>
+        <li><strong>Google Merchant Center</strong> &mdash; feed configuration, product data optimization, disapproval cleanup, supplemental feeds where needed</li>
+        <li><strong>Shopping &amp; Performance Max campaigns</strong> &mdash; the workhorses for most e-commerce. Asset groups, audience signals, brand exclusions, listing group structure.</li>
+        <li><strong>Search campaigns</strong> &mdash; for branded defense, high-intent non-brand terms, and competitor terms where appropriate</li>
+        <li><strong>Conversion tracking and GA4</strong> &mdash; proper event setup, conversion values flowing, attribution model defaults reviewed</li>
+        <li><strong>Bidding strategy management</strong> &mdash; tROAS / tCPA targets calibrated to your actual margins, not arbitrary defaults</li>
+        <li><strong>Negative keyword management</strong> &mdash; ongoing search term review, negatives applied, wasted spend cut</li>
+        <li><strong>Weekly performance review</strong> &mdash; I check your account at least weekly. Anomalies, budget burn, dropping ROAS &mdash; you hear about them when they happen.</li>
+        <li><strong>Monthly reporting</strong> &mdash; written summary of what spent, what returned, what was changed and why. No 30-page autogenerated PDFs.</li>
+      </ul>
+
+      <h3>Not included</h3>
+      <ul class="crosslist">
+        <li>Meta / Facebook / Instagram Ads (different beast; ask if you need them and I'll refer)</li>
+        <li>Amazon advertising</li>
+        <li>Creative production (banner ads, video assets) &mdash; can be quoted separately</li>
+        <li>Landing page development (see <a href="/services/web-design">Web Design &amp; Development</a>)</li>
+        <li>SEO content production (see <a href="/services/seo-management">SEO Management</a>)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Why It Matters</span>
+      <h2>What Good Google Ads Looks Like</h2>
+      <p>
+        The single biggest reason e-commerce ad accounts underperform isn't
+        bid strategy or keyword choice &mdash; it's broken or sloppy
+        conversion tracking. If Google doesn't know which ad clicks turn
+        into actual revenue, and what that revenue is worth, the algorithm
+        can't optimize. Your account becomes a slot machine.
+      </p>
+      <p>
+        I spend the first 2&ndash;3 weeks of every engagement verifying conversion
+        tracking end-to-end &mdash; pixel firing, value passing, attribution
+        windows, currency, refunds. After that, the algorithm has signal to
+        work with and the optimization actually happens.
+      </p>
+      <div class="stat-callout">
+        <div class="big">700%+</div>
+        <div class="small">Sustained Shopping ROAS at my current operation. Not a stunt month &mdash; the average over years of running the program.</div>
+      </div>
+      <p>
+        Your numbers may not look like that &mdash; the operation I'm
+        describing has eight figures of revenue, mature feed data, and
+        years of conversion history. But the same disciplines move the
+        needle at any scale: clean conversion tracking, sane campaign
+        structure, ruthless negative-keyword hygiene, and not changing
+        bid strategy every two weeks because someone read a blog post.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">Common Questions</span>
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Why are you not running my ads on credit you provide?</div>
+        <p class="faq-a">Because that arrangement is bad for you. When agencies markup ad spend, you can't see the real cost. When agencies bill on percentage of spend, they have a perverse incentive to grow your spend whether or not it produces returns. Direct billing on your card means you see every dollar Google charges you and the management fee is a separate, known number.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How long until results?</div>
+        <p class="faq-a">Performance Max typically needs 4&ndash;6 weeks of stable structure before its bid algorithm settles. New Search campaigns produce conversions faster but need 2&ndash;4 weeks to find the right CPC range. Plan on month 1 being audit + foundation, month 2 starting to see results, month 3 hitting target ROAS in most cases. Anyone promising day-1 results either inherits a working account or is bullshitting.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What about Meta Ads / Facebook / Instagram?</div>
+        <p class="faq-a">Different platform, different skillset. I'm strongest on Google. For Meta, I'll either refer you to a partner or scope it carefully &mdash; not pretend I'm equally expert in everything. Most small e-commerce stores get more lift from Google Shopping than from Meta these days, but it's product-dependent.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Should I do Performance Max or regular Shopping?</div>
+        <p class="faq-a">Depends on your account size and goals. PMax is powerful but a black box &mdash; great when it works, frustrating when it doesn't. Standard Shopping gives you more control but less algorithmic lift. Most accounts I run use both with proper audience and brand-keyword exclusions wired up. We'll decide together based on your data.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What if my ROAS drops?</div>
+        <p class="faq-a">First thing: I tell you, before you have to ask. Then we figure out why &mdash; seasonality, feed problem, bid strategy, competitor entering, search demand shift. Action depends on the cause. What I won't do is hide the dip or pretend the trend is fine. The point of paid search is to make you money, and if the math stops working we either fix it or shut it off.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you sign long-term contracts?</div>
+        <p class="faq-a">Three-month minimum to start (so the algorithm has a chance to optimize), then month-to-month with 30 days notice. I don't lock people in. The relationship continues because it's making you money &mdash; not because of a contract.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Track Record</span>
+      <h2>Examples</h2>
+      <p>
+        Currently running paid search for a $10M flooring operation. The
+        Shopping program clears 700%+ ROAS sustained, with the brand and
+        non-brand search programs filling in around it. That's the
+        scoreboard from the day job &mdash; not a portfolio piece, but the
+        kind of operating discipline I'd bring to your account.
+      </p>
+      <p>
+        For a small-business client, expectations should scale to your
+        margins and search demand. A 300% ROAS on a $3,000/month spend
+        nets you $9K of revenue at $2K of margin (depending on your
+        margins) &mdash; meaningful for most local stores. We'll calibrate
+        targets based on your actual unit economics, not somebody else's.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Want a free Google Ads audit?</h2>
+  <p>
+    Send me access (read-only is fine) and I'll spend 30 minutes looking
+    at your account &mdash; conversion tracking, campaign structure, the
+    obvious wins. No pitch, no deck. Free.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<section class="related">
+  <div class="related-inner">
+    <h3>Other Services</h3>
+    <div class="related-grid">
+      <a href="/services/seo-management" class="related-card">
+        <div class="name">SEO Management</div>
+        <div class="price">From $500/mo</div>
+      </a>
+      <a href="/services/monthly-management" class="related-card">
+        <div class="name">Monthly Store Management</div>
+        <div class="price">From $750/mo</div>
+      </a>
+      <a href="/services/store-setup" class="related-card">
+        <div class="name">Store Setup &amp; Launch</div>
+        <div class="price">$1,500&ndash;$3,000</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/SR7eDU/klaviyo.js?company_id=SR7eDU"></script>
+<script type="text/javascript">
+!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+</script>
+
+</body>
+</html>

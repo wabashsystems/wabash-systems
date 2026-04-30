@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Management | Wabash Systems</title>
+  <meta name="description" content="Monthly SEO management for e-commerce stores. Technical audits, content production, link strategy, and rank tracking. Done by someone with 20+ years of search experience, not a content mill." />
+  <link rel="canonical" href="https://www.wabashsystems.com/services/seo-management" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/services/seo-management" />
+  <meta property="og:title" content="SEO Management | Wabash Systems" />
+  <meta property="og:description" content="E-commerce SEO that actually moves rankings. From $500/month." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "E-Commerce SEO Management",
+    "provider": { "@type": "Organization", "name": "Wabash Systems", "url": "https://www.wabashsystems.com" },
+    "areaServed": "Wabash Valley (Illinois &amp; Indiana) and remote clients nationwide",
+    "description": "Monthly SEO management including technical audits, content production, internal linking strategy, and rank tracking for e-commerce stores.",
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "500", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 500, "maxPrice": 1500, "billingIncrement": "P1M" } }
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #b05a28;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #6b7280; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    .svc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .svc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .svc-hero-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .svc-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+    .svc-hero h1 { font-family: Georgia, serif; font-size: 44px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .svc-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; }
+    @media (max-width: 720px) {
+      .svc-hero { padding: 48px 20px 64px; }
+      .svc-hero h1 { font-size: 30px; }
+      .svc-hero .lede { font-size: 15px; }
+    }
+
+    .quick-facts { background: var(--cream); border-bottom: 1px solid var(--gray-light); }
+    .quick-facts-inner { max-width: 1100px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .qf-cell .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-mid); margin-bottom: 6px; }
+    .qf-cell .value { font-size: 15px; font-weight: 600; color: var(--navy); }
+    @media (max-width: 720px) { .quick-facts-inner { grid-template-columns: 1fr; gap: 18px; padding: 22px 20px; } }
+
+    main { padding: 0; }
+    section.svc-section { padding: 64px 32px; }
+    section.svc-section.alt { background: var(--gray-light); }
+    .svc-inner { max-width: 800px; margin: 0 auto; }
+    .svc-section h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 700; color: var(--navy); margin-bottom: 18px; line-height: 1.2; }
+    .svc-section h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 24px; margin-bottom: 10px; }
+    .svc-section p { font-size: 17px; color: var(--navy); margin-bottom: 18px; }
+    .svc-section a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    .svc-section a:hover { color: var(--orange); }
+    .label-row { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-text); margin-bottom: 10px; }
+
+    .pricing-card {
+      background: var(--white); border: 2px solid var(--orange);
+      border-radius: 12px; padding: 32px; margin: 24px 0;
+    }
+    .pricing-card .price { font-family: Georgia, serif; font-size: 38px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .pricing-card .price-sub { font-size: 14px; color: var(--gray-mid); margin-bottom: 18px; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0; }
+    .pricing-card li { padding: 6px 0 6px 24px; position: relative; font-size: 15px; color: var(--navy); }
+    .pricing-card li::before { content: '+'; position: absolute; left: 0; top: 6px; color: var(--orange); font-weight: 700; }
+
+    ul.checklist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--navy); line-height: 1.6; }
+    ul.checklist li::before { content: '\2713'; position: absolute; left: 0; top: 8px; color: var(--orange); font-weight: 700; }
+    ul.crosslist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.crosslist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--gray-mid); }
+    ul.crosslist li::before { content: '\2715'; position: absolute; left: 0; top: 8px; color: var(--gray-mid); font-weight: 700; }
+
+    .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+    .tier-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 8px; padding: 22px; }
+    .tier-card.featured { border-color: var(--orange); border-width: 2px; }
+    .tier-card .tier-name { font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .tier-card .tier-price { font-size: 22px; font-weight: 700; color: var(--orange); margin-bottom: 14px; }
+    .tier-card .tier-best { font-size: 12px; color: var(--gray-mid); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .tier-card ul { list-style: none; padding: 0; margin: 0; }
+    .tier-card li { padding: 5px 0 5px 20px; position: relative; font-size: 14px; color: var(--navy); }
+    .tier-card li::before { content: '\2713'; position: absolute; left: 0; top: 5px; color: var(--orange); font-size: 12px; }
+    @media (max-width: 720px) { .tier-grid { grid-template-columns: 1fr; } }
+
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--gray-light); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--navy); font-size: 17px; margin-bottom: 8px; }
+    .faq-a { font-size: 16px; color: var(--navy); margin-bottom: 0; }
+
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    .related { background: var(--cream); padding: 56px 32px; }
+    .related-inner { max-width: 1100px; margin: 0 auto; }
+    .related h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-mid); margin-bottom: 18px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .related-card { background: var(--white); border-radius: 8px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .related-card .name { font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .related-card .price { font-size: 13px; color: var(--orange-text); font-weight: 600; }
+    @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipSEO"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipSEO)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipSEO)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipSEO)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services" class="is-active">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/services/">Services</a> &nbsp;/&nbsp; SEO Management</div>
+    <div class="svc-eyebrow">E-Commerce Service</div>
+    <h1>SEO Management</h1>
+    <p class="lede">
+      Monthly SEO that's actually about ranking, not about generating
+      reports. Technical fixes get done. Content gets written. Internal
+      linking gets organized. Your top-performing pages get protected
+      and your underperforming ones get fixed or pruned. The reporting is
+      for you to verify the work, not for me to bill out hours of busywork.
+    </p>
+  </div>
+</header>
+
+<section class="quick-facts">
+  <div class="quick-facts-inner">
+    <div class="qf-cell">
+      <div class="label">Pricing</div>
+      <div class="value">$500 &ndash; $1,500 / month</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Timeline</div>
+      <div class="value">3 &ndash; 6 month minimum to see real results</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Best For</div>
+      <div class="value">Stores ready to compound traffic</div>
+    </div>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Three Tiers, Pick One</span>
+      <h2>Pricing</h2>
+      <p>
+        Three retainer tiers depending on how aggressive you want to be.
+        Every tier includes the same technical foundation; the difference
+        is volume of content and depth of competitor work.
+      </p>
+
+      <div class="tier-grid">
+        <div class="tier-card">
+          <div class="tier-name">Foundation</div>
+          <div class="tier-price">$500/mo</div>
+          <div class="tier-best">Existing stores that need basics done right</div>
+          <ul>
+            <li>Quarterly technical audit</li>
+            <li>Monthly rank tracking (50 keywords)</li>
+            <li>1 long-form article / month</li>
+            <li>Internal linking maintenance</li>
+            <li>Search Console monitoring</li>
+            <li>Quarterly written report</li>
+          </ul>
+        </div>
+        <div class="tier-card featured">
+          <div class="tier-name">Growth</div>
+          <div class="tier-price">$1,000/mo</div>
+          <div class="tier-best">Stores actively trying to grow organic</div>
+          <ul>
+            <li>Everything in Foundation</li>
+            <li>2 articles / month</li>
+            <li>Quarterly competitor gap analysis</li>
+            <li>Product page optimization (3/mo)</li>
+            <li>Schema markup expansion</li>
+            <li>Monthly written report + call</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Scale</div>
+          <div class="tier-price">$1,500/mo</div>
+          <div class="tier-best">Stores treating organic as primary channel</div>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>4 articles / month</li>
+            <li>Category page optimization (2/mo)</li>
+            <li>Outreach &amp; digital PR (limited scope)</li>
+            <li>Site speed &amp; CWV ongoing work</li>
+            <li>Bi-weekly call + Slack-style channel</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        Six-month minimum on any tier. SEO doesn't move in 30 days, and
+        anyone selling you a one-month engagement is selling you a report,
+        not results.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">What's In Scope</span>
+      <h2>What I Actually Do</h2>
+      <ul class="checklist">
+        <li><strong>Technical audit and ongoing technical fixes</strong> &mdash; site speed, Core Web Vitals, crawlability, indexation, redirect chains, broken links, structured data</li>
+        <li><strong>Keyword research and content strategy</strong> &mdash; finding terms with real commercial intent, real volume, and beatable competition. Not 50,000-keyword spreadsheets that never get touched.</li>
+        <li><strong>Content production</strong> &mdash; long-form articles written by me (not a content mill, not AI slop). Each piece targets a specific keyword cluster with a real informational or transactional intent.</li>
+        <li><strong>Product and category page optimization</strong> &mdash; titles, descriptions, schema, internal links, content above and below the fold. The pages that actually drive revenue get the most attention.</li>
+        <li><strong>Internal linking and site architecture</strong> &mdash; topic clusters, hub-and-spoke structures, contextual links from strong pages to pages that need them</li>
+        <li><strong>Schema markup</strong> &mdash; Product, Review, FAQ, BreadcrumbList, Organization, LocalBusiness as appropriate</li>
+        <li><strong>Local SEO</strong> &mdash; Google Business Profile management, NAP consistency, local citations, location pages where relevant</li>
+        <li><strong>Search Console &amp; rank monitoring</strong> &mdash; weekly check-ins on indexation issues, ranking changes, traffic anomalies. You hear from me when something needs attention &mdash; not just at month-end.</li>
+        <li><strong>Reporting</strong> &mdash; written summary of what was done, what moved, and what's coming. No 40-page PDFs. No automated screenshots. Real prose.</li>
+      </ul>
+
+      <h3>What's NOT included</h3>
+      <ul class="crosslist">
+        <li>Link buying or PBN schemes (these get you penalized; I won't do them)</li>
+        <li>AI-generated content posing as original work</li>
+        <li>500-keyword "rank tracking" reports designed to look impressive</li>
+        <li>Vanity metrics that don't tie to revenue</li>
+        <li>Paid advertising (see <a href="/services/google-ads">Google Ads Management</a>)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">How It Works</span>
+      <h2>The Process</h2>
+      <ul class="checklist">
+        <li><strong>Month 1 &mdash; Audit and Foundation.</strong> Full technical audit. Fix everything that's bleeding rankings &mdash; redirect chains, crawl errors, broken structured data, missing meta tags, slow pages. Most sites have 20&ndash;40 of these on day one.</li>
+        <li><strong>Month 2&ndash;3 &mdash; Content and Architecture.</strong> Keyword research locked in. First few content pieces published. Internal linking restructured around topic clusters. Category and top-product pages optimized.</li>
+        <li><strong>Month 4&ndash;6 &mdash; Compound.</strong> Content cadence steady. Older pieces get refreshed. Rankings start moving on the keywords we're actually targeting. Real traffic increases visible in GA4 and Search Console.</li>
+        <li><strong>Month 6+ &mdash; Maintain and Expand.</strong> Either we keep pushing into new clusters or we maintain what's been built. By this point you should know exactly what the work is producing per dollar.</li>
+      </ul>
+      <p>
+        Anyone telling you they'll have you ranking #1 in 30 days is lying.
+        Anyone telling you SEO results are guaranteed is also lying. What
+        I will tell you: if the work is done well and your products and
+        margins make sense, organic compounds. Three months in is when
+        you start seeing it. Six months in is when it pays for itself.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">Common Questions</span>
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">How long until I see results?</div>
+        <p class="faq-a">Technical fixes can produce visible movement in 30&ndash;60 days &mdash; especially for sites that had real issues. Content-driven gains typically start showing at the 3-month mark and compound from there. Anyone promising faster than this either has a tiny competitive landscape or is lying. SEO is a 6&ndash;12 month investment.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you guarantee rankings?</div>
+        <p class="faq-a">No, and neither does anyone honest. Google's algorithm changes; competitors invest more; the SERP itself rearranges into shopping panels and AI overviews. What I can promise is that the technical work gets done, the content gets written, and the strategy is reviewed quarterly. Honest effort + competence is the only thing anyone can actually deliver.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Will you use AI to write the content?</div>
+        <p class="faq-a">No. AI is useful for outlines, research, and competitive analysis &mdash; I use it for those. The actual content is written by me. Pure-AI content gets demoted in Google's helpful-content updates and reads like cardboard. If your competitors are publishing AI slop, the way you win is by not.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What about local SEO?</div>
+        <p class="faq-a">Included. Google Business Profile optimization, NAP citation cleanup, local content strategy, schema markup with location data, and reviews strategy. If you're a Wabash Valley business serving local customers, the local work is some of the highest-leverage SEO you can do.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <p class="faq-a">After the 6-month minimum, yes &mdash; 30 days notice. The minimum exists because SEO genuinely doesn't show results in 30&ndash;60 days, and anyone who quits before month 4 is paying for setup work without seeing the upside. If we get to month 6 and you don't see value, you shouldn't keep paying.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What about AI search and AI overviews?</div>
+        <p class="faq-a">The same fundamentals win on AI search results as on traditional SERPs &mdash; clear page structure, real expertise signals, schema markup, internal linking, original content. AI overviews favor sources that are well-structured and authoritative. The work we do for traditional SEO does double duty for AI search.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Track Record</span>
+      <h2>Examples</h2>
+      <p>
+        I've been doing SEO for over 20 years &mdash; back when "doing SEO"
+        meant arguing about meta keyword tags. Most of that experience is
+        on the e-commerce side: product page optimization, category
+        architecture, faceted navigation crawl management, schema, and
+        the operational discipline of doing it consistently for years.
+      </p>
+      <p>
+        Currently I run SEO for a $10M flooring operation. Their organic
+        traffic has roughly tripled over the last several years through
+        the kind of slow, methodical work I'm describing here &mdash; not
+        through any single big move. <a href="/blog/5-website-fixes-every-small-business-should-make">A few of the
+        free fixes I most often see small-business sites missing are listed
+        here</a> if you want to see what kind of detail-level thinking the
+        work involves.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Want a free 15-minute SEO assessment?</h2>
+  <p>
+    Send me your URL and I'll spend 15 minutes looking at it &mdash; technical
+    health, the top wins, the obvious bleeding. No deck, no pitch, no
+    automated tool screenshot. Just an honest take. Free.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<section class="related">
+  <div class="related-inner">
+    <h3>Other Services</h3>
+    <div class="related-grid">
+      <a href="/services/google-ads" class="related-card">
+        <div class="name">Google Ads Management</div>
+        <div class="price">$400&ndash;$800/mo</div>
+      </a>
+      <a href="/services/monthly-management" class="related-card">
+        <div class="name">Monthly Store Management</div>
+        <div class="price">From $750/mo</div>
+      </a>
+      <a href="/services/store-setup" class="related-card">
+        <div class="name">Store Setup &amp; Launch</div>
+        <div class="price">$1,500&ndash;$3,000</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/SR7eDU/klaviyo.js?company_id=SR7eDU"></script>
+<script type="text/javascript">
+!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platform Migration | Wabash Systems</title>
+  <meta name="description" content="E-commerce platform migration done right. Magento, BigCommerce, Shopify, WooCommerce — data, URLs, SEO, and customers preserved. Done by someone who's actually completed a 1,500-SKU migration solo." />
+  <link rel="canonical" href="https://www.wabashsystems.com/services/platform-migration" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/services/platform-migration" />
+  <meta property="og:title" content="Platform Migration | Wabash Systems" />
+  <meta property="og:description" content="Migrate your store without losing SEO, customers, or order history. Starting at $8,000." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "E-Commerce Platform Migration",
+    "provider": { "@type": "Organization", "name": "Wabash Systems", "url": "https://www.wabashsystems.com" },
+    "areaServed": "Wabash Valley (Illinois &amp; Indiana) and remote clients nationwide",
+    "description": "Full e-commerce platform migration including data, products, customers, orders, URL preservation, and SEO continuity.",
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "8000", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 8000, "maxPrice": 25000 } }
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #b05a28;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #6b7280; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    .svc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .svc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .svc-hero-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .svc-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+    .svc-hero h1 { font-family: Georgia, serif; font-size: 44px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .svc-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; }
+    @media (max-width: 720px) {
+      .svc-hero { padding: 48px 20px 64px; }
+      .svc-hero h1 { font-size: 30px; }
+      .svc-hero .lede { font-size: 15px; }
+    }
+
+    .quick-facts { background: var(--cream); border-bottom: 1px solid var(--gray-light); }
+    .quick-facts-inner { max-width: 1100px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .qf-cell .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-mid); margin-bottom: 6px; }
+    .qf-cell .value { font-size: 15px; font-weight: 600; color: var(--navy); }
+    @media (max-width: 720px) { .quick-facts-inner { grid-template-columns: 1fr; gap: 18px; padding: 22px 20px; } }
+
+    main { padding: 0; }
+    section.svc-section { padding: 64px 32px; }
+    section.svc-section.alt { background: var(--gray-light); }
+    .svc-inner { max-width: 800px; margin: 0 auto; }
+    .svc-section h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 700; color: var(--navy); margin-bottom: 18px; line-height: 1.2; }
+    .svc-section h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 24px; margin-bottom: 10px; }
+    .svc-section p { font-size: 17px; color: var(--navy); margin-bottom: 18px; }
+    .svc-section a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    .svc-section a:hover { color: var(--orange); }
+    .label-row { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-text); margin-bottom: 10px; }
+
+    .pricing-card {
+      background: var(--white); border: 2px solid var(--orange);
+      border-radius: 12px; padding: 32px; margin: 24px 0;
+    }
+    .pricing-card .price { font-family: Georgia, serif; font-size: 38px; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 8px; }
+    .pricing-card .price-sub { font-size: 14px; color: var(--gray-mid); margin-bottom: 18px; }
+    .pricing-card ul { list-style: none; padding: 0; margin: 0; }
+    .pricing-card li { padding: 6px 0 6px 24px; position: relative; font-size: 15px; color: var(--navy); }
+    .pricing-card li::before { content: '+'; position: absolute; left: 0; top: 6px; color: var(--orange); font-weight: 700; }
+
+    ul.checklist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--navy); line-height: 1.6; }
+    ul.checklist li::before { content: '\2713'; position: absolute; left: 0; top: 8px; color: var(--orange); font-weight: 700; }
+    ul.crosslist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.crosslist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--gray-mid); }
+    ul.crosslist li::before { content: '\2715'; position: absolute; left: 0; top: 8px; color: var(--gray-mid); font-weight: 700; }
+
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--gray-light); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--navy); font-size: 17px; margin-bottom: 8px; }
+    .faq-a { font-size: 16px; color: var(--navy); margin-bottom: 0; }
+
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    .related { background: var(--cream); padding: 56px 32px; }
+    .related-inner { max-width: 1100px; margin: 0 auto; }
+    .related h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-mid); margin-bottom: 18px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .related-card { background: var(--white); border-radius: 8px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .related-card .name { font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .related-card .price { font-size: 13px; color: var(--orange-text); font-weight: 600; }
+    @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipPM"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipPM)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipPM)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipPM)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services" class="is-active">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/services/">Services</a> &nbsp;/&nbsp; Platform Migration</div>
+    <div class="svc-eyebrow">E-Commerce Service</div>
+    <h1>Platform Migration</h1>
+    <p class="lede">
+      Move your store from one platform to another without losing customers,
+      orders, SEO rankings, or your sanity. This is the work most agencies
+      either won't quote properly or quote so high you assume something
+      shady is going on. The fee is high because the work is real &mdash;
+      but everything that needs to come over comes over, and your traffic
+      doesn't fall off a cliff the day you go live.
+    </p>
+  </div>
+</header>
+
+<section class="quick-facts">
+  <div class="quick-facts-inner">
+    <div class="qf-cell">
+      <div class="label">Pricing</div>
+      <div class="value">$8,000 &ndash; $25,000+</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Timeline</div>
+      <div class="value">8 &ndash; 16 weeks typical</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Best For</div>
+      <div class="value">Stores outgrowing their platform</div>
+    </div>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">What You're Paying For</span>
+      <h2>Pricing</h2>
+
+      <div class="pricing-card">
+        <div class="price">$8,000&ndash;$25,000+</div>
+        <div class="price-sub">scoped per project, billed in stages</div>
+        <ul>
+          <li>$8,000&ndash;$12,000 for catalogs under 500 SKUs with standard data structure</li>
+          <li>$12,000&ndash;$18,000 for 500&ndash;2,000 SKUs or non-standard data (custom attributes, complex variants, B2B pricing tiers)</li>
+          <li>$18,000&ndash;$25,000+ for large catalogs, multi-store setups, headless implementations, or significant custom functionality</li>
+          <li>+$1,500&ndash;$3,000 for ERP / accounting integration (NetSuite, QuickBooks, Acumatica)</li>
+        </ul>
+      </div>
+
+      <p>
+        Migrations are scoped after a discovery call &mdash; a fixed quote that
+        won't change unless you change the scope. Billing is staged: 25% to
+        kick off, 25% at data parity, 25% at staging signoff, 25% at launch.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">What's In Scope</span>
+      <h2>Everything Included</h2>
+      <ul class="checklist">
+        <li><strong>Full data migration</strong> &mdash; products, variants, customers, order history, reviews, content pages, blog posts, customer groups, B2B pricing</li>
+        <li><strong>URL preservation and 301 redirects</strong> &mdash; every old URL maps to a new one. This is the single biggest reason migrations tank traffic, and most agencies do it badly.</li>
+        <li><strong>SEO continuity audit</strong> &mdash; meta titles, descriptions, image alt text, structured data, canonical tags, sitemap, robots.txt all carried forward correctly</li>
+        <li><strong>Theme rebuild</strong> &mdash; matching or upgrading your existing storefront design on the new platform</li>
+        <li><strong>Payment gateway re-integration</strong> &mdash; Stripe, PayPal, Authorize.Net, etc. tested end-to-end with real test transactions</li>
+        <li><strong>Shipping and tax re-configuration</strong> &mdash; carrier-calculated rates, weight-based logic, multi-state nexus rules ported correctly</li>
+        <li><strong>Integration rebuild</strong> &mdash; ERP, accounting, ESP (Klaviyo / Mailchimp), reviews, search, ad pixels, analytics, anything currently wired up</li>
+        <li><strong>Staging environment</strong> &mdash; full live-like environment for QA before cutover. You sign off before we go anywhere near production.</li>
+        <li><strong>Launch weekend coordination</strong> &mdash; DNS cutover scheduled around your traffic patterns, with rollback path if anything goes wrong</li>
+        <li><strong>60 days of post-launch support</strong> &mdash; bug fixes, redirect fixes, search ranking monitoring, and "the new platform does X differently" questions</li>
+      </ul>
+
+      <h3>Not included &mdash; quoted separately if needed</h3>
+      <ul class="crosslist">
+        <li>Net-new theme design (this is a migration, not a redesign &mdash; rebuilding your current look is included; new look is extra)</li>
+        <li>Custom backend development beyond standard platform configuration</li>
+        <li>Net-new content production or photography</li>
+        <li>Paid ad account migration (Google Ads, Meta) &mdash; small extra; ask if you need it</li>
+        <li>Ongoing management post-launch (see <a href="/services/monthly-management">Monthly Management</a>)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">How It Works</span>
+      <h2>The Process</h2>
+      <p>
+        Migrations move through six phases. The whole thing takes 8&ndash;16
+        weeks of wall-clock time depending on catalog size and integration
+        count. I work in stages so you can see and approve progress before
+        anything goes irreversible.
+      </p>
+      <ul class="checklist">
+        <li><strong>Phase 1 &mdash; Discovery and Audit (1&ndash;2 weeks).</strong> Full inventory of your current setup &mdash; catalog structure, integrations, custom code, traffic patterns, top-ranking URLs. The output is a fixed-scope quote and a written migration plan.</li>
+        <li><strong>Phase 2 &mdash; Data Mapping (1&ndash;2 weeks).</strong> Every field from the old system gets mapped to a destination on the new one. Product attributes, customer groups, B2B pricing tiers, order metadata. This is where most failed migrations actually fail.</li>
+        <li><strong>Phase 3 &mdash; Build and Migrate (3&ndash;6 weeks).</strong> Theme rebuild, integration setup, data dry-run, second dry-run, third dry-run. We don't go to production until the staging data matches reality.</li>
+        <li><strong>Phase 4 &mdash; QA and Signoff (1&ndash;2 weeks).</strong> You walk the staging site. Test orders. Test refunds. Test email triggers. Test the integrations. I fix what's broken. We go around the loop until it's clean.</li>
+        <li><strong>Phase 5 &mdash; Launch (1 week).</strong> Final delta migration of orders/customers placed since the last sync, DNS cutover at low-traffic time, redirects flipped on, sitemap submitted, search consoles updated.</li>
+        <li><strong>Phase 6 &mdash; Stabilization (60 days post-launch).</strong> Daily monitoring of search rankings, traffic, and conversion. Anything that drops gets investigated. Bug fixes included.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">Common Questions</span>
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Will I lose SEO rankings?</div>
+        <p class="faq-a">Not if it's done right. Migrations tank traffic when URL structures change without proper 301 redirects, when meta tags get reset to defaults, or when structured data gets dropped. I plan the redirect map before any data moves, audit it twice, and watch search performance daily for 60 days post-launch. Some short-term flux is normal &mdash; but a competent migration shouldn't cost you rankings.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How long is the store down?</div>
+        <p class="faq-a">Zero downtime is the goal and the realistic outcome. The new site is built on a separate domain or staging URL. On launch night, DNS flips over and the new site picks up traffic immediately. Worst-case: a 15-minute window during DNS propagation where some users see one site and some see the other. Real downtime is essentially never required.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What about customer accounts and passwords?</div>
+        <p class="faq-a">Customers come over &mdash; emails, addresses, order history, customer groups, B2B pricing tiers. Passwords don't, because they're hashed and the hashes aren't portable across platforms. The standard approach is a "password reset required" email blast at launch, framed as a security upgrade. Customer login experience stays smooth.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you handle order history?</div>
+        <p class="faq-a">Yes &mdash; full order history including line items, payment status, fulfillment status, and customer notes. This is non-negotiable for businesses that need it for warranty claims, returns, or B2B reorder flows. Some platforms make this harder than others (looking at you, Shopify on legacy data) but it's always doable.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What if something goes wrong at launch?</div>
+        <p class="faq-a">There's a rollback path written into the launch runbook. If something genuinely catastrophic comes up at cutover, DNS gets pointed back to the old store while we fix it. In practice this has never been needed on a properly-staged migration, but the plan exists.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Why does this cost so much more than store setup?</div>
+        <p class="faq-a">Because it's an order of magnitude more work. A new-store setup is configuration; a migration is configuration plus data engineering plus regression testing plus a hard live-cutover window with real revenue on the line. The price reflects the risk &mdash; if something goes wrong on launch night, real money is at stake. Quoting low and missing details is how migrations turn into disasters.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Track Record</span>
+      <h2>Examples</h2>
+      <p>
+        I spent 12 months running a solo Magento 1 to BigCommerce migration
+        for a $10M flooring operation in Indianapolis. About 1,500 SKUs,
+        years of order history, dozens of B2B accounts with custom pricing
+        tiers, integrated with NetSuite for ERP and Klaviyo for email. The
+        site went from $300K/month to clearing $1M months within 18 months
+        of launching on the new platform &mdash; the migration didn't cause
+        the growth, but it stopped being the bottleneck that prevented it.
+      </p>
+      <p>
+        I run that operation today. I've also done smaller setups and
+        rebuilds &mdash; including <a href="/case-studies/titan-machine-service">Titan Machine
+        Service</a>, a custom static site for a CNC repair company. Different
+        size of project, same operational discipline.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Outgrowing your current platform?</h2>
+  <p>
+    Free 30-minute consultation. We'll talk through where you are, where
+    you want to be, and whether a migration is actually the right move for
+    your business right now &mdash; or whether something cheaper would solve it.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<section class="related">
+  <div class="related-inner">
+    <h3>Other Services</h3>
+    <div class="related-grid">
+      <a href="/services/store-setup" class="related-card">
+        <div class="name">Store Setup &amp; Launch</div>
+        <div class="price">$1,500&ndash;$3,000</div>
+      </a>
+      <a href="/services/seo-management" class="related-card">
+        <div class="name">SEO Management</div>
+        <div class="price">From $500/mo</div>
+      </a>
+      <a href="/services/monthly-management" class="related-card">
+        <div class="name">Monthly Store Management</div>
+        <div class="price">From $750/mo</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/SR7eDU/klaviyo.js?company_id=SR7eDU"></script>
+<script type="text/javascript">
+!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+</script>
+
+</body>
+</html>

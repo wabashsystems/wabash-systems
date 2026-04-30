@@ -1,0 +1,101 @@
+{
+  "routes": [
+    {
+      "routePath": "/functions/admin/api/data",
+      "mountPath": "/functions/admin/api",
+      "method": "GET",
+      "module": [
+        "functions/admin/api/data.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/functions/admin/api/data",
+      "mountPath": "/functions/admin/api",
+      "method": "POST",
+      "module": [
+        "functions/admin/api/data.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/admin/api/data",
+      "mountPath": "/admin/api",
+      "method": "GET",
+      "module": [
+        "admin/api/data.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/admin/api/data",
+      "mountPath": "/admin/api",
+      "method": "POST",
+      "module": [
+        "admin/api/data.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/functions/api/contact",
+      "mountPath": "/functions/api",
+      "method": "POST",
+      "module": [
+        "functions/api/contact.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/contact",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/contact.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/lead-magnet",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/lead-magnet.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/newsletter-signup",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/newsletter-signup.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/lead-magnet",
+      "mountPath": "/api",
+      "method": "",
+      "module": [
+        "api/lead-magnet.js:onRequest"
+      ]
+    },
+    {
+      "routePath": "/api/newsletter-signup",
+      "mountPath": "/api",
+      "method": "",
+      "module": [
+        "api/newsletter-signup.js:onRequest"
+      ]
+    },
+    {
+      "routePath": "/functions/admin",
+      "mountPath": "/functions/admin",
+      "method": "",
+      "middleware": [
+        "functions/admin/_middleware.js:onRequest"
+      ]
+    },
+    {
+      "routePath": "/admin",
+      "mountPath": "/admin",
+      "method": "",
+      "middleware": [
+        "admin/_middleware.js:onRequest"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}

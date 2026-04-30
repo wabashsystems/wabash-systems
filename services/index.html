@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Services | Wabash Systems</title>
+  <meta name="description" content="Full e-commerce services for small businesses in the Wabash Valley and beyond. Store setup, migrations, SEO, Google Ads, monthly management, and custom web development. Real pricing, no fluff." />
+  <link rel="canonical" href="https://www.wabashsystems.com/services/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/services/" />
+  <meta property="og:title" content="E-Commerce Services | Wabash Systems" />
+  <meta property="og:description" content="E-commerce services for small businesses in Illinois &amp; Indiana." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #b05a28;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #6b7280; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    .svc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .svc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .svc-hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .svc-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+    .svc-hero h1 { font-family: Georgia, serif; font-size: 48px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .svc-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; margin: 0 auto; }
+    @media (max-width: 720px) {
+      .svc-hero { padding: 48px 20px 64px; }
+      .svc-hero h1 { font-size: 32px; }
+      .svc-hero .lede { font-size: 15px; }
+    }
+
+    .services-grid-wrap { padding: 64px 32px; max-width: 1200px; margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (max-width: 720px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .svc-card {
+      display: block; text-decoration: none;
+      background: var(--white); border: 1px solid var(--gray-light);
+      border-radius: 12px; padding: 32px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); border-color: var(--orange); }
+    .svc-card .svc-card-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange-text); margin-bottom: 12px; }
+    .svc-card h2 { font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+    .svc-card .price-line { font-size: 14px; color: var(--orange); font-weight: 700; margin-bottom: 14px; }
+    .svc-card .desc { font-size: 15px; color: var(--navy); margin-bottom: 14px; }
+    .svc-card .more { font-size: 14px; color: var(--orange-text); font-weight: 600; }
+    .svc-card .more::after { content: '\2192'; margin-left: 6px; transition: margin-left 0.2s; }
+    .svc-card:hover .more::after { margin-left: 12px; }
+
+    .compare-section { background: var(--gray-light); padding: 64px 32px; }
+    .compare-inner { max-width: 900px; margin: 0 auto; }
+    .compare-inner h2 { font-family: Georgia, serif; font-size: 30px; color: var(--navy); margin-bottom: 12px; text-align: center; }
+    .compare-inner > p { text-align: center; color: var(--navy); margin-bottom: 28px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 16px; }
+    .compare-table { width: 100%; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+    .compare-table table { width: 100%; border-collapse: collapse; }
+    .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--gray-light); font-size: 14px; }
+    .compare-table th { background: var(--cream); font-weight: 700; color: var(--navy); font-size: 13px; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .svc-name { font-weight: 600; color: var(--navy); }
+    .compare-table .price-cell { color: var(--orange-text); font-weight: 600; white-space: nowrap; }
+    @media (max-width: 720px) {
+      .compare-table { overflow-x: auto; }
+      .compare-table table { min-width: 600px; }
+    }
+
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipSvcIdx"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipSvcIdx)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipSvcIdx)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipSvcIdx)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services" class="is-active">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="svc-eyebrow">E-Commerce Services</div>
+    <h1>Six services. Real pricing. No mystery.</h1>
+    <p class="lede">
+      Most consultants tell you "it depends" when you ask what something
+      costs. I won't. Here's what every service costs, what's included,
+      and who it's right for. Pick one or pick a stack &mdash; or send
+      me a message describing what you actually need and I'll point you
+      to the right starting place.
+    </p>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <div class="services-grid-wrap">
+    <div class="services-grid">
+
+      <a href="/services/store-setup" class="svc-card">
+        <div class="svc-card-eyebrow">One-Time Project</div>
+        <h2>Store Setup &amp; Launch</h2>
+        <div class="price-line">$1,500 &ndash; $3,000 one-time</div>
+        <p class="desc">A complete online store on Shopify, BigCommerce, or WooCommerce &mdash; configured properly, products loaded, payments and shipping wired, ready to take orders.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+      <a href="/services/platform-migration" class="svc-card">
+        <div class="svc-card-eyebrow">One-Time Project</div>
+        <h2>Platform Migration</h2>
+        <div class="price-line">$8,000 &ndash; $25,000+</div>
+        <p class="desc">Move from one platform to another without losing customers, orders, or SEO. Full data migration, URL preservation, integration rebuild, staging signoff, zero-downtime cutover.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+      <a href="/services/seo-management" class="svc-card">
+        <div class="svc-card-eyebrow">Monthly Retainer</div>
+        <h2>SEO Management</h2>
+        <div class="price-line">$500 &ndash; $1,500 / month</div>
+        <p class="desc">Technical SEO, content production, internal linking, schema markup, and local SEO. Real ranking work with monthly written reports &mdash; not autogenerated PDFs.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+      <a href="/services/google-ads" class="svc-card">
+        <div class="svc-card-eyebrow">Monthly Retainer</div>
+        <h2>Google Ads Management</h2>
+        <div class="price-line">$400 &ndash; $800 / month + ad spend</div>
+        <p class="desc">Shopping, Performance Max, and Search campaigns. Conversion tracking done right. Ad spend on your card &mdash; no markup, no hidden fees, full transparency.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+      <a href="/services/monthly-management" class="svc-card">
+        <div class="svc-card-eyebrow">Monthly Retainer</div>
+        <h2>Monthly Store Management</h2>
+        <div class="price-line">$750 &ndash; $2,500 / month</div>
+        <p class="desc">Outsourced operations: product updates, conversion work, content, integrations, and a real human who answers when something breaks. For owner-operators who don't want to be their own e-commerce manager.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+      <a href="/services/web-design" class="svc-card">
+        <div class="svc-card-eyebrow">One-Time Project</div>
+        <h2>Web Design &amp; Development</h2>
+        <div class="price-line">$800 &ndash; $5,000+</div>
+        <p class="desc">Hand-coded custom websites that load fast, work on every device, and rank because the foundation is right. Static sites, business sites, landing pages, and custom builds.</p>
+        <span class="more">See full pricing &amp; scope</span>
+      </a>
+
+    </div>
+  </div>
+
+  <section class="compare-section">
+    <div class="compare-inner">
+      <h2>At a Glance</h2>
+      <p>If you want to compare them all in one view.</p>
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Pricing</th>
+              <th>Type</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="svc-name" href="/services/store-setup">Store Setup &amp; Launch</a></td>
+              <td class="price-cell">$1,500&ndash;$3,000</td>
+              <td>One-time</td>
+              <td>Brand-new online stores</td>
+            </tr>
+            <tr>
+              <td><a class="svc-name" href="/services/platform-migration">Platform Migration</a></td>
+              <td class="price-cell">$8,000&ndash;$25,000+</td>
+              <td>One-time</td>
+              <td>Stores outgrowing their platform</td>
+            </tr>
+            <tr>
+              <td><a class="svc-name" href="/services/seo-management">SEO Management</a></td>
+              <td class="price-cell">$500&ndash;$1,500/mo</td>
+              <td>Monthly</td>
+              <td>Stores ready to compound traffic</td>
+            </tr>
+            <tr>
+              <td><a class="svc-name" href="/services/google-ads">Google Ads</a></td>
+              <td class="price-cell">$400&ndash;$800/mo</td>
+              <td>Monthly</td>
+              <td>Stores with proven product fit</td>
+            </tr>
+            <tr>
+              <td><a class="svc-name" href="/services/monthly-management">Monthly Management</a></td>
+              <td class="price-cell">$750&ndash;$2,500/mo</td>
+              <td>Monthly</td>
+              <td>Owner-operators short on time</td>
+            </tr>
+            <tr>
+              <td><a class="svc-name" href="/services/web-design">Web Design &amp; Dev</a></td>
+              <td class="price-cell">$800&ndash;$5,000+</td>
+              <td>One-time</td>
+              <td>Custom websites done right</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Not sure which service fits?</h2>
+  <p>
+    Free 30-minute consultation. Tell me what you're trying to do and
+    I'll point you to the right starting place &mdash; even if it's
+    something I don't offer myself.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/SR7eDU/klaviyo.js?company_id=SR7eDU"></script>
+<script type="text/javascript">
+!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+</script>
+
+</body>
+</html>
