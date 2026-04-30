@@ -685,17 +685,34 @@
     }
     submit.disabled = true; submit.textContent = 'Subscribing...';
     status.className = 'nl-status'; status.textContent = '';
-    fetch('/api/newsletter-signup', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, source: 'footer-newsletter' })
+    fetch('https://a.klaviyo.com/client/subscriptions/?company_id=SR7eDU', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
+      body: JSON.stringify({
+        data: {
+          type: 'subscription',
+          attributes: {
+            custom_source: 'wabashsystems-footer',
+            profile: { data: { type: 'profile', attributes: {
+              email: email,
+              properties: { lead_source: 'footer-newsletter', signup_url: location.origin }
+            } } }
+          },
+          relationships: { list: { data: { type: 'list', id: 'Tmu2LC' } } }
+        }
+      })
     })
-    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
-    .then(function (res) {
-      if (!res.ok) throw new Error(res.body.error || 'Something went wrong.');
-      status.className = 'nl-status is-success';
-      status.textContent = 'Got it! You are on the list.';
-      emailEl.value = ''; submit.textContent = 'Subscribed';
-      setTimeout(function () { submit.disabled = false; submit.textContent = 'Subscribe'; }, 3500);
+    .then(function (r) {
+      if (r.status >= 200 && r.status < 300) {
+        status.className = 'nl-status is-success';
+        status.textContent = 'Got it! You are on the list.';
+        emailEl.value = ''; submit.textContent = 'Subscribed';
+        setTimeout(function () { submit.disabled = false; submit.textContent = 'Subscribe'; }, 3500);
+      } else {
+        return r.text().then(function (body) {
+          throw new Error('Subscribe failed: ' + r.status + ' ' + body.slice(0, 200));
+        });
+      }
     })
     .catch(function (err) {
       status.className = 'nl-status is-error';
