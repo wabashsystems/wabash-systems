@@ -1,12 +1,19 @@
 // functions/api/newsletter-signup.js
 //
 // POST /api/newsletter-signup
-// Captures email from the footer newsletter form on every public page
-// and subscribes the profile to the main email list in Klaviyo with
-// `lead_source: footer-newsletter` so it stays distinct from the audit
-// checklist signups (which trigger their own welcome series).
+// Captures email from the footer newsletter form on every public page.
+//
+// Two-step Klaviyo flow (this is what Klaviyo's docs actually recommend
+// in their 2025+ revision; the bulk-subscribe endpoint does NOT accept
+// custom properties on the profile, only email/phone/subscriptions):
+//   1. POST /profiles/  - create or update the profile with custom properties
+//   2. POST /profile-subscription-bulk-create-jobs/  - subscribe to the list
+//
+// Bindings expected:
+//   KLAVIYO_PRIVATE_KEY  (Secret)
+//   KLAVIYO_LIST_ID      (Plaintext, in wrangler.toml)
 
-const KLAVIYO_API = 'https://a.klaviyo.com/api';
+const KLAVIYO_API      = 'https://a.klaviyo.com/api';
 const KLAVIYO_REVISION = '2024-10-15';
 
 const json = (body, status = 200) =>
@@ -20,6 +27,25 @@ const json = (body, status = 200) =>
 
 const isValidEmail = (e) =>
   typeof e === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+async function klaviyoFetch(apiKey, path, payload) {
+  const res = await fetch(`${KLAVIYO_API}${path}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Klaviyo-API-Key ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Accept':       'application/json',
+      'revision':     KLAVIYO_REVISION,
+    },
+    body: JSON.stringify(payload),
+  });
+  // 200, 201, 202 are all success for these endpoints
+  if (res.status >= 200 && res.status < 300) {
+    return { ok: true, status: res.status };
+  }
+  const text = await res.text();
+  return { ok: false, status: res.status, detail: text };
+}
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -45,7 +71,36 @@ export async function onRequestPost(context) {
     return json({ error: 'Please enter a valid email address.' }, 400);
   }
 
-  const payload = {
+  // ── Step 1: upsert profile with custom properties ─────────────────────
+  // Klaviyo's create-profile endpoint returns 409 if a profile with this
+  // email already exists - that's not actually an error for us, we just
+  // proceed to subscribe them. Treat 409 as success.
+  const profilePayload = {
+    data: {
+      type: 'profile',
+      attributes: {
+        email,
+        properties: {
+          lead_source: source,
+          signup_url:  new URL(request.url).origin,
+        },
+      },
+    },
+  };
+  const profileRes = await klaviyoFetch(apiKey, '/profiles/', profilePayload);
+  if (!profileRes.ok && profileRes.status !== 409) {
+    console.error('newsletter-signup: profile create failed', profileRes.status, profileRes.detail);
+    return json({
+      error:   'Could not save your email.',
+      // Surface the Klaviyo error to make debugging visible from the browser.
+      // Safe to return because the API key never appears in the response.
+      detail:  profileRes.detail,
+      step:    'profile-create',
+    }, 502);
+  }
+
+  // ── Step 2: subscribe profile to the email list ────────────────────────
+  const subscribePayload = {
     data: {
       type: 'profile-subscription-bulk-create-job',
       attributes: {
@@ -55,10 +110,6 @@ export async function onRequestPost(context) {
             type: 'profile',
             attributes: {
               email,
-              properties: {
-                lead_source: source,
-                signup_url:  new URL(request.url).origin,
-              },
               subscriptions: {
                 email: { marketing: { consent: 'SUBSCRIBED' } },
               },
@@ -71,28 +122,14 @@ export async function onRequestPost(context) {
       },
     },
   };
-
-  let kRes;
-  try {
-    kRes = await fetch(`${KLAVIYO_API}/profile-subscription-bulk-create-jobs/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Klaviyo-API-Key ${apiKey}`,
-        'Content-Type': 'application/json',
-        'Accept':       'application/json',
-        'revision':     KLAVIYO_REVISION,
-      },
-      body: JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.error('newsletter-signup: klaviyo fetch threw', err);
-    return json({ error: 'Could not reach Klaviyo. Try again in a moment.' }, 502);
-  }
-
-  if (!kRes.ok && kRes.status !== 202) {
-    const detail = await kRes.text();
-    console.error('newsletter-signup: klaviyo error', kRes.status, detail);
-    return json({ error: 'Could not save your email. Please try again.' }, 502);
+  const subRes = await klaviyoFetch(apiKey, '/profile-subscription-bulk-create-jobs/', subscribePayload);
+  if (!subRes.ok) {
+    console.error('newsletter-signup: subscribe failed', subRes.status, subRes.detail);
+    return json({
+      error:  'Could not save your email.',
+      detail: subRes.detail,
+      step:   'subscribe',
+    }, 502);
   }
 
   return json({ ok: true, message: 'Subscribed!' });

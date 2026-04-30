@@ -1,14 +1,19 @@
 // functions/api/lead-magnet.js
 //
 // POST /api/lead-magnet
-// Captures an email (and optionally a phone number for SMS) from the
-// homepage lead-capture surfaces - exit-intent modal and sticky bottom bar.
-// Drops the profile into Klaviyo with custom properties for segmentation
-// and subscribes to the email list (and SMS list, when opted in).
+// Captures email (and optional phone for SMS) from the homepage
+// exit-intent modal and sticky bar. Subscribes the profile to the
+// email list, and to the SMS list if SMS opt-in is set.
 //
-// Bindings expected on the Pages project:
-//   KLAVIYO_PRIVATE_KEY  (Secret, dashboard-managed)
-//   KLAVIYO_LIST_ID      (Plaintext, in wrangler.toml) - main email list
+// Two-step Klaviyo flow:
+//   1. Upsert the profile (POST /profiles/) with custom properties
+//      and the phone number if SMS opt-in is set.
+//   2. Subscribe the profile to the email list, and separately to the
+//      SMS list when applicable, via POST /profile-subscription-bulk-create-jobs/.
+//
+// Bindings expected:
+//   KLAVIYO_PRIVATE_KEY  (Secret)
+//   KLAVIYO_LIST_ID      (Plaintext, in wrangler.toml) - email list
 //   KLAVIYO_SMS_LIST_ID  (Plaintext, in wrangler.toml, optional) - SMS list
 //
 // Body shape:
@@ -16,10 +21,10 @@
 //     email:      string (required),
 //     phone:      string (optional, E.164 like "+15555551234"),
 //     sms_opt_in: boolean (optional),
-//     source:     string (optional, e.g. "exit-intent-audit" / "sticky-bar-audit")
+//     source:     string (optional)
 //   }
 
-const KLAVIYO_API = 'https://a.klaviyo.com/api';
+const KLAVIYO_API      = 'https://a.klaviyo.com/api';
 const KLAVIYO_REVISION = '2024-10-15';
 
 const json = (body, status = 200) =>
@@ -34,11 +39,10 @@ const json = (body, status = 200) =>
 const isValidEmail = (e) =>
   typeof e === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
-// Strict E.164 check: + followed by 8-15 digits
 const isValidE164 = (p) =>
   typeof p === 'string' && /^\+[1-9]\d{7,14}$/.test(p);
 
-async function callKlaviyo(apiKey, path, payload) {
+async function klaviyoFetch(apiKey, path, payload) {
   const res = await fetch(`${KLAVIYO_API}${path}`, {
     method: 'POST',
     headers: {
@@ -49,33 +53,23 @@ async function callKlaviyo(apiKey, path, payload) {
     },
     body: JSON.stringify(payload),
   });
-  if (!res.ok && res.status !== 202) {
-    const detail = await res.text();
-    const err = new Error(`Klaviyo ${res.status}: ${detail}`);
-    err.status = res.status;
-    err.body = detail;
-    throw err;
+  if (res.status >= 200 && res.status < 300) {
+    return { ok: true, status: res.status };
   }
-  return res;
+  const text = await res.text();
+  return { ok: false, status: res.status, detail: text };
 }
 
-function buildSubscriptionPayload({ listId, email, phone, smsOptIn, source }) {
-  const properties = {
-    lead_source:  source,
-    lead_magnet:  '10-point-audit-checklist',
-  };
+function subscribePayload(listId, email, phone, smsOptIn) {
   const subscriptions = {
     email: { marketing: { consent: 'SUBSCRIBED' } },
   };
-  const profile = {
-    type: 'profile',
-    attributes: { email, properties, subscriptions },
-  };
+  const profileAttrs = { email, subscriptions };
   if (smsOptIn && phone) {
-    profile.attributes.phone_number = phone;
+    profileAttrs.phone_number = phone;
     subscriptions.sms = {
-      marketing:        { consent: 'SUBSCRIBED' },
-      transactional:    { consent: 'SUBSCRIBED' },
+      marketing:     { consent: 'SUBSCRIBED' },
+      transactional: { consent: 'SUBSCRIBED' },
     };
   }
   return {
@@ -83,7 +77,7 @@ function buildSubscriptionPayload({ listId, email, phone, smsOptIn, source }) {
       type: 'profile-subscription-bulk-create-job',
       attributes: {
         custom_source: 'wabashsystems-lead-magnet',
-        profiles: { data: [profile] },
+        profiles: { data: [{ type: 'profile', attributes: profileAttrs }] },
       },
       relationships: {
         list: { data: { type: 'list', id: listId } },
@@ -111,18 +105,15 @@ export async function onRequestPost(context) {
     return json({ error: 'Invalid JSON body.' }, 400);
   }
 
-  const email     = (body.email || '').trim().toLowerCase();
-  const rawPhone  = (body.phone || '').trim();
-  const smsOptIn  = !!body.sms_opt_in;
-  const source    = (body.source || 'unknown').toString().slice(0, 80);
+  const email    = (body.email    || '').trim().toLowerCase();
+  const rawPhone = (body.phone    || '').trim();
+  const smsOptIn = !!body.sms_opt_in;
+  const source   = (body.source   || 'unknown').toString().slice(0, 80);
 
   if (!isValidEmail(email)) {
     return json({ error: 'Please enter a valid email address.' }, 400);
   }
 
-  // If SMS opt-in is set, the phone must be a real E.164 number.
-  // If opt-in is set but phone is bad, fail the whole request - don't
-  // silently drop the SMS half.
   let phone = '';
   if (smsOptIn) {
     if (!isValidE164(rawPhone)) {
@@ -133,54 +124,67 @@ export async function onRequestPost(context) {
     phone = rawPhone;
   }
 
-  // -- 1. Subscribe to email list (always) ---------------------------------
-  try {
-    await callKlaviyo(
-      apiKey,
-      '/profile-subscription-bulk-create-jobs/',
-      buildSubscriptionPayload({
-        listId:    emailListId,
-        email,
-        phone:     null,
-        smsOptIn:  false,
-        source,
-      })
-    );
-  } catch (err) {
-    console.error('lead-magnet: email-list subscription failed', err);
-    return json({ error: 'Could not save your email. Please try again.' }, 502);
+  // ── Step 1: upsert profile with custom properties ─────────────────────
+  const profileAttrs = {
+    email,
+    properties: {
+      lead_source:  source,
+      lead_magnet:  '10-point-audit-checklist',
+      signup_url:   new URL(request.url).origin,
+    },
+  };
+  if (smsOptIn && phone) profileAttrs.phone_number = phone;
+
+  const profileRes = await klaviyoFetch(apiKey, '/profiles/', {
+    data: { type: 'profile', attributes: profileAttrs },
+  });
+  // 409 = profile already exists; that's fine, we just continue.
+  if (!profileRes.ok && profileRes.status !== 409) {
+    console.error('lead-magnet: profile create failed', profileRes.status, profileRes.detail);
+    return json({
+      error:  'Could not save your email.',
+      detail: profileRes.detail,
+      step:   'profile-create',
+    }, 502);
   }
 
-  // -- 2. If SMS opted in and SMS list configured, subscribe to that too --
+  // ── Step 2: subscribe to email list ───────────────────────────────────
+  const emailSubRes = await klaviyoFetch(
+    apiKey,
+    '/profile-subscription-bulk-create-jobs/',
+    subscribePayload(emailListId, email, null, false)
+  );
+  if (!emailSubRes.ok) {
+    console.error('lead-magnet: email subscribe failed', emailSubRes.status, emailSubRes.detail);
+    return json({
+      error:  'Could not save your email.',
+      detail: emailSubRes.detail,
+      step:   'email-subscribe',
+    }, 502);
+  }
+
+  // ── Step 3: subscribe to SMS list (only if opted in and configured) ───
   if (smsOptIn && smsListId) {
-    try {
-      await callKlaviyo(
-        apiKey,
-        '/profile-subscription-bulk-create-jobs/',
-        buildSubscriptionPayload({
-          listId:    smsListId,
-          email,
-          phone,
-          smsOptIn:  true,
-          source,
-        })
-      );
-    } catch (err) {
-      // SMS failure shouldn't fail the whole request - email already
-      // captured. Log and return success with a soft warning.
-      console.error('lead-magnet: SMS-list subscription failed (email captured)', err);
+    const smsSubRes = await klaviyoFetch(
+      apiKey,
+      '/profile-subscription-bulk-create-jobs/',
+      subscribePayload(smsListId, email, phone, true)
+    );
+    if (!smsSubRes.ok) {
+      // SMS failed but email succeeded - return success with a soft warning.
+      console.error('lead-magnet: SMS subscribe failed', smsSubRes.status, smsSubRes.detail);
       return json({
-        ok: true,
+        ok:       true,
         download: '/lead-magnets/ecommerce-audit-checklist.pdf',
-        message: 'Email saved! SMS opt-in failed, retry from your inbox link.',
+        message:  'Email saved! SMS opt-in failed - retry from the email link.',
       });
     }
   }
 
   return json({
-    ok: true,
+    ok:       true,
     download: '/lead-magnets/ecommerce-audit-checklist.pdf',
-    message: 'Got it! Check your inbox.',
+    message:  'Got it! Check your inbox.',
   });
 }
 
