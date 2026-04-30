@@ -510,6 +510,15 @@
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
       overflow: hidden;
+      /* Card is now a clickable anchor; reset link styles to look like a card */
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    a.service-card:focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
     }
     .service-card::before {
       content: '';
@@ -1282,47 +1291,47 @@
     </div>
     <div class="services-grid">
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="Store Setup &amp; Launch — book a consultation">
         <span class="service-icon" aria-hidden="true">🛒</span>
         <h3 class="service-title">Store Setup &amp; Launch</h3>
         <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce — product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
         <div class="service-price">Starting at $1,500 — one-time</div>
-      </article>
+      </a>
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="Platform Migration — book a consultation">
         <span class="service-icon" aria-hidden="true">🔄</span>
         <h3 class="service-title">Platform Migration</h3>
         <p class="service-desc">Outgrown your current platform? We migrate your store — products, customer data, order history, and SEO rankings — to a modern platform without downtime or data loss.</p>
         <div class="service-price">Custom quote based on catalog size</div>
-      </article>
+      </a>
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="SEO Management — book a consultation">
         <span class="service-icon" aria-hidden="true">🔍</span>
         <h3 class="service-title">SEO Management</h3>
         <p class="service-desc">We build organic traffic first — so your business isn't one paused ad campaign away from silence. On-page optimization, product descriptions, local SEO, and technical SEO, month after month. Over 20 years of doing this the right way.</p>
         <div class="service-price">From $500/month</div>
-      </article>
+      </a>
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="Google Ads Management — book a consultation">
         <span class="service-icon" aria-hidden="true">📢</span>
         <h3 class="service-title">Google Ads Management</h3>
         <p class="service-desc">Stop wasting ad budget on clicks that don't convert. We build, manage, and optimize Google Shopping and Search campaigns that drive real buyers to your store.</p>
         <div class="service-price">From $400/month + ad spend</div>
-      </article>
+      </a>
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="Monthly Store Management — book a consultation">
         <span class="service-icon" aria-hidden="true">📊</span>
         <h3 class="service-title">Monthly Store Management</h3>
         <p class="service-desc">Your outsourced e-commerce department. We handle product updates, promotions, analytics, and ongoing optimization so your store keeps growing without consuming your time.</p>
         <div class="service-price">From $750/month</div>
-      </article>
+      </a>
 
-      <article class="service-card">
+      <a class="service-card" href="/booking" aria-label="Web Design &amp; Development — book a consultation">
         <span class="service-icon" aria-hidden="true">💻</span>
         <h3 class="service-title">Web Design &amp; Development</h3>
         <p class="service-desc">Need a professional website that actually converts? We build clean, fast, mobile-ready sites for small businesses — no bloated page builders, no cookie-cutter templates.</p>
         <div class="service-price">Starting at $800 — one-time</div>
-      </article>
+      </a>
 
     </div>
   </div>
