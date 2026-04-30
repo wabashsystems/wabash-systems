@@ -59,6 +59,23 @@ async function klaviyoFetch(apiKey, path, payload, method = 'POST') {
 }
 
 export async function onRequestPost(context) {
+  // Outer try/catch so any unhandled exception surfaces as a JSON 502 with
+  // the error message, instead of Cloudflare's generic HTML 502 page that
+  // hides the underlying error.
+  try {
+    return await handleRequest(context);
+  } catch (err) {
+    console.error('newsletter-signup: unhandled exception', err && err.stack ? err.stack : err);
+    return json({
+      error:  'Internal server error.',
+      detail: err && err.message ? err.message : String(err),
+      stack:  err && err.stack ? err.stack : null,
+      step:   'unhandled',
+    }, 502);
+  }
+}
+
+async function handleRequest(context) {
   const { request, env } = context;
 
   const apiKey = env.KLAVIYO_PRIVATE_KEY;
@@ -100,46 +117,64 @@ export async function onRequestPost(context) {
   };
 
   let profileId = null;
-  const createRes = await klaviyoFetch(apiKey, '/profiles/', profilePayload);
+  let createRes;
+  try {
+    createRes = await klaviyoFetch(apiKey, '/profiles/', profilePayload);
+  } catch (err) {
+    return json({
+      error:  'Could not reach Klaviyo for profile creation.',
+      detail: err && err.message ? err.message : String(err),
+      step:   'profile-fetch',
+    }, 502);
+  }
 
   if (createRes.ok) {
     profileId = createRes.body && createRes.body.data && createRes.body.data.id;
   } else if (createRes.status === 409) {
-    // Duplicate - existing profile id is in the error metadata
     const err = createRes.body && createRes.body.errors && createRes.body.errors[0];
     profileId = err && err.meta && err.meta.duplicate_profile_id;
   } else {
-    console.error('newsletter-signup: profile create failed', createRes.status, createRes.rawText);
     return json({
       error:  'Could not save your email.',
       detail: createRes.rawText,
       step:   'profile-create',
+      status: createRes.status,
     }, 502);
   }
 
   if (!profileId) {
-    console.error('newsletter-signup: profile id missing from response', createRes.status, createRes.rawText);
     return json({
-      error:  'Could not save your email.',
-      detail: 'Profile created but ID not returned by Klaviyo.',
-      step:   'profile-id',
+      error:    'Could not save your email.',
+      detail:   'Profile created but ID not returned by Klaviyo.',
+      step:     'profile-id',
       response: createRes.body,
+      raw:      createRes.rawText,
     }, 502);
   }
 
   // ── Step 2: add profile to list synchronously ────────────────────────────
-  const addRes = await klaviyoFetch(
-    apiKey,
-    `/lists/${listId}/relationships/profiles/`,
-    { data: [{ type: 'profile', id: profileId }] }
-  );
+  let addRes;
+  try {
+    addRes = await klaviyoFetch(
+      apiKey,
+      `/lists/${listId}/relationships/profiles/`,
+      { data: [{ type: 'profile', id: profileId }] }
+    );
+  } catch (err) {
+    return json({
+      error:      'Could not reach Klaviyo for list add.',
+      detail:     err && err.message ? err.message : String(err),
+      step:       'list-fetch',
+      profile_id: profileId,
+    }, 502);
+  }
 
   if (!addRes.ok) {
-    console.error('newsletter-signup: add to list failed', addRes.status, addRes.rawText);
     return json({
       error:      'Profile saved but could not add to list.',
       detail:     addRes.rawText,
       step:       'list-add',
+      status:     addRes.status,
       profile_id: profileId,
     }, 502);
   }
