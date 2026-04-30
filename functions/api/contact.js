@@ -1,4 +1,5 @@
 import { createLead as bluefolderCreateLead } from '../lib/bluefolder.js';
+import { captureException } from '../lib/sentry.js';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -178,6 +179,7 @@ export async function onRequestPost(context) {
     });
 
   } catch (err) {
+    captureException(context, err, { tags: { route: 'contact' } });
     return new Response(JSON.stringify({ success: false, error: 'Server error.', detail: err.message }), {
       status: 500, headers: { 'Content-Type': 'application/json' },
     });
