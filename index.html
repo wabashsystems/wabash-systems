@@ -1291,42 +1291,42 @@
     </div>
     <div class="services-grid">
 
-      <a class="service-card" href="#contact" data-service="Store Setup &amp; Launch" aria-label="Store Setup &amp; Launch — get in touch about this service">
+      <a class="service-card" href="/services/store-setup" aria-label="Learn more about Store Setup &amp; Launch">
         <span class="service-icon" aria-hidden="true">🛒</span>
         <h3 class="service-title">Store Setup &amp; Launch</h3>
         <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce — product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
         <div class="service-price">Starting at $1,500 — one-time</div>
       </a>
 
-      <a class="service-card" href="#contact" data-service="Platform Migration" aria-label="Platform Migration — get in touch about this service">
+      <a class="service-card" href="/services/platform-migration" aria-label="Learn more about Platform Migration">
         <span class="service-icon" aria-hidden="true">🔄</span>
         <h3 class="service-title">Platform Migration</h3>
         <p class="service-desc">Outgrown your current platform? We migrate your store — products, customer data, order history, and SEO rankings — to a modern platform without downtime or data loss.</p>
         <div class="service-price">Custom quote based on catalog size</div>
       </a>
 
-      <a class="service-card" href="#contact" data-service="SEO Management" aria-label="SEO Management — get in touch about this service">
+      <a class="service-card" href="/services/seo-management" aria-label="Learn more about SEO Management">
         <span class="service-icon" aria-hidden="true">🔍</span>
         <h3 class="service-title">SEO Management</h3>
         <p class="service-desc">We build organic traffic first — so your business isn't one paused ad campaign away from silence. On-page optimization, product descriptions, local SEO, and technical SEO, month after month. Over 20 years of doing this the right way.</p>
         <div class="service-price">From $500/month</div>
       </a>
 
-      <a class="service-card" href="#contact" data-service="Google Ads Management" aria-label="Google Ads Management — get in touch about this service">
+      <a class="service-card" href="/services/google-ads" aria-label="Learn more about Google Ads Management">
         <span class="service-icon" aria-hidden="true">📢</span>
         <h3 class="service-title">Google Ads Management</h3>
         <p class="service-desc">Stop wasting ad budget on clicks that don't convert. We build, manage, and optimize Google Shopping and Search campaigns that drive real buyers to your store.</p>
         <div class="service-price">From $400/month + ad spend</div>
       </a>
 
-      <a class="service-card" href="#contact" data-service="Monthly Store Management" aria-label="Monthly Store Management — get in touch about this service">
+      <a class="service-card" href="/services/monthly-management" aria-label="Learn more about Monthly Store Management">
         <span class="service-icon" aria-hidden="true">📊</span>
         <h3 class="service-title">Monthly Store Management</h3>
         <p class="service-desc">Your outsourced e-commerce department. We handle product updates, promotions, analytics, and ongoing optimization so your store keeps growing without consuming your time.</p>
         <div class="service-price">From $750/month</div>
       </a>
 
-      <a class="service-card" href="#contact" data-service="Web Design &amp; Development" aria-label="Web Design &amp; Development — get in touch about this service">
+      <a class="service-card" href="/services/web-design" aria-label="Learn more about Web Design &amp; Development">
         <span class="service-icon" aria-hidden="true">💻</span>
         <h3 class="service-title">Web Design &amp; Development</h3>
         <p class="service-desc">Need a professional website that actually converts? We build clean, fast, mobile-ready sites for small businesses — no bloated page builders, no cookie-cutter templates.</p>
@@ -1602,24 +1602,6 @@
 </footer>
 
 <script>
-  /* ── SERVICE CARD: PRE-SELECT DROPDOWN ──
-     When a service card is clicked, set the contact form's service
-     dropdown to match before the browser scrolls to #contact. So users
-     land on the form with the right service already chosen. */
-  document.querySelectorAll('.service-card[data-service]').forEach(function(card) {
-    card.addEventListener('click', function() {
-      var sel = document.getElementById('service');
-      if (!sel) return;
-      var target = card.getAttribute('data-service');
-      // Match against option text since the options don't have explicit values.
-      // The data-service attribute contains the literal text (with & not &amp;
-      // because the browser decodes HTML entities when reading the attribute).
-      Array.from(sel.options).forEach(function(opt) {
-        if (opt.text === target) sel.value = opt.value || opt.text;
-      });
-    });
-  });
-
   /* ── CONTACT FORM ── */
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
