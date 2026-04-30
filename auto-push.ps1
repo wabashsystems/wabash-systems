@@ -32,6 +32,7 @@ function Sync-Dir {
 $filesToSync = @(
     "index.html",
     "booking.html",
+    "privacy.html",
     "_redirects",
     "favicon.svg",
     "auto-push.ps1",
@@ -55,6 +56,7 @@ Sync-Dir -Src (Join-Path $cowork "docs")          -Dst (Join-Path $repo "docs")
 Sync-Dir -Src (Join-Path $cowork "admin")         -Dst (Join-Path $repo "admin")
 Sync-Dir -Src (Join-Path $cowork "case-studies")  -Dst (Join-Path $repo "case-studies")
 Sync-Dir -Src (Join-Path $cowork "lead-magnets")  -Dst (Join-Path $repo "lead-magnets")
+Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog")
 
 # -- Git: pull, commit, push if anything changed -------------------------------
 Set-Location $repo
