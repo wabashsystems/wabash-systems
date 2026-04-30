@@ -1,0 +1,55 @@
+# Cloudflare Pages headers
+# Format: path block, then indented header lines. Most-specific paths first.
+
+# Default for everything: hardening + sane referrer policy
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  X-Robots-Tag: index, follow
+
+# Cache HTML edges aggressively for marketing pages — they change at most weekly
+# (override per-page if needed; /booking and /api/* are excluded below)
+/
+  Cache-Control: public, max-age=300, s-maxage=3600
+/services/*
+  Cache-Control: public, max-age=300, s-maxage=3600
+/case-studies/*
+  Cache-Control: public, max-age=300, s-maxage=3600
+/blog/*
+  Cache-Control: public, max-age=300, s-maxage=3600
+
+# Booking page must be fresh (Cal.com / Calendly embed state)
+/booking
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Privacy page rarely changes
+/privacy
+  Cache-Control: public, max-age=3600, s-maxage=86400
+
+# API routes — never cache
+/api/*
+  Cache-Control: no-store
+  X-Frame-Options: DENY
+
+# Static assets — long cache, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# robots.txt + sitemap should always be fresh-ish
+/robots.txt
+  Cache-Control: public, max-age=300
+  Content-Type: text/plain; charset=utf-8
+/sitemap.xml
+  Cache-Control: public, max-age=300
+  Content-Type: application/xml; charset=utf-8

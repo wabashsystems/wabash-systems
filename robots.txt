@@ -1,0 +1,9 @@
+# Cloudflare prepends its managed bot-rules content above this file at request
+# time (Cloudflare → Bots → Manage robots.txt). Keep this file lean — anything
+# we put here lives BELOW Cloudflare's managed block. The Sitemap line is what
+# matters most for search engines.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.wabashsystems.com/sitemap.xml
