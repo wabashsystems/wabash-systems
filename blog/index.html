@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Wabash Systems</title>
+  <meta name="description" content="Practical e-commerce and small-business website advice from Wabash Systems. Hyperlocal perspective for shops across the Wabash Valley." />
+  <link rel="canonical" href="https://www.wabashsystems.com/blog/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/blog/" />
+  <meta property="og:title" content="Wabash Systems Blog" />
+  <meta property="og:description" content="Practical e-commerce and small-business website advice for Wabash Valley businesses." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:        #0d1a2a;
+      --navy-mid:    #1a2e44;
+      --orange:      #c4622d;
+      --orange-text: #b05a28;
+      --cream:       #f8f6f1;
+      --gray-light:  #f2f4f7;
+      --gray-mid:    #6b7280;
+      --white:       #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.65;
+    }
+    .skip-nav {
+      position: absolute; left: -100%; top: 8px;
+      background: var(--orange); color: var(--white);
+      padding: 12px 24px; font-weight: 600; z-index: 9999;
+      text-decoration: none;
+    }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* Nav */
+    nav.site-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+      padding: 18px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--navy); text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--navy); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover, .nav-links a.is-active { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange); color: var(--white) !important;
+      padding: 9px 20px; border-radius: 6px; font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--orange-text); }
+    @media (max-width: 720px) {
+      nav.site-nav { padding: 14px 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 80px 32px 96px;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 6px; background: var(--orange);
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .hero-eyebrow {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--orange); margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 52px; font-weight: 700;
+      line-height: 1.1; margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 18px; color: rgba(255,255,255,0.78);
+      max-width: 700px; margin: 0 auto;
+    }
+    @media (max-width: 720px) {
+      .hero { padding: 56px 20px 72px; }
+      .hero h1 { font-size: 36px; }
+      .hero-sub { font-size: 16px; }
+    }
+
+    /* Posts grid */
+    main { padding: 80px 32px; max-width: 1100px; margin: 0 auto; }
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 32px;
+    }
+    .post-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .post-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .post-thumb::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 4px; background: var(--orange);
+    }
+    .post-thumb-icon {
+      font-size: 64px; color: var(--orange);
+      font-family: Georgia, serif; font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .post-info { padding: 28px 32px; }
+    .post-meta {
+      display: flex; gap: 12px; align-items: center;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--gray-mid); margin-bottom: 12px;
+    }
+    .post-meta .post-cat {
+      color: var(--orange-text);
+      padding-right: 12px; border-right: 1px solid var(--gray-light);
+    }
+    .post-title {
+      font-family: Georgia, serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--navy); margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .post-title a { color: inherit; text-decoration: none; }
+    .post-title a:hover { color: var(--orange); }
+    .post-excerpt {
+      font-size: 14px; color: var(--gray-mid);
+      line-height: 1.7; margin-bottom: 18px;
+    }
+    .post-link {
+      font-size: 13px; font-weight: 700;
+      color: var(--orange-text); text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+    .post-link:hover { color: var(--orange); }
+
+    /* CTA band */
+    .cta-band {
+      background: var(--cream);
+      padding: 64px 32px;
+      text-align: center;
+      border-top: 1px solid var(--gray-light);
+    }
+    .cta-band h2 {
+      font-family: Georgia, serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--navy); margin-bottom: 14px;
+    }
+    .cta-band p {
+      color: var(--gray-mid); max-width: 600px;
+      margin: 0 auto 24px; font-size: 16px;
+    }
+    .btn-orange {
+      display: inline-block;
+      background: var(--orange); color: var(--white);
+      padding: 14px 36px; border-radius: 6px;
+      font-weight: 700; text-decoration: none;
+      font-size: 15px; letter-spacing: 0.5px;
+      transition: background 0.15s;
+    }
+    .btn-orange:hover { background: #d97338; }
+
+    /* Footer */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.6);
+      padding: 36px 32px; text-align: center; font-size: 13px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="logo">WABASH <span>SYSTEMS</span></a>
+  <div class="nav-links">
+    <a href="/#about">About</a>
+    <a href="/#services">Services</a>
+    <a href="/#portfolio">Portfolio</a>
+    <a href="/blog/" class="is-active">Blog</a>
+    <a href="/booking" class="nav-cta">Free Consultation</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">From the field</div>
+    <h1>Practical e-commerce, plainly explained.</h1>
+    <p class="hero-sub">
+      Notes from 25 years of building and running online stores &mdash; written
+      for small business owners across the Wabash Valley who'd rather get the
+      honest answer than the sales pitch.
+    </p>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <div class="post-grid">
+
+    <article class="post-card">
+      <div class="post-thumb"><span class="post-thumb-icon">$</span></div>
+      <div class="post-info">
+        <div class="post-meta">
+          <span class="post-cat">E-Commerce Costs</span>
+          <span>April 29, 2026</span>
+        </div>
+        <h2 class="post-title">
+          <a href="/blog/cost-to-set-up-online-store-wabash-valley">What it actually costs to set up a real online store in 2026 (Wabash Valley edition)</a>
+        </h2>
+        <p class="post-excerpt">
+          Shopify says $29/month and you're selling online. That's almost
+          completely useless if you're trying to budget honestly. Here's the
+          real number for three realistic scenarios &mdash; minimum viable,
+          real business, and migration &mdash; with the hidden costs nobody
+          warns you about.
+        </p>
+        <a href="/blog/cost-to-set-up-online-store-wabash-valley" class="post-link">Read the full breakdown &rarr;</a>
+      </div>
+    </article>
+
+    <article class="post-card">
+      <div class="post-thumb"><span class="post-thumb-icon">5</span></div>
+      <div class="post-info">
+        <div class="post-meta">
+          <span class="post-cat">Quick Wins</span>
+          <span>April 29, 2026</span>
+        </div>
+        <h2 class="post-title">
+          <a href="/blog/5-website-fixes-every-small-business-should-make">5 things every small business in southern Illinois should fix on their website this quarter</a>
+        </h2>
+        <p class="post-excerpt">
+          The five fixes I'd make first if you handed me your business website
+          tomorrow morning. Each takes less than a day. Most cost nothing.
+          Together they're the difference between a site that converts and
+          one that just exists.
+        </p>
+        <a href="/blog/5-website-fixes-every-small-business-should-make" class="post-link">Read the list &rarr;</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<section class="cta-band">
+  <h2>Want a second opinion on your own site?</h2>
+  <p>
+    Free 30-minute consultation, no pitch. Or grab the 10-Point E-Commerce
+    Audit Checklist and self-assess on your own time.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+</section>
+
+<footer>
+  &copy; 2026 Wabash Systems LLC &middot; Hutsonville, Illinois &middot;
+  <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>
+</footer>
+
+</body>
+</html>

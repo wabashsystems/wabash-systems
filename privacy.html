@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Wabash Systems</title>
+  <meta name="description" content="What Wabash Systems collects, how we use it, who we share it with, and your rights. Plain English, no legalese." />
+  <link rel="canonical" href="https://www.wabashsystems.com/privacy" />
+  <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44;
+      --orange: #c4622d; --orange-text: #b05a28;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #6b7280; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    nav.site-nav { background: var(--white); border-bottom: 1px solid var(--gray-light); padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); text-decoration: none; letter-spacing: 0.5px; }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: var(--navy); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta { background: var(--orange); color: var(--white) !important; padding: 9px 20px; border-radius: 6px; font-weight: 600; }
+    .nav-cta:hover { background: var(--orange-text); }
+    @media (max-width: 720px) { nav.site-nav { padding: 14px 20px; } .nav-links a:not(.nav-cta) { display: none; } }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 56px 32px 64px;
+      position: relative;
+    }
+    .page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .page-hero-inner { max-width: 800px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .page-hero h1 { font-family: Georgia, serif; font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+    .updated { font-size: 13px; color: rgba(255,255,255,0.6); }
+    @media (max-width: 720px) {
+      .page-hero { padding: 44px 20px 52px; }
+      .page-hero h1 { font-size: 28px; }
+    }
+
+    main { padding: 56px 32px 80px; }
+    article { max-width: 740px; margin: 0 auto; }
+    article p { font-size: 16px; color: var(--navy); margin-bottom: 18px; }
+    article p strong { font-weight: 700; }
+    article a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    article a:hover { color: var(--orange); }
+    article h2 {
+      font-family: Georgia, serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--navy);
+      margin-top: 40px; margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    article ul {
+      margin: 0 0 20px 0; padding-left: 22px;
+    }
+    article ul li {
+      font-size: 16px; color: var(--navy);
+      margin-bottom: 8px; line-height: 1.65;
+    }
+    article ul li strong { font-weight: 700; }
+
+    .summary-box {
+      background: var(--cream);
+      border-left: 4px solid var(--orange);
+      padding: 20px 24px;
+      margin: 24px 0 32px;
+      border-radius: 0 6px 6px 0;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .summary-box strong { color: var(--navy); }
+
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.6);
+      padding: 36px 32px; text-align: center; font-size: 13px;
+    }
+    footer a { color: var(--orange); text-decoration: none; margin: 0 8px; }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="logo">WABASH <span>SYSTEMS</span></a>
+  <div class="nav-links">
+    <a href="/#about">About</a>
+    <a href="/#services">Services</a>
+    <a href="/blog/">Blog</a>
+    <a href="/booking" class="nav-cta">Free Consultation</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; Privacy</div>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: April 29, 2026</p>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <article>
+
+    <div class="summary-box">
+      <strong>The short version:</strong> we collect your name, email,
+      and (if you provide it) phone number when you fill out a form on
+      this site. We use that information to reply to you, deliver any
+      resource you requested, and send relevant follow-ups you opted into.
+      We don't sell your data. We don't share it with anyone except the
+      tools we use to run the business (listed below). You can ask us to
+      delete it any time.
+    </div>
+
+    <p>
+      This page explains what Wabash Systems LLC (&ldquo;Wabash Systems,&rdquo;
+      &ldquo;we,&rdquo; &ldquo;us&rdquo;) collects through
+      <a href="https://www.wabashsystems.com">wabashsystems.com</a>, what
+      we do with it, who we share it with, and your rights. It's written in
+      plain English instead of legalese on purpose.
+    </p>
+
+    <h2>Who runs this site</h2>
+    <p>
+      Wabash Systems LLC, an Illinois limited liability company. The
+      business address is on file with the Illinois Secretary of State.
+      For questions about anything in this policy, email
+      <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>.
+    </p>
+
+    <h2>What we collect</h2>
+
+    <p>
+      <strong>When you fill out the contact form,</strong> we collect
+      your name, email, phone number (if provided), and the message you
+      typed. You can choose to opt into email or SMS updates &mdash; if you do,
+      we record that consent.
+    </p>
+
+    <p>
+      <strong>When you sign up for the audit checklist</strong> (via
+      the modal or the sticky bar), we collect your email address. If you
+      check the SMS box, we also collect your phone number.
+    </p>
+
+    <p>
+      <strong>When you book a consultation,</strong> we use Cal.com to
+      handle the calendar and meeting setup. Cal.com collects your name,
+      email, and any answers you give to their booking questions. Their
+      privacy policy is at
+      <a href="https://cal.com/privacy" target="_blank" rel="noopener">cal.com/privacy</a>.
+    </p>
+
+    <p>
+      <strong>Server logs.</strong> Our hosting provider (Cloudflare)
+      automatically logs IP addresses and basic request metadata for
+      security and abuse prevention. We don't directly use these logs
+      for marketing or tracking individuals.
+    </p>
+
+    <p>
+      <strong>Local storage on your device.</strong> When you close the
+      lead-magnet popup or sticky bar, your browser remembers that for 7
+      days using a localStorage flag named <code>wabash_lm_seen</code>.
+      That keeps us from showing you the same popup again immediately.
+      It doesn't track anything else. You can clear it by clearing your
+      browser's site data for our domain.
+    </p>
+
+    <p>
+      <strong>Analytics.</strong> If we run analytics tools (Google
+      Analytics 4 or Cloudflare Web Analytics), they record anonymized
+      page-view data &mdash; what page you visited, how you got here, your
+      approximate location by country/region, and your device type. They
+      do not identify you personally.
+    </p>
+
+    <h2>What we don't collect</h2>
+
+    <ul>
+      <li>We don't collect payment information on this site. If you
+          eventually pay an invoice, that goes through a third-party
+          payment processor (e.g., Stripe), not through us directly.</li>
+      <li>We don't track you across other websites. There's no Facebook
+          pixel, no advertising retargeting, no cross-site cookies.</li>
+      <li>We don't sell your data. Ever. To anyone.</li>
+    </ul>
+
+    <h2>How we use what we collect</h2>
+
+    <ul>
+      <li><strong>To reply to you.</strong> If you sent us a message or
+          booked a consultation, we use your email and phone number to
+          get back to you.</li>
+      <li><strong>To deliver resources you asked for.</strong> If you
+          downloaded the audit checklist, we email you a copy and
+          subsequent useful content over the following two weeks.</li>
+      <li><strong>To send marketing</strong> (only if you explicitly
+          opted in). You can unsubscribe from any email at any time using
+          the link at the bottom &mdash; that immediately removes you from
+          all marketing.</li>
+      <li><strong>To improve the site.</strong> Aggregated analytics tell
+          us which content is useful, what's broken, and where to focus
+          our writing.</li>
+    </ul>
+
+    <h2>Who we share it with</h2>
+
+    <p>
+      We use a small set of third-party tools to run the business. Each
+      one only gets the data it needs to do its job:
+    </p>
+
+    <ul>
+      <li><strong>Cloudflare</strong> &mdash; hosts the website, handles email
+          forwarding for our domain, and runs our serverless functions.
+          Sees IP addresses and request metadata.
+          <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's privacy policy</a>.</li>
+      <li><strong>Resend</strong> &mdash; sends contact form notifications to
+          our inbox. Sees the email content you submit through the form.
+          <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resend's privacy policy</a>.</li>
+      <li><strong>Klaviyo</strong> &mdash; manages our email and SMS marketing
+          lists. Sees your name, email, phone number (if provided),
+          consent records, and engagement metrics (opens, clicks).
+          <a href="https://www.klaviyo.com/legal/privacy/privacy-notice" target="_blank" rel="noopener">Klaviyo's privacy policy</a>.</li>
+      <li><strong>Cal.com</strong> &mdash; handles booking calendars. Sees what
+          you submit when scheduling a consultation.
+          <a href="https://cal.com/privacy" target="_blank" rel="noopener">Cal.com's privacy policy</a>.</li>
+      <li><strong>Google</strong> &mdash; if Google Analytics 4 is active, sees
+          anonymized page-view data. Google Workspace also handles email
+          if we use it for our business address.
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</li>
+    </ul>
+
+    <p>
+      We will not share your data with anyone else unless we're legally
+      required to (subpoena, court order, etc.) or you specifically ask
+      us to.
+    </p>
+
+    <h2>How long we keep it</h2>
+
+    <p>
+      <strong>Contact form messages and email signups:</strong> kept as
+      long as you're on our list. Unsubscribing or asking us to delete
+      your data removes it within 30 days.
+    </p>
+    <p>
+      <strong>Server logs:</strong> retained by Cloudflare per their
+      retention policy (typically 30 days for raw logs, longer for
+      aggregated data).
+    </p>
+    <p>
+      <strong>Analytics data:</strong> kept in aggregated, anonymized
+      form indefinitely. We can't tie it back to you specifically.
+    </p>
+
+    <h2>Your rights</h2>
+
+    <p>
+      Regardless of where you live, you have these rights with respect
+      to your data on this site:
+    </p>
+    <ul>
+      <li><strong>Access</strong> &mdash; ask us what we have on you.</li>
+      <li><strong>Correction</strong> &mdash; tell us if anything's wrong and
+          we'll fix it.</li>
+      <li><strong>Deletion</strong> &mdash; ask us to remove your information
+          and we'll do it within 30 days.</li>
+      <li><strong>Opt-out</strong> &mdash; unsubscribe from emails or SMS at any
+          time using the unsubscribe link in any message, or by emailing
+          us directly.</li>
+      <li><strong>Portability</strong> &mdash; request a copy of your data in a
+          machine-readable format.</li>
+    </ul>
+
+    <p>
+      If you live in California (CCPA), Virginia (VCDPA), Colorado
+      (CPA), or anywhere covered by GDPR, you have additional specific
+      rights granted by those laws. Email
+      <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>
+      and we'll handle the request the same way regardless of which
+      regulation applies.
+    </p>
+
+    <h2>Cookies</h2>
+
+    <p>
+      We don't set advertising cookies. Cloudflare may set a small
+      number of essential cookies (e.g., for security and bot
+      detection). If we run Google Analytics, it sets analytics cookies.
+      Browsers expose controls for clearing cookies and using "Do Not
+      Track" signals; we honor those where applicable.
+    </p>
+
+    <h2>Children</h2>
+
+    <p>
+      This site isn't directed at children under 13. We don't knowingly
+      collect data from anyone under 13. If you believe a child has
+      submitted information through our site, contact us and we'll
+      delete it.
+    </p>
+
+    <h2>Changes to this policy</h2>
+
+    <p>
+      If we change this policy materially &mdash; new tools, new data
+      collection, anything that affects your rights &mdash; we'll update the
+      "Last updated" date at the top and, if the change is significant,
+      send a notice to anyone on our email list at the time.
+    </p>
+
+    <h2>Questions</h2>
+
+    <p>
+      Email
+      <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a>
+      with any privacy question. Real human, real reply, usually within
+      one business day.
+    </p>
+
+  </article>
+</main>
+
+<footer>
+  &copy; 2026 Wabash Systems LLC &middot; Hutsonville, Illinois &middot;
+  <a href="mailto:agray@wabashsystems.com">agray@wabashsystems.com</a> &middot;
+  <a href="/privacy">Privacy</a>
+</footer>
+
+</body>
+</html>
