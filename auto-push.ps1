@@ -34,6 +34,10 @@ $filesToSync = @(
     "booking.html",
     "privacy.html",
     "_redirects",
+    "_headers",
+    "404.html",
+    "robots.txt",
+    "sitemap.xml",
     "favicon.svg",
     "auto-push.ps1",
     "wrangler.toml"
