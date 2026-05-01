@@ -100,5 +100,12 @@ export async function onRequestPost(context) {
 
 }
 
-// No GET handler needed — Cloudflare Pages serves admin/login.html automatically.
-// A GET redirect here would create a loop with Pages' pretty-URL canonicalization.
+// GET /admin/login — serve the login page directly via ASSETS binding.
+// We can't omit this handler: when a function file exists for a route, Pages
+// won't fall through to the static asset for unhandled methods. Using ASSETS.fetch()
+// returns the static HTML with a 200, no redirect involved.
+export async function onRequestGet(context) {
+  return context.env.ASSETS.fetch(
+    new Request(new URL('/admin/login.html', context.request.url))
+  );
+}
