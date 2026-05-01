@@ -949,10 +949,16 @@ function blogInit() {
 // scalar string values (with or without quotes), date string, and a
 // service_links list of `- value` lines. Anything more exotic is ignored.
 function blogParseFrontMatter() {
-  const raw = document.getElementById('blog-markdown').value;
-  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+  // Normalize: strip BOM, convert CRLF to LF, trim leading whitespace.
+  // Without this, paste from a Windows editor / Gmail draft fails the
+  // ^--- anchor because of \r\n line endings or a stray leading newline.
+  const raw = document.getElementById('blog-markdown').value
+    .replace(/^﻿/, '')
+    .replace(/\r\n/g, '\n')
+    .replace(/^\s+/, '');
+  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/);
   if (!m) {
-    blogStatus('No YAML front matter found. The draft should start with `---`.', 'err');
+    blogStatus('No YAML front matter found. The draft should start with `---` on its own line, then keys, then `---` again.', 'err');
     return;
   }
   const yaml = m[1];
@@ -994,7 +1000,12 @@ function blogParseFrontMatter() {
 }
 
 function blogStripFrontMatter(md) {
-  return md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+  // Normalize line endings so the regex is consistent with the parser.
+  return md
+    .replace(/^﻿/, '')
+    .replace(/\r\n/g, '\n')
+    .replace(/^\s+/, '')
+    .replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/, '');
 }
 
 function blogTogglePreview() {
