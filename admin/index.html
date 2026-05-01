@@ -982,6 +982,12 @@ function blogParseFrontMatter(opts) {
     .replace(/\r\n/g, '\n')
     .replace(/^\s+/, '');
 
+  // Empty textarea - nothing to do, don't yell at the user.
+  if (raw.length === 0) {
+    if (!silent) blogStatus('Paste a draft into the markdown box first.', 'info');
+    return false;
+  }
+
   // Must start with `---` on its own line.
   if (!raw.startsWith('---')) {
     if (!silent) {
