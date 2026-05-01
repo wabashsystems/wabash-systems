@@ -379,8 +379,23 @@
       font-size: clamp(16px, 2.5vw, 18px);
       color: rgba(248,246,241,0.8);
       max-width: 580px;
-      margin: 0 auto 40px;
+      margin: 0 auto 24px;
       line-height: 1.7;
+    }
+    /* Trust line: small, dim, sits between subtitle and CTAs. Single-
+       line proof statement so a stranger has a reason to trust the page
+       in their first 3 seconds without scrolling to the about section. */
+    .hero-proof {
+      font-size: 14px;
+      color: rgba(248,246,241,0.62);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+    }
+    .hero-proof strong { color: rgba(248,246,241,0.85); font-weight: 600; }
+    @media (max-width: 720px) {
+      .hero-proof { font-size: 13px; }
     }
     .hero-actions {
       display: flex;
@@ -893,284 +908,6 @@
       }
     }
 
-    /* ── EXIT-INTENT LEAD-MAGNET MODAL ────────────────────────────────────
-       Triggered by exit-intent (desktop mouse leaving top of viewport)
-       or by 45s inactivity timer (mobile). Hidden by default; shown via
-       .lm-overlay.is-open class added in JS. */
-    .lm-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(13, 26, 42, 0.78);
-      backdrop-filter: blur(2px);
-      z-index: 10000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-    .lm-overlay.is-open {
-      display: flex;
-      opacity: 1;
-    }
-    .lm-card {
-      background: var(--cream);
-      max-width: 520px;
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-      overflow: hidden;
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-      position: relative;
-    }
-    .lm-overlay.is-open .lm-card { transform: translateY(0); }
-    .lm-header {
-      background: var(--navy);
-      color: var(--white);
-      padding: 28px 36px 24px;
-      border-bottom: 4px solid var(--orange);
-      position: relative;
-    }
-    .lm-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 6px;
-    }
-    .lm-title {
-      font-family: Georgia, serif;
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 0;
-    }
-    .lm-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: transparent;
-      border: none;
-      color: rgba(255,255,255,0.6);
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 22px;
-      line-height: 1;
-      transition: color 0.15s, background 0.15s;
-    }
-    .lm-close:hover { color: var(--white); background: rgba(255,255,255,0.1); }
-
-    .lm-body { padding: 22px 36px 28px; }
-    .lm-sub {
-      font-size: 15px;
-      color: var(--navy);
-      line-height: 1.55;
-      margin-bottom: 14px;
-    }
-    .lm-bullets {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 18px 0;
-    }
-    .lm-bullets li {
-      font-size: 14px;
-      color: var(--navy);
-      padding: 4px 0 4px 22px;
-      position: relative;
-      line-height: 1.5;
-    }
-    .lm-bullets li::before {
-      content: '\2713';
-      position: absolute;
-      left: 0;
-      top: 4px;
-      color: var(--orange);
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .lm-form { display: flex; flex-direction: column; gap: 10px; }
-    .lm-form input[type="email"] {
-      padding: 12px 14px;
-      border: 1px solid #d4d8dd;
-      border-radius: 8px;
-      font-size: 15px;
-      font-family: inherit;
-      color: var(--navy);
-      background: var(--white);
-      transition: border-color 0.15s;
-      width: 100%;
-    }
-    .lm-form input[type="email"]:focus {
-      outline: none;
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.15);
-    }
-    .lm-submit {
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      padding: 13px 22px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.3px;
-      transition: background 0.15s, transform 0.1s;
-    }
-    .lm-submit:hover { background: #d97338; }
-    .lm-submit:active { transform: scale(0.98); }
-    .lm-submit:disabled { opacity: 0.6; cursor: wait; }
-
-    .lm-foot {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--gray-mid);
-      text-align: center;
-      line-height: 1.5;
-    }
-    .lm-foot a {
-      color: var(--gray-mid);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    .lm-foot a:hover { color: var(--navy); }
-
-    .lm-status {
-      font-size: 14px;
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin-top: 8px;
-      display: none;
-    }
-    .lm-status.is-error {
-      background: #fee2e2;
-      color: #991b1b;
-      display: block;
-    }
-    .lm-status.is-success {
-      background: #dcfce7;
-      color: #166534;
-      display: block;
-    }
-
-    /* SMS opt-in checkbox row */
-    .lm-sms-toggle {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--navy);
-      cursor: pointer;
-      user-select: none;
-      padding: 6px 2px;
-    }
-    .lm-sms-toggle input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      accent-color: var(--orange);
-      cursor: pointer;
-      margin: 0;
-    }
-    .lm-form input[type="tel"] {
-      padding: 12px 14px;
-      border: 1px solid #d4d8dd;
-      border-radius: 8px;
-      font-size: 15px;
-      font-family: inherit;
-      color: var(--navy);
-      background: var(--white);
-      width: 100%;
-    }
-    .lm-form input[type="tel"]:focus {
-      outline: none;
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.15);
-    }
-
-    @media (max-width: 480px) {
-      .lm-header { padding: 22px 24px 20px; }
-      .lm-body   { padding: 18px 24px 22px; }
-      .lm-title  { font-size: 20px; }
-    }
-
-    /* ── STICKY BOTTOM BAR ───────────────────────────────────────────────
-       Slim, dismissible bar that slides up after 25 seconds of engagement.
-       Shares suppression key with the exit-intent modal so a user who has
-       seen one doesn't get the other. */
-    .sb-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--navy);
-      color: var(--white);
-      padding: 12px 16px;
-      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
-      z-index: 9998;
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-      border-top: 3px solid var(--orange);
-      display: none;
-    }
-    .sb-bar.is-shown {
-      display: block;
-      transform: translateY(0);
-    }
-    .sb-bar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .sb-bar-text {
-      flex: 1;
-      min-width: 240px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    .sb-bar-text strong { color: var(--orange); }
-    .sb-bar-cta {
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      padding: 9px 18px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-      transition: background 0.15s;
-    }
-    .sb-bar-cta:hover { background: #d97338; }
-    .sb-bar-close {
-      background: transparent;
-      border: none;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 22px;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: color 0.15s, background 0.15s;
-    }
-    .sb-bar-close:hover {
-      color: var(--white);
-      background: rgba(255, 255, 255, 0.1);
-    }
-    @media (max-width: 600px) {
-      .sb-bar { padding: 10px 14px; }
-      .sb-bar-text { font-size: 13px; min-width: 0; }
-      .sb-bar-cta { padding: 8px 14px; font-size: 13px; }
-    }
   </style>
 </head>
 <body>
@@ -1242,6 +979,7 @@
     <span class="hero-eyebrow">E-Commerce Consulting</span>
     <h1 id="hero-heading">Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
     <p class="hero-sub">Wabash Systems helps local businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
+    <p class="hero-proof">Built by <strong>Andy Gray</strong> &mdash; 25 years of e-commerce operations at a national retailer in Indianapolis. Now back home in the Wabash Valley.</p>
     <div class="hero-actions">
       <a href="/booking" class="btn-primary">Book a Free Consultation</a>
       <a href="#services" class="btn-secondary">See What We Do</a>
@@ -1337,13 +1075,6 @@
         <div class="service-price">From $500/month</div>
       </a>
 
-      <a class="service-card" href="/services/google-ads" aria-label="Learn more about Google Ads Management">
-        <span class="service-icon" aria-hidden="true">📢</span>
-        <h3 class="service-title">Google Ads Management</h3>
-        <p class="service-desc">Stop wasting ad budget on clicks that don't convert. We build, manage, and optimize Google Shopping and Search campaigns that drive real buyers to your store.</p>
-        <div class="service-price">From $400/month + ad spend</div>
-      </a>
-
       <a class="service-card" href="/services/monthly-management" aria-label="Learn more about Monthly Store Management">
         <span class="service-icon" aria-hidden="true">📊</span>
         <h3 class="service-title">Monthly Store Management</h3>
@@ -1351,13 +1082,9 @@
         <div class="service-price">From $750/month</div>
       </a>
 
-      <a class="service-card" href="/services/web-design" aria-label="Learn more about Web Design &amp; Development">
-        <span class="service-icon" aria-hidden="true">💻</span>
-        <h3 class="service-title">Web Design &amp; Development</h3>
-        <p class="service-desc">Need a professional website that actually converts? We build clean, fast, mobile-ready sites for small businesses — no bloated page builders, no cookie-cutter templates.</p>
-        <div class="service-price">Starting at $800 — one-time</div>
-      </a>
-
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/services/" style="display:inline-block;font-size:15px;font-weight:600;color:var(--orange-text);text-decoration:underline;text-underline-offset:4px;">See all services (Google Ads, Web Design, &amp; more) &rarr;</a>
     </div>
   </div>
 </section>
@@ -1740,267 +1467,6 @@
   });
 </script>
 
-<!-- ──────────────────────────────────────────────────────────────────────
-     STICKY BOTTOM BAR
-     Slim slide-up bar after 25 seconds. Shares suppression key with the
-     exit-intent modal so they never both fire on the same user.
-     ────────────────────────────────────────────────────────────────────── -->
-<div class="sb-bar" id="sbBar" role="region" aria-label="Free resource offer">
-  <div class="sb-bar-inner">
-    <div class="sb-bar-text">
-      <strong>Free:</strong> 10-Point E-Commerce Audit Checklist - find the
-      gaps costing you sales.
-    </div>
-    <button type="button" class="sb-bar-cta" id="sbBarCta">Get the Checklist</button>
-    <button type="button" class="sb-bar-close" id="sbBarClose" aria-label="Dismiss">&times;</button>
-  </div>
-</div>
-
-<!-- ──────────────────────────────────────────────────────────────────────
-     EXIT-INTENT LEAD-MAGNET MODAL
-     Triggers when the user shows signal of leaving the page.
-     Desktop: mouse heading toward the top of the viewport (close/tabs/URL bar).
-     Mobile:  no mouseleave equivalent, so we use a 45-second inactivity timer
-              plus a deep-scroll-then-back trigger.
-     Suppressed for 7 days after dismiss/submit (localStorage flag).
-     ────────────────────────────────────────────────────────────────────── -->
-<div class="lm-overlay" id="lmOverlay" role="dialog" aria-modal="true"
-     aria-labelledby="lmTitle" aria-describedby="lmSub" hidden>
-  <div class="lm-card">
-    <div class="lm-header">
-      <div class="lm-eyebrow">Free Resource</div>
-      <h2 class="lm-title" id="lmTitle">Wait — before you go.</h2>
-      <button type="button" class="lm-close" id="lmClose" aria-label="Close dialog">&times;</button>
-    </div>
-    <div class="lm-body">
-      <p class="lm-sub" id="lmSub">
-        Grab our <strong>10-Point E-Commerce Audit Checklist</strong> &mdash; a
-        printable self-assessment that tells you exactly which gaps to fix
-        before you spend another dollar on ads or content.
-      </p>
-      <ul class="lm-bullets">
-        <li>Score your store across 10 key dimensions</li>
-        <li>Identify the gaps actually costing you sales</li>
-        <li>Get a clear prioritized to-do list, no fluff</li>
-      </ul>
-      <form class="lm-form" id="lmForm" novalidate>
-        <input type="email" id="lmEmail" name="email" required
-               autocomplete="email" placeholder="you@yourbusiness.com"
-               aria-label="Your email address" />
-
-        <label class="lm-sms-toggle" for="lmSmsOptIn">
-          <input type="checkbox" id="lmSmsOptIn" />
-          <span>Also text me a quick tip each week (optional)</span>
-        </label>
-
-        <input type="tel" id="lmPhone" name="phone"
-               autocomplete="tel" placeholder="(555) 555-1234"
-               aria-label="Mobile phone number"
-               style="display:none;" />
-
-        <button type="submit" class="lm-submit" id="lmSubmit">Send My Audit Checklist</button>
-        <div class="lm-status" id="lmStatus" role="status" aria-live="polite"></div>
-      </form>
-      <p class="lm-foot">
-        Email + optional text. No spam, unsubscribe anytime.
-        <a id="lmDecline" tabindex="0" role="button">No thanks &rarr;</a>
-      </p>
-    </div>
-  </div>
-</div>
-
-<script>
-(function () {
-  // -- Configuration ------------------------------------------------------
-  // Single shared suppression key across the modal AND the sticky bar so a
-  // user who has dismissed (or signed up via) either surface won't see
-  // another popup for SUPPRESS_MS.
-  var STORAGE_KEY   = 'wabash_lm_seen';
-  var SUPPRESS_MS   = 7 * 24 * 60 * 60 * 1000;  // 7 days
-  var MOBILE_DELAY  = 45 * 1000;                // 45s on mobile for modal
-  var STICKY_DELAY  = 25 * 1000;                // 25s for sticky bar
-  var TOP_THRESHOLD = 8;                        // px from top to trigger exit-intent
-
-  // Don't trigger on conversion pages where the user is already engaged.
-  var path = location.pathname.replace(/\/$/, '').toLowerCase();
-  if (path === '/booking' || path.startsWith('/admin') || path.startsWith('/case-studies')) {
-    return;
-  }
-
-  function isSuppressed() {
-    try {
-      var seen = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-      return seen && (Date.now() - seen) < SUPPRESS_MS;
-    } catch (e) { return false; }
-  }
-  function markSeen() {
-    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
-  }
-  if (isSuppressed()) return;
-
-  // -- Element refs ------------------------------------------------------
-  var overlay   = document.getElementById('lmOverlay');
-  var closeBtn  = document.getElementById('lmClose');
-  var decline   = document.getElementById('lmDecline');
-  var form      = document.getElementById('lmForm');
-  var emailEl   = document.getElementById('lmEmail');
-  var smsToggle = document.getElementById('lmSmsOptIn');
-  var phoneEl   = document.getElementById('lmPhone');
-  var submit    = document.getElementById('lmSubmit');
-  var status    = document.getElementById('lmStatus');
-
-  var sbBar     = document.getElementById('sbBar');
-  var sbCta     = document.getElementById('sbBarCta');
-  var sbClose   = document.getElementById('sbBarClose');
-
-  if (!overlay || !sbBar) return;
-
-  var lastFocus  = null;
-  var modalArmed = true;
-  var barShown   = false;
-
-  // -- Modal open/close --------------------------------------------------
-  function openModal() {
-    if (!modalArmed) return;
-    modalArmed = false;
-    hideBar();  // sticky bar makes way for the modal
-    lastFocus = document.activeElement;
-    overlay.removeAttribute('hidden');
-    overlay.offsetHeight;  // force reflow before transition
-    overlay.classList.add('is-open');
-    setTimeout(function () { emailEl.focus(); }, 100);
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    overlay.classList.remove('is-open');
-    setTimeout(function () { overlay.setAttribute('hidden', ''); }, 250);
-    document.body.style.overflow = '';
-    markSeen();
-    hideBar();
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  closeBtn.addEventListener('click', closeModal);
-  decline.addEventListener('click', closeModal);
-  decline.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeModal(); }
-  });
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeModal();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
-  });
-
-  // -- SMS opt-in field reveal ------------------------------------------
-  smsToggle.addEventListener('change', function () {
-    phoneEl.style.display = smsToggle.checked ? 'block' : 'none';
-    if (smsToggle.checked) phoneEl.focus();
-  });
-
-  // -- Phone normalization (loose; the function does the strict pass) ---
-  function normalizePhone(raw) {
-    var digits = (raw || '').replace(/\D/g, '');
-    if (!digits) return '';
-    // Default to US country code if 10 digits given
-    if (digits.length === 10) return '+1' + digits;
-    if (digits.length === 11 && digits[0] === '1') return '+' + digits;
-    return '+' + digits;  // best effort for other lengths/countries
-  }
-
-  // -- Form submit ------------------------------------------------------
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = emailEl.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      status.className = 'lm-status is-error';
-      status.textContent = 'Please enter a valid email address.';
-      return;
-    }
-    var phone = '';
-    if (smsToggle.checked) {
-      phone = normalizePhone(phoneEl.value);
-      if (!phone || phone.length < 11) {
-        status.className = 'lm-status is-error';
-        status.textContent = 'Please enter a valid mobile number, or uncheck the text option.';
-        phoneEl.focus();
-        return;
-      }
-    }
-
-    submit.disabled = true;
-    submit.textContent = 'Sending...';
-    status.className = 'lm-status';
-    status.textContent = '';
-
-    fetch('/api/lead-magnet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        phone: phone || undefined,
-        sms_opt_in: !!smsToggle.checked,
-        source: barShown ? 'sticky-bar-audit' : 'exit-intent-audit'
-      })
-    })
-    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
-    .then(function (res) {
-      if (!res.ok) throw new Error(res.body.error || 'Something went wrong.');
-      status.className = 'lm-status is-success';
-      status.textContent = 'Got it! Opening your checklist now...';
-      markSeen();
-      setTimeout(function () {
-        window.open('/lead-magnets/ecommerce-audit-checklist.pdf', '_blank');
-      }, 800);
-    })
-    .catch(function (err) {
-      status.className = 'lm-status is-error';
-      status.textContent = err.message || 'Could not save your email - please try again.';
-      submit.disabled = false;
-      submit.textContent = 'Send My Audit Checklist';
-    });
-  });
-
-  // -- Sticky bar -------------------------------------------------------
-  function showBar() {
-    if (barShown || isSuppressed()) return;
-    barShown = true;
-    sbBar.classList.add('is-shown');
-  }
-  function hideBar() {
-    sbBar.classList.remove('is-shown');
-  }
-  sbCta.addEventListener('click', function () { openModal(); });
-  sbClose.addEventListener('click', function () {
-    hideBar();
-    markSeen();
-  });
-
-  // -- Triggers ---------------------------------------------------------
-  function isTouchOnly() {
-    return window.matchMedia('(hover: none)').matches;
-  }
-
-  // Sticky bar fires first (25s) regardless of input device
-  setTimeout(function () {
-    if (!isSuppressed() && document.visibilityState === 'visible') showBar();
-  }, STICKY_DELAY);
-
-  // Modal triggers
-  if (!isTouchOnly()) {
-    // Desktop: cursor exits through the top of the viewport
-    document.addEventListener('mouseleave', function (e) {
-      if (e.clientY <= TOP_THRESHOLD && !e.relatedTarget) openModal();
-    });
-  } else {
-    // Mobile/touch: 45s inactivity since no mouseleave equivalent exists
-    setTimeout(function () {
-      if (document.visibilityState === 'visible') openModal();
-    }, MOBILE_DELAY);
-  }
-})();
-</script>
 
 <!-- ── SCROLL BUTTONS ── -->
 <style>
@@ -2038,3 +1504,4 @@
 
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                               
