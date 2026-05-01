@@ -171,4 +171,42 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# -- Cloudflare cache purge ----------------------------------------------------
+# Pages deploys update origin but the edge cache (s-maxage from _headers) keeps
+# serving stale HTML for up to an hour. Purging right after deploy makes
+# changes visible immediately.
+#
+# Required env vars:
+#   CF_PURGE_TOKEN  - Cloudflare API token scoped to "Cache Purge" only
+#   CF_ZONE_ID      - Zone ID for wabashsystems.com (Cloudflare dashboard
+#                     -> domain -> right sidebar -> "Zone ID")
+#
+# Failure here is non-fatal - the deploy already succeeded, cache will
+# eventually expire on its own. We just warn.
+$cfToken  = $env:CF_PURGE_TOKEN
+$cfZoneId = $env:CF_ZONE_ID
+if ($cfToken -and $cfZoneId) {
+    try {
+        $resp = Invoke-RestMethod `
+            -Uri "https://api.cloudflare.com/client/v4/zones/$cfZoneId/purge_cache" `
+            -Method POST `
+            -Headers @{
+                "Authorization" = "Bearer $cfToken"
+                "Content-Type"  = "application/json"
+            } `
+            -Body (@{ purge_everything = $true } | ConvertTo-Json) `
+            -ErrorAction Stop
+        if ($resp.success) {
+            Write-Host "[purge] Cloudflare cache purged" -ForegroundColor Green
+        } else {
+            $errs = ($resp.errors | ForEach-Object { $_.message }) -join "; "
+            Write-Host "[purge] API returned success=false: $errs" -ForegroundColor Yellow
+        }
+    } catch {
+        Write-Host "[purge] Cache purge failed: $($_.Exception.Message)" -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "[purge] CF_PURGE_TOKEN or CF_ZONE_ID not set - skipping cache purge" -ForegroundColor Yellow
+}
+
 Write-Host "$(Get-Date -Format 'HH:mm:ss') Deployed successfully." -ForegroundColor Green
