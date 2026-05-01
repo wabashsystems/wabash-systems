@@ -742,11 +742,16 @@
     <div class="card">
       <div class="card-title">Publish Blog Post</div>
       <p style="font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:16px;">
-        Paste the full markdown (with YAML front matter) from a draft in
-        <code>blog/drafts/</code>. The metadata fields below auto-fill from the
-        front matter. Edit anything you want, hit <strong>Preview</strong> to
-        see the rendered post, then <strong>Publish</strong> to commit to
-        GitHub. Live after the next <code>auto-push.ps1</code> run.
+        Fill in the metadata fields, paste the markdown body into the box at
+        the bottom (no front matter needed - the form replaces it). Slug
+        auto-derives from the title as you type. Hit <strong>Show preview</strong>
+        to verify rendering, then <strong>Publish to GitHub</strong>. Live
+        after the next <code>auto-push.ps1</code> run.
+        <br />
+        <em>Optional shortcut:</em> if you already have a draft with YAML
+        front matter (e.g. from <code>blog/drafts/</code>), paste the whole
+        thing - the metadata fields auto-fill from the front matter and the
+        front matter gets stripped before publish.
       </p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
         <div class="form-group">
@@ -794,8 +799,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Markdown (full draft, including <code>---</code> front matter)</label>
-        <textarea id="blog-markdown" rows="20" style="font-family:Consolas,Menlo,monospace;font-size:13px;line-height:1.55;" placeholder="---&#10;title: &quot;...&quot;&#10;slug: &quot;...&quot;&#10;description: &quot;...&quot;&#10;primary_keyword: &quot;...&quot;&#10;date: &quot;YYYY-MM-DD&quot;&#10;service_links:&#10;  - store-setup&#10;---&#10;&#10;# Post title&#10;&#10;Body markdown..."></textarea>
+        <label>Markdown body (front matter optional - skip it and just paste body text)</label>
+        <textarea id="blog-markdown" rows="20" style="font-family:Consolas,Menlo,monospace;font-size:13px;line-height:1.55;" placeholder="# Section heading&#10;&#10;Paragraph text. Use **bold**, *italic*, [link text](https://example.com), `inline code`.&#10;&#10;## Another section&#10;&#10;- Bullet point&#10;- Another bullet&#10;&#10;> A blockquote.&#10;&#10;The body markdown only - the form fields above handle title, slug, description, date, etc."></textarea>
       </div>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
         <button class="btn btn-ghost" onclick="blogParseFrontMatter()">Auto-fill from front matter</button>
@@ -927,6 +932,19 @@ function switchTab(tab) {
 let blogPreviewVisible = false;
 let blogInitialized = false;
 
+// Convert "Hello, World! It's a Test" -> "hello-world-its-a-test".
+// Drops everything that's not a letter or digit, collapses runs to a
+// single hyphen, trims leading/trailing hyphens.
+function blogTitleToSlug(title) {
+  return (title || '')
+    .toLowerCase()
+    .replace(/[‘’]/g, '')        // smart single quotes
+    .replace(/[“”]/g, '')        // smart double quotes
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+}
+
 function blogInit() {
   if (blogInitialized) return;
   blogInitialized = true;
@@ -937,6 +955,19 @@ function blogInit() {
   const dd = String(today.getDate()).padStart(2, '0');
   const dateEl = document.getElementById('blog-date');
   if (!dateEl.value) dateEl.value = `${yyyy}-${mm}-${dd}`;
+
+  // Auto-derive slug from title as the user types - but only while the
+  // slug field hasn't been manually edited. Once the user types in the
+  // slug field, we stop auto-deriving so they can override.
+  const titleEl = document.getElementById('blog-title');
+  const slugEl = document.getElementById('blog-slug');
+  let slugManuallyEdited = false;
+  slugEl.addEventListener('input', () => { slugManuallyEdited = true; });
+  titleEl.addEventListener('input', () => {
+    if (!slugManuallyEdited) {
+      slugEl.value = blogTitleToSlug(titleEl.value);
+    }
+  });
 
   // Live preview + auto-parse front matter on textarea changes. Debounced
   // so we don't thrash on every keystroke. Auto-parse only fills fields
