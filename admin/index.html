@@ -551,6 +551,7 @@
   <div class="tab active" onclick="switchTab('time')">⏱ Time Log</div>
   <div class="tab" onclick="switchTab('invoices')">🧾 Invoices</div>
   <div class="tab" onclick="switchTab('clients')">👤 Clients</div>
+  <div class="tab" onclick="switchTab('blog')">✍ Blog</div>
 </div>
 
 <div class="main">
@@ -735,7 +736,85 @@
     <div class="client-grid" id="clientGrid"></div>
   </div>
 
+  <!-- ══════════ BLOG ══════════ -->
+  <div class="panel" id="panel-blog">
+
+    <div class="card">
+      <div class="card-title">Publish Blog Post</div>
+      <p style="font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:16px;">
+        Paste the full markdown (with YAML front matter) from a draft in
+        <code>blog/drafts/</code>. The metadata fields below auto-fill from the
+        front matter. Edit anything you want, hit <strong>Preview</strong> to
+        see the rendered post, then <strong>Publish</strong> to commit to
+        GitHub. Live after the next <code>auto-push.ps1</code> run.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="blog-title" placeholder="Post title" />
+        </div>
+        <div class="form-group">
+          <label>Slug (URL path)</label>
+          <input type="text" id="blog-slug" placeholder="lowercase-kebab-case" />
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Meta description (20-200 chars)</label>
+          <textarea id="blog-description" rows="2" placeholder="Concise summary that appears in search results."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="blog-date" />
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="blog-category">
+            <option>E-Commerce</option>
+            <option>Quick Wins</option>
+            <option>SEO</option>
+            <option>Google Ads</option>
+            <option>Platform Migration</option>
+            <option>Strategy</option>
+            <option>Local Business</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Primary keyword (optional)</label>
+          <input type="text" id="blog-keyword" placeholder="shopify migration" />
+        </div>
+        <div class="form-group">
+          <label>Service links (optional)</label>
+          <div id="blog-service-links" style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;font-weight:400;">
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="store-setup"/> store-setup</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="platform-migration"/> platform-migration</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="seo-management"/> seo-management</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="google-ads"/> google-ads</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="monthly-management"/> monthly-management</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="web-design"/> web-design</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Markdown (full draft, including <code>---</code> front matter)</label>
+        <textarea id="blog-markdown" rows="20" style="font-family:Consolas,Menlo,monospace;font-size:13px;line-height:1.55;" placeholder="---&#10;title: &quot;...&quot;&#10;slug: &quot;...&quot;&#10;description: &quot;...&quot;&#10;primary_keyword: &quot;...&quot;&#10;date: &quot;YYYY-MM-DD&quot;&#10;service_links:&#10;  - store-setup&#10;---&#10;&#10;# Post title&#10;&#10;Body markdown..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+        <button class="btn btn-ghost" onclick="blogParseFrontMatter()">Auto-fill from front matter</button>
+        <button class="btn btn-navy" onclick="blogTogglePreview()" id="blogPreviewBtn">Show preview</button>
+        <button class="btn btn-primary" onclick="blogPublish()" style="margin-left:auto;">Publish to GitHub</button>
+      </div>
+      <div id="blogStatus" style="margin-top:14px;padding:10px 14px;border-radius:6px;font-size:13px;display:none;"></div>
+    </div>
+
+    <div class="card" id="blogPreviewCard" style="display:none;">
+      <div class="card-title">Preview</div>
+      <div id="blogPreview" style="padding:8px 4px;line-height:1.65;"></div>
+    </div>
+
+  </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
 // ══════════════════════════════════════════════════════
@@ -831,7 +910,7 @@ window.addEventListener('beforeunload', (e) => {
 // ══════════════════════════════════════════════════════
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach((t,i) => {
-    const ids = ['time','invoices','clients'];
+    const ids = ['time','invoices','clients','blog'];
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -839,6 +918,156 @@ function switchTab(tab) {
   if (tab === 'time') { renderTimeLog(); renderTimeStats(); }
   if (tab === 'invoices') { renderInvoiceHistory(); renderInvStats(); }
   if (tab === 'clients') { renderClients(); }
+  if (tab === 'blog') { blogInit(); }
+}
+
+// ══════════════════════════════════════════════════════
+// BLOG PUBLISHING
+// ══════════════════════════════════════════════════════
+let blogPreviewVisible = false;
+let blogInitialized = false;
+
+function blogInit() {
+  if (blogInitialized) return;
+  blogInitialized = true;
+  // Default date to today
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const dateEl = document.getElementById('blog-date');
+  if (!dateEl.value) dateEl.value = `${yyyy}-${mm}-${dd}`;
+
+  // Live preview update on markdown edit
+  const md = document.getElementById('blog-markdown');
+  md.addEventListener('input', () => {
+    if (blogPreviewVisible) blogRenderPreview();
+  });
+}
+
+// Minimal YAML front-matter parser. The drafts use a constrained subset:
+// scalar string values (with or without quotes), date string, and a
+// service_links list of `- value` lines. Anything more exotic is ignored.
+function blogParseFrontMatter() {
+  const raw = document.getElementById('blog-markdown').value;
+  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+  if (!m) {
+    blogStatus('No YAML front matter found. The draft should start with `---`.', 'err');
+    return;
+  }
+  const yaml = m[1];
+  const lines = yaml.split('\n');
+  const data = { service_links: [] };
+  let inList = null;
+  for (const line of lines) {
+    if (/^\s*-\s+/.test(line) && inList) {
+      data[inList].push(line.replace(/^\s*-\s+/, '').trim().replace(/^["']|["']$/g, ''));
+      continue;
+    }
+    inList = null;
+    const kv = line.match(/^(\w+):\s*(.*)$/);
+    if (!kv) continue;
+    const [, key, valRaw] = kv;
+    const val = valRaw.trim();
+    if (val === '' || val === '|' || val === '>') {
+      // Likely the start of a list (next lines are `- item`)
+      if (key === 'service_links') {
+        data.service_links = [];
+        inList = 'service_links';
+      }
+      continue;
+    }
+    data[key] = val.replace(/^["']|["']$/g, '');
+  }
+  if (data.title)            document.getElementById('blog-title').value = data.title;
+  if (data.slug)             document.getElementById('blog-slug').value = data.slug;
+  if (data.description)      document.getElementById('blog-description').value = data.description;
+  if (data.primary_keyword)  document.getElementById('blog-keyword').value = data.primary_keyword;
+  if (data.date)             document.getElementById('blog-date').value = data.date;
+  if (data.category)         document.getElementById('blog-category').value = data.category;
+  if (Array.isArray(data.service_links)) {
+    document.querySelectorAll('#blog-service-links input[type=checkbox]').forEach(cb => {
+      cb.checked = data.service_links.includes(cb.value);
+    });
+  }
+  blogStatus('Metadata filled from front matter.', 'ok');
+}
+
+function blogStripFrontMatter(md) {
+  return md.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+}
+
+function blogTogglePreview() {
+  blogPreviewVisible = !blogPreviewVisible;
+  document.getElementById('blogPreviewCard').style.display = blogPreviewVisible ? '' : 'none';
+  document.getElementById('blogPreviewBtn').textContent = blogPreviewVisible ? 'Hide preview' : 'Show preview';
+  if (blogPreviewVisible) blogRenderPreview();
+}
+
+function blogRenderPreview() {
+  const md = blogStripFrontMatter(document.getElementById('blog-markdown').value);
+  const html = window.marked ? window.marked.parse(md) : md;
+  document.getElementById('blogPreview').innerHTML = html;
+}
+
+function blogStatus(msg, level) {
+  const el = document.getElementById('blogStatus');
+  el.style.display = '';
+  el.textContent = msg;
+  if (level === 'ok')   { el.style.background = '#DCFCE7'; el.style.color = '#166534'; el.style.border = '1px solid #86efac'; }
+  if (level === 'err')  { el.style.background = '#FEE2E2'; el.style.color = '#991B1B'; el.style.border = '1px solid #fca5a5'; }
+  if (level === 'info') { el.style.background = '#E0F2FE'; el.style.color = '#075985'; el.style.border = '1px solid #7dd3fc'; }
+}
+
+async function blogPublish() {
+  const title = document.getElementById('blog-title').value.trim();
+  const slug = document.getElementById('blog-slug').value.trim();
+  const description = document.getElementById('blog-description').value.trim();
+  const date = document.getElementById('blog-date').value;
+  const category = document.getElementById('blog-category').value;
+  const keyword = document.getElementById('blog-keyword').value.trim();
+  const markdown = blogStripFrontMatter(document.getElementById('blog-markdown').value).trim();
+  const service_links = Array.from(
+    document.querySelectorAll('#blog-service-links input[type=checkbox]:checked')
+  ).map(cb => cb.value);
+
+  if (!title || !slug || !description || !date || !markdown) {
+    blogStatus('Fill in title, slug, description, date, and markdown body.', 'err');
+    return;
+  }
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
+    blogStatus('Slug must be lowercase kebab-case (a-z, 0-9, hyphens).', 'err');
+    return;
+  }
+  if (description.length < 20 || description.length > 200) {
+    blogStatus('Description must be 20-200 characters.', 'err');
+    return;
+  }
+  if (!confirm(`Publish "${title}" to /blog/${slug}? This commits to GitHub. The post goes live after the next auto-push run.`)) {
+    return;
+  }
+
+  blogStatus('Publishing...', 'info');
+  try {
+    const res = await fetch('/admin/api/blog/publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title, slug, description, date, category,
+        primary_keyword: keyword,
+        service_links,
+        markdown,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      blogStatus('Publish failed: ' + (data.error || ('HTTP ' + res.status)), 'err');
+      return;
+    }
+    blogStatus(`Committed. Run auto-push.ps1 (or wait for the next 30-min schedule) to deploy. URL: ${data.url}`, 'ok');
+  } catch (err) {
+    blogStatus('Publish failed: ' + err.message, 'err');
+  }
 }
 
 // ══════════════════════════════════════════════════════

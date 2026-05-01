@@ -17,15 +17,21 @@ $repo   = "C:\Users\andy\wabash-systems"
 # This is critical when working across multiple machines that each have
 # their own cowork folder - we never want one machine's local cowork to
 # silently delete files contributed by the other.
+#
+# -Exclude: top-level child names to skip (e.g. "drafts" inside blog/).
+# Used to keep unpublished content out of the deployed site without
+# moving it elsewhere on disk.
 function Sync-Dir {
-    param([string]$Src, [string]$Dst)
+    param([string]$Src, [string]$Dst, [string[]]$Exclude = @())
     if (-not (Test-Path $Src)) { return }
     if (-not (Test-Path $Dst)) {
         New-Item -ItemType Directory -Path $Dst -Force | Out-Null
     }
     # Get-ChildItem $Src enumerates the *contents* of Src (not Src itself),
     # so Copy-Item drops them directly into Dst - no parent-folder doubling.
-    Get-ChildItem -Path $Src -Force | Copy-Item -Destination $Dst -Recurse -Force
+    Get-ChildItem -Path $Src -Force `
+        | Where-Object { $Exclude -notcontains $_.Name } `
+        | Copy-Item -Destination $Dst -Recurse -Force
 }
 
 # Sync a single file between $Src (cowork) and $Dst (repo) using newer-wins
@@ -105,7 +111,7 @@ Sync-Dir -Src (Join-Path $cowork "docs")          -Dst (Join-Path $repo "docs")
 Sync-Dir -Src (Join-Path $cowork "admin")         -Dst (Join-Path $repo "admin")
 Sync-Dir -Src (Join-Path $cowork "case-studies")  -Dst (Join-Path $repo "case-studies")
 Sync-Dir -Src (Join-Path $cowork "lead-magnets")  -Dst (Join-Path $repo "lead-magnets")
-Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog")
+Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog") -Exclude @("drafts")
 Sync-Dir -Src (Join-Path $cowork "services")      -Dst (Join-Path $repo "services")
 Sync-Dir -Src (Join-Path $cowork "js")            -Dst (Join-Path $repo "js")
 
