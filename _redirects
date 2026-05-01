@@ -1,2 +1,23 @@
-# Cloudflare Pages handles pretty URLs (.html extension removal) automatically.
-# No rules needed.
+# Cloudflare Pages redirects
+#
+# Pretty URLs (.html extension stripping) are handled automatically by
+# Cloudflare Pages — no rules needed for that.
+#
+# What we DO need: collapse the four URL variants into one canonical
+# (https://www.wabashsystems.com). Without these, Google indexes
+# wabashsystems.com, www.wabashsystems.com, http://, and https:// as
+# separate hosts and splits ranking authority across all four. The
+# canonical <link> tag is a hint; a 301 is definitive.
+#
+# Cloudflare "Always Use HTTPS" (zone-level setting) handles http -> https
+# at the edge before the request reaches Pages, but we list http sources
+# here too as defense in depth (and so this works even if that toggle
+# ever gets turned off).
+#
+# Both wabashsystems.com and www.wabashsystems.com are configured as
+# custom domains on the Pages project, so requests to either reach this
+# rules file. The :splat token captures whatever follows the wildcard.
+
+http://wabashsystems.com/*       https://www.wabashsystems.com/:splat   301
+https://wabashsystems.com/*      https://www.wabashsystems.com/:splat   301
+http://www.wabashsystems.com/*   https://www.wabashsystems.com/:splat   301
