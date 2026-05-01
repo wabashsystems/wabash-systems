@@ -114,6 +114,7 @@ Sync-Dir -Src (Join-Path $cowork "lead-magnets")  -Dst (Join-Path $repo "lead-ma
 Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog") -Exclude @("drafts")
 Sync-Dir -Src (Join-Path $cowork "services")      -Dst (Join-Path $repo "services")
 Sync-Dir -Src (Join-Path $cowork "js")            -Dst (Join-Path $repo "js")
+Sync-Dir -Src (Join-Path $cowork "fonts")         -Dst (Join-Path $repo "fonts")
 
 # -- Git: pull, commit, push if anything changed -------------------------------
 Set-Location $repo
