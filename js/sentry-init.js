@@ -31,7 +31,6 @@ window.sentryOnLoad = function () {
       /Extension context invalidated/,
       /chrome\.runtime\.sendMessage/,
       // Ad blockers / privacy tools blocking third-party scripts
-      /Failed to fetch.*klaviyo/i,
       /Network request failed/,
       // Cross-origin script errors with no actionable stack
       /^Script error\.?$/,
@@ -47,20 +46,10 @@ window.sentryOnLoad = function () {
       /^safari-extension:\/\//,
       /^extension:\/\//,
       // Third-party scripts we don't own
-      /static\.klaviyo\.com/,
-      /js\.klaviyo\.com/,
       /www\.googletagmanager\.com/,
       /googleads/,
       // Cal.com embed
       /cal\.com/,
     ],
-
-    // Last-line filter for stuff the regex lists miss.
-    beforeSend(event, hint) {
-      const err = hint && hint.originalException;
-      // Klaviyo onsite SDK throws TypeErrors with no actionable stack
-      if (err && err.stack && /klaviyo/i.test(err.stack)) return null;
-      return event;
-    },
   });
 };
