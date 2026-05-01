@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wabash Systems — Admin Login</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1A2A;
+      --navy-mid: #162236;
+      --orange:   #C4622D;
+      --cream:    #F8F6F1;
+      --gray:     #6B7280;
+      --white:    #FFFFFF;
+      --red:      #DC2626;
+      --border:   #E5E7EB;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--navy);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+    }
+    .logo { color: var(--white); font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+    .logo span { color: var(--orange); }
+
+    .center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 40px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .card-sub {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      color: var(--navy);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type="password"]:focus {
+      border-color: var(--navy);
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--red);
+    }
+    .error.visible { display: block; }
+
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 24px;
+      padding: 11px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button[type="submit"]:hover { opacity: 0.9; }
+    button[type="submit"]:active { opacity: 0.8; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">WABASH<span>.</span></div>
+</header>
+
+<div class="center">
+  <div class="card">
+    <div class="card-title">Admin Access</div>
+    <div class="card-sub">Enter your password to continue.</div>
+
+    <form method="POST" action="/admin/login">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="current-password"
+        autofocus
+        required
+      />
+
+      <div class="error" id="err">Incorrect password. Try again.</div>
+
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Show error banner if ?error=1 in the URL
+  if (new URLSearchParams(location.search).get('error') === '1') {
+    document.getElementById('err').classList.add('visible');
+  }
+</script>
+
+</body>
+</html>
