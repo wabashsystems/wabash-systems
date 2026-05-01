@@ -114,6 +114,7 @@ Sync-Dir -Src (Join-Path $cowork "case-studies")  -Dst (Join-Path $repo "case-st
 Sync-Dir -Src (Join-Path $cowork "lead-magnets")  -Dst (Join-Path $repo "lead-magnets")
 Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog") -Exclude @("drafts")
 Sync-Dir -Src (Join-Path $cowork "services")      -Dst (Join-Path $repo "services")
+Sync-Dir -Src (Join-Path $cowork "locations")     -Dst (Join-Path $repo "locations")
 Sync-Dir -Src (Join-Path $cowork "js")            -Dst (Join-Path $repo "js")
 Sync-Dir -Src (Join-Path $cowork "fonts")         -Dst (Join-Path $repo "fonts")
 Sync-Dir -Src (Join-Path $cowork "design-system") -Dst (Join-Path $repo "design-system")

@@ -41,6 +41,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.wabashsystems.com/locations/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.wabashsystems.com/locations/robinson-il</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wabashsystems.com/locations/lawrenceville-il</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wabashsystems.com/locations/mt-carmel-il</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wabashsystems.com/locations/vincennes-in</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wabashsystems.com/locations/terre-haute-in</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://www.wabashsystems.com/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
