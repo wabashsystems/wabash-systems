@@ -12,7 +12,9 @@
 const SESSION_COOKIE = 'admin_session';
 
 // Routes that don't require an active session
-const PUBLIC_PATHS = ['/admin/login', '/admin/login.html'];
+// Note: Pages' pretty-URL feature handles /admin/login.html → /admin/login canonicalization,
+// so we only need to allowlist the canonical path here.
+const PUBLIC_PATHS = ['/admin/login'];
 
 // -------------------------------------------------------------------
 // HMAC-SHA256 helpers (Web Crypto — available in Cloudflare Workers)

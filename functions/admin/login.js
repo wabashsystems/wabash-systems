@@ -100,8 +100,5 @@ export async function onRequestPost(context) {
 
 }
 
-// Redirect GET /admin/login → /admin/login.html (static file)
-// (Cloudflare Pages serves the .html automatically, but just in case)
-export async function onRequestGet() {
-  return new Response(null, { status: 302, headers: { Location: '/admin/login.html' } });
-}
+// No GET handler needed — Cloudflare Pages serves admin/login.html automatically.
+// A GET redirect here would create a loop with Pages' pretty-URL canonicalization.
