@@ -95,7 +95,8 @@ $filesToSync = @(
     "sitemap.xml",
     "favicon.svg",
     "auto-push.ps1",
-    "wrangler.toml"
+    "wrangler.toml",
+    "download-inter.ps1"
 )
 
 foreach ($file in $filesToSync) {
@@ -115,6 +116,7 @@ Sync-Dir -Src (Join-Path $cowork "blog")          -Dst (Join-Path $repo "blog") 
 Sync-Dir -Src (Join-Path $cowork "services")      -Dst (Join-Path $repo "services")
 Sync-Dir -Src (Join-Path $cowork "js")            -Dst (Join-Path $repo "js")
 Sync-Dir -Src (Join-Path $cowork "fonts")         -Dst (Join-Path $repo "fonts")
+Sync-Dir -Src (Join-Path $cowork "design-system") -Dst (Join-Path $repo "design-system")
 
 # -- Git: pull, commit, push if anything changed -------------------------------
 Set-Location $repo

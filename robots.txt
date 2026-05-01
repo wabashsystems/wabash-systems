@@ -5,5 +5,8 @@
 
 User-agent: *
 Allow: /
+Disallow: /design-system/
+Disallow: /admin/
+Disallow: /api/
 
 Sitemap: https://www.wabashsystems.com/sitemap.xml
