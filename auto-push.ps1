@@ -73,13 +73,49 @@ function Sync-File {
         return
     }
 
-    # Both sides exist — newer wins. Only overwrite $Dst if $Src is strictly
+    # Both sides exist - newer wins. Only overwrite $Dst if $Src is strictly
     # newer (mtime > by at least 1 second). Otherwise leave $Dst alone so
     # direct-to-repo edits or git-pulled changes don't get clobbered.
     $srcMtime = (Get-Item $Src).LastWriteTimeUtc
     $dstMtime = (Get-Item $Dst).LastWriteTimeUtc
     if ($srcMtime -gt $dstMtime.AddSeconds(1)) {
         Copy-Item $Src $Dst -Force
+    }
+}
+
+# Refresh cowork from repo for files that just got pulled from remote. Used
+# right after "git pull" to bring this laptop's cowork in sync with edits
+# made on the OTHER laptop. Does NOT scaffold src->dst (we never want to
+# re-add files to repo just because they happen to exist in cowork - that
+# would let one laptop's "git rm" get silently undone by the other's cowork
+# state). Does NOT delete from cowork either (additive only - parallel to
+# the cowork->repo Sync-File semantics).
+function Sync-RepoToCowork {
+    param([string]$Src, [string]$Dst)
+
+    # If repo doesn't have it, do nothing. Deletions still propagate via
+    # git pull (which removes the file from $repo), but we don't aggressively
+    # mirror that into cowork - if cowork has a local copy of a file the
+    # repo doesn't, that's the user's call.
+    if (-not (Test-Path $Src)) { return }
+
+    # First-copy case: repo has it, cowork doesn't yet. Copy.
+    if (-not (Test-Path $Dst)) {
+        $dstDir = Split-Path $Dst -Parent
+        if (-not (Test-Path $dstDir)) {
+            New-Item -ItemType Directory -Path $dstDir -Force | Out-Null
+        }
+        Copy-Item $Src $Dst -Force
+        Write-Host "  refreshed cowork: $(Split-Path $Dst -Leaf)" -ForegroundColor Cyan
+        return
+    }
+
+    # Both exist - newer wins. 1s tolerance for filesystem precision drift.
+    $srcMtime = (Get-Item $Src).LastWriteTimeUtc
+    $dstMtime = (Get-Item $Dst).LastWriteTimeUtc
+    if ($srcMtime -gt $dstMtime.AddSeconds(1)) {
+        Copy-Item $Src $Dst -Force
+        Write-Host "  refreshed cowork: $(Split-Path $Dst -Leaf)" -ForegroundColor Cyan
     }
 }
 
@@ -157,6 +193,15 @@ if ($branch -ne "main") {
 
 # Pull first so we don't get rejected by remote changes from another machine.
 Invoke-Git -GitArgs @("pull","--rebase","--autostash") -FailMsg "pull --rebase failed (likely merge conflict - resolve manually)"
+
+# After git pull, repo has the OTHER laptop's edits with mtime=now. Push them
+# down to this laptop's cowork so the user sees the latest state when they
+# open their editor next. This is what makes the dual-laptop workflow work:
+# laptop A pushes -> laptop B's next cron pulls into B's repo -> this loop
+# refreshes B's cowork -> B's user is up to date.
+foreach ($file in $filesToSync) {
+    Sync-RepoToCowork -Src (Join-Path $repo $file) -Dst (Join-Path $cowork $file)
+}
 
 $changes = & git status --porcelain
 if (-not $changes) {
