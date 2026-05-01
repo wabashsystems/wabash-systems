@@ -938,30 +938,74 @@ function blogInit() {
   const dateEl = document.getElementById('blog-date');
   if (!dateEl.value) dateEl.value = `${yyyy}-${mm}-${dd}`;
 
-  // Live preview update on markdown edit
+  // Live preview + auto-parse front matter on textarea changes. Debounced
+  // so we don't thrash on every keystroke. Auto-parse only fills fields
+  // that are currently empty - never clobbers a manual edit.
   const md = document.getElementById('blog-markdown');
+  let debounceTimer = null;
   md.addEventListener('input', () => {
-    if (blogPreviewVisible) blogRenderPreview();
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (blogPreviewVisible) blogRenderPreview();
+      blogParseFrontMatter({ silent: true, onlyFillEmpty: true });
+    }, 300);
+  });
+  // Also fire on paste with a tiny delay so the pasted text is in the
+  // textarea by the time we read it.
+  md.addEventListener('paste', () => {
+    setTimeout(() => {
+      if (blogPreviewVisible) blogRenderPreview();
+      blogParseFrontMatter({ silent: true, onlyFillEmpty: true });
+    }, 50);
   });
 }
 
 // Minimal YAML front-matter parser. The drafts use a constrained subset:
 // scalar string values (with or without quotes), date string, and a
 // service_links list of `- value` lines. Anything more exotic is ignored.
-function blogParseFrontMatter() {
+function blogParseFrontMatter(opts) {
+  opts = opts || {};
+  const silent = opts.silent === true;
+  const onlyFillEmpty = opts.onlyFillEmpty === true;
+  const setVal = (id, v) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (onlyFillEmpty && el.value && el.value.trim() !== '') return;
+    el.value = v;
+  };
+
   // Normalize: strip BOM, convert CRLF to LF, trim leading whitespace.
   // Without this, paste from a Windows editor / Gmail draft fails the
-  // ^--- anchor because of \r\n line endings or a stray leading newline.
+  // start anchor because of \r\n line endings or a stray leading newline.
   const raw = document.getElementById('blog-markdown').value
     .replace(/^﻿/, '')
     .replace(/\r\n/g, '\n')
     .replace(/^\s+/, '');
-  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/);
-  if (!m) {
-    blogStatus('No YAML front matter found. The draft should start with `---` on its own line, then keys, then `---` again.', 'err');
-    return;
+
+  // Must start with `---` on its own line.
+  if (!raw.startsWith('---')) {
+    if (!silent) {
+      const preview = raw.slice(0, 80);
+      const codes = Array.from(preview).map(c => c.charCodeAt(0).toString(16)).join(' ');
+      console.warn('[blog] front matter parse failed - first 80 chars:', preview, '\nhex:', codes);
+      blogStatus('First 80 chars: ' + JSON.stringify(preview) + ' - draft must start with three dashes (---) on the very first line. Open DevTools console for hex dump.', 'err');
+    }
+    return false;
   }
-  const yaml = m[1];
+
+  // Find the closing fence. After the opening `---`, search for `\n---`
+  // (the closing fence on its own line).
+  const afterOpen = raw.slice(3);
+  let closingIdx = afterOpen.search(/\n---(?:\n|$|\s)/);
+  if (closingIdx === -1) {
+    if (!silent) {
+      blogStatus('Found opening `---` but no closing `---`. Add a `---` line after the last metadata key.', 'err');
+    }
+    return false;
+  }
+  // Extract YAML body between the fences. Drop the leading newline after
+  // the opening fence if present.
+  const yaml = afterOpen.slice(0, closingIdx).replace(/^\n/, '');
   const lines = yaml.split('\n');
   const data = { service_links: [] };
   let inList = null;
@@ -985,27 +1029,39 @@ function blogParseFrontMatter() {
     }
     data[key] = val.replace(/^["']|["']$/g, '');
   }
-  if (data.title)            document.getElementById('blog-title').value = data.title;
-  if (data.slug)             document.getElementById('blog-slug').value = data.slug;
-  if (data.description)      document.getElementById('blog-description').value = data.description;
-  if (data.primary_keyword)  document.getElementById('blog-keyword').value = data.primary_keyword;
-  if (data.date)             document.getElementById('blog-date').value = data.date;
-  if (data.category)         document.getElementById('blog-category').value = data.category;
-  if (Array.isArray(data.service_links)) {
+  if (data.title)            setVal('blog-title', data.title);
+  if (data.slug)             setVal('blog-slug', data.slug);
+  if (data.description)      setVal('blog-description', data.description);
+  if (data.primary_keyword)  setVal('blog-keyword', data.primary_keyword);
+  if (data.date)             setVal('blog-date', data.date);
+  if (data.category)         setVal('blog-category', data.category);
+  if (Array.isArray(data.service_links) && data.service_links.length > 0) {
     document.querySelectorAll('#blog-service-links input[type=checkbox]').forEach(cb => {
-      cb.checked = data.service_links.includes(cb.value);
+      // Only set checks - don't unset user-driven choices when filling silently.
+      if (data.service_links.includes(cb.value)) cb.checked = true;
+      else if (!onlyFillEmpty) cb.checked = false;
     });
   }
-  blogStatus('Metadata filled from front matter.', 'ok');
+  if (!silent) blogStatus('Metadata filled from front matter.', 'ok');
+  return true;
 }
 
 function blogStripFrontMatter(md) {
-  // Normalize line endings so the regex is consistent with the parser.
-  return md
+  // Mirror the looser parser logic from blogParseFrontMatter so that
+  // edge-case paste content gets the same treatment in both places.
+  const norm = md
     .replace(/^﻿/, '')
     .replace(/\r\n/g, '\n')
-    .replace(/^\s+/, '')
-    .replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/, '');
+    .replace(/^\s+/, '');
+  if (!norm.startsWith('---')) return norm;
+  const afterOpen = norm.slice(3);
+  const closingIdx = afterOpen.search(/\n---(?:\n|$|\s)/);
+  if (closingIdx === -1) return norm;
+  // Skip the closing fence line. Find newline AFTER the closing ---
+  // to know where the body content actually starts.
+  const afterClosingFence = afterOpen.slice(closingIdx);
+  const bodyStart = afterClosingFence.indexOf('\n', 4); // skip "\n---"
+  return bodyStart === -1 ? '' : afterClosingFence.slice(bodyStart + 1);
 }
 
 function blogTogglePreview() {
@@ -1031,6 +1087,14 @@ function blogStatus(msg, level) {
 }
 
 async function blogPublish() {
+  // If the user pasted markdown but never filled metadata, try to derive
+  // it from the front matter automatically before validating. This makes
+  // the common path (paste -> Publish) one click.
+  if (!document.getElementById('blog-title').value.trim() ||
+      !document.getElementById('blog-slug').value.trim()) {
+    blogParseFrontMatter({ silent: true, onlyFillEmpty: true });
+  }
+
   const title = document.getElementById('blog-title').value.trim();
   const slug = document.getElementById('blog-slug').value.trim();
   const description = document.getElementById('blog-description').value.trim();
