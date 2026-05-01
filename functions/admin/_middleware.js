@@ -101,6 +101,10 @@ export async function onRequest(context) {
   }
 
   // Not authenticated — redirect to login, preserving the intended destination
+  // Note: Response.redirect() requires absolute URLs in Workers; use Location header instead
   const returnTo = encodeURIComponent(url.pathname + url.search);
-  return Response.redirect(`/admin/login?next=${returnTo}`, 302);
+  return new Response(null, {
+    status: 302,
+    headers: { Location: `/admin/login?next=${returnTo}` },
+  });
 }

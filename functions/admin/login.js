@@ -69,12 +69,12 @@ export async function onRequestPost(context) {
     const body = await request.formData();
     password = body.get('password') ?? '';
   } catch {
-    return Response.redirect('/admin/login?error=1', 303);
+    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
   }
 
   // Validate password
   if (!safeEqual(password, env.ADMIN_PASSWORD)) {
-    return Response.redirect('/admin/login?error=1', 303);
+    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
   }
 
   // Issue signed session cookie
@@ -97,10 +97,11 @@ export async function onRequestPost(context) {
       'Set-Cookie': cookieAttrs,
     },
   });
+
 }
 
 // Redirect GET /admin/login → /admin/login.html (static file)
 // (Cloudflare Pages serves the .html automatically, but just in case)
 export async function onRequestGet() {
-  return Response.redirect('/admin/login.html', 302);
+  return new Response(null, { status: 302, headers: { Location: '/admin/login.html' } });
 }
