@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locations We Serve | Wabash Systems</title>
+  <meta name="description" content="E-commerce consulting for small businesses across the Wabash Valley. Robinson, Lawrenceville, Mt. Carmel, Vincennes, Terre Haute &mdash; and the rest of southeastern Illinois and southwestern Indiana." />
+  <link rel="canonical" href="https://www.wabashsystems.com/locations/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/locations/" />
+  <meta property="og:title" content="Locations We Serve | Wabash Systems" />
+  <meta property="og:description" content="E-commerce consulting for small businesses across the Wabash Valley." />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <script src="/js/sentry-init.js" defer></script>
+  <script src="https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js" crossorigin="anonymous" defer></script>
+  <script src="/js/posthog-init.js" defer></script>
+
+  <style>
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/fonts/Inter-Variable.woff2') format('woff2'); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e; --orange: #c4622d; --orange-light: #e8834d; --orange-text: #b05a28; --cream: #f8f6f1; --gray-light: #f2f4f7; --gray-mid: #6b7280; --white: #ffffff; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+    .loc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 56px 32px 64px; position: relative; overflow: hidden; }
+    .loc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .loc-hero-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .loc-hero h1 { font-family: Georgia, serif; font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
+    .loc-hero .lede { font-size: 16px; color: rgba(255,255,255,0.78); max-width: 640px; }
+    main { background: var(--white); padding: 64px 32px; }
+    .grid-wrap { max-width: 1100px; margin: 0 auto; }
+    .city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-bottom: 40px; }
+    .city-card { display: block; padding: 28px 28px; background: var(--white); border: 1px solid var(--gray-light); border-radius: 12px; text-decoration: none; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; color: inherit; }
+    .city-card:hover { border-color: var(--orange); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(13, 26, 42, 0.08); }
+    .city-name { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .city-county { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; color: var(--orange-text); text-transform: uppercase; margin-bottom: 14px; }
+    .city-desc { font-size: 14px; color: var(--gray-mid); line-height: 1.55; margin-bottom: 12px; }
+    .city-link { font-size: 13px; font-weight: 600; color: var(--orange-text); }
+    .also-section { background: var(--cream); padding: 48px 32px; border-radius: 12px; max-width: 1100px; margin: 0 auto; }
+    .also-section h2 { font-family: Georgia, serif; font-size: 22px; color: var(--navy); margin-bottom: 12px; }
+    .also-section p { color: var(--gray-mid); font-size: 15px; }
+    .also-list { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; font-size: 14px; color: var(--navy); }
+    .end-cta { background: var(--navy); color: var(--white); padding: 56px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 24px; font-size: 16px; }
+    .btn-primary { background: var(--orange); color: var(--white); padding: 14px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; display: inline-flex; align-items: center; min-height: 50px; }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+    footer { background: var(--navy); padding: 48px 5% 28px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 320px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">Serving the Wabash Valley</span><span class="thin"> &mdash; Illinois &amp; Indiana &mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipLocIndex"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipLocIndex)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipLocIndex)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipLocIndex)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true"><span class="nav-brand-top">WABASH</span><span class="nav-brand-sub">Systems</span></div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="loc-hero">
+  <div class="loc-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; Locations</div>
+    <h1>Locations We Serve</h1>
+    <p class="lede">
+      We&rsquo;re based in Crawford County and work with small businesses across both sides of the Wabash River. Pick the city closest to you for local-specific context, or just <a href="/booking" style="color:var(--orange-light);text-decoration:underline;">book a call</a> &mdash; we serve remotely too.
+    </p>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="grid-wrap">
+    <div class="city-grid">
+      <a class="city-card" href="/locations/robinson-il">
+        <div class="city-name">Robinson</div>
+        <div class="city-county">Crawford County, IL</div>
+        <div class="city-desc">Home base. County seat anchored by Marathon, Hershey, and a tight downtown small-business core.</div>
+        <div class="city-link">See Robinson &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/lawrenceville-il">
+        <div class="city-name">Lawrenceville</div>
+        <div class="city-county">Lawrence County, IL</div>
+        <div class="city-desc">Border town with a customer base split across the river to Vincennes IN. Cross-state local SEO matters here.</div>
+        <div class="city-link">See Lawrenceville &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/mt-carmel-il">
+        <div class="city-name">Mt. Carmel</div>
+        <div class="city-county">Wabash County, IL</div>
+        <div class="city-desc">River town anchored by Wabash General, agriculture, and Market Street retail. Underrepresented online.</div>
+        <div class="city-link">See Mt. Carmel &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/vincennes-in">
+        <div class="city-name">Vincennes</div>
+        <div class="city-county">Knox County, IN</div>
+        <div class="city-desc">Indiana&rsquo;s oldest city. Vincennes University, Good Samaritan, and US-41 drive-by traffic create a layered market.</div>
+        <div class="city-link">See Vincennes &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/terre-haute-in">
+        <div class="city-name">Terre Haute</div>
+        <div class="city-county">Vigo County, IN</div>
+        <div class="city-desc">Largest market in this set. ISU + Rose-Hulman + Saint Mary-of-the-Woods. Sharper SEO competition, bigger payback.</div>
+        <div class="city-link">See Terre Haute &rarr;</div>
+      </a>
+    </div>
+
+    <div class="also-section">
+      <h2>Also serving</h2>
+      <p>We work with businesses across both states without a dedicated landing page yet. If your town is below or anywhere near, the same services and pricing apply &mdash; just <a href="/booking" style="color:var(--orange-text);font-weight:600;">book a call</a>.</p>
+      <div class="also-list">
+        <span>Hutsonville, IL</span>
+        <span>Palestine, IL</span>
+        <span>Oblong, IL</span>
+        <span>Marshall, IL</span>
+        <span>Bridgeport, IL</span>
+        <span>Sumner, IL</span>
+        <span>Olney, IL</span>
+        <span>Fairfield, IL</span>
+        <span>Flora, IL</span>
+        <span>Albion, IL</span>
+        <span>Grayville, IL</span>
+        <span>Princeton, IN</span>
+        <span>Bicknell, IN</span>
+        <span>Sullivan, IN</span>
+        <span>Clinton, IN</span>
+        <span>Brazil, IN</span>
+        <span>Plus remote clients across the US</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="end-cta">
+  <h2>Don&rsquo;t See Your Town?</h2>
+  <p>The five city pages above are dedicated landing pages with local context, but we serve businesses across the whole Wabash Valley and remote clients nationwide. Book a call and we&rsquo;ll talk about your specific situation.</p>
+  <a href="/booking" class="btn-primary">Book a Free Consultation</a>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true"><span class="nav-brand-top" style="font-size:20px;">WABASH</span><span class="nav-brand-sub">Systems</span></div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/locations/">Locations</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/booking">Book a Call</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &middot; Illinois &amp; Indiana E-Commerce Consulting</span>
+  </div>
+</footer>
+
+</body>
+</html>
