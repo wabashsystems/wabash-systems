@@ -21,7 +21,7 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         from: 'Wabash Systems <info@wabashsystems.com>',
-        to: ['agray@wabashsystems.com'],
+        to: ['andy.gray@wabashsystems.com'],
         reply_to: email,
         subject: `New inquiry from ${fname} ${lname}${business ? ' — ' + business : ''}`,
         html: `
