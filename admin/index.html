@@ -1045,13 +1045,17 @@
           <input type="number" id="cl-retainer" placeholder="400" />
         </div>
         <div class="form-group" style="grid-column: 1 / -1;">
-          <label>Address / Notes</label>
-          <textarea id="cl-notes" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
+          <label>Billing Address</label>
+          <textarea id="cl-address" rows="2" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>Internal Notes (private, not on invoices)</label>
+          <textarea id="cl-notes" rows="2" placeholder="Net 15 terms; primary contact prefers email; refers other roofers"></textarea>
         </div>
         <div class="form-group" style="grid-column: 1 / -1; display:flex; align-items:center; gap:8px;">
-          <input type="checkbox" id="cl-internal" style="width:auto;margin:0;" />
+          <input type="checkbox" id="cl-internal" onchange="onInternalToggle('cl')" style="width:auto;margin:0;" />
           <label for="cl-internal" style="margin:0;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--navy);">
-            Internal client (excluded from invoicing, always pinned first)
+            Internal client (excluded from invoicing, always pinned first, rates default to $0)
           </label>
         </div>
         <div class="form-group">
@@ -1778,17 +1782,29 @@ function addClient() {
     phone:   document.getElementById('cl-phone').value.trim(),
     rate:    rate,
     retainer: parseFloat(document.getElementById('cl-retainer').value) || 0,
+    address: document.getElementById('cl-address').value.trim(),
     notes:   document.getElementById('cl-notes').value.trim(),
     internal: document.getElementById('cl-internal').checked,
   });
   saveClients(clients);
-  ['cl-name','cl-contact','cl-email','cl-phone','cl-notes'].forEach(id => document.getElementById(id).value = '');
+  ['cl-name','cl-contact','cl-email','cl-phone','cl-address','cl-notes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('cl-retainer').value = '';
   document.getElementById('cl-rate').value = '175';
   document.getElementById('cl-internal').checked = false;
   renderClients();
   populateClientDropdowns();
   renderReadyToBill();
+}
+
+// When the Internal checkbox toggles on, auto-zero the rate and retainer
+// (you'll never bill them so keeping non-zero defaults is misleading).
+// prefix = 'cl' for the Add form, 'dc' for the edit drawer.
+function onInternalToggle(prefix) {
+  const checked = document.getElementById(prefix + '-internal').checked;
+  if (checked) {
+    document.getElementById(prefix + '-rate').value = '0';
+    document.getElementById(prefix + '-retainer').value = '0';
+  }
 }
 
 function deleteClient(id) {
@@ -1925,13 +1941,17 @@ function openClientDetail(id) {
           <input type="number" id="dc-retainer" value="${c.retainer || ''}" placeholder="0" />
         </div>
         <div class="form-group" style="grid-column:1/-1;">
-          <label>Address / Notes</label>
-          <textarea id="dc-notes">${esc(c.notes || '')}</textarea>
+          <label>Billing Address</label>
+          <textarea id="dc-address" rows="2" placeholder="102 E Emmons St, Robinson IL 62454">${esc(c.address || '')}</textarea>
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Internal Notes (private, not on invoices)</label>
+          <textarea id="dc-notes" rows="2" placeholder="Net 15 terms; primary contact prefers email">${esc(c.notes || '')}</textarea>
         </div>
         <div class="form-group" style="grid-column:1/-1;display:flex;align-items:center;gap:8px;">
-          <input type="checkbox" id="dc-internal" ${c.internal ? 'checked' : ''} style="width:auto;margin:0;" />
+          <input type="checkbox" id="dc-internal" ${c.internal ? 'checked' : ''} onchange="onInternalToggle('dc')" style="width:auto;margin:0;" />
           <label for="dc-internal" style="margin:0;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--navy);">
-            Internal client (excluded from invoicing, always pinned first)
+            Internal client (excluded from invoicing, always pinned first, rates default to $0)
           </label>
         </div>
       </div>
@@ -2007,6 +2027,7 @@ function updateClient(id) {
     phone:    document.getElementById('dc-phone').value.trim(),
     rate:     rate,
     retainer: parseFloat(document.getElementById('dc-retainer').value) || 0,
+    address:  document.getElementById('dc-address').value.trim(),
     notes:    document.getElementById('dc-notes').value.trim(),
     internal: document.getElementById('dc-internal').checked,
   } : c);
@@ -2281,7 +2302,7 @@ function renderInvoicePreview() {
             ${client.contact ? esc(client.contact) + '<br>' : ''}
             ${client.email   ? esc(client.email)   + '<br>' : ''}
             ${client.phone   ? esc(client.phone)   + '<br>' : ''}
-            ${client.notes   ? esc(client.notes)           : ''}
+            ${(client.address || client.notes) ? esc(client.address || client.notes).replace(/\n/g, '<br>') : ''}
           </div>
         </div>
       </div>
