@@ -35,8 +35,11 @@
       align-items: center;
       justify-content: space-between;
     }
-    .logo { color: var(--white); font-size: 18px; font-weight: 700; letter-spacing: 1px; }
-    .logo span { color: var(--orange); }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo svg { width: 48px; height: 29px; }
+    .logo-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-brand-top { font-family: Georgia, serif; font-size: 15px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .logo-brand-sub { font-size: 8px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; }
     .header-sub { color: rgba(255,255,255,0.5); font-size: 13px; }
 
     /* ── TABS ── */
@@ -58,6 +61,29 @@
     }
     .tab:hover { color: var(--white); }
     .tab.active { color: var(--white); border-bottom-color: var(--orange); }
+
+    /* ── SUB-TABS ── */
+    .sub-tabs {
+      background: var(--cream);
+      display: flex;
+      gap: 4px;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sub-tab {
+      padding: 9px 18px;
+      color: var(--gray);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .sub-tab:hover { color: var(--navy); }
+    .sub-tab.active { color: var(--navy); border-bottom-color: var(--orange); font-weight: 600; }
+    .sub-tabs.hidden { display: none; }
 
     /* ── MAIN ── */
     .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
@@ -540,7 +566,21 @@
 <body>
 
 <header>
-  <div class="logo">WABASH <span>SYSTEMS</span></div>
+  <a href="/admin/" class="logo" aria-label="Wabash Systems Admin">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="adminNavClip"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#adminNavClip)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#adminNavClip)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#adminNavClip)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="logo-brand" aria-hidden="true">
+      <span class="logo-brand-top">WABASH</span>
+      <span class="logo-brand-sub">Systems</span>
+    </div>
+  </a>
   <div class="header-right">
     <span class="header-sub">Admin — Billing & Time Tracking</span>
     <span id="saveStatus" class="save-status status-ok">Ready</span>
@@ -551,10 +591,13 @@
 <div id="loadingOverlay" class="loading-overlay">Loading data&hellip;</div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('time')">⏱ Time Log</div>
-  <div class="tab" onclick="switchTab('invoices')">🧾 Invoices</div>
-  <div class="tab" onclick="switchTab('clients')">👤 Clients</div>
-  <div class="tab" onclick="switchTab('blog')">✍ Blog</div>
+  <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
+  <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
+</div>
+<div class="sub-tabs" id="subTabsInvoicing">
+  <div class="sub-tab active" onclick="switchSubTab('time')">⏱ Time Log</div>
+  <div class="sub-tab" onclick="switchSubTab('invoices')">🧾 Invoices</div>
+  <div class="sub-tab" onclick="switchSubTab('clients')">👤 Clients</div>
 </div>
 
 <div class="main">
@@ -818,6 +861,24 @@
       <div id="blogPreview" style="padding:8px 4px;line-height:1.65;"></div>
     </div>
 
+    <div class="card">
+      <div class="card-title">Published Posts</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Slug</th>
+              <th>Date</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="blogPostsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -828,7 +889,7 @@
 // ══════════════════════════════════════════════════════
 // DATA LAYER — Cloudflare KV via /admin/api/data
 // ══════════════════════════════════════════════════════
-const STATE = { clients: [], entries: [], invoices: [] };
+const STATE = { clients: [], entries: [], invoices: [], posts: [] };
 
 let saveTimer  = null;
 let savePending = false;
@@ -843,6 +904,7 @@ async function loadData() {
     STATE.clients  = Array.isArray(data.clients)  ? data.clients  : [];
     STATE.entries  = Array.isArray(data.entries)  ? data.entries  : [];
     STATE.invoices = Array.isArray(data.invoices) ? data.invoices : [];
+    STATE.posts    = Array.isArray(data.posts)    ? data.posts    : [];
     setStatus('ok', 'Saved');
     return true;
   } catch (err) {
@@ -867,6 +929,7 @@ async function doSave() {
     clients: STATE.clients,
     entries: STATE.entries,
     invoices: STATE.invoices,
+    posts: STATE.posts,
   });
   try {
     const res = await fetch('/admin/api/data', {
@@ -900,9 +963,11 @@ function setStatus(type, msg) {
 const getClients  = () => STATE.clients;
 const getEntries  = () => STATE.entries;
 const getInvoices = () => STATE.invoices;
+const getPosts    = () => STATE.posts;
 const saveClients  = (d) => { STATE.clients  = d; persist(); };
 const saveEntries  = (d) => { STATE.entries  = d; persist(); };
 const saveInvoices = (d) => { STATE.invoices = d; persist(); };
+const savePosts    = (d) => { STATE.posts    = d; persist(); };
 
 // Warn if the user navigates away while a save is in flight or failed
 window.addEventListener('beforeunload', (e) => {
@@ -916,17 +981,38 @@ window.addEventListener('beforeunload', (e) => {
 // ══════════════════════════════════════════════════════
 // TABS
 // ══════════════════════════════════════════════════════
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    const ids = ['time','invoices','clients','blog'];
+let currentMainTab = 'invoicing';
+let currentSubTab  = 'time';
+
+function switchMainTab(tab) {
+  currentMainTab = tab;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    const ids = ['invoicing', 'blog'];
+    t.classList.toggle('active', ids[i] === tab);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const subTabsEl = document.getElementById('subTabsInvoicing');
+  if (tab === 'invoicing') {
+    subTabsEl.classList.remove('hidden');
+    switchSubTab(currentSubTab);
+  } else {
+    subTabsEl.classList.add('hidden');
+    document.getElementById('panel-' + tab).classList.add('active');
+    if (tab === 'blog') { blogInit(); renderBlogPosts(); }
+  }
+}
+
+function switchSubTab(tab) {
+  currentSubTab = tab;
+  document.querySelectorAll('.sub-tab').forEach((t, i) => {
+    const ids = ['time', 'invoices', 'clients'];
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
-  if (tab === 'time') { renderTimeLog(); renderTimeStats(); }
+  if (tab === 'time')     { renderTimeLog(); renderTimeStats(); }
   if (tab === 'invoices') { renderInvoiceHistory(); renderInvStats(); }
-  if (tab === 'clients') { renderClients(); }
-  if (tab === 'blog') { blogInit(); }
+  if (tab === 'clients')  { renderClients(); }
 }
 
 // ══════════════════════════════════════════════════════
@@ -1179,9 +1265,56 @@ async function blogPublish() {
       blogStatus('Publish failed: ' + (data.error || ('HTTP ' + res.status)), 'err');
       return;
     }
+    // Save to local KV state so it appears in Published Posts list
+    const posts = getPosts().filter(p => p.slug !== slug); // replace if re-publishing same slug
+    posts.push({ slug, title, date, category });
+    savePosts(posts);
+    renderBlogPosts();
     blogStatus(`Committed. Run auto-push.ps1 (or wait for the next 30-min schedule) to deploy. URL: ${data.url}`, 'ok');
   } catch (err) {
     blogStatus('Publish failed: ' + err.message, 'err');
+  }
+}
+
+function renderBlogPosts() {
+  const posts = getPosts().slice().sort((a, b) => b.date.localeCompare(a.date));
+  const tbody = document.getElementById('blogPostsBody');
+  if (!tbody) return;
+  if (!posts.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="icon" style="font-size:24px;">✍</div>No posts published yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = posts.map(p => `
+    <tr>
+      <td><strong>${esc(p.title)}</strong></td>
+      <td><a href="https://www.wabashsystems.com/blog/${esc(p.slug)}" target="_blank" rel="noopener" style="color:var(--orange);font-size:13px;">${esc(p.slug)}</a></td>
+      <td>${fmtDate(p.date)}</td>
+      <td>${esc(p.category || '')}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteBlogPost('${esc(p.slug)}')">Delete</button></td>
+    </tr>
+  `).join('');
+}
+
+async function deleteBlogPost(slug) {
+  if (!confirm(`Delete "${slug}" from GitHub and remove it from the blog index?\n\nThis cannot be undone.`)) return;
+  blogStatus('Deleting...', 'info');
+  try {
+    const res = await fetch('/admin/api/blog/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      blogStatus('Delete failed: ' + (data.error || ('HTTP ' + res.status)), 'err');
+      return;
+    }
+    // Remove from local state
+    savePosts(getPosts().filter(p => p.slug !== slug));
+    renderBlogPosts();
+    blogStatus(`"${slug}" deleted. Run auto-push.ps1 to deploy the removal.`, 'ok');
+  } catch (err) {
+    blogStatus('Delete failed: ' + err.message, 'err');
   }
 }
 
@@ -1754,6 +1887,7 @@ function esc(s) {
   renderTimeLog();
   renderTimeStats();
   renderClients();
+  renderBlogPosts();
 
   // Hide loading overlay
   document.getElementById('loadingOverlay').classList.add('hidden');
