@@ -484,10 +484,79 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 20px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+      position: relative;
     }
-    .client-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .client-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 2px 14px rgba(196, 98, 45, 0.13);
+      transform: translateY(-1px);
+    }
+    .client-card-arrow {
+      position: absolute;
+      top: 18px;
+      right: 16px;
+      color: var(--border);
+      font-size: 16px;
+      transition: color 0.15s;
+    }
+    .client-card:hover .client-card-arrow { color: var(--orange); }
+    .client-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; padding-right: 24px; }
     .client-detail { font-size: 13px; color: var(--gray); line-height: 1.6; }
     .client-actions { margin-top: 12px; display: flex; gap: 8px; }
+
+    /* ── CLIENT DRAWER ── */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 26, 42, 0.45);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 540px;
+      max-width: 100vw;
+      background: var(--cream);
+      box-shadow: -4px 0 32px rgba(13, 26, 42, 0.18);
+      z-index: 201;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .drawer-title { font-size: 17px; font-weight: 700; }
+    .drawer-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .drawer-close:hover { color: var(--white); }
+    .drawer-body { padding: 20px; }
+    .drawer-body .stat { min-width: 110px; padding: 12px 16px; }
+    .drawer-body .stat-value { font-size: 20px; }
 
     /* ══════════════════════════════════════════════════════════════════════
        PRINT — handled by opening the invoice in a dedicated print window
@@ -884,6 +953,16 @@
 
   </div>
 
+</div>
+
+<!-- ── CLIENT DRAWER ── -->
+<div class="drawer-overlay" id="clientDrawerOverlay" onclick="closeClientDrawer()"></div>
+<div class="drawer" id="clientDrawer">
+  <div class="drawer-header">
+    <div class="drawer-title" id="drawerClientName">Client</div>
+    <button class="drawer-close" onclick="closeClientDrawer()" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -1390,8 +1469,14 @@ function renderClients() {
     grid.innerHTML = '<div class="empty-state"><div class="icon">👤</div>No clients yet. Add your first one above.</div>';
     return;
   }
-  grid.innerHTML = clients.map(c => `
-    <div class="client-card">
+  grid.innerHTML = clients.map(c => {
+    const invoices = getInvoices().filter(i => i.clientId === c.id);
+    const totalBilled = invoices.reduce((s,i) => s + i.amount, 0);
+    const today = new Date().toISOString().split('T')[0];
+    const outstanding = invoices.filter(i => i.status === 'open').reduce((s,i) => s + i.amount, 0);
+    return `
+    <div class="client-card" onclick="openClientDetail('${c.id}')">
+      <div class="client-card-arrow">›</div>
       <div class="client-name">${esc(c.name)}</div>
       <div class="client-detail">
         ${c.contact ? `<div>${esc(c.contact)}</div>` : ''}
@@ -1399,13 +1484,16 @@ function renderClients() {
         ${c.phone   ? `<div>${esc(c.phone)}</div>`   : ''}
         ${c.retainer ? `<div style="margin-top:4px;font-weight:600;color:var(--orange);">Retainer: $${fmt(c.retainer)}/mo</div>` : ''}
         <div>Rate: $${fmt(c.rate)}/hr</div>
-        ${c.notes ? `<div style="margin-top:6px;font-size:12px;">${esc(c.notes)}</div>` : ''}
       </div>
-      <div class="client-actions">
-        <button class="btn btn-ghost btn-sm" onclick="deleteClient('${c.id}')">Delete</button>
-      </div>
+      ${invoices.length ? `
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:16px;font-size:12px;">
+          <span><strong>${invoices.length}</strong> invoice${invoices.length !== 1 ? 's' : ''}</span>
+          <span style="color:var(--green);">$${fmt(totalBilled - outstanding)} paid</span>
+          ${outstanding > 0 ? `<span style="color:var(--red);">$${fmt(outstanding)} open</span>` : ''}
+        </div>
+      ` : ''}
     </div>
-  `).join('');
+  `}).join('');
 }
 
 function populateClientDropdowns() {
@@ -1419,6 +1507,156 @@ function populateClientDropdowns() {
 
 function clientById(id) {
   return getClients().find(c => c.id === id) || null;
+}
+
+function openClientDetail(id) {
+  const c = clientById(id);
+  if (!c) return;
+
+  const entries  = getEntries().filter(e => e.clientId === id);
+  const invoices = getInvoices().filter(i => i.clientId === id).sort((a,b) => b.date.localeCompare(a.date));
+  const today    = new Date().toISOString().split('T')[0];
+
+  const totalHours  = entries.reduce((s,e) => s + e.hours, 0);
+  const totalBilled = invoices.reduce((s,i) => s + i.amount, 0);
+  const paid        = invoices.filter(i => i.status === 'paid').reduce((s,i) => s + i.amount, 0);
+  const openAmt     = invoices.filter(i => i.status === 'open' && i.due >= today).reduce((s,i) => s + i.amount, 0);
+  const overdueAmt  = invoices.filter(i => i.status === 'open' && i.due <  today).reduce((s,i) => s + i.amount, 0);
+  const outstanding = openAmt + overdueAmt;
+
+  document.getElementById('drawerClientName').textContent = c.name;
+  document.getElementById('drawerBody').innerHTML = `
+    <div class="stat-row" style="margin-bottom:20px;">
+      <div class="stat"><div class="stat-label">Total Hours</div><div class="stat-value">${totalHours.toFixed(1)}</div></div>
+      <div class="stat"><div class="stat-label">Total Billed</div><div class="stat-value">$${fmt(totalBilled)}</div></div>
+      <div class="stat"><div class="stat-label">Collected</div><div class="stat-value" style="color:var(--green);">$${fmt(paid)}</div></div>
+      <div class="stat"><div class="stat-label">Outstanding</div><div class="stat-value" style="color:${outstanding > 0 ? 'var(--red)' : 'var(--navy)'};">$${fmt(outstanding)}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Client Info</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Business Name</label>
+          <input type="text" id="dc-name" value="${esc(c.name)}" />
+        </div>
+        <div class="form-group">
+          <label>Contact Name</label>
+          <input type="text" id="dc-contact" value="${esc(c.contact || '')}" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="dc-email" value="${esc(c.email || '')}" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="dc-phone" value="${esc(c.phone || '')}" />
+        </div>
+        <div class="form-group">
+          <label>Default Rate ($/hr)</label>
+          <input type="number" id="dc-rate" value="${c.rate || 175}" />
+        </div>
+        <div class="form-group">
+          <label>Monthly Retainer ($)</label>
+          <input type="number" id="dc-retainer" value="${c.retainer || ''}" placeholder="0" />
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Address / Notes</label>
+          <textarea id="dc-notes">${esc(c.notes || '')}</textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="updateClient('${c.id}')">Save Changes</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteClientFromDrawer('${c.id}')">Delete Client</button>
+        <span id="dcSaveMsg" style="font-size:12px;font-weight:600;color:var(--green);display:none;">✓ Saved</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Invoices</div>
+      ${invoices.length ? `
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice #</th><th>Date</th><th>Due</th><th>Amount</th><th>Status</th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${invoices.map(inv => {
+                const ov = inv.status === 'open' && inv.due < today;
+                const badge = inv.status === 'paid'
+                  ? '<span class="badge badge-paid">Paid</span>'
+                  : ov ? '<span class="badge badge-overdue">Overdue</span>'
+                       : '<span class="badge badge-open">Open</span>';
+                return `<tr>
+                  <td><strong>${esc(inv.number)}</strong></td>
+                  <td>${fmtDate(inv.date)}</td>
+                  <td>${fmtDate(inv.due)}</td>
+                  <td><strong>$${fmt(inv.amount)}</strong></td>
+                  <td>${badge}</td>
+                  <td>${inv.status !== 'paid' ? `<button class="btn btn-green btn-sm" onclick="markPaidFromDrawer('${inv.id}','${c.id}')">Mark Paid</button>` : ''}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:20px;font-size:13px;">
+          <span><strong>Total sent:</strong> $${fmt(totalBilled)}</span>
+          <span style="color:var(--green);"><strong>Paid:</strong> $${fmt(paid)}</span>
+          ${openAmt > 0   ? `<span style="color:var(--orange);"><strong>Open:</strong> $${fmt(openAmt)}</span>` : ''}
+          ${overdueAmt > 0 ? `<span style="color:var(--red);"><strong>Overdue:</strong> $${fmt(overdueAmt)}</span>` : ''}
+        </div>
+      ` : '<div class="empty-state" style="padding:24px 0;"><div class="icon">🧾</div>No invoices yet.</div>'}
+    </div>
+  `;
+
+  document.getElementById('clientDrawerOverlay').classList.add('open');
+  document.getElementById('clientDrawer').classList.add('open');
+  // Scroll drawer to top each open
+  document.getElementById('clientDrawer').scrollTop = 0;
+}
+
+function closeClientDrawer() {
+  document.getElementById('clientDrawerOverlay').classList.remove('open');
+  document.getElementById('clientDrawer').classList.remove('open');
+}
+
+function updateClient(id) {
+  const name = document.getElementById('dc-name').value.trim();
+  if (!name) { alert('Business name required.'); return; }
+  const clients = getClients().map(c => c.id === id ? {
+    ...c,
+    name,
+    contact:  document.getElementById('dc-contact').value.trim(),
+    email:    document.getElementById('dc-email').value.trim(),
+    phone:    document.getElementById('dc-phone').value.trim(),
+    rate:     parseFloat(document.getElementById('dc-rate').value)    || 175,
+    retainer: parseFloat(document.getElementById('dc-retainer').value) || 0,
+    notes:    document.getElementById('dc-notes').value.trim(),
+  } : c);
+  saveClients(clients);
+  renderClients();
+  populateClientDropdowns();
+  document.getElementById('drawerClientName').textContent = name;
+  const msg = document.getElementById('dcSaveMsg');
+  if (msg) { msg.style.display = ''; setTimeout(() => { msg.style.display = 'none'; }, 2000); }
+}
+
+function deleteClientFromDrawer(id) {
+  if (!confirm('Delete this client? Their time entries will still exist but be unlinked.')) return;
+  saveClients(getClients().filter(c => c.id !== id));
+  renderClients();
+  populateClientDropdowns();
+  closeClientDrawer();
+}
+
+function markPaidFromDrawer(invoiceId, clientId) {
+  const invoices = getInvoices().map(i => i.id === invoiceId ? { ...i, status: 'paid' } : i);
+  saveInvoices(invoices);
+  renderInvoiceHistory();
+  renderInvStats();
+  openClientDetail(clientId); // refresh drawer in-place
 }
 
 // When client selected in time log, auto-fill rate
