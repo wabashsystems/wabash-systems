@@ -554,6 +554,78 @@
       font-variant-numeric: tabular-nums; margin-left: 6px; font-weight: 700;
     }
 
+    /* Leads tab */
+    .leads-tab-badge {
+      display: inline-block;
+      background: #b91c1c; color: #fff;
+      padding: 1px 7px; border-radius: 999px;
+      font-size: 10px; font-weight: 700; margin-left: 6px;
+      vertical-align: middle;
+    }
+    .lead-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gray);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: box-shadow 0.15s;
+    }
+    .lead-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .lead-card.lead-new       { border-left-color: #b91c1c; background: #fff7f7; }
+    .lead-card.lead-contacted { border-left-color: #c4622d; }
+    .lead-card.lead-quoted    { border-left-color: #1a4a6e; }
+    .lead-card.lead-won       { border-left-color: #16a34a; background: #f0fdf4; }
+    .lead-card.lead-lost      { border-left-color: #6b7280; opacity: 0.7; }
+    .lead-card.lead-no-fit    { border-left-color: #6b7280; opacity: 0.7; }
+
+    .lead-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 14px; margin-bottom: 10px;
+    }
+    .lead-name { font-weight: 700; font-size: 16px; color: var(--navy); }
+    .lead-business { font-size: 13px; color: var(--gray); margin-top: 2px; }
+    .lead-meta-line {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: 13px; color: var(--navy); margin-bottom: 10px;
+    }
+    .lead-meta-line a { color: var(--orange); text-decoration: none; }
+    .lead-meta-line a:hover { text-decoration: underline; }
+
+    .lead-message {
+      background: var(--cream); border-radius: 5px; padding: 10px 12px;
+      font-size: 13px; color: var(--navy); margin-bottom: 12px;
+      white-space: pre-wrap; line-height: 1.5;
+    }
+
+    .lead-actions {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    }
+    .lead-status-select {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 5px;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      background: #fff; cursor: pointer;
+    }
+    .lead-status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .lead-status-new       { background: #b91c1c; color: #fff; }
+    .lead-status-contacted { background: #c4622d; color: #fff; }
+    .lead-status-quoted    { background: #1a4a6e; color: #fff; }
+    .lead-status-won       { background: #16a34a; color: #fff; }
+    .lead-status-lost      { background: #6b7280; color: #fff; }
+    .lead-status-no-fit    { background: #9ca3af; color: #fff; }
+
+    .lead-followup {
+      grid-column: 1 / -1;
+      margin-top: 10px;
+    }
+    .lead-followup textarea {
+      width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 5px;
+      font-family: inherit; font-size: 13px; resize: vertical; min-height: 50px;
+    }
+
     /* Internal client styling (Wabash Systems own time tracking) */
     .client-card.is-internal { background: #f5f7fb; border-left: 4px solid #1a4a6e; }
     .client-card.is-internal.is-active-session { background: #fff8f1; }
@@ -861,6 +933,7 @@
 
 <div class="tabs">
   <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
+  <div class="tab" onclick="switchMainTab('leads')">🎯 Leads<span id="leadsTabBadge" class="leads-tab-badge" style="display:none;"></span></div>
   <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
   <div class="tab" onclick="switchMainTab('analytics')">📊 Analytics</div>
 </div>
@@ -1182,6 +1255,29 @@
 
   </div>
 
+  <!-- ══════════ LEADS ══════════ -->
+  <div class="panel" id="panel-leads">
+    <div class="stat-row" id="leadsStats"></div>
+
+    <div class="card">
+      <div class="card-title">Filter</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px;">
+        <select aria-label="Filter leads by status" id="leadsFilterStatus" onchange="renderLeads()" style="padding:6px 10px;border:1px solid var(--border);border-radius:5px;font-family:inherit;">
+          <option value="">All statuses</option>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="quoted">Quoted</option>
+          <option value="won">Won</option>
+          <option value="lost">Lost</option>
+          <option value="no-fit">No-fit</option>
+        </select>
+        <input type="text" id="leadsFilterSearch" oninput="renderLeads()" placeholder="Search name, email, business, message..." aria-label="Search leads" style="flex:1;min-width:240px;padding:6px 10px;border:1px solid var(--border);border-radius:5px;font-family:inherit;" />
+      </div>
+    </div>
+
+    <div id="leadsList"></div>
+  </div>
+
   <!-- ══════════ BLOG ══════════ -->
   <div class="panel" id="panel-blog">
 
@@ -1302,7 +1398,7 @@
 // ══════════════════════════════════════════════════════
 // DATA LAYER — Cloudflare KV via /admin/api/data
 // ══════════════════════════════════════════════════════
-const STATE = { clients: [], entries: [], invoices: [], posts: [], activeSession: null };
+const STATE = { clients: [], entries: [], invoices: [], posts: [], leads: [], activeSession: null };
 
 let saveTimer  = null;
 let savePending = false;
@@ -1318,6 +1414,7 @@ async function loadData() {
     STATE.entries  = Array.isArray(data.entries)  ? data.entries  : [];
     STATE.invoices = Array.isArray(data.invoices) ? data.invoices : [];
     STATE.posts    = Array.isArray(data.posts)    ? data.posts    : [];
+    STATE.leads    = Array.isArray(data.leads)    ? data.leads    : [];
     STATE.activeSession = data.activeSession && data.activeSession.clientId ? data.activeSession : null;
     setStatus('ok', 'Saved');
     return true;
@@ -1344,6 +1441,7 @@ async function doSave() {
     entries: STATE.entries,
     invoices: STATE.invoices,
     posts: STATE.posts,
+    leads: STATE.leads,
     activeSession: STATE.activeSession,
   });
   try {
@@ -1378,9 +1476,11 @@ function setStatus(type, msg) {
 const getClients  = () => STATE.clients;
 const getEntries  = () => STATE.entries;
 const getInvoices = () => STATE.invoices;
+const getLeads    = () => STATE.leads;
 const getPosts    = () => STATE.posts;
 const saveClients  = (d) => { STATE.clients  = d; persist(); };
 const saveEntries  = (d) => { STATE.entries  = d; persist(); };
+const saveLeads    = (d) => { STATE.leads    = d; persist(); };
 const saveInvoices = (d) => { STATE.invoices = d; persist(); };
 const savePosts    = (d) => { STATE.posts    = d; persist(); };
 
@@ -1402,7 +1502,7 @@ let currentSubTab  = 'time';
 function switchMainTab(tab) {
   currentMainTab = tab;
   document.querySelectorAll('.tab').forEach((t, i) => {
-    const ids = ['invoicing', 'blog', 'analytics'];
+    const ids = ['invoicing', 'leads', 'blog', 'analytics'];
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -1413,6 +1513,10 @@ function switchMainTab(tab) {
   } else {
     subTabsEl.classList.add('hidden');
     document.getElementById('panel-' + tab).classList.add('active');
+    if (tab === 'leads') {
+      renderLeads();
+      renderLeadsStats();
+    }
     if (tab === 'blog') {
       blogInit();
       renderBlogPosts();
@@ -2669,6 +2773,142 @@ function esc(s) {
 }
 
 // ══════════════════════════════════════════════════════
+// LEADS (contact form submissions)
+// ══════════════════════════════════════════════════════
+const LEAD_STATUSES = ['new', 'contacted', 'quoted', 'won', 'lost', 'no-fit'];
+
+function renderLeadsStats() {
+  const leads = getLeads();
+  const counts = LEAD_STATUSES.reduce((m, s) => { m[s] = 0; return m; }, {});
+  leads.forEach(l => { if (counts[l.status] != null) counts[l.status]++; });
+  const total = leads.length;
+  const open  = counts.new + counts.contacted + counts.quoted;
+
+  const statsEl = document.getElementById('leadsStats');
+  if (statsEl) {
+    statsEl.innerHTML = `
+      <div class="stat"><div class="stat-label">Total Leads</div><div class="stat-value">${total}</div></div>
+      <div class="stat"><div class="stat-label">Open Pipeline</div><div class="stat-value orange">${open}</div></div>
+      <div class="stat"><div class="stat-label">New (unread)</div><div class="stat-value" style="color:var(--red);">${counts.new}</div></div>
+      <div class="stat"><div class="stat-label">Won</div><div class="stat-value" style="color:var(--green);">${counts.won}</div></div>
+    `;
+  }
+
+  // Update the small badge on the top tab to surface unread leads
+  const badge = document.getElementById('leadsTabBadge');
+  if (badge) {
+    if (counts.new > 0) {
+      badge.textContent = counts.new;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+function renderLeads() {
+  const filterStatus = (document.getElementById('leadsFilterStatus') || {}).value || '';
+  const filterQuery  = ((document.getElementById('leadsFilterSearch') || {}).value || '').toLowerCase().trim();
+  let leads = getLeads().slice().sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+  if (filterStatus) leads = leads.filter(l => l.status === filterStatus);
+  if (filterQuery) {
+    leads = leads.filter(l => {
+      const hay = [l.fname, l.lname, l.email, l.phone, l.business, l.service, l.message]
+        .filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(filterQuery);
+    });
+  }
+
+  const list = document.getElementById('leadsList');
+  if (!list) return;
+  if (!leads.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">🎯</div>No leads match the current filter.</div>';
+    return;
+  }
+
+  list.innerHTML = leads.map(l => {
+    const fullName = [l.fname, l.lname].filter(Boolean).join(' ') || '(no name)';
+    const dt = l.createdAt ? new Date(l.createdAt) : null;
+    const dtStr = dt ? dt.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+    const statusOptions = LEAD_STATUSES.map(s => `<option value="${s}"${l.status === s ? ' selected' : ''}>${s}</option>`).join('');
+    const convertedNote = l.convertedToClientId
+      ? `<span style="font-size:11px;color:var(--green);font-weight:700;">✓ Converted to client</span>`
+      : `<button type="button" class="btn btn-sm" style="background:#1a4a6e;color:#fff;" onclick="convertLeadToClient('${l.id}')">Convert to Client</button>`;
+    return `
+    <div class="lead-card lead-${l.status || 'new'}">
+      <div class="lead-header">
+        <div>
+          <div class="lead-name">${esc(fullName)}<span class="lead-status-badge lead-status-${l.status || 'new'}" style="margin-left:10px;">${esc(l.status || 'new')}</span></div>
+          ${l.business ? `<div class="lead-business">${esc(l.business)}</div>` : ''}
+        </div>
+        <div style="font-size:12px;color:var(--gray);text-align:right;white-space:nowrap;">
+          ${dtStr}<br>
+          ${l.service ? `<span style="color:var(--orange);font-weight:600;">${esc(l.service)}</span>` : ''}
+        </div>
+      </div>
+      <div class="lead-meta-line">
+        ${l.email ? `<span>📧 <a href="mailto:${esc(l.email)}">${esc(l.email)}</a></span>` : ''}
+        ${l.phone ? `<span>📞 <a href="tel:${esc(l.phone)}">${esc(l.phone)}</a></span>` : ''}
+        ${l.emailOptIn ? '<span style="color:var(--green);font-weight:600;">✓ Email OK</span>' : ''}
+        ${l.smsOptIn ? '<span style="color:var(--green);font-weight:600;">✓ SMS OK</span>' : ''}
+      </div>
+      <div class="lead-message">${esc(l.message || '(no message)')}</div>
+      <div class="lead-actions">
+        <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);">Status:</label>
+        <select class="lead-status-select" onchange="updateLeadStatus('${l.id}', this.value)">${statusOptions}</select>
+        ${convertedNote}
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteLead('${l.id}')" style="margin-left:auto;">Delete</button>
+      </div>
+      <div class="lead-followup">
+        <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);display:block;margin-bottom:4px;">Follow-up notes (private)</label>
+        <textarea oninput="updateLeadNotes('${l.id}', this.value)" placeholder="Called Tuesday, left voicemail. Sent quote $1,500 on Thursday.">${esc(l.followupNotes || '')}</textarea>
+      </div>
+    </div>
+    `;
+  }).join('');
+}
+
+function updateLeadStatus(id, status) {
+  const leads = getLeads().map(l => l.id === id ? { ...l, status } : l);
+  saveLeads(leads);
+  renderLeads();
+  renderLeadsStats();
+}
+
+function updateLeadNotes(id, notes) {
+  // Debounce-ish: just save - persist() already debounces 250ms
+  const leads = getLeads().map(l => l.id === id ? { ...l, followupNotes: notes } : l);
+  saveLeads(leads);
+}
+
+function deleteLead(id) {
+  if (!confirm('Delete this lead permanently? You can mark it Lost or No-fit instead to keep history.')) return;
+  saveLeads(getLeads().filter(l => l.id !== id));
+  renderLeads();
+  renderLeadsStats();
+}
+
+function convertLeadToClient(id) {
+  const lead = getLeads().find(l => l.id === id);
+  if (!lead) return;
+
+  // Switch to Clients sub-tab and pre-fill the Add Client form
+  switchMainTab('invoicing');
+  switchSubTab('clients');
+  setTimeout(() => {
+    document.getElementById('cl-name').value    = lead.business || `${lead.fname || ''} ${lead.lname || ''}`.trim();
+    document.getElementById('cl-contact').value = `${lead.fname || ''} ${lead.lname || ''}`.trim();
+    document.getElementById('cl-email').value   = lead.email || '';
+    document.getElementById('cl-phone').value   = lead.phone || '';
+    document.getElementById('cl-name').focus();
+    // Mark this lead as converted + won (you can still override status later)
+    const leads = getLeads().map(l => l.id === id ? { ...l, status: 'won', convertedToClientId: 'pending-' + Date.now() } : l);
+    saveLeads(leads);
+    alert('Lead pre-filled into the Add Client form below. Adjust as needed and click + Add Client to confirm.');
+  }, 150);
+}
+
+// ══════════════════════════════════════════════════════
 // TIME TRACKER (clock-in / clock-out)
 // ══════════════════════════════════════════════════════
 let timerInterval = null;
@@ -2865,6 +3105,7 @@ function checkStaleSession() {
   renderReadyToBill();
   renderClients();
   renderBlogPosts();
+  renderLeadsStats();
 
   // Hide loading overlay
   document.getElementById('loadingOverlay').classList.add('hidden');

@@ -23,7 +23,7 @@ export async function onRequestPost(context) {
         from: 'Wabash Systems <info@wabashsystems.com>',
         to: ['andy.gray@wabashsystems.com'],
         reply_to: email,
-        subject: `New inquiry from ${fname} ${lname}${business ? ' — ' + business : ''}`,
+        subject: `New inquiry from ${fname} ${lname}${business ? ' ï¿½ ' + business : ''}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${fname} ${lname}</p>
@@ -45,7 +45,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 2. Klaviyo — upsert profile + add to Email List
+    // 2. Klaviyo ï¿½ upsert profile + add to Email List
     if (env.KLAVIYO_PRIVATE_KEY) {
       try {
         const kHeaders = {
@@ -97,6 +97,40 @@ export async function onRequestPost(context) {
         }
       } catch (klaviyoErr) {
         console.error('[klaviyo] error:', klaviyoErr?.message || klaviyoErr);
+      }
+    }
+
+    // 3. Save to admin KV so the Leads tab in /admin can show this submission.
+    // Best-effort: don't fail the whole request if KV is unreachable.
+    if (env.ADMIN_DATA) {
+      try {
+        const KV_KEY = 'billing_data';
+        const raw = await env.ADMIN_DATA.get(KV_KEY);
+        const data = raw ? JSON.parse(raw) : { clients: [], entries: [], invoices: [] };
+        if (!Array.isArray(data.leads)) data.leads = [];
+        data.leads.push({
+          id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6),
+          createdAt: new Date().toISOString(),
+          fname: fname || '',
+          lname: lname || '',
+          email: email,
+          phone: phone || '',
+          business: business || '',
+          service: service || '',
+          message: message || '',
+          emailOptIn: !!emailOptIn,
+          smsOptIn: !!smsOptIn,
+          ip: request.headers.get('CF-Connecting-IP') || '',
+          userAgent: request.headers.get('User-Agent') || '',
+          source: 'contact-form',
+          status: 'new',                 // new | contacted | quoted | won | lost | no-fit
+          followupNotes: '',
+          convertedToClientId: null,
+        });
+        await env.ADMIN_DATA.put(KV_KEY, JSON.stringify(data));
+      } catch (kvErr) {
+        console.error('[contact] KV lead save failed:', kvErr?.message || kvErr);
+        // intentional: don't propagate - email + Klaviyo already succeeded
       }
     }
 
