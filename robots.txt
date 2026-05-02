@@ -1,7 +1,8 @@
-# Cloudflare Bots will prepend a managed block above this file at request time.
-# To change AI crawler permissions go to Cloudflare dashboard:
-#   Bots -> Configure Super Bot Fight Mode -> AI Audit / robots.txt
-# This file's directives apply after the managed block.
+# Cloudflare AI Crawl Control "Managed robots.txt" is currently OFF, so this
+# file is served as-is. To re-enable AI bot blocking by category, turn it on at
+# Cloudflare dashboard -> AI Crawl Control -> Directives.
+# Current posture: allow all crawlers (including AI) by default; block
+# only admin, internal API, and the design-system scratch area.
 
 User-agent: *
 Disallow: /admin/

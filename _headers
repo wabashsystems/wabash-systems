@@ -1,16 +1,21 @@
 # Cloudflare Pages headers
 # Format: path block, then indented header lines. Most-specific paths first.
+# Each header value must stay on a single line (no continuation in this format).
 
-# Default for everything: hardening + sane referrer policy
+# Default for everything: hardening + sane referrer policy + CSP
 /*
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
+  X-Permitted-Cross-Domain-Policies: none
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: same-site
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://js.sentry-cdn.com https://browser.sentry-cdn.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://www.clarity.ms https://*.clarity.ms https://app.cal.com https://embed.cal.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.ingest.sentry.io https://*.sentry.io https://us.i.posthog.com https://us-assets.i.posthog.com https://*.posthog.com https://*.clarity.ms https://api.cal.com https://app.cal.com https://api.resend.com https://a.klaviyo.com https://api.klaviyo.com; frame-src https://cal.com https://app.cal.com; media-src 'self'; manifest-src 'self'; worker-src 'self' blob:
   X-Robots-Tag: index, follow
 
-# Cache HTML edges aggressively for marketing pages -they change at most weekly
+# Cache HTML edges aggressively for marketing pages - they change at most weekly
 # (override per-page if needed; /booking and /api/* are excluded below)
 /
   Cache-Control: public, max-age=300, s-maxage=3600
@@ -29,20 +34,20 @@
 /privacy
   Cache-Control: public, max-age=3600, s-maxage=86400
 
-# API routes -never cache, never index
+# API routes - never cache, never index
 /api/*
   Cache-Control: no-store
   X-Frame-Options: DENY
   X-Robots-Tag: noindex, nofollow, noarchive
 
-# Admin panel -never index, never cache, never embed
+# Admin panel - never index, never cache, never embed
 /admin/*
   Cache-Control: no-store, no-cache, must-revalidate, private
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
 
-# Static assets -long cache, immutable
+# Static assets - long cache, immutable
 /*.svg
   Cache-Control: public, max-age=31536000, immutable
 /*.png
