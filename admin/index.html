@@ -554,6 +554,17 @@
       font-variant-numeric: tabular-nums; margin-left: 6px; font-weight: 700;
     }
 
+    /* Internal client styling (Wabash Systems own time tracking) */
+    .client-card.is-internal { background: #f5f7fb; border-left: 4px solid #1a4a6e; }
+    .client-card.is-internal.is-active-session { background: #fff8f1; }
+    .client-internal-badge {
+      display: inline-block;
+      background: #1a4a6e; color: #fff;
+      padding: 2px 8px; border-radius: 999px;
+      font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
+      vertical-align: middle; margin-left: 6px;
+    }
+
     /* Per-line remove button on the invoice preview (screen only) */
     .inv-line-remove {
       background: transparent;
@@ -1036,6 +1047,12 @@
         <div class="form-group" style="grid-column: 1 / -1;">
           <label>Address / Notes</label>
           <textarea id="cl-notes" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1; display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="cl-internal" style="width:auto;margin:0;" />
+          <label for="cl-internal" style="margin:0;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--navy);">
+            Internal client (excluded from invoicing, always pinned first)
+          </label>
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
@@ -1748,6 +1765,10 @@ async function deleteBlogPost(slug) {
 function addClient() {
   const name = document.getElementById('cl-name').value.trim();
   if (!name) { alert('Business name required.'); return; }
+  const rateRaw = document.getElementById('cl-rate').value;
+  const rateNum = parseFloat(rateRaw);
+  // Allow rate=0 explicitly (internal clients) — only fall back to 175 if blank/NaN
+  const rate = !isNaN(rateNum) && rateRaw !== '' ? rateNum : 175;
   const clients = getClients();
   clients.push({
     id: Date.now().toString(),
@@ -1755,16 +1776,19 @@ function addClient() {
     contact: document.getElementById('cl-contact').value.trim(),
     email:   document.getElementById('cl-email').value.trim(),
     phone:   document.getElementById('cl-phone').value.trim(),
-    rate:    parseFloat(document.getElementById('cl-rate').value) || 175,
+    rate:    rate,
     retainer: parseFloat(document.getElementById('cl-retainer').value) || 0,
     notes:   document.getElementById('cl-notes').value.trim(),
+    internal: document.getElementById('cl-internal').checked,
   });
   saveClients(clients);
   ['cl-name','cl-contact','cl-email','cl-phone','cl-notes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('cl-retainer').value = '';
   document.getElementById('cl-rate').value = '175';
+  document.getElementById('cl-internal').checked = false;
   renderClients();
   populateClientDropdowns();
+  renderReadyToBill();
 }
 
 function deleteClient(id) {
@@ -1775,7 +1799,14 @@ function deleteClient(id) {
 }
 
 function renderClients() {
-  const clients = getClients();
+  // Sort: internal clients pinned to the top (always visible/clockable),
+  // then alphabetical by name. Sort-stable for ties.
+  const clients = getClients().slice().sort((a, b) => {
+    const ai = a.internal ? 0 : 1;
+    const bi = b.internal ? 0 : 1;
+    if (ai !== bi) return ai - bi;
+    return (a.name || '').localeCompare(b.name || '');
+  });
   const grid = document.getElementById('clientGrid');
   if (!clients.length) {
     grid.innerHTML = '<div class="empty-state"><div class="icon">👤</div>No clients yet. Add your first one above.</div>';
@@ -1790,14 +1821,19 @@ function renderClients() {
     const outstanding = invoices.filter(i => i.status === 'open').reduce((s,i) => s + i.amount, 0);
     const isActive = sessionClientId === c.id;
     const otherSession = sessionClientId && !isActive;
-    const cardClass = isActive ? 'client-card is-active-session' : 'client-card';
+    const cardClass = isActive
+      ? 'client-card is-active-session' + (c.internal ? ' is-internal' : '')
+      : 'client-card' + (c.internal ? ' is-internal' : '');
     const clockBtn = isActive
       ? `<button type="button" class="btn-clock btn-clock-stop" onclick="event.stopPropagation(); openStopForm('${c.id}')">&#9632; Stop<span class="timer-inline" data-client-elapsed="${c.id}">0:00:00</span></button>`
       : `<button type="button" class="btn-clock btn-clock-start"${otherSession ? ' disabled title="Stop the current session first"' : ''} onclick="event.stopPropagation(); startSession('${c.id}')">&#9654; Start working</button>`;
+    const internalBadge = c.internal
+      ? `<span class="client-internal-badge" title="Internal client - excluded from invoicing">INTERNAL</span>`
+      : '';
     return `
     <div class="${cardClass}" onclick="openClientDetail('${c.id}')">
       <div class="client-card-arrow">›</div>
-      <div class="client-name">${esc(c.name)}</div>
+      <div class="client-name">${esc(c.name)} ${internalBadge}</div>
       <div class="client-detail">
         ${c.contact ? `<div>${esc(c.contact)}</div>` : ''}
         ${c.email   ? `<div>${esc(c.email)}</div>`   : ''}
@@ -1819,11 +1855,17 @@ function renderClients() {
 }
 
 function populateClientDropdowns() {
-  const clients = getClients();
-  const opts = '<option value="">— Select Client —</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  // Internal clients sorted first, then alphabetical (matches client card grid)
+  const clients = getClients().slice().sort((a, b) => {
+    const ai = a.internal ? 0 : 1;
+    const bi = b.internal ? 0 : 1;
+    if (ai !== bi) return ai - bi;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+  const opts = '<option value="">— Select Client —</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}${c.internal ? ' [internal]' : ''}</option>`).join('');
   ['te-client','inv-client'].forEach(id => document.getElementById(id).innerHTML = opts);
 
-  const filterOpts = '<option value="">All Clients</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  const filterOpts = '<option value="">All Clients</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}${c.internal ? ' [internal]' : ''}</option>`).join('');
   document.getElementById('te-filter-client').innerHTML = filterOpts;
 }
 
@@ -1886,6 +1928,12 @@ function openClientDetail(id) {
           <label>Address / Notes</label>
           <textarea id="dc-notes">${esc(c.notes || '')}</textarea>
         </div>
+        <div class="form-group" style="grid-column:1/-1;display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="dc-internal" ${c.internal ? 'checked' : ''} style="width:auto;margin:0;" />
+          <label for="dc-internal" style="margin:0;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--navy);">
+            Internal client (excluded from invoicing, always pinned first)
+          </label>
+        </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap;">
         <button class="btn btn-primary" onclick="updateClient('${c.id}')">Save Changes</button>
@@ -1947,19 +1995,25 @@ function closeClientDrawer() {
 function updateClient(id) {
   const name = document.getElementById('dc-name').value.trim();
   if (!name) { alert('Business name required.'); return; }
+  const rateRaw = document.getElementById('dc-rate').value;
+  const rateNum = parseFloat(rateRaw);
+  // Allow rate=0 explicitly (internal clients) - only fall back to 175 if blank/NaN
+  const rate = !isNaN(rateNum) && rateRaw !== '' ? rateNum : 175;
   const clients = getClients().map(c => c.id === id ? {
     ...c,
     name,
     contact:  document.getElementById('dc-contact').value.trim(),
     email:    document.getElementById('dc-email').value.trim(),
     phone:    document.getElementById('dc-phone').value.trim(),
-    rate:     parseFloat(document.getElementById('dc-rate').value)    || 175,
+    rate:     rate,
     retainer: parseFloat(document.getElementById('dc-retainer').value) || 0,
     notes:    document.getElementById('dc-notes').value.trim(),
+    internal: document.getElementById('dc-internal').checked,
   } : c);
   saveClients(clients);
   renderClients();
   populateClientDropdowns();
+  renderReadyToBill();
   document.getElementById('drawerClientName').textContent = name;
   const msg = document.getElementById('dcSaveMsg');
   if (msg) { msg.style.display = ''; setTimeout(() => { msg.style.display = 'none'; }, 2000); }
@@ -2507,7 +2561,8 @@ function renderReadyToBill() {
 
   const groups = Object.keys(byClient)
     .map(id => ({ clientId: id, ...byClient[id], client: clientById(id) }))
-    .filter(g => g.client) // skip orphaned entries with deleted clients
+    .filter(g => g.client)              // skip orphaned entries with deleted clients
+    .filter(g => !g.client.internal)    // internal clients are never billed
     .sort((a, b) => b.amount - a.amount); // biggest dollars first
 
   if (!groups.length) { card.style.display = 'none'; return; }
