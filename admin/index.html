@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wabash Systems — Admin</title>
   <style>
@@ -51,16 +52,20 @@
     }
     .tab {
       padding: 12px 22px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
       color: rgba(255,255,255,0.55);
+      font-family: inherit;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 3px solid transparent;
       transition: color 0.15s, border-color 0.15s;
       user-select: none;
     }
     .tab:hover { color: var(--white); }
     .tab.active { color: var(--white); border-bottom-color: var(--orange); }
+    .tab:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 
     /* ── SUB-TABS ── */
     .sub-tabs {
@@ -72,17 +77,21 @@
     }
     .sub-tab {
       padding: 9px 18px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
       color: var(--gray);
+      font-family: inherit;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
       margin-bottom: -1px;
       transition: color 0.15s, border-color 0.15s;
       user-select: none;
     }
     .sub-tab:hover { color: var(--navy); }
     .sub-tab.active { color: var(--navy); border-bottom-color: var(--orange); font-weight: 600; }
+    .sub-tab:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
     .sub-tabs.hidden { display: none; }
 
     /* ── MAIN ── */
@@ -715,15 +724,15 @@
 
 <div id="loadingOverlay" class="loading-overlay">Loading data&hellip;</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
-  <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
-  <div class="tab" onclick="switchMainTab('analytics')">📊 Analytics</div>
+<div class="tabs" role="tablist" aria-label="Admin sections">
+  <button type="button" class="tab active" role="tab" aria-selected="true" onclick="switchMainTab('invoicing')">📋 Invoicing</button>
+  <button type="button" class="tab" role="tab" aria-selected="false" onclick="switchMainTab('blog')">✍ Blog</button>
+  <button type="button" class="tab" role="tab" aria-selected="false" onclick="switchMainTab('analytics')">📊 Analytics</button>
 </div>
-<div class="sub-tabs" id="subTabsInvoicing">
-  <div class="sub-tab active" onclick="switchSubTab('time')">⏱ Time Log</div>
-  <div class="sub-tab" onclick="switchSubTab('invoices')">🧾 Invoices</div>
-  <div class="sub-tab" onclick="switchSubTab('clients')">👤 Clients</div>
+<div class="sub-tabs" id="subTabsInvoicing" role="tablist" aria-label="Invoicing views">
+  <button type="button" class="sub-tab active" role="tab" aria-selected="true" onclick="switchSubTab('time')">⏱ Time Log</button>
+  <button type="button" class="sub-tab" role="tab" aria-selected="false" onclick="switchSubTab('invoices')">🧾 Invoices</button>
+  <button type="button" class="sub-tab" role="tab" aria-selected="false" onclick="switchSubTab('clients')">👤 Clients</button>
 </div>
 
 <div class="main">
@@ -738,23 +747,23 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Date</label>
-          <input type="date" id="te-date" />
+          <input aria-label="Time entry date" type="date" id="te-date" />
         </div>
         <div class="form-group">
           <label>Client</label>
-          <select id="te-client"><option value="">— Select Client —</option></select>
+          <select aria-label="Time entry client" id="te-client"><option value="">— Select Client —</option></select>
         </div>
         <div class="form-group">
           <label>Description</label>
-          <input type="text" id="te-desc" placeholder="e.g. Homepage redesign, SEO audit" />
+          <input aria-label="Time entry description" type="text" id="te-desc" placeholder="e.g. Homepage redesign, SEO audit" />
         </div>
         <div class="form-group">
           <label>Hours</label>
-          <input type="number" id="te-hours" step="0.25" min="0.25" placeholder="1.5" />
+          <input aria-label="Time entry hours" type="number" id="te-hours" step="0.25" min="0.25" placeholder="1.5" />
         </div>
         <div class="form-group">
           <label>Rate ($/hr)</label>
-          <input type="number" id="te-rate" value="175" />
+          <input aria-label="Time entry hourly rate" type="number" id="te-rate" value="175" />
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
@@ -767,10 +776,10 @@
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
         <span>Time Entries</span>
         <div class="filter-row" style="margin:0;">
-          <select class="filter" id="te-filter-client" onchange="renderTimeLog()">
+          <select aria-label="Filter time entries by client" class="filter" id="te-filter-client" onchange="renderTimeLog()">
             <option value="">All Clients</option>
           </select>
-          <select class="filter" id="te-filter-invoiced" onchange="renderTimeLog()">
+          <select aria-label="Filter time entries by invoice status" class="filter" id="te-filter-invoiced" onchange="renderTimeLog()">
             <option value="">All Status</option>
             <option value="no">Uninvoiced Only</option>
             <option value="yes">Invoiced Only</option>
@@ -807,31 +816,31 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Client</label>
-          <select id="inv-client"><option value="">— Select Client —</option></select>
+          <select aria-label="Invoice client" id="inv-client"><option value="">— Select Client —</option></select>
         </div>
         <div class="form-group">
           <label>From Date</label>
-          <input type="date" id="inv-from" />
+          <input aria-label="Invoice period start date" type="date" id="inv-from" />
         </div>
         <div class="form-group">
           <label>To Date</label>
-          <input type="date" id="inv-to" />
+          <input aria-label="Invoice period end date" type="date" id="inv-to" />
         </div>
         <div class="form-group">
           <label>Due Date</label>
-          <input type="date" id="inv-due" />
+          <input aria-label="Invoice due date" type="date" id="inv-due" />
         </div>
         <div class="form-group">
           <label>Invoice # (auto)</label>
-          <input type="text" id="inv-number" placeholder="INV-001" />
+          <input aria-label="Invoice number" type="text" id="inv-number" placeholder="INV-001" />
         </div>
         <div class="form-group" style="grid-column: span 2;">
           <label>Payment Link (optional)</label>
-          <input type="url" id="inv-pay-link" placeholder="https://buy.stripe.com/... or PayPal/Square link" />
+          <input aria-label="Invoice payment link" type="url" id="inv-pay-link" placeholder="https://buy.stripe.com/... or PayPal/Square link" />
         </div>
         <div class="form-group" style="grid-column: 1 / -1;">
           <label>Notes (optional)</label>
-          <input type="text" id="inv-notes" placeholder="Net 15, thank you for your business" />
+          <input aria-label="Invoice notes" type="text" id="inv-notes" placeholder="Net 15, thank you for your business" />
         </div>
         <div class="form-group" style="align-self:end;">
           <label>&nbsp;</label>
@@ -872,31 +881,31 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Business Name</label>
-          <input type="text" id="cl-name" placeholder="The Cottage House" />
+          <input aria-label="Client business name" type="text" id="cl-name" placeholder="The Cottage House" />
         </div>
         <div class="form-group">
           <label>Contact Name</label>
-          <input type="text" id="cl-contact" placeholder="Jane Smith" />
+          <input aria-label="Client primary contact" type="text" id="cl-contact" placeholder="Jane Smith" />
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="email" id="cl-email" placeholder="jane@example.com" />
+          <input aria-label="Client email address" type="email" id="cl-email" placeholder="jane@example.com" />
         </div>
         <div class="form-group">
           <label>Phone</label>
-          <input type="tel" id="cl-phone" placeholder="618-555-0100" />
+          <input aria-label="Client phone number" type="tel" id="cl-phone" placeholder="618-555-0100" />
         </div>
         <div class="form-group">
           <label>Default Rate ($/hr)</label>
-          <input type="number" id="cl-rate" value="175" />
+          <input aria-label="Client hourly rate" type="number" id="cl-rate" value="175" />
         </div>
         <div class="form-group">
           <label>Monthly Retainer ($)</label>
-          <input type="number" id="cl-retainer" placeholder="400" />
+          <input aria-label="Client monthly retainer" type="number" id="cl-retainer" placeholder="400" />
         </div>
         <div class="form-group" style="grid-column: 1 / -1;">
           <label>Address / Notes</label>
-          <textarea id="cl-notes" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
+          <textarea aria-label="Client notes" id="cl-notes" placeholder="102 E Emmons St, Robinson IL 62454"></textarea>
         </div>
         <div class="form-group">
           <label>&nbsp;</label>
@@ -1042,23 +1051,23 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
         <div class="form-group">
           <label>Title</label>
-          <input type="text" id="blog-title" placeholder="Post title" />
+          <input aria-label="Blog post title" type="text" id="blog-title" placeholder="Post title" />
         </div>
         <div class="form-group">
           <label>Slug (URL path)</label>
-          <input type="text" id="blog-slug" placeholder="lowercase-kebab-case" />
+          <input aria-label="Blog post slug" type="text" id="blog-slug" placeholder="lowercase-kebab-case" />
         </div>
         <div class="form-group" style="grid-column:1/-1;">
           <label>Meta description (20-200 chars)</label>
-          <textarea id="blog-description" rows="2" placeholder="Concise summary that appears in search results."></textarea>
+          <textarea aria-label="Blog post description" id="blog-description" rows="2" placeholder="Concise summary that appears in search results."></textarea>
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input type="date" id="blog-date" />
+          <input aria-label="Blog post publish date" type="date" id="blog-date" />
         </div>
         <div class="form-group">
           <label>Category</label>
-          <select id="blog-category">
+          <select aria-label="Blog post category" id="blog-category">
             <option>E-Commerce</option>
             <option>Quick Wins</option>
             <option>SEO</option>
@@ -1070,23 +1079,23 @@
         </div>
         <div class="form-group">
           <label>Primary keyword (optional)</label>
-          <input type="text" id="blog-keyword" placeholder="shopify migration" />
+          <input aria-label="Blog post primary keyword" type="text" id="blog-keyword" placeholder="shopify migration" />
         </div>
         <div class="form-group">
           <label>Service links (optional)</label>
           <div id="blog-service-links" style="display:flex;flex-wrap:wrap;gap:8px;font-size:13px;font-weight:400;">
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="store-setup"/> store-setup</label>
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="platform-migration"/> platform-migration</label>
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="seo-management"/> seo-management</label>
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="google-ads"/> google-ads</label>
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="monthly-management"/> monthly-management</label>
-            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="web-design"/> web-design</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="store-setup" aria-label="Tag post as Store Setup"/> store-setup</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="platform-migration" aria-label="Tag post as Platform Migration"/> platform-migration</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="seo-management" aria-label="Tag post as SEO Management"/> seo-management</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="google-ads" aria-label="Tag post as Google Ads"/> google-ads</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="monthly-management" aria-label="Tag post as Monthly Management"/> monthly-management</label>
+            <label style="display:flex;align-items:center;gap:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--navy);"><input type="checkbox" value="web-design" aria-label="Tag post as Web Design"/> web-design</label>
           </div>
         </div>
       </div>
       <div class="form-group">
         <label>Markdown body (front matter optional - skip it and just paste body text)</label>
-        <textarea id="blog-markdown" rows="20" style="font-family:Consolas,Menlo,monospace;font-size:13px;line-height:1.55;" placeholder="# Section heading&#10;&#10;Paragraph text. Use **bold**, *italic*, [link text](https://example.com), `inline code`.&#10;&#10;## Another section&#10;&#10;- Bullet point&#10;- Another bullet&#10;&#10;> A blockquote.&#10;&#10;The body markdown only - the form fields above handle title, slug, description, date, etc."></textarea>
+        <textarea aria-label="Blog post markdown body" id="blog-markdown" rows="20" style="font-family:Consolas,Menlo,monospace;font-size:13px;line-height:1.55;" placeholder="# Section heading&#10;&#10;Paragraph text. Use **bold**, *italic*, [link text](https://example.com), `inline code`.&#10;&#10;## Another section&#10;&#10;- Bullet point&#10;- Another bullet&#10;&#10;> A blockquote.&#10;&#10;The body markdown only - the form fields above handle title, slug, description, date, etc."></textarea>
       </div>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
         <button class="btn btn-ghost" onclick="blogParseFrontMatter()">Auto-fill from front matter</button>
@@ -1241,7 +1250,9 @@ function switchMainTab(tab) {
   currentMainTab = tab;
   document.querySelectorAll('.tab').forEach((t, i) => {
     const ids = ['invoicing', 'blog', 'analytics'];
-    t.classList.toggle('active', ids[i] === tab);
+    const isActive = ids[i] === tab;
+    t.classList.toggle('active', isActive);
+    t.setAttribute('aria-selected', isActive ? 'true' : 'false');
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   const subTabsEl = document.getElementById('subTabsInvoicing');
@@ -1264,7 +1275,9 @@ function switchSubTab(tab) {
   currentSubTab = tab;
   document.querySelectorAll('.sub-tab').forEach((t, i) => {
     const ids = ['time', 'invoices', 'clients'];
-    t.classList.toggle('active', ids[i] === tab);
+    const isActive = ids[i] === tab;
+    t.classList.toggle('active', isActive);
+    t.setAttribute('aria-selected', isActive ? 'true' : 'false');
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
@@ -1673,24 +1686,4 @@ function populateClientDropdowns() {
   ['te-client','inv-client'].forEach(id => document.getElementById(id).innerHTML = opts);
 
   const filterOpts = '<option value="">All Clients</option>' + clients.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
-  document.getElementById('te-filter-client').innerHTML = filterOpts;
-}
-
-function clientById(id) {
-  return getClients().find(c => c.id === id) || null;
-}
-
-function openClientDetail(id) {
-  const c = clientById(id);
-  if (!c) return;
-
-  const entries  = getEntries().filter(e => e.clientId === id);
-  const invoices = getInvoices().filter(i => i.clientId === id).sort((a,b) => b.date.localeCompare(a.date));
-  const today    = new Date().toISOString().split('T')[0];
-
-  const totalHours  = entries.reduce((s,e) => s + e.hours, 0);
-  const totalBilled = invoices.reduce((s,i) => s + i.amount, 0);
-  const paid        = invoices.filter(i => i.status === 'paid').reduce((s,i) => s + i.amount, 0);
-  const openAmt     = invoices.filter(i => i.status === 'open' && i.due >= today).reduce((s,i) => s + i.amount, 0);
-  const overdueAmt  = invoices.filter(i => i.status === 'open' && i.due <  today).reduce((s,i) => s + i.amount, 0);
-  const outstand
+  document.getEleme

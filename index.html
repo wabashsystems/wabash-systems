@@ -168,10 +168,11 @@
       --orange: #c4622d;
       --orange-light: #e8834d;
       /* Darker orange for text on light backgrounds — passes 4.5:1 on white */
-      --orange-text: #b05a28;
+      --orange-text: #a04e22;
+      --orange-button: #ae5320;
       --cream: #f8f6f1;
       --gray-light: #f2f4f7;
-      --gray-mid: #6b7280;
+      --gray-mid: #606673;
       --white: #ffffff;
     }
 
@@ -289,7 +290,7 @@
     .nav-links a:hover { opacity: 1; color: var(--orange-light); }
 
     .nav-cta {
-      background: var(--orange) !important;
+      background: var(--orange-button) !important;
       color: var(--white) !important;
       padding: 10px 22px !important;
       border-radius: 6px !important;
@@ -1533,52 +1534,3 @@
 
   // Close drawer when a nav link is clicked
   mobileNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeNav);
-  });
-
-  // Auto-close if window is resized above mobile breakpoint
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 900 && toggle.getAttribute('aria-expanded') === 'true') {
-      closeNav();
-    }
-  });
-</script>
-
-
-<!-- ── SCROLL BUTTONS ── -->
-<style>
-  .scroll-btns { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 90; }
-  .scroll-btn { width: 44px; height: 44px; border-radius: 8px; background: var(--navy); color: var(--white); border: 2px solid rgba(255,255,255,0.15); font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: opacity 0.2s, transform 0.15s, background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; font-family: inherit; }
-  .scroll-btn:hover { background: var(--orange); transform: translateY(-2px); }
-  .scroll-btn[hidden] { display: none; }
-  @media (max-width: 720px) { .scroll-btns { right: 14px; bottom: 14px; } }
-  @media print { .scroll-btns { display: none !important; } }
-</style>
-<div class="scroll-btns" role="group" aria-label="Page navigation">
-  <button id="scrollTopBtn" class="scroll-btn" type="button" aria-label="Scroll to top of page" hidden>&uarr;</button>
-  <button id="scrollBottomBtn" class="scroll-btn" type="button" aria-label="Scroll to bottom of page">&darr;</button>
-</div>
-<script>
-(function () {
-  var topBtn = document.getElementById('scrollTopBtn');
-  var botBtn = document.getElementById('scrollBottomBtn');
-  if (!topBtn || !botBtn) return;
-  function update() {
-    var y = window.scrollY;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    topBtn.hidden = y < 200;
-    botBtn.hidden = y > max - 200;
-  }
-  topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  botBtn.addEventListener('click', function () { window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); });
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-})();
-</script>
-
-<!-- Klaviyo onsite tracking removed - re-add when newsletter signup is brought back -->
-
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                               
