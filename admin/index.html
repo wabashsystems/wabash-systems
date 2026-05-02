@@ -554,6 +554,21 @@
       font-variant-numeric: tabular-nums; margin-left: 6px; font-weight: 700;
     }
 
+    /* Per-line remove button on the invoice preview (screen only) */
+    .inv-line-remove {
+      background: transparent;
+      border: 1px solid #d1d5db;
+      color: #b91c1c;
+      width: 26px; height: 26px; border-radius: 50%;
+      font-size: 16px; line-height: 1; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .inv-line-remove:hover { background: #fee2e2; border-color: #b91c1c; }
+    @media print {
+      .inv-line-remove, .inv-line-remove-cell { display: none !important; }
+    }
+
     /* Ready-to-bill rows in Invoices tab */
     .rtb-row {
       display: grid;
@@ -2089,6 +2104,11 @@ function nextInvoiceNumber() {
   return 'INV-' + String(max + 1).padStart(3, '0');
 }
 
+// Holds the editable state of the invoice preview. Splitting it out of
+// previewInvoice() lets removeInvoiceLine() mutate just the entries array
+// and re-run renderInvoicePreview() to refresh subtotal + line items.
+let __invoicePreviewState = null;
+
 function previewInvoice() {
   const clientId = document.getElementById('inv-client').value;
   const from     = document.getElementById('inv-from').value;
@@ -2122,10 +2142,37 @@ function previewInvoice() {
     return;
   }
 
-  const subtotal = entries.reduce((s,e) => s + e.amount, 0);
-  const today    = new Date().toISOString().split('T')[0];
-
+  const today = new Date().toISOString().split('T')[0];
   document.getElementById('inv-number').value = invNum;
+
+  __invoicePreviewState = { client, clientId, invNum, today, due, notes, payLink, entries };
+  renderInvoicePreview();
+}
+
+// Removes a single entry from the invoice draft. Entry stays uninvoiced
+// in the time log (just not included on this particular invoice).
+function removeInvoiceLine(entryId) {
+  if (!__invoicePreviewState) return;
+  __invoicePreviewState.entries = __invoicePreviewState.entries.filter(e => e.id !== entryId);
+  if (!__invoicePreviewState.entries.length) {
+    if (confirm('That was the last line item. Cancel this invoice?')) {
+      __invoicePreviewState = null;
+      document.getElementById('invoicePreview').style.display = 'none';
+      return;
+    }
+  }
+  renderInvoicePreview();
+}
+
+function renderInvoicePreview() {
+  const s = __invoicePreviewState;
+  if (!s || !s.entries.length) return;
+  const { client, clientId, invNum, today, due, notes, payLink, entries } = s;
+  // Helper for entries that may be missing .amount (legacy entries)
+  const amtOf = (e) => (e.amount != null && !isNaN(e.amount))
+    ? e.amount
+    : ((parseFloat(e.hours) || 0) * (parseFloat(e.rate) || 0));
+  const subtotal = entries.reduce((sum, e) => sum + amtOf(e), 0);
 
   const preview = document.getElementById('invoicePreview');
   preview.style.display = 'block';
@@ -2194,6 +2241,7 @@ function previewInvoice() {
             <th style="text-align:center;">Hours</th>
             <th style="text-align:right;">Rate</th>
             <th style="text-align:right;">Amount</th>
+            <th class="inv-line-remove-cell" style="width:36px;"></th>
           </tr>
         </thead>
         <tbody>
@@ -2203,7 +2251,10 @@ function previewInvoice() {
               <td>${esc(e.desc)}</td>
               <td style="text-align:center;">${e.hours}</td>
               <td style="text-align:right;">$${fmt(e.rate)}/hr</td>
-              <td style="text-align:right;font-weight:600;">$${fmt(e.amount)}</td>
+              <td style="text-align:right;font-weight:600;">$${fmt(amtOf(e))}</td>
+              <td class="inv-line-remove-cell" style="text-align:center;">
+                <button type="button" class="inv-line-remove" title="Remove this line from the invoice" onclick="removeInvoiceLine('${e.id}')">&times;</button>
+              </td>
             </tr>
           `).join('')}
         </tbody>
@@ -2261,10 +2312,17 @@ function previewInvoice() {
   // Wire the Save button programmatically so we don't have to escape the
   // payment link or entry IDs into an inline onclick attribute (URLs
   // containing quotes or apostrophes would break HTML attribute parsing).
+  // Read fresh from __invoicePreviewState so any line-item removals are picked up.
   document.getElementById('invSaveBtn').addEventListener('click', () => {
+    const cur = __invoicePreviewState;
+    if (!cur || !cur.entries.length) { alert('No line items left on this invoice.'); return; }
+    const curSubtotal = cur.entries.reduce((sum, e) => {
+      const a = (e.amount != null && !isNaN(e.amount)) ? e.amount : ((parseFloat(e.hours)||0) * (parseFloat(e.rate)||0));
+      return sum + a;
+    }, 0);
     saveInvoice(
-      clientId, invNum, today, due, subtotal,
-      entries.map(e => e.id), payLink
+      cur.clientId, cur.invNum, cur.today, cur.due, curSubtotal,
+      cur.entries.map(e => e.id), cur.payLink
     );
   });
 
@@ -2317,11 +2375,12 @@ function printInvoice() {
     return;
   }
 
-  // Clone the rendered invoice and strip the in-app action buttons —
-  // those don't belong on the PDF.
+  // Clone the rendered invoice and strip the in-app action buttons +
+  // per-line remove buttons — neither belongs on the PDF.
   const clone = preview.cloneNode(true);
   const actions = clone.querySelector('.inv-actions');
   if (actions) actions.remove();
+  clone.querySelectorAll('.inv-line-remove-cell').forEach(el => el.remove());
 
   // Carry forward every <style> block from the host page so the popup
   // inherits the exact same brand colors, typography, and layout.
