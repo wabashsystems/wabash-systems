@@ -2436,17 +2436,21 @@ function openStopForm(clientId) {
   const wrap = document.getElementById('stopForm-' + clientId);
   if (!wrap) return;
   wrap.style.display = 'block';
+  // onclick stopPropagation on the form + a guard on every input prevents
+  // clicks/focus inside the form from bubbling up to the parent .client-card
+  // (which has its own onclick="openClientDetail()" that would slide out the
+  // drawer otherwise).
   wrap.innerHTML =
-    '<div class="stop-session-form">' +
+    '<div class="stop-session-form" onclick="event.stopPropagation()">' +
       '<div><label for="ss-desc-' + clientId + '">Description</label>' +
-        '<input type="text" id="ss-desc-' + clientId + '" placeholder="What did you work on?" /></div>' +
+        '<input type="text" id="ss-desc-' + clientId + '" placeholder="What did you work on?" onclick="event.stopPropagation()" onfocus="event.stopPropagation()" /></div>' +
       '<div><label for="ss-hours-' + clientId + '">Hours</label>' +
-        '<input type="number" id="ss-hours-' + clientId + '" step="0.25" min="0.25" value="' + billedHours.toFixed(2) + '" /></div>' +
+        '<input type="number" id="ss-hours-' + clientId + '" step="0.25" min="0.25" value="' + billedHours.toFixed(2) + '" onclick="event.stopPropagation()" onfocus="event.stopPropagation()" /></div>' +
       '<div><label for="ss-date-' + clientId + '">Date</label>' +
-        '<input type="date" id="ss-date-' + clientId + '" value="' + today + '" /></div>' +
+        '<input type="date" id="ss-date-' + clientId + '" value="' + today + '" onclick="event.stopPropagation()" onfocus="event.stopPropagation()" /></div>' +
       '<div class="stop-actions">' +
-        '<button type="button" class="btn btn-green btn-sm" onclick="saveSession(\'' + clientId + '\')">Save Entry</button>' +
-        '<button type="button" class="btn btn-sm" onclick="discardSession()" style="background:#9ca3af;color:#fff;">Discard</button>' +
+        '<button type="button" class="btn btn-green btn-sm" onclick="event.stopPropagation(); saveSession(\'' + clientId + '\')">Save Entry</button>' +
+        '<button type="button" class="btn btn-sm" onclick="event.stopPropagation(); discardSession()" style="background:#9ca3af;color:#fff;">Discard</button>' +
       '</div>' +
     '</div>';
   setTimeout(() => { const el = document.getElementById('ss-desc-' + clientId); if (el) el.focus(); }, 50);
