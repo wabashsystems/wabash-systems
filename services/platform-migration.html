@@ -24,6 +24,64 @@
     "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "8000", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 8000, "maxPrice": 25000 } }
   }
   </script>
+  <!-- FAQPage schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will I lose SEO rankings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not if it's done right. Migrations tank traffic when URL structures change without proper 301 redirects, when meta tags get reset to defaults, or when structured data gets dropped. I plan the redirect map before any data moves, audit it twice, and watch search performance daily for 60 days post-launch. Some short-term flux is normal \u2014 but a competent migration shouldn't cost you rankings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long is the store down?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zero downtime is the goal and the realistic outcome. The new site is built on a separate domain or staging URL. On launch night, DNS flips over and the new site picks up traffic immediately. Worst-case: a 15-minute window during DNS propagation where some users see one site and some see the other. Real downtime is essentially never required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about customer accounts and passwords?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Customers come over \u2014 emails, addresses, order history, customer groups, B2B pricing tiers. Passwords don't, because they're hashed and the hashes aren't portable across platforms. The standard approach is a \"password reset required\" email blast at launch, framed as a security upgrade. Customer login experience stays smooth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you handle order history?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 full order history including line items, payment status, fulfillment status, and customer notes. This is non-negotiable for businesses that need it for warranty claims, returns, or B2B reorder flows. Some platforms make this harder than others (looking at you, Shopify on legacy data) but it's always doable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if something goes wrong at launch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There's a rollback path written into the launch runbook. If something genuinely catastrophic comes up at cutover, DNS gets pointed back to the old store while we fix it. In practice this has never been needed on a properly-staged migration, but the plan exists."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does this cost so much more than store setup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because it's an order of magnitude more work. A new-store setup is configuration; a migration is configuration plus data engineering plus regression testing plus a hard live-cutover window with real revenue on the line. The price reflects the risk \u2014 if something goes wrong on launch night, real money is at stake. Quoting low and missing details is how migrations turn into disasters."
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -158,7 +216,35 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.wabashsystems.com/services/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Platform Migration",
+        "item": "https://www.wabashsystems.com/services/platform-migration"
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>

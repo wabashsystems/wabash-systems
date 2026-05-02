@@ -24,6 +24,64 @@
     "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "400", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 400, "maxPrice": 800, "billingIncrement": "P1M" } }
   }
   </script>
+  <!-- FAQPage schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why are you not running my ads on credit you provide?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because that arrangement is bad for you. When agencies markup ad spend, you can't see the real cost. When agencies bill on percentage of spend, they have a perverse incentive to grow your spend whether or not it produces returns. Direct billing on your card means you see every dollar Google charges you and the management fee is a separate, known number."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long until results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Performance Max typically needs 4\u20136 weeks of stable structure before its bid algorithm settles. New Search campaigns produce conversions faster but need 2\u20134 weeks to find the right CPC range. Plan on month 1 being audit + foundation, month 2 starting to see results, month 3 hitting target ROAS in most cases. Anyone promising day-1 results either inherits a working account or is bullshitting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about Meta Ads / Facebook / Instagram?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Different platform, different skillset. I'm strongest on Google. For Meta, I'll either refer you to a partner or scope it carefully \u2014 not pretend I'm equally expert in everything. Most small e-commerce stores get more lift from Google Shopping than from Meta these days, but it's product-dependent."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I do Performance Max or regular Shopping?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depends on your account size and goals. PMax is powerful but a black box \u2014 great when it works, frustrating when it doesn't. Standard Shopping gives you more control but less algorithmic lift. Most accounts I run use both with proper audience and brand-keyword exclusions wired up. We'll decide together based on your data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if my ROAS drops?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "First thing: I tell you, before you have to ask. Then we figure out why \u2014 seasonality, feed problem, bid strategy, competitor entering, search demand shift. Action depends on the cause. What I won't do is hide the dip or pretend the trend is fine. The point of paid search is to make you money, and if the math stops working we either fix it or shut it off."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you sign long-term contracts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three-month minimum to start (so the algorithm has a chance to optimize), then month-to-month with 30 days notice. I don't lock people in. The relationship continues because it's making you money \u2014 not because of a contract."
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -162,7 +220,35 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.wabashsystems.com/services/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Google Ads Management",
+        "item": "https://www.wabashsystems.com/services/google-ads"
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>

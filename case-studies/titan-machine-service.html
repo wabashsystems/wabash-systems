@@ -360,7 +360,70 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Case Studies",
+        "item": "https://www.wabashsystems.com/case-studies/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Case Study: Titan Machine Service",
+        "item": "https://www.wabashsystems.com/case-studies/titan-machine-service"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Article schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Case Study: Titan Machine Service",
+    "description": "How Wabash Systems built a fast, lead-generating site for Titan Machine Service — a Tulsa-based CNC service company covering five states. Built on Astro, deployed on Cloudflare Pages, optimized for emergency-response lead capture.",
+    "datePublished": "2026-04-01",
+    "dateModified": "2026-04-01",
+    "author": {
+      "@type": "Person",
+      "name": "Andy Gray",
+      "jobTitle": "Founder & Lead Developer, Wabash Systems"
+    },
+    "publisher": {
+      "@id": "https://www.wabashsystems.com/#organization"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.wabashsystems.com/case-studies/titan-machine-service"
+    },
+    "url": "https://www.wabashsystems.com/case-studies/titan-machine-service",
+    "image": "https://www.wabashsystems.com/favicon.svg",
+    "inLanguage": "en-US",
+    "articleSection": "Case Studies",
+    "about": {
+      "@type": "Organization",
+      "name": "Titan Machine Service",
+      "industry": "CNC Repair & Service",
+      "areaServed": "Oklahoma, Texas, Kansas, Arkansas, Missouri"
+    },
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>

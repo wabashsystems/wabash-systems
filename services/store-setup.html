@@ -28,6 +28,64 @@
     "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "1500", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1500, "maxPrice": 3000 } }
   }
   </script>
+  <!-- FAQPage schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which platform do you recommend?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most small businesses, Shopify Basic ($29/mo) is the right answer. BigCommerce Standard ($39/mo) for stores with complex catalogs or B2B needs. WooCommerce only if you already have a WordPress site you want to extend, or you want full code-level control. I won't push you onto a platform that pays me a referral \u2014 I'll explain why one fits your situation and let you decide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide products and photos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No \u2014 you provide products, descriptions, and photos. If you need help with photography, I can refer local Wabash Valley photographers I've worked with. If you need help writing product descriptions, that's typically $25\u2013$50 per product through a copywriter, or you can write them yourself with my templates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens after launch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Thirty days of post-launch support is included \u2014 bug fixes, configuration tweaks, and questions answered. After that, you can either run the store yourself (training is included) or move into a monthly management (/services/monthly-management) arrangement if you'd rather hand off ongoing operations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I change platforms later?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but it costs more than picking the right platform now. Migration projects start at $8,000. The setup work I do is platform-specific, but your products, customers, and content are yours and portable. I'll always document setup choices so a future migration is straightforward."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much do I pay during the project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "50% to start, 50% on launch. No hidden costs \u2014 the quote you get is the price you pay. Platform fees, domain registration, and any premium themes you choose are paid directly by you and disclosed upfront so you know the all-in cost before we start."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you work with businesses outside the Wabash Valley?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. About half my client base is local, the rest is remote. The work translates either way. Local clients sometimes get an in-person discovery meeting if scheduling works out; remote clients get a video call. Same level of attention regardless."
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -168,7 +226,35 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.wabashsystems.com/services/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Store Setup & Launch",
+        "item": "https://www.wabashsystems.com/services/store-setup"
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>

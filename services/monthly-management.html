@@ -24,6 +24,64 @@
     "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "750", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 750, "maxPrice": 2500, "billingIncrement": "P1M" } }
   }
   </script>
+  <!-- FAQPage schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I just hire someone in-house instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If your store is doing $3M+/year and you need 40+ hours of e-commerce work per week, yes \u2014 hire in-house. For most small businesses doing $200K\u2013$2M, fractional management at $750\u2013$2,500/month gets you the same operational discipline without the salary, benefits, training time, and \"what if they leave\" risk. The math flips somewhere around $200K of total comp."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between Maintain and Operate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Maintain is reactive \u2014 product updates, fixing breakage, keeping things running. Operate is proactive \u2014 identifying opportunities, running tests, recommending improvements. If you're not sure which to start with, start with Maintain and upgrade in month 2 if you find yourself wanting more strategic input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if you go on vacation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I take vacations. You'll know in advance, and urgent issues still get covered \u2014 either by me with a delay, or by a backup partner depending on the issue. This is one of the few advantages of a small operator over a big agency: you have a real person you actually know and can reach."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if my needs change month-to-month?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After the first 90 days, you can move tiers up or down with 14 days notice \u2014 or pause for a slow season and resume later. The structure is intentionally flexible because real small businesses don't have steady-state needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you handle customer service emails?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No \u2014 that's a different job and frankly someone closer to the product knows your customers better than I will. I handle operational/technical work; you (or a CS person you hire) handle order questions and returns conversations. I'm happy to set up macros, automation, and shipping/return flows that reduce CS load, but I'm not the front line."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about emergencies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Maintain tier: same business day. Operate tier: same day, including evenings if I'm reachable. Grow tier: same day, including weekends. \"Emergency\" means actually broken \u2014 checkout down, payment processor failure, site offline. Not \"the new banner image looks weird.\""
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -169,7 +227,35 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.wabashsystems.com/services/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Monthly Store Management",
+        "item": "https://www.wabashsystems.com/services/monthly-management"
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>

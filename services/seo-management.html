@@ -24,6 +24,64 @@
     "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "500", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 500, "maxPrice": 1500, "billingIncrement": "P1M" } }
   }
   </script>
+  <!-- FAQPage schema (AEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long until I see results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Technical fixes can produce visible movement in 30\u201360 days \u2014 especially for sites that had real issues. Content-driven gains typically start showing at the 3-month mark and compound from there. Anyone promising faster than this either has a tiny competitive landscape or is lying. SEO is a 6\u201312 month investment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you guarantee rankings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, and neither does anyone honest. Google's algorithm changes; competitors invest more; the SERP itself rearranges into shopping panels and AI overviews. What I can promise is that the technical work gets done, the content gets written, and the strategy is reviewed quarterly. Honest effort + competence is the only thing anyone can actually deliver."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will you use AI to write the content?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. AI is useful for outlines, research, and competitive analysis \u2014 I use it for those. The actual content is written by me. Pure-AI content gets demoted in Google's helpful-content updates and reads like cardboard. If your competitors are publishing AI slop, the way you win is by not."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about local SEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Included. Google Business Profile optimization, NAP citation cleanup, local content strategy, schema markup with location data, and reviews strategy. If you're a Wabash Valley business serving local customers, the local work is some of the highest-leverage SEO you can do."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I cancel anytime?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After the 6-month minimum, yes \u2014 30 days notice. The minimum exists because SEO genuinely doesn't show results in 30\u201360 days, and anyone who quits before month 4 is paying for setup work without seeing the upside. If we get to month 6 and you don't see value, you shouldn't keep paying."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about AI search and AI overviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The same fundamentals win on AI search results as on traditional SERPs \u2014 clear page structure, real expertise signals, schema markup, internal linking, original content. AI overviews favor sources that are well-structured and authoritative. The work we do for traditional SEO does double duty for AI search."
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -169,7 +227,35 @@
   </style>
     <!-- Microsoft Clarity -->
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
-  </head>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.wabashsystems.com/services/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "SEO Management",
+        "item": "https://www.wabashsystems.com/services/seo-management"
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
 
 <a href="#main" class="skip-nav">Skip to main content</a>
