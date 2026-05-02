@@ -502,6 +502,80 @@
       transition: color 0.15s;
     }
     .client-card:hover .client-card-arrow { color: var(--orange); }
+
+    /* Time-tracker (clock-in / clock-out) */
+    .timer-banner {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(90deg, #1a4a6e 0%, #c4622d 100%);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(196, 98, 45, 0.35);
+      transition: transform 0.15s;
+    }
+    .timer-banner.active { display: inline-flex; }
+    .timer-banner:hover { transform: translateY(-1px); }
+    .timer-banner .timer-pulse {
+      width: 8px; height: 8px; border-radius: 50%; background: #6ee7b7;
+      box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7);
+      animation: timerPulse 1.6s infinite;
+    }
+    @keyframes timerPulse {
+      0%   { box-shadow: 0 0 0 0   rgba(110, 231, 183, 0.7); }
+      70%  { box-shadow: 0 0 0 10px rgba(110, 231, 183, 0); }
+      100% { box-shadow: 0 0 0 0   rgba(110, 231, 183, 0); }
+    }
+    .timer-banner .timer-elapsed { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+    .client-card.is-active-session {
+      border: 2px solid #c4622d;
+      background: #fff8f1;
+      box-shadow: 0 4px 16px rgba(196, 98, 45, 0.18);
+    }
+    .client-card-actions {
+      display: flex; gap: 8px; margin-top: 12px; padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-clock {
+      flex: 1; padding: 8px 12px; border-radius: 5px; border: none; cursor: pointer;
+      font-size: 13px; font-weight: 600; transition: background 0.15s, opacity 0.15s;
+    }
+    .btn-clock-start { background: #ae5320; color: #fff; }
+    .btn-clock-start:hover:not(:disabled) { background: #c4622d; }
+    .btn-clock-start:disabled { background: #d1d5db; color: #6b7280; cursor: not-allowed; opacity: 0.6; }
+    .btn-clock-stop { background: #b91c1c; color: #fff; }
+    .btn-clock-stop:hover { background: #dc2626; }
+    .btn-clock .timer-inline {
+      font-variant-numeric: tabular-nums; margin-left: 6px; font-weight: 700;
+    }
+
+    /* Stop-session inline form (appears below an active card) */
+    .stop-session-form {
+      grid-column: 1 / -1;
+      background: #fff8f1;
+      border: 1px solid #c4622d;
+      border-radius: 8px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 100px 100px auto;
+      gap: 10px;
+      align-items: end;
+    }
+    .stop-session-form label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); display: block; margin-bottom: 4px; }
+    .stop-session-form input[type=text],
+    .stop-session-form input[type=number],
+    .stop-session-form input[type=date] {
+      width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 5px; font-size: 14px; font-family: inherit;
+    }
+    .stop-session-form .stop-actions { display: flex; gap: 8px; }
+    @media (max-width: 720px) {
+      .stop-session-form { grid-template-columns: 1fr; }
+    }
     .client-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; padding-right: 24px; }
     .client-detail { font-size: 13px; color: var(--gray); line-height: 1.6; }
     .client-actions { margin-top: 12px; display: flex; gap: 8px; }
@@ -707,6 +781,11 @@
     </div>
   </a>
   <div class="header-right">
+    <button type="button" id="timerBanner" class="timer-banner" onclick="jumpToActiveClient()" aria-live="polite">
+      <span class="timer-pulse" aria-hidden="true"></span>
+      <span id="timerBannerText">Working on Client</span>
+      <span class="timer-elapsed" id="timerBannerElapsed">0:00:00</span>
+    </button>
     <span class="header-sub">Admin — Billing & Time Tracking</span>
     <span id="saveStatus" class="save-status status-ok">Ready</span>
     <a href="/admin/logout" class="signout-link">Sign out</a>
@@ -1142,7 +1221,7 @@
 // ══════════════════════════════════════════════════════
 // DATA LAYER — Cloudflare KV via /admin/api/data
 // ══════════════════════════════════════════════════════
-const STATE = { clients: [], entries: [], invoices: [], posts: [] };
+const STATE = { clients: [], entries: [], invoices: [], posts: [], activeSession: null };
 
 let saveTimer  = null;
 let savePending = false;
@@ -1158,6 +1237,7 @@ async function loadData() {
     STATE.entries  = Array.isArray(data.entries)  ? data.entries  : [];
     STATE.invoices = Array.isArray(data.invoices) ? data.invoices : [];
     STATE.posts    = Array.isArray(data.posts)    ? data.posts    : [];
+    STATE.activeSession = data.activeSession && data.activeSession.clientId ? data.activeSession : null;
     setStatus('ok', 'Saved');
     return true;
   } catch (err) {
@@ -1183,6 +1263,7 @@ async function doSave() {
     entries: STATE.entries,
     invoices: STATE.invoices,
     posts: STATE.posts,
+    activeSession: STATE.activeSession,
   });
   try {
     const res = await fetch('/admin/api/data', {
@@ -1640,13 +1721,21 @@ function renderClients() {
     grid.innerHTML = '<div class="empty-state"><div class="icon">👤</div>No clients yet. Add your first one above.</div>';
     return;
   }
+  const session = STATE.activeSession;
+  const sessionClientId = session ? session.clientId : null;
   grid.innerHTML = clients.map(c => {
     const invoices = getInvoices().filter(i => i.clientId === c.id);
     const totalBilled = invoices.reduce((s,i) => s + i.amount, 0);
     const today = new Date().toISOString().split('T')[0];
     const outstanding = invoices.filter(i => i.status === 'open').reduce((s,i) => s + i.amount, 0);
+    const isActive = sessionClientId === c.id;
+    const otherSession = sessionClientId && !isActive;
+    const cardClass = isActive ? 'client-card is-active-session' : 'client-card';
+    const clockBtn = isActive
+      ? `<button type="button" class="btn-clock btn-clock-stop" onclick="event.stopPropagation(); openStopForm('${c.id}')">&#9632; Stop<span class="timer-inline" data-client-elapsed="${c.id}">0:00:00</span></button>`
+      : `<button type="button" class="btn-clock btn-clock-start"${otherSession ? ' disabled title="Stop the current session first"' : ''} onclick="event.stopPropagation(); startSession('${c.id}')">&#9654; Start working</button>`;
     return `
-    <div class="client-card" onclick="openClientDetail('${c.id}')">
+    <div class="${cardClass}" onclick="openClientDetail('${c.id}')">
       <div class="client-card-arrow">›</div>
       <div class="client-name">${esc(c.name)}</div>
       <div class="client-detail">
@@ -1656,6 +1745,8 @@ function renderClients() {
         ${c.retainer ? `<div style="margin-top:4px;font-weight:600;color:var(--orange);">Retainer: $${fmt(c.retainer)}/mo</div>` : ''}
         <div>Rate: $${fmt(c.rate)}/hr</div>
       </div>
+      <div class="client-card-actions">${clockBtn}</div>
+      ${isActive ? `<div id="stopForm-${c.id}" style="display:none;margin-top:12px;"></div>` : ''}
       ${invoices.length ? `
         <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:16px;font-size:12px;">
           <span><strong>${invoices.length}</strong> invoice${invoices.length !== 1 ? 's' : ''}</span>
@@ -2304,6 +2395,167 @@ function esc(s) {
 }
 
 // ══════════════════════════════════════════════════════
+// TIME TRACKER (clock-in / clock-out)
+// ══════════════════════════════════════════════════════
+let timerInterval = null;
+
+function formatElapsed(ms) {
+  const totalSec = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function startSession(clientId) {
+  if (STATE.activeSession) {
+    alert('A session is already running. Stop it first.');
+    return;
+  }
+  const c = clientById(clientId);
+  if (!c) return;
+  STATE.activeSession = { clientId: clientId, startedAt: Date.now() };
+  persist();
+  renderClients();
+  updateTimerUI();
+  startTimerLoop();
+}
+
+function openStopForm(clientId) {
+  const session = STATE.activeSession;
+  if (!session || session.clientId !== clientId) return;
+  const c = clientById(clientId);
+  if (!c) return;
+
+  const elapsedMs = Date.now() - session.startedAt;
+  const rawHours = elapsedMs / 3600000;
+  // Round up to nearest 0.25 (15-minute billing increment, kind to billables)
+  const billedHours = Math.max(0.25, Math.ceil(rawHours * 4) / 4);
+  const today = new Date().toISOString().split('T')[0];
+
+  const wrap = document.getElementById('stopForm-' + clientId);
+  if (!wrap) return;
+  wrap.style.display = 'block';
+  wrap.innerHTML =
+    '<div class="stop-session-form">' +
+      '<div><label for="ss-desc-' + clientId + '">Description</label>' +
+        '<input type="text" id="ss-desc-' + clientId + '" placeholder="What did you work on?" /></div>' +
+      '<div><label for="ss-hours-' + clientId + '">Hours</label>' +
+        '<input type="number" id="ss-hours-' + clientId + '" step="0.25" min="0.25" value="' + billedHours.toFixed(2) + '" /></div>' +
+      '<div><label for="ss-date-' + clientId + '">Date</label>' +
+        '<input type="date" id="ss-date-' + clientId + '" value="' + today + '" /></div>' +
+      '<div class="stop-actions">' +
+        '<button type="button" class="btn btn-green btn-sm" onclick="saveSession(\'' + clientId + '\')">Save Entry</button>' +
+        '<button type="button" class="btn btn-sm" onclick="discardSession()" style="background:#9ca3af;color:#fff;">Discard</button>' +
+      '</div>' +
+    '</div>';
+  setTimeout(() => { const el = document.getElementById('ss-desc-' + clientId); if (el) el.focus(); }, 50);
+}
+
+function saveSession(clientId) {
+  const session = STATE.activeSession;
+  if (!session || session.clientId !== clientId) return;
+  const c = clientById(clientId);
+  if (!c) return;
+
+  const desc  = document.getElementById('ss-desc-' + clientId).value.trim();
+  const hours = parseFloat(document.getElementById('ss-hours-' + clientId).value);
+  const date  = document.getElementById('ss-date-' + clientId).value;
+
+  if (!desc) { alert('Add a description before saving.'); return; }
+  if (isNaN(hours) || hours <= 0) { alert('Hours must be positive.'); return; }
+  if (!date) { alert('Date required.'); return; }
+
+  const entries = getEntries();
+  entries.push({
+    id: 'e' + Date.now() + Math.random().toString(36).slice(2, 6),
+    date: date,
+    clientId: clientId,
+    desc: desc,
+    hours: hours,
+    rate: c.rate,
+    invoiced: false,
+  });
+  saveEntries(entries);
+  STATE.activeSession = null;
+  persist();
+  stopTimerLoop();
+  renderClients();
+  renderTimeLog();
+  renderTimeStats();
+  updateTimerUI();
+}
+
+function discardSession() {
+  if (!confirm('Discard this session? The elapsed time will not be saved.')) return;
+  STATE.activeSession = null;
+  persist();
+  stopTimerLoop();
+  renderClients();
+  updateTimerUI();
+}
+
+function startTimerLoop() {
+  stopTimerLoop();
+  if (!STATE.activeSession) return;
+  updateTimerUI();
+  timerInterval = setInterval(updateTimerUI, 1000);
+}
+
+function stopTimerLoop() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function updateTimerUI() {
+  const session = STATE.activeSession;
+  const banner  = document.getElementById('timerBanner');
+  if (!banner) return;
+  if (!session) {
+    banner.classList.remove('active');
+    return;
+  }
+  const c = clientById(session.clientId);
+  const elapsed = formatElapsed(Date.now() - session.startedAt);
+  banner.classList.add('active');
+  document.getElementById('timerBannerText').textContent = 'Working on ' + (c ? c.name : 'unknown client');
+  document.getElementById('timerBannerElapsed').textContent = elapsed;
+  // Also update any inline counters on the active client card
+  document.querySelectorAll('[data-client-elapsed="' + session.clientId + '"]').forEach(el => {
+    el.textContent = ' ' + elapsed;
+  });
+}
+
+function jumpToActiveClient() {
+  if (!STATE.activeSession) return;
+  switchMainTab('invoicing');
+  switchSubTab('clients');
+  setTimeout(() => {
+    const card = document.querySelector('.client-card.is-active-session');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function checkStaleSession() {
+  const session = STATE.activeSession;
+  if (!session) return;
+  const hoursOld = (Date.now() - session.startedAt) / 3600000;
+  if (hoursOld > 12) {
+    const c = clientById(session.clientId);
+    const proceed = confirm(
+      'A session for "' + (c ? c.name : 'unknown') + '" has been running for ' +
+      hoursOld.toFixed(1) + ' hours. You probably forgot to stop it.\n\n' +
+      'Click OK to open the stop form so you can correct the hours.\n' +
+      'Click Cancel to leave it running.'
+    );
+    if (proceed) {
+      switchMainTab('invoicing');
+      switchSubTab('clients');
+      setTimeout(() => openStopForm(session.clientId), 200);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
 (async function init() {
@@ -2333,6 +2585,11 @@ function esc(s) {
 
   // Hide loading overlay
   document.getElementById('loadingOverlay').classList.add('hidden');
+
+  // Time tracker: restore active session UI and start ticking if one is in progress
+  updateTimerUI();
+  startTimerLoop();
+  checkStaleSession();
 })();
 </script>
 </body>
