@@ -862,7 +862,10 @@
     </div>
 
     <div class="card">
-      <div class="card-title">Published Posts</div>
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>Published Posts</span>
+        <button class="btn btn-ghost" onclick="syncBlogPostsFromGitHub()" id="blogSyncBtn">↻ Sync from GitHub</button>
+      </div>
       <div class="tbl-wrap">
         <table>
           <thead>
@@ -998,7 +1001,12 @@ function switchMainTab(tab) {
   } else {
     subTabsEl.classList.add('hidden');
     document.getElementById('panel-' + tab).classList.add('active');
-    if (tab === 'blog') { blogInit(); renderBlogPosts(); }
+    if (tab === 'blog') {
+      blogInit();
+      renderBlogPosts();
+      // Auto-sync on first visit if posts list is empty
+      if (!getPosts().length) syncBlogPostsFromGitHub();
+    }
   }
 }
 
@@ -1273,6 +1281,31 @@ async function blogPublish() {
     blogStatus(`Committed. Run auto-push.ps1 (or wait for the next 30-min schedule) to deploy. URL: ${data.url}`, 'ok');
   } catch (err) {
     blogStatus('Publish failed: ' + err.message, 'err');
+  }
+}
+
+async function syncBlogPostsFromGitHub() {
+  const btn = document.getElementById('blogSyncBtn');
+  if (btn) btn.textContent = '↻ Syncing…';
+  try {
+    const res = await fetch('/admin/api/blog/list', { cache: 'no-store' });
+    const data = await res.json();
+    if (!res.ok) {
+      blogStatus('Sync failed: ' + (data.error || ('HTTP ' + res.status)), 'err');
+      return;
+    }
+    // Merge: remote is authoritative for slug/title/category/date;
+    // preserve any local-only entries that GitHub doesn't know about yet.
+    const remote = Array.isArray(data.posts) ? data.posts : [];
+    const slugs  = new Set(remote.map(p => p.slug));
+    const local  = getPosts().filter(p => !slugs.has(p.slug));
+    savePosts([...remote, ...local]);
+    renderBlogPosts();
+    blogStatus(`Synced ${remote.length} post${remote.length !== 1 ? 's' : ''} from GitHub.`, 'ok');
+  } catch (err) {
+    blogStatus('Sync failed: ' + err.message, 'err');
+  } finally {
+    if (btn) btn.textContent = '↻ Sync from GitHub';
   }
 }
 
