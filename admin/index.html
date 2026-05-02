@@ -562,8 +562,8 @@
       border-radius: 8px;
       padding: 16px;
       display: grid;
-      grid-template-columns: 1fr 100px 100px auto;
-      gap: 10px;
+      grid-template-columns: 1fr 90px 140px;
+      gap: 12px;
       align-items: end;
     }
     .stop-session-form label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); display: block; margin-bottom: 4px; }
@@ -571,10 +571,20 @@
     .stop-session-form input[type=number],
     .stop-session-form input[type=date] {
       width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 5px; font-size: 14px; font-family: inherit;
+      box-sizing: border-box;
     }
-    .stop-session-form .stop-actions { display: flex; gap: 8px; }
+    .stop-session-form .stop-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+    .stop-session-form .stop-actions .btn { white-space: nowrap; padding: 8px 18px; }
     @media (max-width: 720px) {
       .stop-session-form { grid-template-columns: 1fr; }
+      .stop-session-form .stop-actions { justify-content: stretch; }
+      .stop-session-form .stop-actions .btn { flex: 1; }
     }
     .client-name { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; padding-right: 24px; }
     .client-detail { font-size: 13px; color: var(--gray); line-height: 1.6; }
