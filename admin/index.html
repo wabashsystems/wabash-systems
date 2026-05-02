@@ -584,6 +584,62 @@
     }
 
     .empty-state { text-align: center; padding: 48px 20px; color: var(--gray); font-size: 14px; }
+
+    /* ── TOOLS / ANALYTICS TAB ── */
+    .tools-section { margin-bottom: 28px; }
+    .tools-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    a.tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+    }
+    a.tool-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 2px 12px rgba(196, 98, 45, 0.11);
+      transform: translateY(-1px);
+    }
+    .tool-icon-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .tool-info { flex: 1; min-width: 0; }
+    .tool-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .tool-desc { font-size: 12px; color: var(--gray); margin-top: 2px; line-height: 1.4; }
+    .tool-open {
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--orange);
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    a.tool-card:hover .tool-open { opacity: 1; }
     .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
 
     .row-gap { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
@@ -662,6 +718,7 @@
 <div class="tabs">
   <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
   <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
+  <div class="tab" onclick="switchMainTab('analytics')">📊 Analytics</div>
 </div>
 <div class="sub-tabs" id="subTabsInvoicing">
   <div class="sub-tab active" onclick="switchSubTab('time')">⏱ Time Log</div>
@@ -849,6 +906,100 @@
     </div>
 
     <div class="client-grid" id="clientGrid"></div>
+  </div>
+
+  <!-- ══════════ ANALYTICS / TOOLS ══════════ -->
+  <div class="panel" id="panel-analytics">
+
+    <div class="tools-section">
+      <div class="tools-section-title">Analytics &amp; SEO</div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://search.google.com/search-console" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#4285F4;">GSC</div>
+          <div class="tool-info"><div class="tool-name">Google Search Console</div><div class="tool-desc">Indexing, keywords, CTR, page performance</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://app.ahrefs.com" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#FF8200;">AH</div>
+          <div class="tool-info"><div class="tool-name">Ahrefs</div><div class="tool-desc">Backlinks, keyword research, site audit</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://analytics.google.com" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#E37400;">GA4</div>
+          <div class="tool-info"><div class="tool-name">Google Analytics</div><div class="tool-desc">Traffic, sessions, conversions</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://dash.cloudflare.com/?to=/:account/:zone/analytics" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#F48120;">CF</div>
+          <div class="tool-info"><div class="tool-name">Cloudflare Analytics</div><div class="tool-desc">Web traffic, threats, cache performance</div></div>
+          <span class="tool-open">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="tools-section">
+      <div class="tools-section-title">Infrastructure</div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://dash.cloudflare.com" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#F48120;">CF</div>
+          <div class="tool-info"><div class="tool-name">Cloudflare</div><div class="tool-desc">DNS, SSL, Pages, redirects, workers</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://github.com/wabashsystems/wabash-systems" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#24292e;">GH</div>
+          <div class="tool-info"><div class="tool-name">GitHub</div><div class="tool-desc">Site repo, commits, deployments</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://sentry.io" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#362D59;">SE</div>
+          <div class="tool-info"><div class="tool-name">Sentry</div><div class="tool-desc">Error monitoring and alerting</div></div>
+          <span class="tool-open">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="tools-section">
+      <div class="tools-section-title">Marketing</div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://www.klaviyo.com/login" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#00B2A9;">KL</div>
+          <div class="tool-info"><div class="tool-name">Klaviyo</div><div class="tool-desc">Email marketing, flows, campaigns, lists</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://ads.google.com" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#4285F4;">GA</div>
+          <div class="tool-info"><div class="tool-name">Google Ads</div><div class="tool-desc">Search campaigns, performance, spend</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://business.facebook.com/adsmanager" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#1877F2;">FB</div>
+          <div class="tool-info"><div class="tool-name">Meta Ads Manager</div><div class="tool-desc">Facebook &amp; Instagram ad campaigns</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://cal.com/wabashsystems" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#111827;">CAL</div>
+          <div class="tool-info"><div class="tool-name">Cal.com</div><div class="tool-desc">Booking page — free consultation scheduling</div></div>
+          <span class="tool-open">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="tools-section">
+      <div class="tools-section-title">Revenue</div>
+      <div class="tools-grid">
+        <a class="tool-card" href="https://dashboard.stripe.com" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#635BFF;">ST</div>
+          <div class="tool-info"><div class="tool-name">Stripe</div><div class="tool-desc">Payments, invoices, payout history</div></div>
+          <span class="tool-open">→</span>
+        </a>
+        <a class="tool-card" href="https://www.paypal.com/businesswallet" target="_blank" rel="noopener">
+          <div class="tool-icon-badge" style="background:#003087;">PP</div>
+          <div class="tool-info"><div class="tool-name">PayPal</div><div class="tool-desc">Business account, transactions, balance</div></div>
+          <span class="tool-open">→</span>
+        </a>
+      </div>
+    </div>
+
   </div>
 
   <!-- ══════════ BLOG ══════════ -->
@@ -1069,7 +1220,7 @@ let currentSubTab  = 'time';
 function switchMainTab(tab) {
   currentMainTab = tab;
   document.querySelectorAll('.tab').forEach((t, i) => {
-    const ids = ['invoicing', 'blog'];
+    const ids = ['invoicing', 'blog', 'analytics'];
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
