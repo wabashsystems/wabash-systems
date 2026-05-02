@@ -59,7 +59,19 @@ export async function onRequest(context) {
   return next();
 }
 
-// ---------- helpers ----------
+// ---------- exported helpers ----------
+
+export async function signSessionCookie(secret) {
+  const expiry = Math.floor(Date.now() / 1000) + SESSION_HOURS * 3600;
+  const message = `admin_session:${expiry}`;
+  const key = await importKey(secret);
+  const msgBytes = new TextEncoder().encode(message);
+  const sigBytes = await crypto.subtle.sign('HMAC', key, msgBytes);
+  const hmacB64 = bytesToBase64url(new Uint8Array(sigBytes));
+  return `${expiry}.${hmacB64}`;
+}
+
+// ---------- private helpers ----------
 
 function redirectToLogin(url) {
   const loginUrl = new URL('/admin/login', url.origin);
@@ -99,4 +111,9 @@ function base64urlToBytes(b64url) {
   const b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
   const bin = atob(b64);
   return Uint8Array.from(bin, c => c.charCodeAt(0));
+}
+
+function bytesToBase64url(bytes) {
+  const bin = String.fromCharCode(...bytes);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
