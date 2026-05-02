@@ -1,4 +1,3 @@
-import { createLead as bluefolderCreateLead } from '../lib/bluefolder.js';
 import { captureException } from '../lib/sentry.js';
 
 export async function onRequestPost(context) {
@@ -13,7 +12,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // ── 1. Send notification email via Resend ────────────────────────────────
+    // 1. Notification email via Resend
     const emailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -24,7 +23,7 @@ export async function onRequestPost(context) {
         from: 'Wabash Systems <info@wabashsystems.com>',
         to: ['agray@wabashsystems.com'],
         reply_to: email,
-        subject: `New inquiry from ${fname} ${lname}${business ? ' — ' + business : ''}`,
+        subject: `New inquiry from ${fname} ${lname}${business ? ' � ' + business : ''}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${fname} ${lname}</p>
@@ -46,27 +45,58 @@ export async function onRequestPost(context) {
       });
     }
 
-    // ── 2. Push to BlueFolder (additive, non-blocking) ───────────────────────
-    // Idempotent on email — repeat submissions reuse the customer record and
-    // create a new service request each time. If BlueFolder is down or
-    // misconfigured we never want the form to fail for the visitor; log and
-    // move on. The Resend notification email already succeeded above, so the
-    // lead is preserved regardless.
-    if (env.BLUEFOLDER_API_TOKEN) {
+    // 2. Klaviyo � upsert profile + add to Email List
+    if (env.KLAVIYO_PRIVATE_KEY) {
       try {
-        await bluefolderCreateLead(env, {
-          name:       `${fname || ''} ${lname || ''}`.trim() || (email || ''),
-          email,
-          phone,
-          business,
-          service,
-          message,
-          emailOptIn,
-          smsOptIn,
+        const kHeaders = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'revision': '2024-02-15',
+          'Authorization': `Klaviyo-API-Key ${env.KLAVIYO_PRIVATE_KEY}`,
+        };
+
+        const profileRes = await fetch('https://a.klaviyo.com/api/profile-import/', {
+          method: 'POST',
+          headers: kHeaders,
+          body: JSON.stringify({
+            data: {
+              type: 'profile',
+              attributes: {
+                email,
+                first_name: fname || undefined,
+                last_name: lname || undefined,
+                phone_number: phone || undefined,
+                properties: {
+                  ...(business && { 'Business Name': business }),
+                  ...(service && { 'Service Interest': service }),
+                  'Contact Message': message,
+                  'Email Opt-In': !!emailOptIn,
+                  'SMS Opt-In': !!smsOptIn,
+                  'Source': 'Contact Form',
+                },
+              },
+            },
+          }),
         });
-      } catch (bfErr) {
-        // Surfaced to Cloudflare Pages logs — visible in the dashboard.
-        console.error('[bluefolder] lead push failed:', bfErr?.message || bfErr);
+
+        if (profileRes.ok) {
+          const profileData = await profileRes.json();
+          const profileId = profileData?.data?.id;
+
+          if (profileId && env.KLAVIYO_LIST_ID) {
+            await fetch(`https://a.klaviyo.com/api/lists/${env.KLAVIYO_LIST_ID}/relationships/profiles/`, {
+              method: 'POST',
+              headers: kHeaders,
+              body: JSON.stringify({
+                data: [{ type: 'profile', id: profileId }],
+              }),
+            });
+          }
+        } else {
+          console.error('[klaviyo] profile upsert failed:', await profileRes.text());
+        }
+      } catch (klaviyoErr) {
+        console.error('[klaviyo] error:', klaviyoErr?.message || klaviyoErr);
       }
     }
 
