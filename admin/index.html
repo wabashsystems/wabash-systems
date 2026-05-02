@@ -1988,6 +1988,10 @@ function renderTimeLog() {
 
   tbody.innerHTML = entries.map(e => {
     const c = clientById(e.clientId);
+    // Backfill amount on the fly for legacy entries that were stored without it
+    const amt = (e.amount != null && !isNaN(e.amount))
+      ? e.amount
+      : ((parseFloat(e.hours) || 0) * (parseFloat(e.rate) || 0));
     return `
       <tr>
         <td>${fmtDate(e.date)}</td>
@@ -1995,7 +1999,7 @@ function renderTimeLog() {
         <td>${esc(e.desc)}</td>
         <td>${e.hours}</td>
         <td>$${fmt(e.rate)}</td>
-        <td><strong>$${fmt(e.amount)}</strong></td>
+        <td><strong>$${fmt(amt)}</strong></td>
         <td>${e.invoiced
           ? `<span class="badge badge-paid">Invoiced</span>`
           : `<span class="badge badge-open">Pending</span>`}
@@ -2011,9 +2015,13 @@ function renderTimeLog() {
 function renderTimeStats() {
   const entries = getEntries();
   const uninvoiced = entries.filter(e => !e.invoiced);
-  const totalHours  = entries.reduce((s,e) => s + e.hours, 0);
-  const pendingAmt  = uninvoiced.reduce((s,e) => s + e.amount, 0);
-  const totalAmt    = entries.reduce((s,e) => s + e.amount, 0);
+  // Helper for entries that may be missing .amount (legacy / pre-fix entries)
+  const amtOf = (e) => (e.amount != null && !isNaN(e.amount))
+    ? e.amount
+    : ((parseFloat(e.hours) || 0) * (parseFloat(e.rate) || 0));
+  const totalHours  = entries.reduce((s,e) => s + (parseFloat(e.hours) || 0), 0);
+  const pendingAmt  = uninvoiced.reduce((s,e) => s + amtOf(e), 0);
+  const totalAmt    = entries.reduce((s,e) => s + amtOf(e), 0);
 
   document.getElementById('timeStats').innerHTML = `
     <div class="stat"><div class="stat-label">Total Hours Logged</div><div class="stat-value">${totalHours.toFixed(1)}</div></div>
@@ -2471,14 +2479,17 @@ function saveSession(clientId) {
   if (!date) { alert('Date required.'); return; }
 
   const entries = getEntries();
+  const rate = parseFloat(c.rate) || 175;
   entries.push({
     id: 'e' + Date.now() + Math.random().toString(36).slice(2, 6),
     date: date,
     clientId: clientId,
     desc: desc,
     hours: hours,
-    rate: c.rate,
+    rate: rate,
+    amount: +(hours * rate).toFixed(2),
     invoiced: false,
+    invoiceId: null,
   });
   saveEntries(entries);
   STATE.activeSession = null;
