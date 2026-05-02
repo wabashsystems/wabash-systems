@@ -254,7 +254,7 @@ Thanks for paying attention this week. Good luck with your business.
 
 - Andy
 Wabash Systems LLC
-agray@wabashsystems.com
+andy.gray@wabashsystems.com
 ```
 
 ---
