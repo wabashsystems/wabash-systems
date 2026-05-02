@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wabash Systems — Admin Login</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1A2A;
+      --navy-mid: #162236;
+      --orange:   #C4622D;
+      --cream:    #F8F6F1;
+      --gray:     #6B7280;
+      --white:    #FFFFFF;
+      --red:      #DC2626;
+      --border:   #E5E7EB;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    header {
+      background: var(--navy);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+    }
+    .logo { color: var(--white); font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+    .logo span { color: var(--orange); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .card-sub {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .error-banner {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 7px;
+      margin-bottom: 20px;
+    }
+    .error-banner.visible { display: block; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="password"] {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 15px;
+      color: var(--navy);
+      background: var(--white);
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.12);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 11px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 7px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button[type="submit"]:hover { background: #a8521f; }
+    button[type="submit"]:active { background: #8f4419; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">WABASH<span>.</span></div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="card-title">Admin Login</div>
+      <div class="card-sub">Wabash Systems internal tools</div>
+
+      <div class="error-banner" id="errorBanner">Incorrect password. Try again.</div>
+
+      <form method="POST" action="/admin/login">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            autofocus
+            required
+          />
+        </div>
+        <button type="submit">Sign in</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Show error banner if ?error=1 is in the URL.
+    if (new URLSearchParams(location.search).get('error') === '1') {
+      document.getElementById('errorBanner').classList.add('visible');
+    }
+  </script>
+</body>
+</html>
