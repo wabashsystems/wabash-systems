@@ -26,6 +26,7 @@ const json = (obj, status = 200) =>
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 const VALID_SERVICES = [
+  'aeo',
   'store-setup',
   'platform-migration',
   'seo-management',
@@ -35,6 +36,7 @@ const VALID_SERVICES = [
 ];
 
 const VALID_CATEGORIES = [
+  'AEO',
   'Quick Wins',
   'E-Commerce',
   'SEO',
