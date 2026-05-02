@@ -27,6 +27,7 @@
       flex-direction: column;
     }
 
+    /* ── TOP BAR ── */
     header {
       background: var(--navy);
       padding: 14px 32px;
@@ -36,122 +37,131 @@
     .logo { color: var(--white); font-size: 18px; font-weight: 700; letter-spacing: 1px; }
     .logo span { color: var(--orange); }
 
-    .center {
+    /* ── MAIN ── */
+    main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      padding: 48px 24px;
     }
 
     .card {
       background: var(--white);
       border-radius: 12px;
-      border: 1px solid var(--border);
       padding: 40px;
+      border: 1px solid var(--border);
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
     }
 
     .card-title {
       font-size: 20px;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
+
     .card-sub {
       font-size: 14px;
       color: var(--gray);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+    }
+
+    .error-banner {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 7px;
+      margin-bottom: 20px;
+    }
+    .error-banner.visible { display: block; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
     }
 
     label {
-      display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 6px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     input[type="password"] {
-      width: 100%;
       padding: 10px 14px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 7px;
       font-size: 15px;
       color: var(--navy);
       background: var(--white);
-      outline: none;
+      width: 100%;
       transition: border-color 0.15s;
     }
     input[type="password"]:focus {
-      border-color: var(--navy);
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.12);
     }
-
-    .error {
-      display: none;
-      margin-top: 12px;
-      padding: 10px 14px;
-      background: #FEF2F2;
-      border: 1px solid #FECACA;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--red);
-    }
-    .error.visible { display: block; }
 
     button[type="submit"] {
       width: 100%;
-      margin-top: 24px;
       padding: 11px;
       background: var(--orange);
       color: var(--white);
       border: none;
-      border-radius: 8px;
+      border-radius: 7px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: opacity 0.15s;
+      transition: background 0.15s;
     }
-    button[type="submit"]:hover { opacity: 0.9; }
-    button[type="submit"]:active { opacity: 0.8; }
+    button[type="submit"]:hover { background: #a8521f; }
+    button[type="submit"]:active { background: #8f4419; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo">WABASH<span>.</span></div>
+  </header>
 
-<header>
-  <div class="logo">WABASH<span>.</span></div>
-</header>
+  <main>
+    <div class="card">
+      <div class="card-title">Admin Login</div>
+      <div class="card-sub">Wabash Systems internal tools</div>
 
-<div class="center">
-  <div class="card">
-    <div class="card-title">Admin Access</div>
-    <div class="card-sub">Enter your password to continue.</div>
+      <div class="error-banner" id="errorBanner">Incorrect password. Try again.</div>
 
-    <form method="POST" action="/admin/login">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        autocomplete="current-password"
-        autofocus
-        required
-      />
+      <form method="POST" action="/admin/login">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            autofocus
+            required
+          />
+        </div>
+        <button type="submit">Sign in</button>
+      </form>
+    </div>
+  </main>
 
-      <div class="error" id="err">Incorrect password. Try again.</div>
-
-      <button type="submit">Sign In</button>
-    </form>
-  </div>
-</div>
-
-<script>
-  // Show error banner if ?error=1 in the URL
-  if (new URLSearchParams(location.search).get('error') === '1') {
-    document.getElementById('err').classList.add('visible');
-  }
-</script>
-
+  <script>
+    // Show error banner if ?error=1 is in the URL.
+    if (new URLSearchParams(location.search).get('error') === '1') {
+      document.getElementById('errorBanner').classList.add('visible');
+    }
+  </script>
 </body>
 </html>

@@ -519,6 +519,8 @@
     .status-err     { color: #FCA5A5; }
 
     .header-right { display: flex; align-items: center; gap: 16px; }
+    .signout-link { color: rgba(255,255,255,0.5); font-size: 13px; text-decoration: none; transition: color 0.15s; }
+    .signout-link:hover { color: var(--white); }
 
     /* Loading overlay */
     .loading-overlay {
@@ -542,6 +544,7 @@
   <div class="header-right">
     <span class="header-sub">Admin — Billing & Time Tracking</span>
     <span id="saveStatus" class="save-status status-ok">Ready</span>
+    <a href="/admin/logout" class="signout-link">Sign out</a>
   </div>
 </header>
 

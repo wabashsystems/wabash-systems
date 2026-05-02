@@ -1,25 +1,24 @@
 // functions/admin/logout.js
-// Handles GET /admin/logout — clears the session cookie and redirects to login.
+//
+// GET /admin/logout — expires the session cookie and redirects to the login page.
 
 const SESSION_COOKIE = 'admin_session';
 
 export async function onRequestGet() {
-  // Expire the cookie immediately by setting Max-Age=0
-  const cookieAttrs = [
+  const expiredCookie = [
     `${SESSION_COOKIE}=`,
-    `Path=/admin`,
-    `HttpOnly`,
-    `Secure`,
-    `SameSite=Strict`,
-    `Max-Age=0`,
-    `Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+    'Path=/admin',
+    'HttpOnly',
+    'Secure',
+    'SameSite=Strict',
+    'Max-Age=0',
   ].join('; ');
 
   return new Response(null, {
     status: 303,
     headers: {
       Location: '/admin/login',
-      'Set-Cookie': cookieAttrs,
+      'Set-Cookie': expiredCookie,
     },
   });
 }

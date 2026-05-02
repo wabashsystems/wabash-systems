@@ -1,111 +1,74 @@
 // functions/admin/login.js
-// Handles POST /admin/login — validates password, issues signed session cookie.
-// Requires env vars: ADMIN_PASSWORD, SESSION_SECRET
+//
+// GET  /admin/login  — serves the login page HTML via ASSETS (no redirect, avoids
+//                      Cloudflare Pages pretty-URL loop: /admin/login.html → /admin/login)
+// POST /admin/login  — validates password, issues signed session cookie, redirects
 
-const SESSION_COOKIE  = 'admin_session';
-const SESSION_HOURS   = 8;
-const SESSION_SECONDS = SESSION_HOURS * 60 * 60;
+import { signSessionCookie } from './_middleware.js';
 
-// -------------------------------------------------------------------
-// Timing-safe string comparison (prevent length-leak timing attacks)
-// -------------------------------------------------------------------
-function safeEqual(a, b) {
-  const ta = new TextEncoder().encode(a);
-  const tb = new TextEncoder().encode(b);
-  // Always do full XOR walk — don't short-circuit on length mismatch
-  const maxLen = Math.max(ta.length, tb.length);
-  let diff = ta.length ^ tb.length;
-  for (let i = 0; i < maxLen; i++) {
-    diff |= (ta[i] ?? 0) ^ (tb[i] ?? 0);
-  }
-  return diff === 0;
-}
+const SESSION_COOKIE = 'admin_session';
 
-// -------------------------------------------------------------------
-// HMAC-SHA256 helpers (Web Crypto — available in Cloudflare Workers)
-// -------------------------------------------------------------------
-async function importHmacKey(secret) {
-  return crypto.subtle.importKey(
-    'raw',
-    new TextEncoder().encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  );
-}
-
-async function signToken(secret, message) {
-  const key = await importHmacKey(secret);
-  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(message));
-  // Encode as URL-safe base64
-  return btoa(String.fromCharCode(...new Uint8Array(sig)))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-}
-
-// -------------------------------------------------------------------
-// Build a signed session cookie value: "{expiry}.{hmac}"
-// -------------------------------------------------------------------
-async function buildSessionCookie(secret) {
-  const expiry = Math.floor(Date.now() / 1000) + SESSION_SECONDS;
-  const message = `${SESSION_COOKIE}:${expiry}`;
-  const hmac = await signToken(secret, message);
-  return { value: `${expiry}.${hmac}`, expiry };
-}
-
-// -------------------------------------------------------------------
-// Request handler
-// -------------------------------------------------------------------
-export async function onRequestPost(context) {
-  const { request, env } = context;
-
-  // Fail closed if env vars not configured
-  if (!env.ADMIN_PASSWORD || !env.SESSION_SECRET) {
-    return new Response('Admin not configured.', { status: 503 });
-  }
-
-  // Parse form body
-  let password = '';
-  try {
-    const body = await request.formData();
-    password = body.get('password') ?? '';
-  } catch {
-    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
-  }
-
-  // Validate password
-  if (!safeEqual(password, env.ADMIN_PASSWORD)) {
-    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
-  }
-
-  // Issue signed session cookie
-  const { value, expiry } = await buildSessionCookie(env.SESSION_SECRET);
-
-  const cookieAttrs = [
-    `${SESSION_COOKIE}=${value}`,
-    `Path=/admin`,
-    `HttpOnly`,
-    `Secure`,
-    `SameSite=Strict`,
-    `Max-Age=${SESSION_SECONDS}`,
-    `Expires=${new Date(expiry * 1000).toUTCString()}`,
-  ].join('; ');
-
-  return new Response(null, {
-    status: 303,
-    headers: {
-      Location: '/admin/',
-      'Set-Cookie': cookieAttrs,
-    },
-  });
-
-}
-
-// GET /admin/login — serve the login page directly via ASSETS binding.
-// We can't omit this handler: when a function file exists for a route, Pages
-// won't fall through to the static asset for unhandled methods. Using ASSETS.fetch()
-// returns the static HTML with a 200, no redirect involved.
+// GET: serve login.html directly from the static asset bundle.
 export async function onRequestGet(context) {
   return context.env.ASSETS.fetch(
     new Request(new URL('/admin/login.html', context.request.url))
   );
+}
+
+// POST: validate password and issue session cookie.
+export async function onRequestPost(context) {
+  const { request, env } = context;
+
+  if (!env.ADMIN_PASSWORD || !env.SESSION_SECRET) {
+    return new Response('Admin not configured.', { status: 503 });
+  }
+
+  let body;
+  try {
+    body = await request.formData();
+  } catch {
+    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
+  }
+
+  const submitted = body.get('password') ?? '';
+
+  if (!safeEqual(submitted, env.ADMIN_PASSWORD)) {
+    return new Response(null, { status: 303, headers: { Location: '/admin/login?error=1' } });
+  }
+
+  // Password correct — issue session cookie.
+  const cookieValue = await signSessionCookie(env.SESSION_SECRET);
+  const cookie = [
+    `${SESSION_COOKIE}=${cookieValue}`,
+    'Path=/admin',
+    'HttpOnly',
+    'Secure',
+    'SameSite=Strict',
+    'Max-Age=28800', // 8 hours
+  ].join('; ');
+
+  // Redirect to the originally requested page, or /admin/ if none.
+  const url    = new URL(request.url);
+  const next   = url.searchParams.get('next') || '/admin/';
+  const target = /^\/admin(\/|$)/.test(next) ? next : '/admin/';
+
+  return new Response(null, {
+    status: 303,
+    headers: { Location: target, 'Set-Cookie': cookie },
+  });
+}
+
+// ── Timing-safe string comparison ────────────────────────────────────────────
+// XOR every character so comparison time depends only on string length,
+// not on where the first mismatch occurs.
+function safeEqual(a, b) {
+  if (a.length !== b.length) {
+    // Still consume time proportional to `a` to avoid length oracle.
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ 0;
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
 }
