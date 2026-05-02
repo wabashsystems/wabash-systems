@@ -29,10 +29,18 @@
 /privacy
   Cache-Control: public, max-age=3600, s-maxage=86400
 
-# API routes — never cache
+# API routes — never cache, never index
 /api/*
   Cache-Control: no-store
   X-Frame-Options: DENY
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+# Admin panel — never index, never cache, never embed
+/admin/*
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
 
 # Static assets — long cache, immutable
 /*.svg

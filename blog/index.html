@@ -38,10 +38,11 @@
       --navy-light:   #1a4a6e;
       --orange:       #c4622d;
       --orange-light: #e8834d;
-      --orange-text:  #b05a28;
+      --orange-text: #a04e22;
+      --orange-button: #ae5320;
       --cream:        #f8f6f1;
       --gray-light:   #f2f4f7;
-      --gray-mid:     #6b7280;
+      --gray-mid: #606673;
       --white:        #ffffff;
     }
     html { scroll-behavior: smooth; }
@@ -123,7 +124,7 @@
     .nav-links a:hover { opacity: 1; color: var(--orange-light); }
     .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
     .nav-cta {
-      background: var(--orange) !important;
+      background: var(--orange-button) !important;
       color: var(--white) !important;
       padding: 10px 22px !important;
       border-radius: 6px !important;
@@ -252,7 +253,7 @@
     }
     .btn-orange {
       display: inline-block;
-      background: var(--orange); color: var(--white);
+      background: var(--orange-button); color: var(--white);
       padding: 14px 36px; border-radius: 6px;
       font-weight: 700; text-decoration: none;
       font-size: 15px; letter-spacing: 0.5px;
@@ -343,7 +344,7 @@
     <li><a href="/#services">Services</a></li>
     <li><a href="/#about">About</a></li>
     <li><a href="/#portfolio">Portfolio</a></li>
-    <li><a href="/blog/" class="is-active">Blog</a></li>
+    <li><a href="/blog/" class="is-active" aria-current="page">Blog</a></li>
     <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
   </ul>
 </nav>

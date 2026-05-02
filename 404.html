@@ -11,8 +11,9 @@
     --navy: #0d1a2a;
     --navy-mid: #1a2e44;
     --orange: #c4622d;
+    --orange-text: #a04e22;
     --cream: #f8f6f1;
-    --gray-mid: #6b7280;
+    --gray-mid: #606673;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -35,7 +36,7 @@
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--orange);
+    color: var(--orange-text);
     margin-bottom: 1rem;
   }
   h1 {
@@ -83,12 +84,15 @@
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
   </head>
 <body>
-  <div class="wrap">
-    <div class="tag">Error 404</div>
+  <main class="wrap" role="main">
+    <div class="tag" aria-hidden="true">Error 404</div>
     <h1>This page doesn't exist.</h1>
     <p>The link may be old, the URL may be mistyped, or the page has moved. Head back to the homepage to find your way.</p>
     <a href="/" class="btn">Back to Wabash Systems</a>
-    <div class="code">HTTP 404 · Not Found</div>
-  </div>
+    <div class="code" aria-label="HTTP 404, Not Found">HTTP 404 · Not Found</div>
+  </main>
+  <footer style="margin-top:3rem;font-size:0.8rem;color:var(--gray-mid);text-align:center;">
+    &copy; 2026 Wabash Systems LLC &middot; <a href="/" style="color:var(--gray-mid);">Home</a> &middot; <a href="/privacy" style="color:var(--gray-mid);">Privacy</a>
+  </footer>
 </body>
 </html>
