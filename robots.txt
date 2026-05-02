@@ -1,12 +1,11 @@
-# Cloudflare prepends its managed bot-rules content above this file at request
-# time (Cloudflare → Bots → Manage robots.txt). Keep this file lean — anything
-# we put here lives BELOW Cloudflare's managed block. The Sitemap line is what
-# matters most for search engines.
+# Cloudflare Bots will prepend a managed block above this file at request time.
+# To change AI crawler permissions go to Cloudflare dashboard:
+#   Bots -> Configure Super Bot Fight Mode -> AI Audit / robots.txt
+# This file's directives apply after the managed block.
 
 User-agent: *
-Allow: /
-Disallow: /design-system/
 Disallow: /admin/
 Disallow: /api/
+Disallow: /design-system/
 
 Sitemap: https://www.wabashsystems.com/sitemap.xml

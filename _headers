@@ -10,7 +10,7 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
   X-Robots-Tag: index, follow
 
-# Cache HTML edges aggressively for marketing pages — they change at most weekly
+# Cache HTML edges aggressively for marketing pages -they change at most weekly
 # (override per-page if needed; /booking and /api/* are excluded below)
 /
   Cache-Control: public, max-age=300, s-maxage=3600
@@ -29,20 +29,20 @@
 /privacy
   Cache-Control: public, max-age=3600, s-maxage=86400
 
-# API routes — never cache, never index
+# API routes -never cache, never index
 /api/*
   Cache-Control: no-store
   X-Frame-Options: DENY
   X-Robots-Tag: noindex, nofollow, noarchive
 
-# Admin panel — never index, never cache, never embed
+# Admin panel -never index, never cache, never embed
 /admin/*
   Cache-Control: no-store, no-cache, must-revalidate, private
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
 
-# Static assets — long cache, immutable
+# Static assets -long cache, immutable
 /*.svg
   Cache-Control: public, max-age=31536000, immutable
 /*.png

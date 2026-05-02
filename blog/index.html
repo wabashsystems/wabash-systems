@@ -16,12 +16,33 @@
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- ── Sentry frontend (errors + perf) ── -->
-  <script src="/js/sentry-init.js" defer></script>
-  <script src="https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js" crossorigin="anonymous" defer></script>
-
-  <!-- ── PostHog product analytics ── -->
-  <script src="/js/posthog-init.js" defer></script>
+    <!-- Deferred third-party analytics: load after interaction or 3.5s timeout
+       so Sentry + PostHog don't block the initial render or inflate TBT. -->
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+      }
+      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
+        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+      });
+      setTimeout(loadAnalytics, 3500);
+    })();
+  </script>
 
   <style>
     @font-face {
@@ -269,7 +290,7 @@
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
     .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--orange-light); }
-    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.4); flex-wrap: wrap; gap: 12px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.65); flex-wrap: wrap; gap: 12px; }
     @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
   </style>
