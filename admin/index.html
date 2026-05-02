@@ -554,6 +554,35 @@
       font-variant-numeric: tabular-nums; margin-left: 6px; font-weight: 700;
     }
 
+    /* Ready-to-bill rows in Invoices tab */
+    .rtb-row {
+      display: grid;
+      grid-template-columns: 1fr 110px 110px 100px 170px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .rtb-row:hover { border-color: #c4622d; box-shadow: 0 2px 10px rgba(196, 98, 45, 0.10); }
+    .rtb-row .rtb-name { font-weight: 700; color: var(--navy); font-size: 15px; }
+    .rtb-row .rtb-cell-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 2px; }
+    .rtb-row .rtb-cell-value { font-size: 14px; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .rtb-row .rtb-amount { color: var(--orange); font-size: 16px; }
+    .rtb-row .rtb-bill-btn {
+      background: #ae5320; color: #fff; border: none; padding: 10px 14px;
+      border-radius: 5px; font-weight: 700; font-size: 13px; cursor: pointer;
+      white-space: nowrap; transition: background 0.15s;
+    }
+    .rtb-row .rtb-bill-btn:hover { background: #c4622d; }
+    @media (max-width: 720px) {
+      .rtb-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .rtb-row .rtb-bill-btn { grid-column: 1 / -1; }
+    }
+
     /* Stop-session inline form (appears below an active card) */
     .stop-session-form {
       grid-column: 1 / -1;
@@ -890,6 +919,12 @@
   <div class="panel" id="panel-invoices" id="invoicePanelWrap">
 
     <div class="stat-row" id="invStats"></div>
+
+    <div class="card" id="readyToBillCard" style="display:none;">
+      <div class="card-title">Ready to Bill</div>
+      <p style="font-size:13px;color:var(--gray);margin:-6px 0 14px;">Clients with uninvoiced time. One click pre-fills the form below and previews the invoice.</p>
+      <div id="readyToBillList"></div>
+    </div>
 
     <div class="card">
       <div class="card-title">Generate Invoice</div>
@@ -1359,8 +1394,8 @@ function switchSubTab(tab) {
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
-  if (tab === 'time')     { renderTimeLog(); renderTimeStats(); }
-  if (tab === 'invoices') { renderInvoiceHistory(); renderInvStats(); }
+  if (tab === 'time')     { renderTimeLog(); renderTimeStats(); renderReadyToBill(); }
+  if (tab === 'invoices') { renderInvoiceHistory(); renderInvStats(); renderReadyToBill(); }
   if (tab === 'clients')  { renderClients(); }
 }
 
@@ -1966,6 +2001,7 @@ function addTimeEntry() {
   document.getElementById('te-hours').value = '';
   renderTimeLog();
   renderTimeStats();
+  renderReadyToBill();
 }
 
 function deleteEntry(id) {
@@ -1977,6 +2013,7 @@ function deleteEntry(id) {
   saveEntries(entries.filter(e => e.id !== id));
   renderTimeLog();
   renderTimeStats();
+  renderReadyToBill();
 }
 
 function renderTimeLog() {
@@ -2257,6 +2294,7 @@ function saveInvoice(clientId, number, date, due, amount, entryIds, payLink) {
   renderInvStats();
   renderTimeLog();
   renderTimeStats();
+  renderReadyToBill();
   alert(`Invoice ${number} saved. Entries marked as invoiced.`);
 }
 
@@ -2376,6 +2414,89 @@ function renderInvoiceHistory() {
       </tr>
     `;
   }).join('');
+}
+
+// Build the "Ready to Bill" widget at the top of the Invoices tab.
+// Lists every client with at least one uninvoiced time entry, totals their
+// pending hours and amount, and offers a one-click button that pre-fills
+// the invoice form with the client + a date range covering all their
+// pending entries, then auto-runs previewInvoice().
+function renderReadyToBill() {
+  const card  = document.getElementById('readyToBillCard');
+  const list  = document.getElementById('readyToBillList');
+  if (!card || !list) return;
+
+  // Helper for entries that may be missing .amount (legacy entries)
+  const amtOf = (e) => (e.amount != null && !isNaN(e.amount))
+    ? e.amount
+    : ((parseFloat(e.hours) || 0) * (parseFloat(e.rate) || 0));
+
+  const pending = getEntries().filter(e => !e.invoiced);
+  if (!pending.length) { card.style.display = 'none'; return; }
+
+  // Group by clientId
+  const byClient = {};
+  pending.forEach(e => {
+    const id = e.clientId;
+    if (!byClient[id]) byClient[id] = { entries: [], hours: 0, amount: 0, earliest: e.date, latest: e.date };
+    byClient[id].entries.push(e);
+    byClient[id].hours  += parseFloat(e.hours) || 0;
+    byClient[id].amount += amtOf(e);
+    if (e.date < byClient[id].earliest) byClient[id].earliest = e.date;
+    if (e.date > byClient[id].latest)   byClient[id].latest   = e.date;
+  });
+
+  const groups = Object.keys(byClient)
+    .map(id => ({ clientId: id, ...byClient[id], client: clientById(id) }))
+    .filter(g => g.client) // skip orphaned entries with deleted clients
+    .sort((a, b) => b.amount - a.amount); // biggest dollars first
+
+  if (!groups.length) { card.style.display = 'none'; return; }
+
+  card.style.display = '';
+  list.innerHTML = groups.map(g => `
+    <div class="rtb-row">
+      <div>
+        <div class="rtb-cell-label">Client</div>
+        <div class="rtb-name">${esc(g.client.name)}</div>
+      </div>
+      <div>
+        <div class="rtb-cell-label">Pending Hours</div>
+        <div class="rtb-cell-value">${g.hours.toFixed(2)}</div>
+      </div>
+      <div>
+        <div class="rtb-cell-label">Amount</div>
+        <div class="rtb-cell-value rtb-amount">$${fmt(g.amount)}</div>
+      </div>
+      <div>
+        <div class="rtb-cell-label">Entries</div>
+        <div class="rtb-cell-value">${g.entries.length}</div>
+      </div>
+      <button type="button" class="rtb-bill-btn" onclick="billClient('${g.clientId}','${g.earliest}','${g.latest}')">
+        Generate Invoice &rarr;
+      </button>
+    </div>
+  `).join('');
+}
+
+// One-click: fill the Generate Invoice form for this client and run preview.
+// Date range covers earliest through today (using latest pending date as the
+// floor, so a forgotten old entry doesn't widen the range silently).
+function billClient(clientId, earliestDate, latestDate) {
+  const today = new Date().toISOString().split('T')[0];
+  const due   = new Date(); due.setDate(due.getDate() + 15);
+  const dueStr = due.toISOString().split('T')[0];
+
+  document.getElementById('inv-client').value = clientId;
+  document.getElementById('inv-from').value   = earliestDate;
+  document.getElementById('inv-to').value     = today >= latestDate ? today : latestDate;
+  document.getElementById('inv-due').value    = dueStr;
+  if (!document.getElementById('inv-number').value.trim()) {
+    document.getElementById('inv-number').value = nextInvoiceNumber();
+  }
+  // Trigger the existing rate auto-fill that listens on te-client (no-op for
+  // the invoice form, but harmless). Then run the preview.
+  previewInvoice();
 }
 
 function renderInvStats() {
@@ -2508,6 +2629,7 @@ function saveSession(clientId) {
   renderClients();
   renderTimeLog();
   renderTimeStats();
+  renderReadyToBill();
   updateTimerUI();
 }
 
@@ -2605,6 +2727,7 @@ function checkStaleSession() {
   populateClientDropdowns();
   renderTimeLog();
   renderTimeStats();
+  renderReadyToBill();
   renderClients();
   renderBlogPosts();
 
