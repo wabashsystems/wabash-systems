@@ -925,6 +925,7 @@
     </button>
     <span class="header-sub">Admin — Billing & Time Tracking</span>
     <span id="saveStatus" class="save-status status-ok">Ready</span>
+    <a href="https://mail.zoho.com/zm/#mail/folder/inbox" target="_blank" rel="noopener" class="signout-link" title="Open Zoho Mail (andy.gray@wabashsystems.com)" style="color:rgba(255,255,255,0.7);">📧 Mail</a>
     <a href="/admin/logout" class="signout-link">Sign out</a>
   </div>
 </header>
@@ -2972,17 +2973,28 @@ function openStopForm(clientId) {
 
 function saveSession(clientId) {
   const session = STATE.activeSession;
-  if (!session || session.clientId !== clientId) return;
+  if (!session) { console.warn('[saveSession] no active session'); alert('No active session to save.'); return; }
+  if (session.clientId !== clientId) { console.warn('[saveSession] client mismatch', session.clientId, clientId); return; }
   const c = clientById(clientId);
-  if (!c) return;
+  if (!c) { console.warn('[saveSession] client not found', clientId); alert('Client not found.'); return; }
 
-  const desc  = document.getElementById('ss-desc-' + clientId).value.trim();
-  const hours = parseFloat(document.getElementById('ss-hours-' + clientId).value);
-  const date  = document.getElementById('ss-date-' + clientId).value;
+  const descEl = document.getElementById('ss-desc-' + clientId);
+  const hoursEl = document.getElementById('ss-hours-' + clientId);
+  const dateEl = document.getElementById('ss-date-' + clientId);
+  if (!descEl || !hoursEl || !dateEl) {
+    console.error('[saveSession] missing form fields');
+    alert('Form not initialized correctly. Try clicking Stop again.');
+    return;
+  }
 
-  if (!desc) { alert('Add a description before saving.'); return; }
-  if (isNaN(hours) || hours <= 0) { alert('Hours must be positive.'); return; }
-  if (!date) { alert('Date required.'); return; }
+  // Description is OPTIONAL now - default to generic so Save always works.
+  // (Better to capture a logged hour with vague description than to lose it
+  // because the field was empty and the alert was missed.)
+  const desc  = descEl.value.trim() || 'Work session';
+  const hours = parseFloat(hoursEl.value);
+  const date  = dateEl.value || new Date().toISOString().split('T')[0];
+
+  if (isNaN(hours) || hours <= 0) { alert('Hours must be a positive number.'); return; }
 
   const entries = getEntries();
   const rate = parseFloat(c.rate) || 175;
@@ -3028,16 +3040,21 @@ function stopTimerLoop() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
 }
 
+// Track the original document title so we can restore it when the timer stops
+const ORIGINAL_TITLE = document.title;
+
 function updateTimerUI() {
   const session = STATE.activeSession;
   const banner  = document.getElementById('timerBanner');
   if (!banner) return;
   if (!session) {
     banner.classList.remove('active');
+    document.title = ORIGINAL_TITLE;
     return;
   }
   const c = clientById(session.clientId);
-  const elapsed = formatElapsed(Date.now() - session.startedAt);
+  const elapsedMs = Date.now() - session.startedAt;
+  const elapsed = formatElapsed(elapsedMs);
   banner.classList.add('active');
   document.getElementById('timerBannerText').textContent = 'Working on ' + (c ? c.name : 'unknown client');
   document.getElementById('timerBannerElapsed').textContent = elapsed;
@@ -3045,6 +3062,14 @@ function updateTimerUI() {
   document.querySelectorAll('[data-client-elapsed="' + session.clientId + '"]').forEach(el => {
     el.textContent = ' ' + elapsed;
   });
+  // Tab title surfaces the timer when admin is in a background tab.
+  // After 2 hours, prepend a warning so it stands out in the tab bar.
+  const hoursOld = elapsedMs / 3600000;
+  if (hoursOld >= 2) {
+    document.title = '⏱ ' + elapsed + ' RUNNING — ' + ORIGINAL_TITLE;
+  } else {
+    document.title = '⏱ ' + elapsed + ' — ' + ORIGINAL_TITLE;
+  }
 }
 
 function jumpToActiveClient() {
@@ -3114,6 +3139,15 @@ function checkStaleSession() {
   updateTimerUI();
   startTimerLoop();
   checkStaleSession();
+
+  // Re-run the stale-session check every time the user switches BACK to this
+  // tab. Catches the "I forgot to stop the timer before bed" case without
+  // requiring a full page reload.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      checkStaleSession();
+    }
+  });
 })();
 </script>
 </body>
