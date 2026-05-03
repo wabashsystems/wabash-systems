@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why your Google Ads campaign isn't profitable (and how to fix it) | Wabash Systems</title>
+  <meta name="description" content="Most small business Google Ads accounts lose money for the same five reasons. Here's how to diagnose which one is killing yours, and what to do about it." />
+  <link rel="canonical" href="https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable" />
+  <meta property="og:title" content="Why your Google Ads campaign isn't profitable (and how to fix it) | Wabash Systems" />
+  <meta property="og:description" content="Most small business Google Ads accounts lose money for the same five reasons. Here's how to diagnose which one is killing yours, and what to do about it." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why your Google Ads campaign isn't profitable (and how to fix it) | Wabash Systems" />
+  <meta name="twitter:description" content="Most small business Google Ads accounts lose money for the same five reasons. Here's how to diagnose which one is killing yours, and what to do about it." />
+  <meta name="twitter:image" content="https://www.wabashsystems.com/favicon.svg" />
+  <meta name="twitter:url" content="https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable" />
+  <meta property="article:published_time" content="2026-05-03" />
+  <meta property="article:author" content="Andy Gray" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why your Google Ads campaign isn't profitable (and how to fix it)",
+    "description": "Most small business Google Ads accounts lose money for the same five reasons. Here's how to diagnose which one is killing yours, and what to do about it.",
+    "datePublished": "2026-05-03",
+    "dateModified": "2026-05-03",
+    "author": {
+      "@type": "Person",
+      "name": "Andy Gray",
+      "jobTitle": "Founder & Lead Developer, Wabash Systems"
+    },
+    "publisher": {
+      "@id": "https://www.wabashsystems.com/#organization"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable"
+    },
+    "image": "https://www.wabashsystems.com/favicon.svg",
+    "url": "https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable",
+    "inLanguage": "en-US",
+    "wordCount": 1872,
+    "articleSection": "Google Ads",
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Deferred third-party analytics: load after interaction or 3.5s timeout
+       so Sentry + PostHog don't block the initial render or inflate TBT. -->
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+      }
+      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
+        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+      });
+      setTimeout(loadAnalytics, 3500);
+    })();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/Inter-Variable.woff2') format('woff2');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #a04e22;
+      --orange-button: #ae5320;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #606673; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy); background: var(--white);
+      line-height: 1.7;
+      padding-top: 110px;
+    }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner {
+      background: var(--navy-mid); color: var(--white);
+      text-align: center; padding: 10px 20px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; border-bottom: 2px solid var(--orange);
+    }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav {
+      position: fixed; top: 38px; left: 0; right: 0;
+      z-index: 100; background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 72px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta {
+      background: var(--orange-button) !important; color: var(--white) !important;
+      padding: 10px 22px !important; border-radius: 6px !important;
+      opacity: 1 !important; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) {
+      nav.site-nav { padding: 0 20px; height: 64px; }
+      .nav-brand { display: none; }
+      .nav-links { gap: 14px; }
+      .nav-links li:not(.nav-cta-li) { display: none; }
+      body { padding-top: 102px; }
+    }
+
+    /* Hero */
+    .post-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      color: var(--white);
+      padding: 64px 32px 80px;
+      position: relative; overflow: hidden;
+    }
+    .post-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .post-hero-inner { max-width: 800px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .post-meta-top {
+      display: flex; gap: 16px; align-items: center;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.7); margin-bottom: 16px;
+    }
+    .post-meta-top .cat { color: var(--orange-light); }
+    .post-hero h1 {
+      font-family: Georgia, serif;
+      font-size: 40px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .post-hero .lede {
+      font-size: 17px; color: rgba(255,255,255,0.78);
+    }
+    @media (max-width: 720px) {
+      .post-hero { padding: 48px 20px 64px; }
+      .post-hero h1 { font-size: 28px; }
+      .post-hero .lede { font-size: 15px; }
+    }
+
+    /* Article body */
+    main { padding: 64px 32px; }
+    article { max-width: 740px; margin: 0 auto; }
+    article h2 {
+      font-family: Georgia, serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--navy); margin-top: 48px; margin-bottom: 18px;
+      line-height: 1.25;
+    }
+    article h3 {
+      font-size: 18px; font-weight: 700;
+      color: var(--navy); margin-top: 28px; margin-bottom: 10px;
+    }
+    article p {
+      font-size: 17px; color: var(--navy);
+      margin-bottom: 20px;
+    }
+    article p strong { font-weight: 700; }
+    article a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    article a:hover { color: var(--orange); }
+
+    /* Pull quote / aside */
+    .pullquote {
+      border-left: 4px solid var(--orange);
+      background: var(--cream);
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--navy);
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Inline CTA card */
+    .inline-cta {
+      background: var(--cream);
+      border: 1px solid var(--gray-light);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .inline-cta h3 {
+      font-family: Georgia, serif;
+      font-size: 22px; color: var(--navy);
+      margin-top: 0; margin-bottom: 10px;
+    }
+    .inline-cta p {
+      color: var(--gray-mid);
+      font-size: 15px; margin-bottom: 18px;
+    }
+    .btn-orange {
+      display: inline-block;
+      background: var(--orange-button); color: var(--white);
+      padding: 12px 28px; border-radius: 6px;
+      font-weight: 700; text-decoration: none;
+      font-size: 14px; letter-spacing: 0.5px;
+      transition: background 0.15s;
+    }
+    .btn-orange:hover { background: #d97338; }
+
+    /* Bottom band */
+    .end-cta {
+      background: var(--navy);
+      color: var(--white);
+      padding: 56px 32px;
+      text-align: center;
+    }
+    .end-cta h2 {
+      font-family: Georgia, serif;
+      font-size: 26px; color: var(--white);
+      margin-bottom: 14px;
+    }
+    .end-cta p {
+      color: rgba(255,255,255,0.78);
+      max-width: 540px; margin: 0 auto 24px;
+    }
+    .related {
+      background: var(--cream);
+      padding: 48px 32px;
+      border-top: 1px solid var(--gray-light);
+    }
+    .related-inner { max-width: 800px; margin: 0 auto; }
+    .related h3 {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--gray-mid); margin-bottom: 14px;
+    }
+    .related a {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--navy); text-decoration: none;
+      line-height: 1.3;
+    }
+    .related a:hover { color: var(--orange); }
+    .related-arrow {
+      font-size: 13px; color: var(--orange-text);
+      font-weight: 600; margin-top: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.65); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
+  
+  <!-- BreadcrumbList schema (AEO + rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.wabashsystems.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://www.wabashsystems.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "What it actually costs to set up a real online store in 2026 (Wabash Valley edition)",
+        "item": "https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipPost1"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipPost1)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipPost1)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipPost1)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/" class="is-active" aria-current="page">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="post-hero">
+  <div class="post-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/blog/">Blog</a> &nbsp;/&nbsp; Google Ads</div>
+    <div class="post-meta-top">
+      <span class="cat">Google Ads</span>
+      <span>May 3, 2026</span>
+      <span>9 min read</span>
+    </div>
+    <h1>Why your Google Ads campaign isn't profitable (and how to fix it)</h1>
+    <p class="lede">If you've spent any real money on Google Ads and walked away thinking "this doesn't work for my business," you're in good company. Most small-business Google Ads accounts I look at are losing money, and the owners can usually tell something</p>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <article>
+<p>If you've spent any real money on Google Ads and walked away thinking "this doesn't work for my business," you're in good company. Most small-business Google Ads accounts I look at are losing money, and the owners can usually tell something is off but not what.</p>
+<p>Here's the uncomfortable part: Google Ads almost always works. The platform is one of the highest-intent advertising channels ever built. Someone typing "plumber Robinson IL" into Google at 9pm on a Tuesday is about as close to a buying decision as you can get. If your campaign isn't profitable, the platform isn't the problem. Something specific in your account is.</p>
+<p>In 25 years of building and running e-commerce, I've audited a lot of small-business Ads accounts. The same five problems come up over and over. Most accounts have at least three of them.</p>
+<h2>1. You're paying for searches that will never convert</h2>
+<p>The most common money-burner I see is broad match keywords with no negative list. Someone sells custom kitchen cabinets, runs a campaign on "kitchen cabinets," and Google decides that means they should also bid on "how to clean kitchen cabinets," "free kitchen cabinet plans," "used kitchen cabinets craigslist," and a hundred other queries that will never produce a sale.</p>
+<p>Pull the Search Terms report (Campaigns -&gt; the campaign -&gt; Insights and reports -&gt; Search terms) and look at what people actually typed before clicking your ad. If half the queries are people who want free information, used products, DIY help, or jobs ("kitchen cabinet installer salary"), your money is going to people who were never going to buy.</p>
+<p>The fix has two parts. First, switch broad match keywords to phrase match or exact match for anything where you actually care about intent. Broad match has gotten smarter over the years, but it still aggressively expands your reach into queries you don't want. Second, build a negative keyword list and add to it weekly. "Free," "cheap," "DIY," "salary," "jobs," "Craigslist," "used," "wholesale," competitor names if you don't want to fight on those, and any city or region you don't serve all belong on it.</p>
+<p>A focused account with 200 negatives and tight match types will beat a sloppy account with 10x the budget every time. I've seen client accounts cut spend by 40% and increase conversions just by spending two hours on negatives.</p>
+<h2>2. Your landing page is killing the sale</h2>
+<p>Google Ads sends people to a page on your site. If that page is slow, confusing, or doesn't deliver on the promise of the ad, you paid for a click that produces nothing.</p>
+<p>The most expensive mistake here is sending paid traffic to your homepage. Your homepage is built for everyone. The visitor who searched "Shopify migration consultant" doesn't want to read your origin story or browse your service grid. They want a page that says "yes, this is what I do, here's what it costs, here's how to start."</p>
+<p>Second-most expensive mistake: a landing page that loads in 6 seconds on mobile. About 70% of paid clicks come from phones. If your page takes more than 3 seconds to render, half your paid clicks bounce before they see anything. You're literally paying Google to show people a blank screen.</p>
+<p>Test your landing pages at pagespeed.web.dev on mobile. Below 50 is a serious problem. Common fixes: compress your hero image, defer your analytics scripts, switch to a faster host. The cost-to-set-up-an-online-store post on this site has more detail on hosting and speed.</p>
+<p>Third mistake: no clear next action. The visitor lands, sees a wall of text, doesn't know whether to call, fill out a form, book a demo, or read more. Pick one primary action per landing page and make it the brightest button on the screen. Strip everything else off the page.</p>
+<h2>3. You can't see what's working because conversion tracking is broken</h2>
+<p>About a third of the small-business accounts I audit have conversion tracking that's wrong, partially set up, or counting the wrong events. The owner is making spend decisions based on data that doesn't reflect reality.</p>
+<p>The most common version: the conversion tag fires on the contact page, not the form-submission confirmation. So Google counts every visit to /contact as a conversion, including the people who landed, looked at the form, and bounced. Conversion volume looks great, but actual leads aren't matching up. The fix is firing the tag on the thank-you page or on a successful form-submit event, not on page load.</p>
+<p>Second version: nothing is tracked at all, and the owner is judging the campaign by "did the phone ring more this month." That's not a real signal. Phone calls happen for many reasons, and there's no attribution to which keyword or ad drove them. Use Google Ads call tracking (free) or a tool like CallRail ($45/month) to actually attribute calls.</p>
+<p>Third version: tracking exists but for the wrong thing. Newsletter signups counted as conversions equal to actual purchases. A bounce-rate-style "engaged session" counted as a conversion. Both inflate the number and lead to bad bid decisions.</p>
+<p>If you're not 100% sure your conversion tracking is correct, set up Google Tag Assistant (free Chrome extension) and walk through your site as a customer. Submit a form. Buy something with a test card. Watch the tags fire. If the conversion event doesn't fire, or fires twice, or fires on the wrong page, fix it before you spend another dollar.</p>
+<h2>4. Your account structure is one big bucket</h2>
+<p>A small business will often have a single Google Ads campaign with 50 keywords across every product line, every service area, and every kind of customer dumped together. Google then optimizes the budget across that entire mess based on which keywords get the most clicks, not which ones produce the best return.</p>
+<p>The result: your highest-margin keyword (say, "custom cabinet installation Robinson IL," which drives a $4,000 job) gets less budget than your lowest-margin keyword ("kitchen cabinet ideas," which drives mostly tire-kickers) because the latter gets more clicks for less money.</p>
+<p>The fix is structuring your account to match your actual business. At minimum, separate campaigns for:</p>
+<ul><li>High-margin services or products (your money-makers get their own budget)</li><li>Low-margin or volume products (compete on price, run separately so they don't drain the high-margin budget)</li><li>Branded search (people searching your business name; cheap and high-converting, isolate to protect)</li><li>Geographic targeting if your service area matters (city-specific campaigns let you bid more in profitable zones)</li></ul>
+<p>This isn't complicated, but it requires actually thinking about your business economics. Most small-business owners set up Google Ads when they're focused on launching, then never restructure as they learn what's profitable.</p>
+<h2>5. You quit before you had data</h2>
+<p>Google Ads is a learning system. The algorithm needs roughly 30 conversions in a 30-day window to optimize properly. If you're driving fewer than that, every change you make is being judged on noise.</p>
+<p>A common pattern: small business spends $500/month, gets 4 conversions, decides "Google Ads doesn't work," and turns it off. With 4 conversions, there is no statistically meaningful signal in the data. You don't know whether your keywords are right, your landing page is converting, or your ads are written well. You only know the campaign produced 4 sales.</p>
+<p>If you're going to test Google Ads, commit to a real test. For most small-business categories, that means $1,500–3,000/month for at least 90 days, with conversion tracking working and a focused account structure. Anything less is gambling, not testing.</p>
+<p>If your budget genuinely won't support that, Google Ads might not be the right channel. SEO, organic content, local listings, email, and referral programs are all cheaper-to-start channels with longer payback. They're worth pursuing in parallel and might be a better primary investment if Ads doesn't fit your numbers yet.</p>
+<h2>What to do this week</h2>
+<p>If you've read this far and you have a campaign that's underperforming, run this checklist:</p>
+<p>Pull your Search Terms report and add 50 negative keywords today.</p>
+<p>Check what landing pages your ads are pointing to. Are any of them your homepage? Move them to dedicated pages.</p>
+<p>Test conversion tracking by going through your site as a customer and verifying the conversion fires correctly.</p>
+<p>Look at your campaign structure. Is everything in one bucket? Pull your branded keywords into their own campaign at minimum.</p>
+<p>Look at your monthly conversion count. If it's under 30, your data is too sparse to optimize against. Either commit to a real budget for 90 days or pause Ads and put the budget into channels with longer feedback loops.</p>
+<p>Each of these takes less than an hour. Together they'll move most accounts from "losing money" to "breaking even" inside a month, and a properly-structured account starts producing real ROI in month two or three.</p>
+<h2>When to bring in help</h2>
+<p>Google Ads is one of those things where a good consultant pays for themselves quickly. If you're spending $2,000+/month and not making it back, two hours of an experienced set of eyes will usually find the leak.</p>
+<p>If you want a second opinion on your account, <a href="https://cal.com/wabashsystems">the consultation is free</a>. I'll log in alongside you, pull your search terms, look at your structure, check your tracking, and tell you the one or two changes that will move the needle most. No pitch, no commitment.</p>
+<p>The platform works. Most accounts just have one or two specific things wrong, and once you find them the math changes fast.</p>
+<h2>Common questions</h2>
+<p><strong>How much should a small business spend on Google Ads?</strong></p>
+<p>For a real test, $1,500–3,000/month for at least 90 days with conversion tracking working. Below that, you don't generate enough data for the platform's machine learning to optimize, and you can't tell whether the channel works for you. If your business genuinely can't support that budget, prioritize SEO, organic content, and Google Business Profile first.</p>
+<p><strong>Why is my cost-per-click so high?</strong></p>
+<p>Three usual suspects: low Quality Score (improve ad relevance and landing page experience), competing in expensive verticals like legal or insurance (consider long-tail keywords with less competition), or running broad match keywords that compete on the entire query universe (switch to phrase or exact match).</p>
+<p><strong>Should I run Search ads or Performance Max?</strong></p>
+<p>For most small businesses just starting out, Search ads. Performance Max gives Google more control and less visibility into where your money is going, which is great when you have lots of data and trust the algorithm but a bad fit when you're trying to learn what's working. Start with Search, get to 30+ monthly conversions, then layer in Performance Max if you want to expand.</p>
+  </article>
+</main>
+
+<section class="end-cta">
+  <h2>Want a second opinion on your numbers?</h2>
+  <p>
+    Free 30-minute consultation, no pitch. Talk through your specific
+    situation and walk away with honest answers, even if we never work
+    together.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+</section>
+
+<section class="related">
+  <div class="related-inner">
+    <h3>Read next</h3>
+    <a href="/blog/5-website-fixes-every-small-business-should-make">5 things every small business in southern Illinois should fix on their website this quarter</a>
+    <div class="related-arrow">Continue reading &rarr;</div>
+  </div>
+</section>
+
+<!-- newsletter form removed pending Klaviyo revisit -->
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/aeo">AEO &mdash; AI Search</a></li>
+        <li><a href="/#services">Store Setup</a></li>
+        <li><a href="/#services">Platform Migration</a></li>
+        <li><a href="/#services">SEO Management</a></li>
+        <li><a href="/#services">Google Ads</a></li>
+        <li><a href="/#services">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<!-- ── SCROLL BUTTONS ── -->
+<style>
+  .scroll-btns { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 90; }
+  .scroll-btn { width: 44px; height: 44px; border-radius: 8px; background: var(--navy); color: var(--white); border: 2px solid rgba(255,255,255,0.15); font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: opacity 0.2s, transform 0.15s, background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; font-family: inherit; }
+  .scroll-btn:hover { background: var(--orange); transform: translateY(-2px); }
+  .scroll-btn[hidden] { display: none; }
+  @media (max-width: 720px) { .scroll-btns { right: 14px; bottom: 14px; } }
+  @media print { .scroll-btns { display: none !important; } }
+</style>
+<div class="scroll-btns" role="group" aria-label="Page navigation">
+  <button id="scrollTopBtn" class="scroll-btn" type="button" aria-label="Scroll to top of page" hidden>&uarr;</button>
+  <button id="scrollBottomBtn" class="scroll-btn" type="button" aria-label="Scroll to bottom of page">&darr;</button>
+</div>
+<script>
+(function () {
+  var topBtn = document.getElementById('scrollTopBtn');
+  var botBtn = document.getElementById('scrollBottomBtn');
+  if (!topBtn || !botBtn) return;
+  function update() {
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    topBtn.hidden = y < 200;
+    botBtn.hidden = y > max - 200;
+  }
+  topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  botBtn.addEventListener('click', function () { window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); });
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+<!-- Klaviyo onsite tracking removed - re-add when newsletter signup is brought back -->
+
+</body>
+</html>
