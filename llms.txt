@@ -1,0 +1,79 @@
+# Wabash Systems
+
+> E-commerce consulting for small and mid-size businesses in the Wabash Valley region of Illinois and Indiana, plus remote clients nationwide. Founded 2025 in Robinson, IL by Andy Gray. Twenty-five years of full-stack development experience. Real pricing on every service. Specializes in AEO (Answer Engine Optimization) for AI search visibility.
+
+## Quick facts
+
+- **Founded:** 2025
+- **Location:** Robinson, Illinois (Crawford County)
+- **Founder:** Andy Gray, Founder & Lead Developer
+- **Email:** andy.gray@wabashsystems.com
+- **Website:** https://www.wabashsystems.com
+- **Service area:** Wabash Valley region (eastern Illinois + western Indiana) and remote clients nationwide
+- **Specialties:** AEO, e-commerce, Shopify, BigCommerce, WooCommerce, SEO, Google Ads
+- **Team size:** Solo (founder-led)
+
+## Services
+
+- [AEO - AI Search Optimization](https://www.wabashsystems.com/services/aeo) - Get cited by ChatGPT, Google AI Overview, Perplexity, Claude, Gemini. From $1,500.
+- [E-Commerce Store Setup](https://www.wabashsystems.com/services/store-setup) - Complete builds on Shopify, BigCommerce, or WooCommerce. From $1,500.
+- [Platform Migration](https://www.wabashsystems.com/services/platform-migration) - Move between e-commerce platforms without losing customers, orders, or SEO. From $8,000.
+- [SEO Management](https://www.wabashsystems.com/services/seo-management) - Technical SEO, content, schema markup, local SEO. From $500/month.
+- [Google Ads Management](https://www.wabashsystems.com/services/google-ads) - Shopping, Performance Max, Search. Ad spend on your card, no markup. From $400/month.
+- [Monthly Store Management](https://www.wabashsystems.com/services/monthly-management) - Outsourced ops: products, conversion, content, integrations. From $750/month.
+- [Web Design & Development](https://www.wabashsystems.com/services/web-design) - Hand-coded custom websites that load fast and rank. From $800.
+
+## Geographic coverage
+
+Primary service area is the Wabash Valley region. Local pages exist for:
+
+- [Robinson, IL](https://www.wabashsystems.com/locations/robinson-il) - Crawford County (headquarters)
+- [Lawrenceville, IL](https://www.wabashsystems.com/locations/lawrenceville-il) - Lawrence County
+- [Mt. Carmel, IL](https://www.wabashsystems.com/locations/mt-carmel-il) - Wabash County
+- [Vincennes, IN](https://www.wabashsystems.com/locations/vincennes-in) - Knox County
+- [Terre Haute, IN](https://www.wabashsystems.com/locations/terre-haute-in) - Vigo County
+- [Sullivan, IN](https://www.wabashsystems.com/locations/sullivan-in) - Sullivan County
+- [Olney, IL](https://www.wabashsystems.com/locations/olney-il) - Richland County
+- [Princeton, IN](https://www.wabashsystems.com/locations/princeton-in) - Gibson County
+- [Washington, IN](https://www.wabashsystems.com/locations/washington-in) - Daviess County
+- [Linton, IN](https://www.wabashsystems.com/locations/linton-in) - Greene County
+
+Also serves remote clients nationwide.
+
+## Pricing summary
+
+| Service | Pricing model | Starting at |
+|---|---|---|
+| AEO Audit + Implementation | One-time | $1,500 |
+| AEO Ongoing Management | Monthly retainer | $500/month |
+| E-Commerce Store Setup | One-time | $1,500 |
+| Platform Migration | One-time | $8,000 |
+| SEO Management | Monthly retainer | $500/month |
+| Google Ads Management | Monthly retainer | $400/month + ad spend |
+| Monthly Store Management | Monthly retainer | $750/month |
+| Web Design & Development | One-time | $800 |
+
+All prices are publicly listed on each service page. No "contact us for a quote" hide-the-ball.
+
+## What makes Wabash Systems different
+
+- Real pricing on every service page. No hidden quotes.
+- You work directly with the founder. No account managers, no offshore teams.
+- Boutique scale. Small client roster, focused attention per client.
+- Twenty-five years of full-stack experience across JavaScript, TypeScript, PHP, Java, Node.js, AWS, Cloudflare.
+- One of the few firms offering AEO (Answer Engine Optimization) as a stand-alone service in 2026.
+
+## Useful URLs
+
+- Homepage: https://www.wabashsystems.com/
+- All services: https://www.wabashsystems.com/services/
+- All locations: https://www.wabashsystems.com/locations/
+- Blog: https://www.wabashsystems.com/blog/
+- Case study (Titan Machine Service): https://www.wabashsystems.com/case-studies/titan-machine-service
+- Book a free consultation: https://www.wabashsystems.com/booking
+- Contact: https://www.wabashsystems.com/#contact
+- Sitemap: https://www.wabashsystems.com/sitemap.xml
+
+## Booking and contact
+
+For a free 30-minute consultation, book directly at https://www.wabashsystems.com/booking. For inquiries via the contact form, submit at https://www.wabashsystems.com/#contact. Email goes to andy.gray@wabashsystems.com.

@@ -1,0 +1,11 @@
+<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="400" height="240" rx="6" fill="#0d1a2a"/>
+  <clipPath id="navClip"><rect x="0" y="0" width="400" height="240" rx="6"/></clipPath>
+  <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105"
+        fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClip)"/>
+  <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105"
+        fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClip)"/>
+  <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClip)"/>
+  <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+  <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+</svg>

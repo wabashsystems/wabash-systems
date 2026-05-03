@@ -1,0 +1,14 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="600" height="600" rx="40" fill="#0d1a2a"/>
+  <clipPath id="sqClip"><rect x="0" y="0" width="600" height="600" rx="40"/></clipPath>
+  <!-- Wave -->
+  <path d="M0 320 Q60 220 120 280 Q180 340 240 240 Q300 140 360 230 Q420 320 480 270 Q540 220 600 250"
+        fill="none" stroke="#1a4a6e" stroke-width="50" stroke-linecap="round" clip-path="url(#sqClip)"/>
+  <path d="M0 320 Q60 220 120 280 Q180 340 240 240 Q300 140 360 230 Q420 320 480 270 Q540 220 600 250"
+        fill="none" stroke="#c4622d" stroke-width="6" stroke-linecap="round" clip-path="url(#sqClip)"/>
+  <!-- Text band -->
+  <rect x="0" y="380" width="600" height="220" fill="#0d1a2a" opacity="0.9" clip-path="url(#sqClip)"/>
+  <text x="300" y="475" text-anchor="middle" font-family="Georgia, serif" font-size="68" font-weight="700" letter-spacing="10" fill="#f8f6f1">WABASH</text>
+  <text x="300" y="535" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="400" letter-spacing="20" fill="#c4622d">SYSTEMS</text>
+  <line x1="200" y1="555" x2="400" y2="555" stroke="#c4622d" stroke-width="2"/>
+</svg>
