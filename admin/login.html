@@ -97,6 +97,7 @@
       letter-spacing: 0.5px;
     }
 
+    input[type="text"],
     input[type="password"] {
       padding: 10px 14px;
       border: 1px solid var(--border);
@@ -106,11 +107,24 @@
       background: var(--white);
       width: 100%;
       transition: border-color 0.15s;
+      font-family: inherit;
     }
+    input[type="text"]:focus,
     input[type="password"]:focus {
       outline: none;
       border-color: var(--orange);
       box-shadow: 0 0 0 3px rgba(196, 98, 45, 0.12);
+    }
+    input[name="code"] {
+      letter-spacing: 6px;
+      text-align: center;
+      font-size: 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .code-hint {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 4px;
     }
 
     button[type="submit"] {
@@ -139,9 +153,23 @@
       <div class="card-title">Admin Login</div>
       <div class="card-sub">Wabash Systems internal tools</div>
 
-      <div class="error-banner" id="errorBanner">Incorrect password. Try again.</div>
+      <div class="error-banner" id="errorBanner">Incorrect username, password, or 2FA code.</div>
 
       <form method="POST" action="/admin/login">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            autocomplete="username"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            autofocus
+            required
+          />
+        </div>
         <div class="form-group">
           <label for="password">Password</label>
           <input
@@ -149,9 +177,23 @@
             id="password"
             name="password"
             autocomplete="current-password"
-            autofocus
             required
           />
+        </div>
+        <div class="form-group">
+          <label for="code">2FA code</label>
+          <input
+            type="text"
+            id="code"
+            name="code"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="one-time-code"
+            placeholder="000000"
+            required
+          />
+          <div class="code-hint">6-digit code from your authenticator app</div>
         </div>
         <button type="submit">Sign in</button>
       </form>
