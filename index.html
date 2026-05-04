@@ -1402,7 +1402,7 @@
       </div>
     </div>
 
-    <form class="contact-form" id="contactForm" aria-label="Contact form" aria-describedby="formStatus">
+    <form class="contact-form" id="contactForm" action="javascript:void(0)" method="post" onsubmit="event.preventDefault(); return false;" aria-label="Contact form" aria-describedby="formStatus">
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name <span class="required-mark" aria-hidden="true">*</span></label>
@@ -1609,3 +1609,9 @@
 
   // Close drawer when a nav link is clicked
   mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNav);
+  });
+</script>
+
+</body>
+</html>
