@@ -16,6 +16,40 @@
   <meta name="twitter:description" content="Schedule your free 30-minute e-commerce consultation with Wabash Systems." />
   <meta name="twitter:image" content="https://www.wabashsystems.com/favicon.svg" />
   <meta name="twitter:url" content="https://www.wabashsystems.com/booking" />
+  <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+
+  <!-- Service + Event schema for booking page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.wabashsystems.com/booking#service",
+    "name": "Free E-Commerce Consultation",
+    "description": "30-minute free consultation covering your e-commerce goals, current challenges, and what Wabash Systems can do to help. No pressure, no pitch.",
+    "provider": { "@id": "https://www.wabashsystems.com/#organization" },
+    "serviceType": "E-Commerce Consulting",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "name": "Free 30-Minute Consultation",
+      "description": "No-obligation strategy call for Wabash Valley small businesses looking to start or grow online."
+    },
+    "areaServed": {
+      "@type": "GeoShape",
+      "name": "Wabash Valley — eastern Illinois and western Indiana, remote nationwide"
+    },
+    "url": "https://www.wabashsystems.com/booking"
+  }
+  </script>
+
+      <link rel="preconnect" href="https://js.sentry-cdn.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.sentry-cdn.com" />
+  <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="theme-color" content="#0d1a2a" />
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 

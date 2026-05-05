@@ -87,6 +87,12 @@
   }
   </script>
 
+      <link rel="preconnect" href="https://js.sentry-cdn.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.sentry-cdn.com" />
+  <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="theme-color" content="#0d1a2a" />
   <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -771,56 +777,4 @@
         <li><a href="/locations/">Locations</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/#contact">Contact</a></li>
-        <li><a href="/privacy">Privacy</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Wabash Systems LLC. All rights reserved.</span>
-    <span>Wabash Valley — Illinois &amp; Indiana · Remote E-Commerce Consulting</span>
-  </div>
-</footer>
-
-<script>
-  /* ── MOBILE NAV ── */
-  const toggle    = document.getElementById('navToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  const overlay   = document.getElementById('mobileOverlay');
-  const closeBtn  = document.getElementById('mobileClose');
-
-  function openNav() {
-    if (window.innerWidth > 900) return;
-    mobileNav.classList.add('open');
-    mobileNav.removeAttribute('aria-hidden');
-    overlay.classList.add('open');
-    overlay.removeAttribute('aria-hidden');
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close navigation menu');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
-  }
-
-  function closeNav() {
-    mobileNav.classList.remove('open');
-    mobileNav.setAttribute('aria-hidden', 'true');
-    overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation menu');
-    document.body.style.overflow = '';
-    toggle.focus();
-  }
-
-  toggle.addEventListener('click', () => {
-    toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav();
-  });
-  closeBtn.addEventListener('click', closeNav);
-  overlay.addEventListener('click', closeNav);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeNav();
-  });
-  mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
-</script>
-
-</body>
-</html>
+       
