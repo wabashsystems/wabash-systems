@@ -15,34 +15,74 @@
   <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
   <meta property="og:site_name" content="Wabash Systems" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why Wabash Systems | E-Commerce That Actually Works" />
+  <meta name="twitter:description" content="20 years of real e-commerce operations — not theory. From infrastructure to storefront design, platform migrations to Google Ads." />
+  <meta name="twitter:image" content="https://www.wabashsystems.com/og-image.png" />
 
-  <!-- Person schema -->
+  <!-- AboutPage + Organization schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://www.wabashsystems.com/#andy-gray",
-    "jobTitle": "Founder & Lead Consultant",
-    "worksFor": { "@id": "https://www.wabashsystems.com/#organization" },
-    "email": "andy.gray@wabashsystems.com",
-    "url": "https://www.wabashsystems.com/about",
-    "knowsAbout": [
-      "E-commerce operations",
-      "BigCommerce",
-      "Shopify",
-      "WooCommerce",
-      "Magento",
-      "Platform migration",
-      "SEO management",
-      "Google Ads",
-      "Answer Engine Optimization",
-      "Web design and development",
-      "Network infrastructure",
-      "AWS",
-      "Cloudflare",
-      "Linux server administration",
-      "ERP integration",
-      "Ransomware recovery"
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://www.wabashsystems.com/about#webpage",
+        "url": "https://www.wabashsystems.com/about",
+        "name": "Why Wabash Systems | E-Commerce That Actually Works",
+        "description": "20 years of real e-commerce operations — not theory. From infrastructure to storefront design, platform migrations to Google Ads.",
+        "isPartOf": { "@id": "https://www.wabashsystems.com/#website" },
+        "about": { "@id": "https://www.wabashsystems.com/#organization" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.wabashsystems.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "About",
+              "item": "https://www.wabashsystems.com/about"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.wabashsystems.com/#website",
+        "url": "https://www.wabashsystems.com",
+        "name": "Wabash Systems",
+        "publisher": { "@id": "https://www.wabashsystems.com/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.wabashsystems.com/#organization",
+        "name": "Wabash Systems",
+        "url": "https://www.wabashsystems.com",
+        "logo": "https://www.wabashsystems.com/brand-assets/wabash-logo.png",
+        "email": "andy.gray@wabashsystems.com",
+        "knowsAbout": [
+          "E-commerce operations",
+          "BigCommerce development",
+          "Shopify development",
+          "WooCommerce development",
+          "Magento migration",
+          "Platform migration",
+          "SEO management",
+          "Google Ads management",
+          "Answer Engine Optimization",
+          "Web design and development",
+          "Network infrastructure",
+          "AWS cloud",
+          "Cloudflare",
+          "Linux server administration",
+          "ERP integration",
+          "Ransomware recovery"
+        ]
+      }
     ]
   }
   </script>
