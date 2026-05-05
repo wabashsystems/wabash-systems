@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Wabash Systems | E-Commerce That Actually Works</title>
+  <meta name="description" content="20 years of real e-commerce operations — not theory. From infrastructure to storefront design, platform migrations to Google Ads. Here's what makes Wabash Systems different." />
+  <link rel="canonical" href="https://www.wabashsystems.com/about" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/about" />
+  <meta property="og:title" content="About | Wabash Systems" />
+  <meta property="og:description" content="20 years of e-commerce operations. From infrastructure to storefront design, platform migrations to Google Ads. Meet the person behind Wabash Systems." />
+  <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta property="og:site_name" content="Wabash Systems" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.wabashsystems.com/#andy-gray",
+    "jobTitle": "Founder & Lead Consultant",
+    "worksFor": { "@id": "https://www.wabashsystems.com/#organization" },
+    "email": "andy.gray@wabashsystems.com",
+    "url": "https://www.wabashsystems.com/about",
+    "knowsAbout": [
+      "E-commerce operations",
+      "BigCommerce",
+      "Shopify",
+      "WooCommerce",
+      "Magento",
+      "Platform migration",
+      "SEO management",
+      "Google Ads",
+      "Answer Engine Optimization",
+      "Web design and development",
+      "Network infrastructure",
+      "AWS",
+      "Cloudflare",
+      "Linux server administration",
+      "ERP integration",
+      "Ransomware recovery"
+    ]
+  }
+  </script>
+
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+      }
+      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
+        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+      });
+      setTimeout(loadAnalytics, 3500);
+    })();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/Inter-Variable.woff2') format('woff2');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1a2a;
+      --navy-mid: #1a2e44;
+      --navy-light: #1a4a6e;
+      --orange: #c4622d;
+      --orange-light: #e8834d;
+      --orange-text: #a04e22;
+      --orange-button: #ae5320;
+      --cream: #f8f6f1;
+      --gray-light: #f2f4f7;
+      --gray-mid: #606673;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SKIP NAV ── */
+    .skip-nav {
+      position: absolute; left: -100%; top: 8px;
+      background: var(--orange); color: var(--white);
+      padding: 12px 24px; font-weight: 600; font-size: 15px;
+      z-index: 9999; text-decoration: none;
+      border-radius: 0 6px 6px 0; transition: left 0.15s;
+    }
+    .skip-nav:focus { left: 0; }
+
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ── ANNOUNCEMENT BANNER ── */
+    .announcement-banner {
+      background: var(--navy-mid); color: var(--white);
+      text-align: center; padding: 10px 20px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; border-bottom: 2px solid var(--orange);
+    }
+    .announcement-banner span { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 38px; left: 0; right: 0;
+      z-index: 100; background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 72px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--orange-light); }
+    .nav-links a[aria-current="page"] { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange-button) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+
+    /* ── HAMBURGER ── */
+    .nav-toggle {
+      display: none; background: transparent;
+      border: 2px solid rgba(248,246,241,0.3); border-radius: 6px;
+      cursor: pointer; padding: 10px 12px;
+      flex-direction: column; gap: 5px;
+      align-items: center; justify-content: center;
+      min-width: 44px; min-height: 44px;
+    }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; pointer-events: none; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 299; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-nav {
+      position: fixed; top: 0; right: 0;
+      width: min(320px, 85vw); height: 100%;
+      background: var(--navy-mid); z-index: 300;
+      display: flex; flex-direction: column;
+      padding: 110px 40px 48px; gap: 4px;
+      transform: translateX(100%); visibility: hidden;
+      transition: transform 0.3s ease, visibility 0s linear 0.3s;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.5); overflow-y: auto;
+    }
+    .mobile-nav.open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease, visibility 0s linear 0s; }
+    .mobile-nav a { color: var(--cream); text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; display: block; }
+    .mobile-nav a:hover, .mobile-nav a:focus-visible { color: var(--orange-light); }
+    .mobile-nav .mobile-cta { margin-top: 24px; background: var(--orange); color: var(--white) !important; padding: 18px 24px !important; border-radius: 8px; text-align: center; font-weight: 600 !important; border-bottom: none !important; }
+    .mobile-nav .mobile-cta:hover { background: var(--orange-light); }
+    .mobile-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--cream); cursor: pointer; padding: 10px; border-radius: 6px; font-size: 24px; line-height: 1; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .mobile-close:hover { color: var(--orange-light); }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      background: var(--orange); color: var(--white);
+      padding: 16px 36px; border-radius: 8px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; min-height: 52px;
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .btn-white {
+      background: var(--white); color: var(--navy);
+      padding: 18px 44px; border-radius: 8px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; min-height: 52px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
+
+    /* ── SHARED SECTION LABELS ── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--orange-text);
+      margin-bottom: 16px; display: block;
+    }
+    .section-label--light { color: var(--orange-light); }
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.2; margin-bottom: 20px;
+    }
+    .section-title--light { color: var(--cream); }
+    .section-sub { font-size: 17px; color: var(--gray-mid); max-width: 580px; line-height: 1.7; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--navy);
+      padding: 158px 5% 96px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero-wave {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.07; pointer-events: none;
+    }
+    .page-hero-inner {
+      max-width: 780px; position: relative; z-index: 2;
+    }
+    .page-hero-eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--orange-light); margin-bottom: 24px;
+    }
+    .page-hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 700; color: var(--cream);
+      line-height: 1.15; margin-bottom: 24px;
+    }
+    .page-hero h1 span { color: var(--orange-light); }
+    .page-hero-sub {
+      font-size: clamp(16px, 2.5vw, 18px);
+      color: rgba(248,246,241,0.8);
+      max-width: 600px; line-height: 1.7; margin-bottom: 36px;
+    }
+
+    /* ── CREDENTIAL STATS BAR ── */
+    .stats-bar {
+      background: var(--gray-light);
+      padding: 64px 5%;
+    }
+    .stats-bar-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .stat-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 32px 28px;
+      border-left: 4px solid var(--orange);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .stat-card-number {
+      font-family: Georgia, serif;
+      font-size: 40px; font-weight: 700;
+      color: var(--navy); line-height: 1;
+      margin-bottom: 8px; display: block;
+    }
+    .stat-card-label {
+      font-size: 14px; font-weight: 600;
+      color: var(--navy); margin-bottom: 6px;
+    }
+    .stat-card-desc {
+      font-size: 13px; color: var(--gray-mid); line-height: 1.5;
+    }
+
+    /* ── STORY SECTION ── */
+    .story-section {
+      padding: 96px 5%;
+      background: var(--white);
+    }
+    .story-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .story-body {
+      font-size: 16px; color: var(--gray-mid);
+      line-height: 1.85;
+    }
+    .story-body p + p { margin-top: 20px; }
+    .story-body strong { color: var(--navy); font-weight: 600; }
+    .story-pull {
+      font-family: Georgia, serif;
+      font-size: 22px; font-style: italic;
+      color: var(--navy); line-height: 1.5;
+      border-left: 4px solid var(--orange);
+      padding-left: 24px; margin: 32px 0;
+    }
+
+    /* credential highlight cards */
+    .cred-stack { display: flex; flex-direction: column; gap: 16px; }
+    .cred-card {
+      background: var(--gray-light);
+      border-radius: 14px; padding: 28px 28px;
+      border-left: 4px solid var(--orange);
+    }
+    .cred-card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cred-card-title .icon {
+      width: 32px; height: 32px;
+      background: var(--navy); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .cred-card-desc { font-size: 14px; color: var(--gray-mid); line-height: 1.6; }
+
+    /* ── HOW I WORK ── */
+    .values-section {
+      padding: 96px 5%;
+      background: var(--navy);
+    }
+    .values-inner { max-width: 1100px; margin: 0 auto; }
+    .values-header { margin-bottom: 56px; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .value-card {
+      background: var(--navy-mid);
+      border-radius: 14px; padding: 32px 28px;
+      border-top: 3px solid var(--orange);
+    }
+    .value-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+    .value-title { font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: var(--cream); margin-bottom: 12px; }
+    .value-desc { font-size: 14px; color: rgba(248,246,241,0.7); line-height: 1.7; }
+
+    /* ── RANGE SECTION ── */
+    .range-section {
+      padding: 96px 5%;
+      background: var(--gray-light);
+    }
+    .range-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .range-visual {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .range-bar {
+      background: var(--white);
+      border-radius: 12px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .range-bar-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--orange); flex-shrink: 0;
+    }
+    .range-bar-label { font-size: 14px; font-weight: 500; color: var(--navy); }
+    .range-bar-sub { font-size: 12px; color: var(--gray-mid); margin-top: 2px; }
+    .range-connector {
+      width: 2px; height: 16px;
+      background: var(--orange); margin-left: 26px; opacity: 0.4;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-section {
+      background: var(--orange); text-align: center;
+      padding: 96px 5%;
+    }
+    .cta-section .section-title { color: var(--white); margin-bottom: 0; }
+    .cta-sub { font-size: 18px; color: rgba(255,255,255,0.92); max-width: 520px; margin: 16px auto 40px; line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.65); flex-wrap: wrap; gap: 12px; }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 901px) {
+      .nav-toggle { display: none !important; }
+      .nav-links { display: flex !important; }
+      .mobile-nav, .mobile-overlay { display: none !important; }
+    }
+    @media (max-width: 900px) {
+      .story-inner, .range-inner { grid-template-columns: 1fr; gap: 48px; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      nav { top: 58px; }
+      .announcement-banner { font-size: 11px; padding: 8px 16px; }
+      .page-hero { padding: 148px 5% 72px; }
+    }
+    @media (max-width: 600px) {
+      .stats-bar-inner { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
+</head>
+<body>
+
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley — Illinois &amp; Indiana<span>— Now Accepting Early Clients</span>
+</div>
+
+<!-- PRIMARY NAV -->
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems — home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#nc)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#nc)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#nc)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#process">Process</a></li>
+    <li><a href="/about" aria-current="page">About</a></li>
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="/#services">Services</a>
+  <a href="/#process">Process</a>
+  <a href="/about" aria-current="page">About</a>
+  <a href="/#portfolio">Portfolio</a>
+  <a href="/blog/">Blog</a>
+  <a href="/booking" class="mobile-cta">Free Consultation</a>
+</nav>
+
+<main id="main-content">
+
+<!-- PAGE HERO -->
+<section class="page-hero" aria-labelledby="page-hero-heading">
+  <svg class="page-hero-wave" viewBox="0 0 1440 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 280 Q180 160 360 240 Q540 320 720 200 Q900 80 1080 200 Q1260 320 1440 210" fill="none" stroke="#c4622d" stroke-width="60"/>
+    <path d="M0 320 Q180 200 360 280 Q540 360 720 240 Q900 120 1080 240 Q1260 360 1440 250" fill="none" stroke="#c4622d" stroke-width="20"/>
+  </svg>
+  <div class="page-hero-inner">
+    <span class="page-hero-eyebrow">Why Wabash Systems</span>
+    <h1 id="page-hero-heading">Real E-Commerce Experience.<br><span>Every Layer. No Shortcuts.</span></h1>
+    <p class="page-hero-sub">Twenty years of doing the actual work — not talking about it. From server infrastructure and ERP integrations to storefront design and Google Ads. This is what e-commerce consulting looks like when the consultant has actually run the operation.</p>
+    <a href="/booking" class="btn-primary" onclick="if(window.posthog){posthog.capture('booking_cta_clicked',{location:'about_hero'})}">Book a Free Consultation</a>
+  </div>
+</section>
+
+<!-- CREDENTIALS BAR -->
+<section class="stats-bar" aria-label="Key credentials">
+  <div class="stats-bar-inner">
+    <div class="stat-card">
+      <span class="stat-card-number">20+</span>
+      <div class="stat-card-label">Years of E-Commerce</div>
+      <div class="stat-card-desc">Hands-on operations — not consulting from the sidelines. SEO, ads, integrations, platform management, the works.</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-number">$10M+</span>
+      <div class="stat-card-label">Annual Revenue Managed</div>
+      <div class="stat-card-desc">A decade and a half running a national e-commerce operation from top to bottom — alone and alongside a small team.</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-number">Full</span>
+      <div class="stat-card-label">Stack, Layer to Layer</div>
+      <div class="stat-card-desc">Physical infrastructure, server administration, ERP integration, storefront design, paid ads. Every layer, not just the front end.</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-number">0</span>
+      <div class="stat-card-label">Ransom Paid</div>
+      <div class="stat-card-desc">When ransomware hit, we were back online fast — using backups I'd built myself. No paying, no panic, no data loss.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section" aria-labelledby="story-heading">
+  <div class="story-inner">
+    <div>
+      <span class="section-label">The Difference</span>
+      <h2 class="section-title" id="story-heading">Built by Someone Who's Run the Operation, Not Just Advised On It</h2>
+      <div class="story-body">
+        <p>For the past 15 years, the founder of Wabash Systems served as the sole IT and e-commerce manager at a <strong>$10 million nationwide retailer in Indianapolis</strong> — managing everything from the network switches in the server room to the storefront customers actually buy from.</p>
+        <p>Flooring is one of the hardest products to sell online. LTL freight quotes, pallet deliveries, hundreds of product variants, custom calculators, complex shipping rules. If you can build and run that profitably for two decades, you can sell just about anything.</p>
+
+        <blockquote class="story-pull">"Every other option in this region builds you a website. I build you a store — and then I run it."</blockquote>
+
+        <p>Along the way I've led a <strong>year-long platform migration from Magento Enterprise to BigCommerce</strong> — twice-weekly calls with the vendor, coordinating data migration, testing, SEO preservation, and cutover. Done right, no revenue interrupted. I've managed two ERPs, handled ransomware recovery with zero ransom paid, and kept a multi-server AWS environment running without a dedicated ops team.</p>
+        <p>On the front end, <strong>design and conversion are what I actually enjoy</strong>. The right button color. The clearer headline. The layout that gets out of the customer's way. Most technical people tolerate design. I care about it.</p>
+        <p>I'm coming home to the Wabash Valley. My family is here, and I'm bringing everything I learned in Indianapolis with me. The small businesses in this region deserve the same level of digital expertise that big-city retailers have had for years — and they've been going without it long enough.</p>
+      </div>
+    </div>
+
+    <div class="cred-stack" aria-label="Key credentials">
+      <div class="cred-card">
+        <div class="cred-card-title">
+          <div class="icon" aria-hidden="true">🔄</div>
+          Platform Migration at Scale
+        </div>
+        <div class="cred-card-desc">Sole technical lead on a year-long Magento Enterprise → BigCommerce migration at a $10M retailer. Zero revenue loss, full data migration, SEO rankings preserved.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">
+          <div class="icon" aria-hidden="true">🛡️</div>
+          Ransomware Recovery
+        </div>
+        <div class="cred-card-desc">When ransomware hit, we were back online fast using backup systems I'd built and maintained myself. Zero ransom paid. This is what backup discipline actually looks like.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">
+          <div class="icon" aria-hidden="true">🔌</div>
+          Infrastructure to Storefront
+        </div>
+        <div class="cred-card-desc">Networking, servers, phones, alarms, Linux, Windows Server, AWS, ERP integrations, API development, and storefront design — all of it, in one person.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">
+          <div class="icon" aria-hidden="true">📣</div>
+          SEO &amp; Google Ads Since the Beginning
+        </div>
+        <div class="cred-card-desc">20+ years of organic SEO and paid search — including what not to do. Built traffic the right way, managed six-figure annual ad budgets, and measured everything.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">
+          <div class="icon" aria-hidden="true">🎨</div>
+          Design Is the Job, Not an Afterthought
+        </div>
+        <div class="cred-card-desc">UI/UX and conversion optimization are the part of this work I actually enjoy. The right layout, the right copy, the right CTA — these aren't decoration, they're revenue.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section class="values-section" aria-labelledby="values-heading">
+  <div class="values-inner">
+    <div class="values-header">
+      <span class="section-label section-label--light">How I Work</span>
+      <h2 class="section-title section-title--light" id="values-heading">What You Should Expect</h2>
+      <p class="section-sub" style="color:rgba(248,246,241,0.75);">No agency layers, no junior handoffs, no vague invoices. Here's what working with me actually looks like.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">🤝</span>
+        <h3 class="value-title">You Work With Me Directly</h3>
+        <p class="value-desc">No account managers. No junior associates. No work shipped offshore. You deal with the person who's been doing this for 20 years — every call, every deliverable, every question.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">✅</span>
+        <h3 class="value-title">Done When You're Happy</h3>
+        <p class="value-desc">I don't call a project done when I think it's done. I call it done when you say it's done. Clear scope up front means "happy" doesn't become a moving target — it means the work is right.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">🔒</span>
+        <h3 class="value-title">Security Is Not Optional</h3>
+        <p class="value-desc">I've been on the wrong end of a ransomware attack. I take backups, access controls, and security posture seriously in everything I build. Your store won't be the easy target.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">💬</span>
+        <h3 class="value-title">Straight Talk, No Jargon</h3>
+        <p class="value-desc">I've spent 15 years translating technical problems for non-technical owners. You'll always know what's happening, why it matters, and what it costs — in plain language.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">📋</span>
+        <h3 class="value-title">Scope Creep Stops Here</h3>
+        <p class="value-desc">Every engagement starts with a signed agreement that says exactly what's included and what isn't. Changes get a change order. No surprises at invoice time.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon" aria-hidden="true">📍</span>
+        <h3 class="value-title">Invested in This Region</h3>
+        <p class="value-desc">This isn't a market I picked off a map. The Wabash Valley is home. I'm moving back. When your business succeeds here, it matters to me the same way it matters to you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL RANGE -->
+<section class="range-section" aria-labelledby="range-heading">
+  <div class="range-inner">
+    <div>
+      <span class="section-label">The Full Range</span>
+      <h2 class="section-title" id="range-heading">From a 3-Foot Patch Cable to a $10 Million Storefront</h2>
+      <p class="section-sub">Most consultants know one layer. I've worked every layer — from the physical infrastructure a business runs on to the storefront customers buy from. That breadth matters when something breaks, when systems need to talk to each other, or when you need one person who understands the whole picture.</p>
+      <a href="/booking" style="display:inline-block;margin-top:32px;font-size:15px;font-weight:600;color:var(--orange-text);text-decoration:underline;text-underline-offset:4px;">Talk through your situation &rarr;</a>
+    </div>
+    <div class="range-visual" aria-label="Technical range from infrastructure to storefront">
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">Physical Infrastructure</div>
+          <div class="range-bar-sub">Network cabling, patch panels, switches, hardware</div>
+        </div>
+      </div>
+      <div class="range-connector" aria-hidden="true"></div>
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">Servers &amp; Systems</div>
+          <div class="range-bar-sub">Linux, Windows Server, AWS, Cloudflare, phones, alarms</div>
+        </div>
+      </div>
+      <div class="range-connector" aria-hidden="true"></div>
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">Back-End Development</div>
+          <div class="range-bar-sub">APIs, ERP integrations, databases, custom apps</div>
+        </div>
+      </div>
+      <div class="range-connector" aria-hidden="true"></div>
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">E-Commerce Platform</div>
+          <div class="range-bar-sub">Shopify, BigCommerce, WooCommerce — setup, migration, management</div>
+        </div>
+      </div>
+      <div class="range-connector" aria-hidden="true"></div>
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">Front-End &amp; Design</div>
+          <div class="range-bar-sub">UI/UX, conversion optimization, storefront design</div>
+        </div>
+      </div>
+      <div class="range-connector" aria-hidden="true"></div>
+      <div class="range-bar">
+        <div class="range-bar-dot"></div>
+        <div>
+          <div class="range-bar-label">Marketing &amp; Growth</div>
+          <div class="range-bar-sub">SEO, Google Ads, AEO, analytics, ongoing management</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-section" aria-labelledby="cta-heading">
+  <h2 class="section-title" id="cta-heading">Ready to Work With Someone Who's Actually Done This?</h2>
+  <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch — just an honest conversation about your business and what's possible.</p>
+  <a href="/booking" class="btn-white" onclick="if(window.posthog){posthog.capture('booking_cta_clicked',{location:'about_cta'})}">Book Your Free Call</a>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois — serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/aeo">AEO &mdash; AI Search</a></li>
+        <li><a href="/#services">Store Setup &amp; Launch</a></li>
+        <li><a href="/#services">Platform Migration</a></li>
+        <li><a href="/#services">SEO Management</a></li>
+        <li><a href="/#services">Google Ads</a></li>
+        <li><a href="/#services">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/about" aria-current="page">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/locations/">Locations</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley — Illinois &amp; Indiana · Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script>
+  /* ── MOBILE NAV ── */
+  const toggle    = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const overlay   = document.getElementById('mobileOverlay');
+  const closeBtn  = document.getElementById('mobileClose');
+
+  function openNav() {
+    if (window.innerWidth > 900) return;
+    mobileNav.classList.add('open');
+    mobileNav.removeAttribute('aria-hidden');
+    overlay.classList.add('open');
+    overlay.removeAttribute('aria-hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => {
+    toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav();
+  });
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', closeNav);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeNav();
+  });
+  mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
+</script>
+
+</body>
+</html>
