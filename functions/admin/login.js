@@ -2,17 +2,14 @@
 //
 // GET  /admin/login  - serves the login page HTML via ASSETS (no redirect, avoids
 //                      Cloudflare Pages pretty-URL loop: /admin/login.html -> /admin/login)
-// POST /admin/login  - validates username + password + TOTP code, issues signed
-//                      session cookie, redirects.
+// POST /admin/login  - validates username + password, issues signed session cookie, redirects.
 //
 // Required Cloudflare Pages env vars:
-//   ADMIN_USERNAME  - the login username (e.g. "andy")
+//   ADMIN_USERNAME  - the login username
 //   ADMIN_PASSWORD  - the login password
-//   TOTP_SECRET     - base32-encoded TOTP secret (set up in your authenticator app)
 //   SESSION_SECRET  - hex string used to sign session cookies
 
 import { signSessionCookie } from './_middleware.js';
-import { verifyTotp } from './totp.js';
 
 const SESSION_COOKIE = 'admin_session';
 
@@ -23,12 +20,12 @@ export async function onRequestGet(context) {
   );
 }
 
-// POST: validate username + password + TOTP code, then issue session cookie.
+// POST: validate username + password, then issue session cookie.
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  if (!env.ADMIN_USERNAME || !env.ADMIN_PASSWORD || !env.TOTP_SECRET || !env.SESSION_SECRET) {
-    return new Response('Admin not configured. Missing one of: ADMIN_USERNAME, ADMIN_PASSWORD, TOTP_SECRET, SESSION_SECRET.', { status: 503 });
+  if (!env.ADMIN_USERNAME || !env.ADMIN_PASSWORD || !env.SESSION_SECRET) {
+    return new Response('Admin not configured. Missing one of: ADMIN_USERNAME, ADMIN_PASSWORD, SESSION_SECRET.', { status: 503 });
   }
 
   let body;
@@ -40,17 +37,12 @@ export async function onRequestPost(context) {
 
   const username = (body.get('username') ?? '').trim();
   const password = body.get('password') ?? '';
-  const code     = (body.get('code') ?? '').trim();
 
-  // Verify ALL three. We always run all three checks (don't short-circuit) so
-  // an attacker can't time-distinguish "wrong username" from "wrong password"
-  // from "wrong TOTP".
+  // Always run both checks (no short-circuit) so timing can't distinguish wrong user vs wrong pass.
   const userOk = safeEqual(username, env.ADMIN_USERNAME);
   const passOk = safeEqual(password, env.ADMIN_PASSWORD);
-  const totpOk = await verifyTotp(env.TOTP_SECRET, code);
 
-  if (!userOk || !passOk || !totpOk) {
-    // Generic error - don't leak which check failed
+  if (!userOk || !passOk) {
     return redirectErr(1);
   }
 
