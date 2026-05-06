@@ -23,7 +23,7 @@ export async function onRequestPost(context) {
         from: 'Wabash Systems <andy.gray@wabashsystems.com>',
         to: ['andy.gray@wabashsystems.com'],
         reply_to: email,
-        subject: `New inquiry from ${fname} ${lname}${business ? ' � ' + business : ''}`,
+        subject: `New inquiry from ${fname} ${lname}${business ? ' - ' + business : ''}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${fname} ${lname}</p>
@@ -45,7 +45,15 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 2. Klaviyo � upsert profile + add to Email List
+    // 2. Klaviyo - upsert profile + subscribe to Email List
+    // DEBUG MODE: surface all Klaviyo response details so we can see what's failing.
+    // Once confirmed working, remove the _klaviyo_debug field from the response.
+    const kd = {
+      hasKey: !!env.KLAVIYO_PRIVATE_KEY,
+      hasListId: !!env.KLAVIYO_LIST_ID,
+      listId: env.KLAVIYO_LIST_ID || null,
+    };
+
     if (env.KLAVIYO_PRIVATE_KEY) {
       try {
         const kHeaders = {
@@ -55,6 +63,7 @@ export async function onRequestPost(context) {
           'Authorization': `Klaviyo-API-Key ${env.KLAVIYO_PRIVATE_KEY}`,
         };
 
+        // Step A: upsert profile with custom properties
         const profileRes = await fetch('https://a.klaviyo.com/api/profile-import/', {
           method: 'POST',
           headers: kHeaders,
@@ -79,52 +88,63 @@ export async function onRequestPost(context) {
           }),
         });
 
+        kd.profileStatus = profileRes.status;
+        const profileText = await profileRes.text();
         if (!profileRes.ok) {
-          console.error('[klaviyo] profile upsert failed:', await profileRes.text());
+          kd.profileError = profileText;
+        } else {
+          try {
+            kd.profileId = JSON.parse(profileText)?.data?.id;
+          } catch (_) {
+            kd.profileRaw = profileText;
+          }
         }
 
-        // Subscribe to list with explicit email marketing consent.
-        // relationships/profiles/ only adds a member — no consent, no flow trigger.
-        // profile-subscription-bulk-create-jobs sets MARKETING consent and fires
-        // list-based flows (welcome series).
+        // Step B: subscribe to Email List with marketing consent
+        // This sets email marketing consent and triggers list-based flows.
         if (env.KLAVIYO_LIST_ID) {
-          const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
-            method: 'POST',
-            headers: kHeaders,
-            body: JSON.stringify({
-              data: {
-                type: 'profile-subscription-bulk-create-job',
-                attributes: {
-                  custom_source: 'Contact Form',
-                  subscriptions: [
-                    {
-                      channels: { email: ['MARKETING'] },
-                      email,
-                    },
-                  ],
-                },
-                relationships: {
-                  list: {
-                    data: {
-                      type: 'list',
-                      id: env.KLAVIYO_LIST_ID,
-                    },
+          const subPayload = {
+            data: {
+              type: 'profile-subscription-bulk-create-job',
+              attributes: {
+                custom_source: 'Contact Form',
+                subscriptions: [
+                  {
+                    channels: { email: ['MARKETING'] },
+                    email,
+                  },
+                ],
+              },
+              relationships: {
+                list: {
+                  data: {
+                    type: 'list',
+                    id: env.KLAVIYO_LIST_ID,
                   },
                 },
               },
-            }),
+            },
+          };
+
+          kd.subPayload = subPayload;
+
+          const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+            method: 'POST',
+            headers: kHeaders,
+            body: JSON.stringify(subPayload),
           });
-          if (!subRes.ok) {
-            console.error('[klaviyo] subscription failed:', await subRes.text());
-          }
+
+          kd.subStatus = subRes.status;
+          kd.subBody = await subRes.text();
+        } else {
+          kd.subSkipped = 'KLAVIYO_LIST_ID not set';
         }
       } catch (klaviyoErr) {
-        console.error('[klaviyo] error:', klaviyoErr?.message || klaviyoErr);
+        kd.exception = klaviyoErr?.message || String(klaviyoErr);
       }
     }
 
-    // 3. Save to admin KV so the Leads tab in /admin can show this submission.
-    // Best-effort: don't fail the whole request if KV is unreachable.
+    // 3. Save to admin KV
     if (env.ADMIN_DATA) {
       try {
         const KV_KEY = 'billing_data';
@@ -146,18 +166,17 @@ export async function onRequestPost(context) {
           ip: request.headers.get('CF-Connecting-IP') || '',
           userAgent: request.headers.get('User-Agent') || '',
           source: 'contact-form',
-          status: 'new',                 // new | contacted | quoted | won | lost | no-fit
+          status: 'new',
           followupNotes: '',
           convertedToClientId: null,
         });
         await env.ADMIN_DATA.put(KV_KEY, JSON.stringify(data));
       } catch (kvErr) {
         console.error('[contact] KV lead save failed:', kvErr?.message || kvErr);
-        // intentional: don't propagate - email + Klaviyo already succeeded
       }
     }
 
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, _klaviyo_debug: kd }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
     });
 
