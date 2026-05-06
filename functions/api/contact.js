@@ -1,17 +1,20 @@
 import { captureException } from '../lib/sentry.js';
-
+ 
+// Hardcoded fallback so this works regardless of env var state.
+// Once KLAVIYO_LIST_ID env var is verified correct in Production, this fallback becomes a no-op.
+const KLAVIYO_LIST_FALLBACK = 'TbWzci';
+ 
 export async function onRequestPost(context) {
   const { request, env } = context;
   try {
     const body = await request.json();
     const { fname, lname, email, phone, business, service, message, emailOptIn, smsOptIn } = body;
-
     if (!fname || !email || !message) {
       return new Response(JSON.stringify({ success: false, error: 'Missing required fields.' }), {
         status: 400, headers: { 'Content-Type': 'application/json' },
       });
     }
-
+ 
     // 1. Notification email via Resend
     const emailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -37,23 +40,23 @@ export async function onRequestPost(context) {
         `,
       }),
     });
-
     if (!emailRes.ok) {
       const errText = await emailRes.text();
       return new Response(JSON.stringify({ success: false, error: 'Failed to send email.', detail: errText }), {
         status: 500, headers: { 'Content-Type': 'application/json' },
       });
     }
-
+ 
     // 2. Klaviyo - upsert profile + subscribe to Email List
     // DEBUG MODE: surface all Klaviyo response details so we can see what's failing.
     // Once confirmed working, remove the _klaviyo_debug field from the response.
+    const listId = env.KLAVIYO_LIST_ID || KLAVIYO_LIST_FALLBACK;
     const kd = {
       hasKey: !!env.KLAVIYO_PRIVATE_KEY,
       hasListId: !!env.KLAVIYO_LIST_ID,
-      listId: env.KLAVIYO_LIST_ID || null,
+      envListId: env.KLAVIYO_LIST_ID || null,
+      listIdUsed: listId,
     };
-
     if (env.KLAVIYO_PRIVATE_KEY) {
       try {
         const kHeaders = {
@@ -62,7 +65,7 @@ export async function onRequestPost(context) {
           'revision': '2024-02-15',
           'Authorization': `Klaviyo-API-Key ${env.KLAVIYO_PRIVATE_KEY}`,
         };
-
+ 
         // Step A: upsert profile with custom properties
         const profileRes = await fetch('https://a.klaviyo.com/api/profile-import/', {
           method: 'POST',
@@ -87,7 +90,6 @@ export async function onRequestPost(context) {
             },
           }),
         });
-
         kd.profileStatus = profileRes.status;
         const profileText = await profileRes.text();
         if (!profileRes.ok) {
@@ -99,10 +101,10 @@ export async function onRequestPost(context) {
             kd.profileRaw = profileText;
           }
         }
-
+ 
         // Step B: subscribe to Email List with marketing consent
         // This sets email marketing consent and triggers list-based flows.
-        if (TbWzci) {
+        if (listId) {
           const subPayload = {
             data: {
               type: 'profile-subscription-bulk-create-job',
@@ -130,31 +132,28 @@ export async function onRequestPost(context) {
                 list: {
                   data: {
                     type: 'list',
-                    id: env.KLAVIYO_LIST_ID,
+                    id: listId,
                   },
                 },
               },
             },
           };
-
           kd.subPayload = subPayload;
-
           const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
             method: 'POST',
             headers: kHeaders,
             body: JSON.stringify(subPayload),
           });
-
           kd.subStatus = subRes.status;
           kd.subBody = await subRes.text();
         } else {
-          kd.subSkipped = 'KLAVIYO_LIST_ID not set';
+          kd.subSkipped = 'KLAVIYO_LIST_ID not set and no fallback';
         }
       } catch (klaviyoErr) {
         kd.exception = klaviyoErr?.message || String(klaviyoErr);
       }
     }
-
+ 
     // 3. Save to admin KV
     if (env.ADMIN_DATA) {
       try {
@@ -186,11 +185,10 @@ export async function onRequestPost(context) {
         console.error('[contact] KV lead save failed:', kvErr?.message || kvErr);
       }
     }
-
+ 
     return new Response(JSON.stringify({ success: true, _klaviyo_debug: kd }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
     });
-
   } catch (err) {
     captureException(context, err, { tags: { route: 'contact' } });
     return new Response(JSON.stringify({ success: false, error: 'Server error.', detail: err.message }), {
