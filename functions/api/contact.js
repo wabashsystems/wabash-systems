@@ -79,21 +79,52 @@ export async function onRequestPost(context) {
           }),
         });
 
-        if (profileRes.ok) {
-          const profileData = await profileRes.json();
-          const profileId = profileData?.data?.id;
-
-          if (profileId && env.KLAVIYO_LIST_ID) {
-            await fetch(`https://a.klaviyo.com/api/lists/${env.KLAVIYO_LIST_ID}/relationships/profiles/`, {
-              method: 'POST',
-              headers: kHeaders,
-              body: JSON.stringify({
-                data: [{ type: 'profile', id: profileId }],
-              }),
-            });
-          }
-        } else {
+        if (!profileRes.ok) {
           console.error('[klaviyo] profile upsert failed:', await profileRes.text());
+        }
+
+        // Subscribe to list with explicit email consent.
+        // relationships/profiles/ only adds a member; it does NOT set marketing consent
+        // and will NOT trigger list-based flows (welcome series). The subscription
+        // bulk-create endpoint sets SUBSCRIBED consent and fires the flow.
+        if (env.KLAVIYO_LIST_ID) {
+          const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+            method: 'POST',
+            headers: kHeaders,
+            body: JSON.stringify({
+              data: {
+                type: 'profile-subscription-bulk-create-job',
+                attributes: {
+                  profiles: {
+                    data: [{
+                      type: 'profile',
+                      attributes: {
+                        email,
+                        subscriptions: {
+                          email: {
+                            marketing: {
+                              consent: 'SUBSCRIBED',
+                            },
+                          },
+                        },
+                      },
+                    }],
+                  },
+                },
+                relationships: {
+                  list: {
+                    data: {
+                      type: 'list',
+                      id: env.KLAVIYO_LIST_ID,
+                    },
+                  },
+                },
+              },
+            }),
+          });
+          if (!subRes.ok) {
+            console.error('[klaviyo] subscription failed:', await subRes.text());
+          }
         }
       } catch (klaviyoErr) {
         console.error('[klaviyo] error:', klaviyoErr?.message || klaviyoErr);
