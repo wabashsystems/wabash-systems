@@ -102,7 +102,7 @@ export async function onRequestPost(context) {
 
         // Step B: subscribe to Email List with marketing consent
         // This sets email marketing consent and triggers list-based flows.
-        if (env.KLAVIYO_LIST_ID) {
+        if (TbWzci) {
           const subPayload = {
             data: {
               type: 'profile-subscription-bulk-create-job',
