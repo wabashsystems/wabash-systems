@@ -108,12 +108,23 @@ export async function onRequestPost(context) {
               type: 'profile-subscription-bulk-create-job',
               attributes: {
                 custom_source: 'Contact Form',
-                subscriptions: [
-                  {
-                    channels: { email: ['MARKETING'] },
-                    email,
-                  },
-                ],
+                profiles: {
+                  data: [
+                    {
+                      type: 'profile',
+                      attributes: {
+                        email,
+                        subscriptions: {
+                          email: {
+                            marketing: {
+                              consent: 'SUBSCRIBED',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
               },
               relationships: {
                 list: {
