@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Wabash Systems <info@wabashsystems.com>',
+        from: 'Wabash Systems <andy.gray@wabashsystems.com>',
         to: ['andy.gray@wabashsystems.com'],
         reply_to: email,
         subject: `New inquiry from ${fname} ${lname}${business ? ' � ' + business : ''}`,
