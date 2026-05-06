@@ -1569,4 +1569,10 @@
   });
 
   // Close drawer when a nav link is clicked
-  mobileNav.querySelectorAll('a').forEach(link
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNav);
+  });
+
+</script>
+</body>
+</html>
