@@ -83,10 +83,10 @@ export async function onRequestPost(context) {
           console.error('[klaviyo] profile upsert failed:', await profileRes.text());
         }
 
-        // Subscribe to list with explicit email consent.
-        // relationships/profiles/ only adds a member; it does NOT set marketing consent
-        // and will NOT trigger list-based flows (welcome series). The subscription
-        // bulk-create endpoint sets SUBSCRIBED consent and fires the flow.
+        // Subscribe to list with explicit email marketing consent.
+        // relationships/profiles/ only adds a member — no consent, no flow trigger.
+        // profile-subscription-bulk-create-jobs sets MARKETING consent and fires
+        // list-based flows (welcome series).
         if (env.KLAVIYO_LIST_ID) {
           const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
             method: 'POST',
@@ -95,21 +95,13 @@ export async function onRequestPost(context) {
               data: {
                 type: 'profile-subscription-bulk-create-job',
                 attributes: {
-                  profiles: {
-                    data: [{
-                      type: 'profile',
-                      attributes: {
-                        email,
-                        subscriptions: {
-                          email: {
-                            marketing: {
-                              consent: 'SUBSCRIBED',
-                            },
-                          },
-                        },
-                      },
-                    }],
-                  },
+                  custom_source: 'Contact Form',
+                  subscriptions: [
+                    {
+                      channels: { email: ['MARKETING'] },
+                      email,
+                    },
+                  ],
                 },
                 relationships: {
                   list: {
