@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies | Wabash Systems</title>
+  <meta name="description" content="Real client work from Wabash Systems. Lead-generating sites, e-commerce builds, and platform migrations for small and mid-sized businesses." />
+  <link rel="canonical" href="https://www.wabashsystems.com/case-studies/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.wabashsystems.com/case-studies/" />
+  <meta property="og:title" content="Case Studies | Wabash Systems" />
+  <meta property="og:description" content="Real client work from Wabash Systems. Lead-generating sites, e-commerce builds, and platform migrations for small and mid-sized businesses." />
+  <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Wabash Systems - E-Commerce Consulting" />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Case Studies | Wabash Systems" />
+  <meta name="twitter:description" content="Real client work from Wabash Systems. Lead-generating sites, e-commerce builds, and platform migrations for small and mid-sized businesses." />
+  <meta name="twitter:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta name="twitter:url" content="https://www.wabashsystems.com/case-studies/" />
+
+  <link rel="preconnect" href="https://js.sentry-cdn.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.sentry-cdn.com" />
+  <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="theme-color" content="#0d1a2a" />
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Deferred third-party analytics: load after interaction or 3.5s timeout -->
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+      }
+      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
+        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+      });
+      setTimeout(loadAnalytics, 3500);
+    })();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/Inter-Variable.woff2') format('woff2');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e;
+      --orange: #c4622d; --orange-light: #e8834d; --orange-text: #a04e22;
+      --orange-button: #ae5320;
+      --cream: #f8f6f1; --gray-light: #f2f4f7;
+      --gray-mid: #606673; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange-button) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    /* Hero */
+    .cs-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .cs-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .cs-hero-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .cs-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 14px; }
+    .cs-hero h1 { font-family: Georgia, serif; font-size: 48px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .cs-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; margin: 0 auto; }
+    @media (max-width: 720px) {
+      .cs-hero { padding: 48px 20px 64px; }
+      .cs-hero h1 { font-size: 32px; }
+      .cs-hero .lede { font-size: 15px; }
+    }
+
+    /* Card grid */
+    .cs-grid-wrap { padding: 64px 32px; max-width: 1200px; margin: 0 auto; }
+    .cs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (max-width: 720px) { .cs-grid { grid-template-columns: 1fr; } }
+
+    .cs-card {
+      display: block; text-decoration: none;
+      background: var(--white); border: 1px solid var(--gray-light);
+      border-radius: 12px; padding: 32px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .cs-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); border-color: var(--orange); }
+    .cs-card-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange-text); margin-bottom: 12px; }
+    .cs-card h2 { font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
+    .cs-card .cs-meta { font-size: 13px; color: var(--gray-mid); margin-bottom: 14px; font-weight: 500; }
+    .cs-card .cs-meta strong { color: var(--navy); font-weight: 600; }
+    .cs-card .cs-desc { font-size: 15px; color: var(--navy); margin-bottom: 18px; }
+    .cs-card .cs-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .cs-card .cs-stack span { font-size: 11px; color: var(--gray-mid); background: var(--gray-light); padding: 4px 10px; border-radius: 999px; font-weight: 500; }
+    .cs-card .more { font-size: 14px; color: var(--orange-text); font-weight: 600; }
+    .cs-card .more::after { content: '\2192'; margin-left: 6px; transition: margin-left 0.2s; }
+    .cs-card:hover .more::after { margin-left: 12px; }
+
+    /* "More coming" placeholder card */
+    .cs-card-coming {
+      background: var(--cream); border: 1px dashed var(--gray-mid);
+      border-radius: 12px; padding: 32px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .cs-card-coming .label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 10px; }
+    .cs-card-coming h3 { font-family: Georgia, serif; font-size: 20px; color: var(--navy); margin-bottom: 8px; line-height: 1.3; }
+    .cs-card-coming p { font-size: 14px; color: var(--gray-mid); }
+
+    /* Why publish band */
+    .why-band { background: var(--gray-light); padding: 64px 32px; }
+    .why-inner { max-width: 800px; margin: 0 auto; }
+    .why-inner h2 { font-family: Georgia, serif; font-size: 30px; color: var(--navy); margin-bottom: 16px; text-align: center; }
+    .why-inner p { color: var(--navy); font-size: 16px; margin-bottom: 14px; }
+    .why-inner p:last-child { margin-bottom: 0; }
+
+    /* End CTA */
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange-button); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    /* Footer */
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.65); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
+
+  <!-- BreadcrumbList schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.wabashsystems.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.wabashsystems.com/case-studies/" }
+    ]
+  }
+  </script>
+
+  <!-- CollectionPage + ItemList schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Wabash Systems Case Studies",
+    "description": "Client case studies showing how Wabash Systems builds lead-generating websites and e-commerce stores for small and mid-sized businesses.",
+    "url": "https://www.wabashsystems.com/case-studies/",
+    "isPartOf": { "@id": "https://www.wabashsystems.com/#website" },
+    "publisher": { "@id": "https://www.wabashsystems.com/#organization" },
+    "inLanguage": "en-US",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://www.wabashsystems.com/case-studies/titan-machine-service",
+          "name": "Titan Machine Service",
+          "description": "Building a five-state lead engine for an emergency CNC service team. Astro on Cloudflare Pages, sub-second page loads, urgency-tiered lead capture."
+        }
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">🚀</span> Serving the Wabash Valley &mdash; Illinois &amp; Indiana<span class="thin">&mdash; Now Accepting Early Clients</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipCsIdx"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipCsIdx)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipCsIdx)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipCsIdx)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/#portfolio" class="is-active" aria-current="page">Portfolio</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="cs-hero">
+  <div class="cs-hero-inner">
+    <div class="cs-eyebrow">Client Case Studies</div>
+    <h1>Real work. Real outcomes. Real receipts.</h1>
+    <p class="lede">
+      Every consulting engagement gets the same treatment: pick the right
+      stack, build it the right way, document the trade-offs, and ship
+      something that does its job. Here's the work, in detail.
+    </p>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <div class="cs-grid-wrap">
+    <div class="cs-grid">
+
+      <a href="/case-studies/titan-machine-service" class="cs-card">
+        <div class="cs-card-eyebrow">Custom Build &middot; Lead Generation</div>
+        <h2>Building a five-state lead engine for an emergency CNC service team</h2>
+        <div class="cs-meta">
+          <strong>Titan Machine Service</strong> &middot; CNC &amp; Machine Tool Service &middot; OK / KS / AR / MO / TX
+        </div>
+        <p class="cs-desc">
+          Eighteen pages, sub-second loads, urgency-tiered lead capture
+          built around emergency dispatch. Static site on Astro deployed
+          to Cloudflare Pages, schema-rich for local pack visibility,
+          PM cost estimator for mid-funnel engagement.
+        </p>
+        <div class="cs-stack">
+          <span>Astro 5</span>
+          <span>TypeScript</span>
+          <span>Tailwind</span>
+          <span>Cloudflare Pages</span>
+          <span>Schema.org</span>
+        </div>
+        <span class="more">Read the case study</span>
+      </a>
+
+      <div class="cs-card-coming" aria-hidden="true">
+        <div class="label">More coming</div>
+        <h3>The next one's in the oven.</h3>
+        <p>
+          New case studies get published as engagements wrap and clients
+          green-light the write-up. If you'd like your project featured
+          when it ships, mention it during the kickoff call.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="why-band">
+    <div class="why-inner">
+      <h2>Why we publish case studies</h2>
+      <p>
+        Two reasons. First, you should be able to see the work before you
+        sign anything &mdash; not just a portfolio of screenshots, but the
+        actual reasoning behind why a particular stack was chosen, what
+        trade-offs were made, and what shipped.
+      </p>
+      <p>
+        Second, the case studies are documentation for future clients.
+        When a prospect asks "can you do X for us?" the answer should be
+        "yes, here's a similar engagement and what it took" &mdash; not a
+        generic capability statement. Every case study is meant to do that
+        work.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Have a project worth a case study?</h2>
+  <p>
+    The work I do best is for small and mid-sized businesses that need a
+    site or store that actually moves the needle. If that sounds like
+    yours, let's talk.
+  </p>
+  <a href="/booking" class="btn-orange">Book a Free Consultation</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting team helping small businesses grow online. Based in Crawford County, Illinois &mdash; serving Robinson, Lawrenceville, Mt. Carmel, Olney, and clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/aeo">AEO &mdash; AI Search</a></li>
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/google-ads">Google Ads</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/about">About</a></li>
+        <li><a href="/#process">How It Works</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley &mdash; Illinois &amp; Indiana &middot; Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<style>
+  .scroll-btns { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 90; }
+  .scroll-btn { width: 44px; height: 44px; border-radius: 8px; background: var(--navy); color: var(--white); border: 2px solid rgba(255,255,255,0.15); font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: opacity 0.2s, transform 0.15s, background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; font-family: inherit; }
+  .scroll-btn:hover { background: var(--orange); transform: translateY(-2px); }
+  .scroll-btn[hidden] { display: none; }
+  @media (max-width: 720px) { .scroll-btns { right: 14px; bottom: 14px; } }
+  @media print { .scroll-btns { display: none !important; } }
+</style>
+<div class="scroll-btns" role="group" aria-label="Page navigation">
+  <button id="scrollTopBtn" class="scroll-btn" type="button" aria-label="Scroll to top of page" hidden>&uarr;</button>
+  <button id="scrollBottomBtn" class="scroll-btn" type="button" aria-label="Scroll to bottom of page">&darr;</button>
+</div>
+<script>
+(function () {
+  var topBtn = document.getElementById('scrollTopBtn');
+  var botBtn = document.getElementById('scrollBottomBtn');
+  if (!topBtn || !botBtn) return;
+  function update() {
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    topBtn.hidden = y < 200;
+    botBtn.hidden = y > max - 200;
+  }
+  topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  botBtn.addEventListener('click', function () { window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); });
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+</body>
+</html>
