@@ -565,7 +565,7 @@
     <li><a href="/#services">Services</a></li>
     <li><a href="/#process">Process</a></li>
     <li><a href="/about">About</a></li>
-    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/case-studies/">Case Studies</a></li>
     <li><a href="/booking" class="nav-cta" aria-current="page">Free Consultation</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
@@ -582,7 +582,7 @@
   <a href="/#services">Services</a>
   <a href="/#process">Process</a>
   <a href="/about">About</a>
-  <a href="/#portfolio">Portfolio</a>
+  <a href="/case-studies/">Case Studies</a>
   <a href="/booking" class="mobile-cta">Free Consultation</a>
 </nav>
 
@@ -686,7 +686,7 @@
       <ul class="footer-links">
         <li><a href="/about">About</a></li>
         <li><a href="/#process">How It Works</a></li>
-        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
         <li><a href="/#contact">Contact</a></li>
         <li><a href="/booking">Free Consultation</a></li>
       </ul>
@@ -815,30 +815,4 @@
   @media (max-width: 720px) { .scroll-btns { right: 14px; bottom: 14px; } }
   @media print { .scroll-btns { display: none !important; } }
 </style>
-<div class="scroll-btns" role="group" aria-label="Page navigation">
-  <button id="scrollTopBtn" class="scroll-btn" type="button" aria-label="Scroll to top of page" hidden>&uarr;</button>
-  <button id="scrollBottomBtn" class="scroll-btn" type="button" aria-label="Scroll to bottom of page">&darr;</button>
-</div>
-<script>
-(function () {
-  var topBtn = document.getElementById('scrollTopBtn');
-  var botBtn = document.getElementById('scrollBottomBtn');
-  if (!topBtn || !botBtn) return;
-  function update() {
-    var y = window.scrollY;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    topBtn.hidden = y < 200;
-    botBtn.hidden = y > max - 200;
-  }
-  topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  botBtn.addEventListener('click', function () { window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); });
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-})();
-</script>
-
-<!-- Klaviyo onsite tracking removed - re-add when newsletter signup is brought back -->
-
-</body>
-</html>
+<div clas
