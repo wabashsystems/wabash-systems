@@ -157,7 +157,9 @@ export async function onRequestPost(context) {
     // LAMP is source of truth for leads; KV is retired for this purpose.
     // Requires LAMP_API_SECRET env var in CF Pages (must match the secret on the LAMP box).
     if (env.LAMP_API_SECRET) {
-      fetch('https://admin.wabashsystems.com/api/leads.php', {
+      // waitUntil keeps the Worker alive until the fetch settles.
+      // Without it, CF kills the promise the moment we return the Response below.
+      context.waitUntil(fetch('https://admin.wabashsystems.com/api/leads.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +186,7 @@ export async function onRequestPost(context) {
         }
       }).catch((err) => {
         console.error('[contact] LAMP lead save fetch error:', err?.message || err);
-      });
+      }));
     } else {
       // Log so we notice it's not configured — but don't fail the request.
       console.warn('[contact] LAMP_API_SECRET not set — lead not saved to CRM');
