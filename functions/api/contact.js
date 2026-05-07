@@ -51,11 +51,6 @@ export async function onRequestPost(context) {
     //   A) Profile import (creates/updates profile with custom props)
     //   B) Subscribe with marketing consent (async; triggers list-based flows)
     //   C) Add to list directly (sync; ensures membership immediately)
-    const kd = {
-      hasKey: !!env.KLAVIYO_PRIVATE_KEY,
-      listIdUsed: KLAVIYO_LIST_ID,
-    };
-
     if (env.KLAVIYO_PRIVATE_KEY) {
       const kHeaders = {
         'Content-Type': 'application/json',
@@ -64,7 +59,8 @@ export async function onRequestPost(context) {
         'Authorization': `Klaviyo-API-Key ${env.KLAVIYO_PRIVATE_KEY}`,
       };
 
-      // A) Profile import
+      // A) Profile import — need the profile ID for step C.
+      let klaviyoProfileId;
       try {
         const profileRes = await fetch('https://a.klaviyo.com/api/profile-import/', {
           method: 'POST',
@@ -89,18 +85,17 @@ export async function onRequestPost(context) {
             },
           }),
         });
-        kd.profileStatus = profileRes.status;
-        const profileText = await profileRes.text();
-        if (!profileRes.ok) {
-          kd.profileError = profileText;
+        if (profileRes.ok) {
+          const profileData = await profileRes.json().catch(() => null);
+          klaviyoProfileId = profileData?.data?.id;
         } else {
-          try { kd.profileId = JSON.parse(profileText)?.data?.id; } catch (_) {}
+          console.error('[contact] Klaviyo profile import failed:', profileRes.status, await profileRes.text().catch(() => ''));
         }
       } catch (e) {
-        kd.profileException = e?.message || String(e);
+        console.error('[contact] Klaviyo profile import exception:', e?.message || e);
       }
 
-      // B) Subscribe with marketing consent (async bulk job)
+      // B) Subscribe with marketing consent (async bulk job — triggers welcome flow).
       try {
         const subRes = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
           method: 'POST',
@@ -128,48 +123,50 @@ export async function onRequestPost(context) {
             },
           }),
         });
-        kd.subStatus = subRes.status;
-        kd.subBody = await subRes.text();
-      } catch (e) {
-        kd.subException = e?.message || String(e);
-      }
-
-      // C) Add to list directly (sync, immediate membership)
-      // This is independent of B — even if the subscribe job fails or is delayed,
-      // the profile will still be in the list right away.
-      try {
-        const addRes = await fetch(
-          `https://a.klaviyo.com/api/lists/${KLAVIYO_LIST_ID}/relationships/profiles/`,
-          {
-            method: 'POST',
-            headers: kHeaders,
-            body: JSON.stringify({
-              data: [{ type: 'profile', id: kd.profileId }],
-            }),
-          }
-        );
-        kd.addStatus = addRes.status;
-        if (addRes.status !== 204) {
-          kd.addBody = await addRes.text();
+        if (!subRes.ok) {
+          console.error('[contact] Klaviyo subscribe failed:', subRes.status, await subRes.text().catch(() => ''));
         }
       } catch (e) {
-        kd.addException = e?.message || String(e);
+        console.error('[contact] Klaviyo subscribe exception:', e?.message || e);
+      }
+
+      // C) Add to list directly (sync, immediate membership).
+      // Independent of B — ensures membership lands even if the bulk job is delayed.
+      if (klaviyoProfileId) {
+        try {
+          const addRes = await fetch(
+            `https://a.klaviyo.com/api/lists/${KLAVIYO_LIST_ID}/relationships/profiles/`,
+            {
+              method: 'POST',
+              headers: kHeaders,
+              body: JSON.stringify({
+                data: [{ type: 'profile', id: klaviyoProfileId }],
+              }),
+            }
+          );
+          if (addRes.status !== 204) {
+            console.error('[contact] Klaviyo list-add failed:', addRes.status, await addRes.text().catch(() => ''));
+          }
+        } catch (e) {
+          console.error('[contact] Klaviyo list-add exception:', e?.message || e);
+        }
       }
     }
 
-    // 3. Save to admin KV
-    if (env.ADMIN_DATA) {
-      try {
-        const KV_KEY = 'billing_data';
-        const raw = await env.ADMIN_DATA.get(KV_KEY);
-        const data = raw ? JSON.parse(raw) : { clients: [], entries: [], invoices: [] };
-        if (!Array.isArray(data.leads)) data.leads = [];
-        data.leads.push({
-          id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6),
-          createdAt: new Date().toISOString(),
+    // 3. Save lead to LAMP CRM (non-blocking — a failure here doesn't break the form response).
+    // LAMP is source of truth for leads; KV is retired for this purpose.
+    // Requires LAMP_API_SECRET env var in CF Pages (must match the secret on the LAMP box).
+    if (env.LAMP_API_SECRET) {
+      fetch('https://admin.wabashsystems.com/api/leads.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${env.LAMP_API_SECRET}`,
+        },
+        body: JSON.stringify({
           fname: fname || '',
           lname: lname || '',
-          email: email,
+          email,
           phone: phone || '',
           business: business || '',
           service: service || '',
@@ -179,17 +176,21 @@ export async function onRequestPost(context) {
           ip: request.headers.get('CF-Connecting-IP') || '',
           userAgent: request.headers.get('User-Agent') || '',
           source: 'contact-form',
-          status: 'new',
-          followupNotes: '',
-          convertedToClientId: null,
-        });
-        await env.ADMIN_DATA.put(KV_KEY, JSON.stringify(data));
-      } catch (kvErr) {
-        console.error('[contact] KV lead save failed:', kvErr?.message || kvErr);
-      }
+        }),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text().catch(() => '');
+          console.error(`[contact] LAMP lead save failed: ${res.status}`, body);
+        }
+      }).catch((err) => {
+        console.error('[contact] LAMP lead save fetch error:', err?.message || err);
+      });
+    } else {
+      // Log so we notice it's not configured — but don't fail the request.
+      console.warn('[contact] LAMP_API_SECRET not set — lead not saved to CRM');
     }
 
-    return new Response(JSON.stringify({ success: true, _klaviyo_debug: kd }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
