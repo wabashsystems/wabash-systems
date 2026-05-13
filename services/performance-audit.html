@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Performance Audit + Fix Sprint | Wabash Systems</title>
+  <meta name="description" content="Free e-commerce technical audit. $2,500 deep audit + strategy call. $8K+ fix sprint. $5K/mo retainer. Four steps, hard prices, no commitment between them." />
+  <link rel="canonical" href="https://www.wabashsystems.com/services/performance-audit" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.wabashsystems.com/services/performance-audit" />
+  <meta property="og:title" content="E-Commerce Performance Audit + Fix Sprint | Wabash Systems" />
+  <meta property="og:description" content="Free e-commerce technical audit. $2,500 deep audit + strategy call. $8K+ fix sprint. $5K/mo retainer. Four steps, hard prices." />
+  <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Wabash Systems - E-Commerce Performance Audit" />
+  <meta property="og:site_name" content="Wabash Systems" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="E-Commerce Performance Audit + Fix Sprint | Wabash Systems" />
+  <meta name="twitter:description" content="Free e-commerce technical audit. $2,500 deep audit + strategy call. $8K+ fix sprint. $5K/mo retainer." />
+  <meta name="twitter:image" content="https://www.wabashsystems.com/og-image.png" />
+  <meta name="twitter:url" content="https://www.wabashsystems.com/services/performance-audit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "E-Commerce Performance Audit + Fix Sprint",
+    "alternateName": ["E-Commerce Audit", "Conversion Audit", "Site Performance Audit"],
+    "provider": {
+      "@type": "Organization",
+      "name": "Wabash Systems",
+      "url": "https://www.wabashsystems.com"
+    },
+    "areaServed": "United States",
+    "description": "Four-step e-commerce performance ladder: free technical audit, $2,500 deep audit plus 90-minute strategy call, $8,000-plus fix sprint, $5,000 per month performance retainer.",
+    "offers": [
+      { "@type": "Offer", "name": "Free Performance Audit", "priceCurrency": "USD", "price": "0" },
+      { "@type": "Offer", "name": "Deep Audit + Strategy Call", "priceCurrency": "USD", "price": "2500" },
+      { "@type": "Offer", "name": "Fix Sprint", "priceCurrency": "USD", "price": "8000", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 8000, "maxPrice": 15000 } },
+      { "@type": "Offer", "name": "Performance Retainer", "priceCurrency": "USD", "price": "5000", "priceSpecification": { "@type": "UnitPriceSpecification", "price": 5000, "priceCurrency": "USD", "unitCode": "MON" } }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://js.sentry-cdn.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.sentry-cdn.com" />
+  <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="theme-color" content="#0d1a2a" />
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+      }
+      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
+        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
+      });
+      setTimeout(loadAnalytics, 3500);
+    })();
+  </script>
+
+  <style>
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/fonts/Inter-Variable.woff2') format('woff2'); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #0d1a2a; --navy-mid: #1a2e44; --navy-light: #1a4a6e; --orange: #c4622d; --orange-light: #e8834d; --orange-text: #a04e22; --orange-button: #ae5320; --cream: #f8f6f1; --gray-light: #f2f4f7; --gray-mid: #606673; --white: #ffffff; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.7; padding-top: 110px; }
+    .skip-nav { position: absolute; left: -100%; top: 8px; background: var(--orange); color: var(--white); padding: 12px 24px; font-weight: 600; z-index: 9999; text-decoration: none; }
+    .skip-nav:focus { left: 0; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 3px; }
+    :focus:not(:focus-visible) { outline: none; }
+
+    .announcement-banner { background: var(--navy-mid); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; position: fixed; top: 0; left: 0; right: 0; z-index: 200; border-bottom: 2px solid var(--orange); }
+    .announcement-banner span.thin { opacity: 0.85; font-weight: 400; margin-left: 8px; }
+
+    nav.site-nav { position: fixed; top: 38px; left: 0; right: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { width: 52px; height: 31px; }
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-top { font-family: Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--cream); }
+    .nav-brand-sub { font-size: 9px; letter-spacing: 4px; color: var(--orange-light); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; opacity: 0.85; transition: opacity 0.2s, color 0.2s; }
+    .nav-links a:hover, .nav-links a.is-active { opacity: 1; color: var(--orange-light); }
+    .nav-cta { background: var(--orange-button) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 6px !important; opacity: 1 !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    @media (max-width: 720px) { nav.site-nav { padding: 0 20px; height: 64px; } .nav-brand { display: none; } .nav-links { gap: 14px; } .nav-links li:not(.nav-cta-li) { display: none; } body { padding-top: 102px; } }
+
+    .svc-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); color: var(--white); padding: 64px 32px 80px; position: relative; overflow: hidden; }
+    .svc-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px; background: var(--orange); }
+    .svc-hero-inner { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--white); }
+    .svc-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 14px; }
+    .svc-hero h1 { font-family: Georgia, serif; font-size: 44px; font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+    .svc-hero .lede { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 720px; }
+    @media (max-width: 720px) { .svc-hero { padding: 48px 20px 64px; } .svc-hero h1 { font-size: 30px; } .svc-hero .lede { font-size: 15px; } }
+
+    .quick-facts { background: var(--cream); border-bottom: 1px solid var(--gray-light); }
+    .quick-facts-inner { max-width: 1100px; margin: 0 auto; padding: 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .qf-cell .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-mid); margin-bottom: 6px; }
+    .qf-cell .value { font-size: 15px; font-weight: 600; color: var(--navy); }
+    @media (max-width: 720px) { .quick-facts-inner { grid-template-columns: 1fr; gap: 18px; padding: 22px 20px; } }
+
+    main { padding: 0; }
+    section.svc-section { padding: 64px 32px; }
+    section.svc-section.alt { background: var(--gray-light); }
+    .svc-inner { max-width: 900px; margin: 0 auto; }
+    .svc-section h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 700; color: var(--navy); margin-bottom: 18px; line-height: 1.2; }
+    .svc-section h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-top: 24px; margin-bottom: 10px; }
+    .svc-section p { font-size: 17px; color: var(--navy); margin-bottom: 18px; }
+    .svc-section a { color: var(--orange-text); text-decoration: underline; text-underline-offset: 3px; }
+    .svc-section a:hover { color: var(--orange); }
+    .label-row { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-text); margin-bottom: 10px; }
+
+    .tier-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 24px 0; }
+    @media (max-width: 720px) { .tier-grid { grid-template-columns: 1fr; } }
+    .tier-card { background: var(--white); border: 2px solid var(--gray-light); border-radius: 12px; padding: 26px; transition: border-color 0.2s; }
+    .tier-card.featured { border-color: var(--orange); }
+    .tier-card .tier-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-mid); margin-bottom: 8px; }
+    .tier-card .tier-price { font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: var(--orange-text); line-height: 1; margin-bottom: 4px; }
+    .tier-card .tier-name { font-family: Georgia, serif; font-size: 19px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .tier-card .tier-meta { font-size: 13px; color: var(--gray-mid); margin-bottom: 14px; }
+    .tier-card ul { list-style: none; padding: 0; margin: 0; }
+    .tier-card li { padding: 5px 0 5px 22px; position: relative; font-size: 14px; color: var(--navy); line-height: 1.5; }
+    .tier-card li::before { content: '\2713'; position: absolute; left: 0; top: 5px; color: var(--orange); font-weight: 700; }
+
+    ul.checklist { list-style: none; padding: 0; margin: 0 0 24px 0; }
+    ul.checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; color: var(--navy); line-height: 1.6; }
+    ul.checklist li::before { content: '\2713'; position: absolute; left: 0; top: 8px; color: var(--orange); font-weight: 700; }
+
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--gray-light); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--navy); font-size: 17px; margin-bottom: 8px; }
+    .faq-a { font-size: 16px; color: var(--navy); margin-bottom: 0; }
+
+    .end-cta { background: var(--navy); color: var(--white); padding: 64px 32px; text-align: center; }
+    .end-cta h2 { font-family: Georgia, serif; font-size: 28px; color: var(--white); margin-bottom: 14px; }
+    .end-cta p { color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto 28px; font-size: 16px; }
+    .btn-orange { display: inline-block; background: var(--orange-button); color: var(--white); padding: 14px 36px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; letter-spacing: 0.5px; transition: background 0.15s; }
+    .btn-orange:hover { background: var(--orange-light); }
+    .btn-ghost { display: inline-block; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 14px 28px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 15px; margin-left: 8px; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    .related { background: var(--cream); padding: 56px 32px; }
+    .related-inner { max-width: 1100px; margin: 0 auto; }
+    .related h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-mid); margin-bottom: 18px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .related-card { background: var(--white); border-radius: 8px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .related-card .name { font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .related-card .price { font-size: 13px; color: var(--orange-text); font-weight: 600; }
+    @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; color: rgba(248,246,241,0.55); line-height: 1.7; margin-top: 16px; max-width: 300px; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-light); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+    .footer-links a { font-size: 14px; color: rgba(248,246,241,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; font-size: 13px; color: rgba(248,246,241,0.65); flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+  </style>
+
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.wabashsystems.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.wabashsystems.com/services/" },
+      { "@type": "ListItem", "position": 3, "name": "Performance Audit + Fix Sprint", "item": "https://www.wabashsystems.com/services/performance-audit" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is the free audit actually free, or is it a sales pitch?", "acceptedAnswer": { "@type": "Answer", "text": "Actually free. You submit your URL, the audit runs through the same pipeline used for everything else, and the report lands in your inbox within 48 hours. No credit card, no follow-up call required. The math works because a small percentage of recipients eventually book a paid engagement, and the audit itself is the best filter for fit." } },
+      { "@type": "Question", "name": "Why does the fix sprint start at $8,000?", "acceptedAnswer": { "@type": "Answer", "text": "Because below $8,000 the engagement isn't deep enough to move revenue numbers. The fix sprint floor is set where the work is meaningful enough to be worth the client's attention. Stores under roughly $500K in annual revenue may not be a fit at that floor." } },
+      { "@type": "Question", "name": "Can I skip the fix sprint and go straight to the retainer?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. About a third of retainer clients skip the fix sprint entirely. The ladder is a default sequence, not a forced one. You can enter at any step that makes sense for your situation." } },
+      { "@type": "Question", "name": "What e-commerce platforms are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Primarily Shopify, BigCommerce, Magento (Adobe Commerce), and WooCommerce. Custom Node and PHP stacks plus headless setups with Next.js or Astro are also supported. The audit itself is platform-agnostic; fix-sprint compatibility depends on platform." } },
+      { "@type": "Question", "name": "Does this conflict with my existing developer?", "acceptedAnswer": { "@type": "Answer", "text": "Most existing developers are fine with the audit. About half of recipients forward the report to their internal dev and get the fixes done in-house. Clients who hire externally for the fix sprint usually do so because the issues are outside their dev's specialty or because their dev's plate is already full." } },
+      { "@type": "Question", "name": "Is there a contract for the monthly retainer?", "acceptedAnswer": { "@type": "Answer", "text": "No. The retainer is month-to-month with 60 days notice either direction. No exit fees, no penalties." } },
+      { "@type": "Question", "name": "How quickly will I see results?", "acceptedAnswer": { "@type": "Answer", "text": "Fix sprint results are usually visible within 30 days of go-live. Core Web Vitals improvements show in CrUX field data after 4 to 6 weeks. Conversion rate improvements depend on traffic volume. SEO and AEO improvements compound over 3 to 6 months." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<a href="#main" class="skip-nav">Skip to main content</a>
+
+<div class="announcement-banner" role="region" aria-label="Site announcement">
+  <span aria-hidden="true">&#128293;</span> Flagship offering: <a href="/services/performance-audit" style="color:var(--orange-light); text-decoration:underline;">Free e-commerce audit</a><span class="thin">&mdash; 24 to 48 hour turnaround, no obligation</span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Wabash Systems home">
+    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
+      <clipPath id="navClipPA"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#1a4a6e" stroke-width="28" stroke-linecap="round" clip-path="url(#navClipPA)"/>
+      <path d="M0 140 Q40 80 80 120 Q120 160 160 105 Q200 50 240 100 Q280 145 320 115 Q360 85 400 105" fill="none" stroke="#c4622d" stroke-width="3.5" stroke-linecap="round" clip-path="url(#navClipPA)"/>
+      <rect x="0" y="155" width="400" height="85" fill="#0d1a2a" opacity="0.85" clip-path="url(#navClipPA)"/>
+      <text x="200" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="4" fill="#f8f6f1">WABASH</text>
+      <text x="200" y="222" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="400" letter-spacing="8" fill="#c4622d">SYSTEMS</text>
+    </svg>
+    <div class="nav-brand" aria-hidden="true">
+      <span class="nav-brand-top">WABASH</span>
+      <span class="nav-brand-sub">Systems</span>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#services" class="is-active" aria-current="page">Services</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/case-studies/">Case Studies</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+  </ul>
+</nav>
+
+<header class="svc-hero">
+  <div class="svc-hero-inner">
+    <div class="breadcrumb"><a href="/">Wabash Systems</a> &nbsp;/&nbsp; <a href="/services/">Services</a> &nbsp;/&nbsp; Performance Audit + Fix Sprint</div>
+    <div class="svc-eyebrow">Flagship Offering</div>
+    <h1>E-Commerce Performance Audit + Fix Sprint</h1>
+    <p class="lede">
+      Four steps. Free audit, $2,500 deep audit plus call, $8,000-plus
+      fix sprint, $5,000 per month performance retainer. Each step is
+      independent &mdash; no commitment to the next. Start where it makes
+      sense. Most clients enter at step one and decide step two from there.
+    </p>
+  </div>
+</header>
+
+<section class="quick-facts">
+  <div class="quick-facts-inner">
+    <div class="qf-cell">
+      <div class="label">Starting Price</div>
+      <div class="value">$0 (free audit) &mdash; no card required</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">First Step Turnaround</div>
+      <div class="value">24 to 48 hours</div>
+    </div>
+    <div class="qf-cell">
+      <div class="label">Best For</div>
+      <div class="value">Shopify / BigCommerce / Magento $500K&ndash;$10M</div>
+    </div>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Why This Exists</span>
+      <h2>Most e-commerce stores leak money in the same five places</h2>
+      <p>
+        After 25 years working on online stores, the pattern is boring and
+        consistent. Page weight kills mobile conversion. Lazy-loaded images
+        without dimensions trash LCP. Third-party scripts that the marketing
+        team installed two years ago and nobody owns blow up TBT. Checkout
+        funnels lose 40 percent of mobile buyers between cart and payment.
+        Schema is half-implemented, search visibility is half what it should
+        be. Owners know something is wrong but their current developer either
+        shrugs at it or quotes a $50K rebuild.
+      </p>
+      <p>
+        The free audit finds the specific leaks on your specific store, with
+        numbers attached &mdash; not "your site is slow" but "your homepage
+        LCP is 4.2 seconds, you're losing roughly 18 percent of mobile
+        visitors before content paints, here's the four files causing it."
+        That report is yours to keep whether you hire me or not. Most owners
+        forward it to their existing dev and get fixes for free. Some look
+        at it and decide they want the person who wrote it to handle the
+        fixes. Either outcome is fine.
+      </p>
+      <p>
+        The ladder above is built to remove the awkward "what does it cost"
+        conversation. Free is free. $2,500 is $2,500. The fix sprint floor
+        is $8,000 because below that, nobody's site has enough leverage to
+        justify the engagement. The retainer floor is $5,000 per month
+        because at less than that, I can't do the depth of work that
+        actually moves your numbers.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">The Four Tiers</span>
+      <h2>Pricing</h2>
+      <p>
+        Each step stands alone. Take the free audit and never come back &mdash;
+        that's fine, you still got something useful. Or work through all four
+        and end up on the retainer. No tier is gated by the one before it,
+        but most clients walk the ladder in order because each step builds
+        on the last.
+      </p>
+
+      <div class="tier-grid">
+
+        <div class="tier-card featured">
+          <div class="tier-num">Step 1</div>
+          <div class="tier-price">$0</div>
+          <div class="tier-name">Free Performance Audit</div>
+          <div class="tier-meta">24 to 48 hour turnaround &middot; emailed PDF report</div>
+          <ul>
+            <li>Core Web Vitals: LCP, INP, CLS measured on real traffic via CrUX</li>
+            <li>Lighthouse synthetic baseline: performance, SEO, accessibility, best practices</li>
+            <li>Mobile vs desktop split with specific failing pages flagged</li>
+            <li>Schema coverage audit (which page types are missing JSON-LD)</li>
+            <li>Top 5 specific issues found, ranked by estimated revenue impact</li>
+            <li>Honest opinion on whether you have a real problem worth fixing</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-num">Step 2</div>
+          <div class="tier-price">$2,500</div>
+          <div class="tier-name">Deep Audit + Strategy Call</div>
+          <div class="tier-meta">90 minute call &middot; written action plan</div>
+          <ul>
+            <li>Everything in the free audit, expanded to a written 15-to-25 page report</li>
+            <li>Manual checkout walkthrough with conversion blockers identified</li>
+            <li>Competitive teardown vs your top 3 competitors (performance + UX)</li>
+            <li>Prioritized 90-day fix roadmap with effort estimates</li>
+            <li>90 minute strategy call to walk through findings live</li>
+            <li>This fee credits against the fix sprint if you book one within 30 days</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-num">Step 3</div>
+          <div class="tier-price">$8,000+</div>
+          <div class="tier-name">Fix Sprint</div>
+          <div class="tier-meta">2 to 3 weeks &middot; fixed scope, fixed price</div>
+          <ul>
+            <li>I ship the fixes the audit identified, ranked by leverage</li>
+            <li>Typical scope: Core Web Vitals, schema, checkout, 1 to 2 conversion blockers</li>
+            <li>Fixed scope, fixed price &mdash; quoted from your $2,500 audit findings</li>
+            <li>Staging environment, your QA, before/after metrics on close-out</li>
+            <li>Ranges $8K (single platform, scoped) to $15K (multi-platform, complex)</li>
+            <li>Most fixes ship to production before the engagement ends</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-num">Step 4</div>
+          <div class="tier-price">$5,000<span style="font-size:18px;font-family:'Inter',sans-serif;color:var(--gray-mid);">/mo</span></div>
+          <div class="tier-name">Performance Retainer</div>
+          <div class="tier-meta">Ongoing &middot; month to month, 60 day notice</div>
+          <ul>
+            <li>Monthly performance + conversion review with written report</li>
+            <li>~20 hours per month of implementation work on agreed priorities</li>
+            <li>Direct Slack or email access for the operational stuff in between</li>
+            <li>Quarterly competitive teardown and roadmap refresh</li>
+            <li>Schema + AEO maintenance as platforms and AI engines evolve</li>
+            <li>First-look on emergent issues (Core Update impact, etc.) without rushing</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">What Gets Measured</span>
+      <h2>The audit looks at seven things, not just speed</h2>
+      <p>
+        "Site speed" is what most agencies sell because Lighthouse scores
+        are easy to screenshot. The actual leaks are usually elsewhere.
+        Here's what the real audit covers:
+      </p>
+      <ul class="checklist">
+        <li><strong>Core Web Vitals on real traffic.</strong> CrUX field data, not lab synthetic. LCP, INP, CLS measured against actual visitors over the last 28 days. Synthetic Lighthouse alongside for backstop.</li>
+        <li><strong>Mobile conversion friction.</strong> Manual walkthrough of cart, address, payment, confirmation. Where are buyers actually dropping out? Touch targets, form field count, payment options visible above fold.</li>
+        <li><strong>Checkout funnel completeness.</strong> Apple Pay / Google Pay / Shop Pay / Express checkout present? Guest checkout available? Address autocomplete working? Order summary collapsing on mobile?</li>
+        <li><strong>Schema and AEO posture.</strong> JSON-LD coverage by page type. Product, BreadcrumbList, Organization, FAQPage. AI bot allowlist status at the CDN. Where are AI engines currently citing you (or not)?</li>
+        <li><strong>SEO health.</strong> Indexable page count vs Google Search Console actual index. Sitemap accuracy. Canonical tag errors. Title and description coverage on top revenue pages.</li>
+        <li><strong>Third-party script bloat.</strong> Every tag, what loads it, what it costs in render time. Most stores have 8 to 15 scripts they haven't audited since launch.</li>
+        <li><strong>Hosting and platform fit.</strong> CDN configuration. Image CDN settings. Mobile network simulation. Whether your platform is the actual bottleneck or just the convenient scapegoat.</li>
+      </ul>
+      <p>
+        You get the full output of the free audit by email within 48 hours
+        of submitting your URL. No call required. No upsell pitch &mdash;
+        if there's nothing worth fixing, the report will say so.
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section alt">
+    <div class="svc-inner">
+      <span class="label-row">How It Works</span>
+      <h2>The Process</h2>
+      <p>
+        The whole point of the ladder is that you control where to stop.
+        Most engagements move at this pace:
+      </p>
+      <ul class="checklist">
+        <li><strong>Day 0 &mdash; Request the free audit.</strong> Send your URL via the contact form or book a call. No credit card, no account, no friction. I queue your audit for the cron.</li>
+        <li><strong>Day 1 to 2 &mdash; Free audit lands in your inbox.</strong> PDF report with the top 5 issues found, real-traffic Core Web Vitals data, and an honest assessment. Read it on your own time. No follow-up nag.</li>
+        <li><strong>Day 3 to 14 &mdash; If the audit hits, book the strategy call.</strong> $2,500. 90 minutes live. I walk through findings, you ask questions, we agree on whether a fix sprint makes sense. You leave with the written 90-day roadmap regardless.</li>
+        <li><strong>Day 14 to 35 &mdash; Fix sprint, if scoped.</strong> 2 to 3 week engagement. Fixed scope, fixed price (quoted from the audit). I ship to staging, you QA, we move to production. Before/after metrics on close-out.</li>
+        <li><strong>Day 35-plus &mdash; Retainer, if it makes sense.</strong> Month to month, 60 day notice either direction. Most clients land here within 60 days of the first audit.</li>
+      </ul>
+      <p>
+        The whole ladder is engineered so you can exit at any rung without
+        an awkward conversation. The free audit is genuinely free. The
+        $2,500 audit fee credits against the fix sprint. The fix sprint
+        is fixed-scope, fixed-price. The retainer is month-to-month. No
+        12-month contracts. No exit fees. No "but you need to talk to
+        someone in sales."
+      </p>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-inner">
+      <span class="label-row">Common Questions</span>
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Is the free audit actually free, or is it a sales pitch?</div>
+        <p class="faq-a">Actually free. You submit your URL, I run the audit through the same pipeline I use for everything else, and the report lands in your inbox within 48 hours. No credit card. No follow-up call required. If you read it and never come back, that's fine. I'm not paying for the audit itself &mdash; it's a small marginal cost on infrastructure I'm already running. The math works because a small percentage of audit recipients eventually book a paid engagement, and the audit itself is the most accurate filter for whether someone is a fit.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Why does the fix sprint start at $8,000 instead of $1,000?</div>
+        <p class="faq-a">Because below $8,000, the engagement isn't deep enough to move your revenue numbers. A $1,500 "tune-up" that swaps out three plugins doesn't change anything you can measure. The fix sprint floor is set where the work is meaningful enough to be worth your attention and mine. If your store is too small for that floor to make sense (less than roughly $500K in annual revenue), the audit may still be useful, but I'll tell you upfront that I'm probably not the right fit for the paid work.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What if I don't need step three? Can I jump straight to the retainer?</div>
+        <p class="faq-a">Yes. About a third of retainer clients skip the fix sprint entirely &mdash; they took the audit, agreed with the findings, and want ongoing optimization rather than a one-shot intervention. Other clients run a fix sprint, see results, then move to retainer for compounding work. Both paths work. The ladder is a default sequence, not a forced one.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What platforms do you support?</div>
+        <p class="faq-a">Primarily Shopify, BigCommerce, Magento (Adobe Commerce), and WooCommerce. I've also worked on custom Node and PHP stacks and headless setups with Next.js or Astro fronting a headless commerce backend. If you're on a platform not in that list, send the URL anyway &mdash; the audit work itself is platform-agnostic, only the fix sprint depends on platform fit.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Will my existing developer be okay with this?</div>
+        <p class="faq-a">Most are. The free audit is a tool they can use directly &mdash; I'm not trying to replace them, I'm giving them ammunition. About half of audit recipients forward the report to their existing dev and get the fixes done in-house. That's a fine outcome. The clients who hire me for the fix sprint usually do so because the issues identified are outside their dev's specialty (Core Web Vitals optimization, schema architecture, AEO) or because their dev's plate is already full.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you require a contract for the retainer?</div>
+        <p class="faq-a">No. The retainer is month-to-month with 60 days notice either direction. That's it. If you stop seeing value, give 60 days notice and we wrap up cleanly. No exit fees, no penalties, no "we'll need to talk to retention." Same applies in reverse &mdash; if I can't deliver value at the agreed scope, I'll tell you and we wind down.</p>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How quickly will I see results?</div>
+        <p class="faq-a">Fix sprint results are usually visible within 30 days of go-live. Core Web Vitals improvements show up in CrUX field data after 4 to 6 weeks (Google's rolling 28-day average smooths things). Conversion rate improvements depend on traffic volume &mdash; high-traffic stores see signal in 7 to 14 days, lower-traffic stores need 30 to 60 days for statistical confidence. SEO and AEO improvements compound over 3 to 6 months. Anyone promising overnight gains is selling you something else.</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<section class="end-cta">
+  <h2>Want your free audit?</h2>
+  <p>
+    Send your URL. You'll have a PDF report in 24 to 48 hours. No card,
+    no account, no sales call required. If we're a fit you'll know from
+    the report. If we're not, you keep the report.
+  </p>
+  <a href="/booking" class="btn-orange">Request Free Audit</a>
+  <a href="/#contact" class="btn-ghost">Or send a message</a>
+</section>
+
+<section class="related">
+  <div class="related-inner">
+    <h3>Other Services</h3>
+    <div class="related-grid">
+      <a href="/services/aeo" class="related-card">
+        <div class="name">AEO &mdash; AI Search</div>
+        <div class="price">From $1,500</div>
+      </a>
+      <a href="/services/platform-migration" class="related-card">
+        <div class="name">Platform Migration</div>
+        <div class="price">From $8,000</div>
+      </a>
+      <a href="/services/seo-management" class="related-card">
+        <div class="name">SEO Management</div>
+        <div class="price">From $500/mo</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-brand" aria-hidden="true">
+        <span class="nav-brand-top" style="font-size:20px;">WABASH</span>
+        <span class="nav-brand-sub">Systems</span>
+      </div>
+      <p>A boutique e-commerce consulting practice helping small businesses fix the technical leaks that quietly cost them sales. Based in Crawford County, Illinois &mdash; serving clients remotely nationwide.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/services/performance-audit">Performance Audit</a></li>
+        <li><a href="/services/aeo">AEO &mdash; AI Search</a></li>
+        <li><a href="/services/store-setup">Store Setup</a></li>
+        <li><a href="/services/platform-migration">Platform Migration</a></li>
+        <li><a href="/services/seo-management">SEO Management</a></li>
+        <li><a href="/services/monthly-management">Monthly Management</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Locations</div>
+      <ul class="footer-links">
+        <li><a href="/locations/robinson-il">Robinson, IL</a></li>
+        <li><a href="/locations/lawrenceville-il">Lawrenceville, IL</a></li>
+        <li><a href="/locations/vincennes-in">Vincennes, IN</a></li>
+        <li><a href="/locations/terre-haute-in">Terre Haute, IN</a></li>
+        <li><a href="/locations/">All locations &rarr;</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="/about">About</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/booking">Free Consultation</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Wabash Systems. All rights reserved.</div>
+    <div><a href="/sitemap.xml" style="color:rgba(248,246,241,0.6); text-decoration:none;">Sitemap</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
