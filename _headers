@@ -72,3 +72,10 @@
 /sitemap.xml
   Cache-Control: public, max-age=300
   Content-Type: application/xml; charset=utf-8
+
+# Search index -- regenerated each deploy, so a 1-hour browser cache is safe
+# (and the JSON is small enough that the Workers KV edge cache eats most hits).
+/search-index.json
+  Cache-Control: public, max-age=3600, s-maxage=86400
+  Content-Type: application/json; charset=utf-8
+  X-Robots-Tag: noindex
