@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -115,10 +115,13 @@
           document.head.appendChild(s);
         });
       }
-      ["scroll", "mousedown", "keydown", "touchstart"].forEach(function (ev) {
-        window.addEventListener(ev, loadAnalytics, { once: true, passive: true });
-      });
-      setTimeout(loadAnalytics, 3500);
+      // Load when browser is idle -- never blocks user interactions.
+      // Fall back to a 3.5s timer for browsers without requestIdleCallback (Safari < 17).
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadAnalytics, { timeout: 3500 });
+      } else {
+        setTimeout(loadAnalytics, 3500);
+      }
     })();
   </script>
 
