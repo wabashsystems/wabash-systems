@@ -24,7 +24,7 @@
   // Replace POSTHOG_KEY with the project key from PostHog -> Settings ->
   // Project -> Project API key. POSTHOG_HOST is the data ingestion host;
   // 'us.i.posthog.com' for US Cloud, 'eu.i.posthog.com' for EU Cloud.
-  var POSTHOG_KEY  = 'phc_vwuPMe2j85zzjxNMyde4pQk9qnmHHGZ6hAA52cQcmwux';
+  var POSTHOG_KEY  = 'phc_Ah4sKN59kVm4K5qgi7xos4LeLZBXxKoTHxJ9YxV3pwXB';
   var POSTHOG_HOST = 'https://us.i.posthog.com';
 
   // Bail before loading anything if the key wasn't filled in. Keeps dev
