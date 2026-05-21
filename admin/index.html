@@ -936,7 +936,10 @@
 
 <div class="tabs">
   <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
-  <div class="tab" onclick="switchMainTab('leads')">🎯 Leads<span id="leadsTabBadge" class="leads-tab-badge" style="display:none;"></span></div>
+  <!-- Leads tab retired 2026-05-20: leads now live solely in the LAMP CRM
+       (admin.wabashsystems.com). KV billing_data.leads is emptied; the
+       panel-leads markup + render* fns below are dead code, removed in the
+       Phase-4 admin rebuild. -->
   <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
   <div class="tab" onclick="switchMainTab('analytics')">📊 Analytics</div>
 </div>
@@ -1505,7 +1508,7 @@ let currentSubTab  = 'time';
 function switchMainTab(tab) {
   currentMainTab = tab;
   document.querySelectorAll('.tab').forEach((t, i) => {
-    const ids = ['invoicing', 'leads', 'blog', 'analytics'];
+    const ids = ['invoicing', 'blog', 'analytics'];  // 'leads' tab retired
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
