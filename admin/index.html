@@ -934,14 +934,19 @@
 
 <div id="loadingOverlay" class="loading-overlay">Loading data&hellip;</div>
 
+<!-- 2026-05-20 consolidation: leads AND billing/invoicing/time/clients are
+     retired from this Cloudflare KV admin and now live solely in the LAMP CRM
+     (admin.wabashsystems.com), the single source of truth. This console is
+     content-only (Blog). The panel-invoicing / panel-leads markup + their JS
+     below are dead code, kept dormant; a future pass removes them. -->
 <div class="tabs">
-  <div class="tab active" onclick="switchMainTab('invoicing')">📋 Invoicing</div>
-  <!-- Leads tab retired 2026-05-20: leads now live solely in the LAMP CRM
-       (admin.wabashsystems.com). KV billing_data.leads is emptied; the
-       panel-leads markup + render* fns below are dead code, removed in the
-       Phase-4 admin rebuild. -->
-  <div class="tab" onclick="switchMainTab('blog')">✍ Blog</div>
+  <div class="tab active" onclick="switchMainTab('blog')">✍ Blog</div>
   <div class="tab" onclick="switchMainTab('analytics')">📊 Analytics</div>
+</div>
+<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 14px;margin:12px 0;color:#9a3412;font-size:14px;">
+  💳 Billing, invoicing, time tracking &amp; clients have moved to the
+  <a href="https://admin.wabashsystems.com/clients.php" style="color:#c4622d;font-weight:600;">main admin (admin.wabashsystems.com) ↗</a>.
+  This console is now content-only.
 </div>
 <div class="sub-tabs" id="subTabsInvoicing">
   <div class="sub-tab active" onclick="switchSubTab('time')">⏱ Time Log</div>
@@ -1508,7 +1513,7 @@ let currentSubTab  = 'time';
 function switchMainTab(tab) {
   currentMainTab = tab;
   document.querySelectorAll('.tab').forEach((t, i) => {
-    const ids = ['invoicing', 'blog', 'analytics'];  // 'leads' tab retired
+    const ids = ['blog', 'analytics'];  // 'leads' + 'invoicing' tabs retired -> LAMP
     t.classList.toggle('active', ids[i] === tab);
   });
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -2899,7 +2904,7 @@ function convertLeadToClient(id) {
   if (!lead) return;
 
   // Switch to Clients sub-tab and pre-fill the Add Client form
-  switchMainTab('invoicing');
+  switchMainTab('blog');
   switchSubTab('clients');
   setTimeout(() => {
     document.getElementById('cl-name').value    = lead.business || `${lead.fname || ''} ${lead.lname || ''}`.trim();
@@ -3079,7 +3084,7 @@ function updateTimerUI() {
 
 function jumpToActiveClient() {
   if (!STATE.activeSession) return;
-  switchMainTab('invoicing');
+  switchMainTab('blog');
   switchSubTab('clients');
   setTimeout(() => {
     const card = document.querySelector('.client-card.is-active-session');
@@ -3100,7 +3105,7 @@ function checkStaleSession() {
       'Click Cancel to leave it running.'
     );
     if (proceed) {
-      switchMainTab('invoicing');
+      switchMainTab('blog');
       switchSubTab('clients');
       setTimeout(() => openStopForm(session.clientId), 200);
     }
