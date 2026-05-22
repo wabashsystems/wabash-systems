@@ -1443,7 +1443,20 @@
 
 </main>
 
-<!-- newsletter form removed pending Klaviyo revisit -->
+<!-- NEWSLETTER SIGNUP -->
+<section class="newsletter-signup" aria-labelledby="newsletter-heading" style="background: var(--navy-mid); padding: 56px 5%; border-top: 1px solid rgba(255,255,255,0.06);">
+  <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+    <span class="section-label" style="color: var(--orange-light);">Newsletter</span>
+    <h2 id="newsletter-heading" style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--cream); margin: 8px 0 12px; line-height: 1.2;">Weekly Wabash Valley ecom tactics &mdash; practical, no fluff.</h2>
+    <p style="font-size: 15px; color: rgba(248,246,241,0.7); margin: 0 auto 24px; max-width: 560px; line-height: 1.6;">One short email a week. Real fixes from real e-commerce work. Unsubscribe anytime.</p>
+    <form id="newsletterForm" action="javascript:void(0)" onsubmit="event.preventDefault(); return false;" style="display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap;">
+      <label for="newsletterEmail" style="position:absolute;left:-9999px;">Email address</label>
+      <input type="email" id="newsletterEmail" name="email" placeholder="you@yourbusiness.com" required autocomplete="email" style="flex: 1 1 240px; padding: 14px 16px; border: 1.5px solid rgba(255,255,255,0.18); background: var(--navy); color: var(--cream); border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; min-height: 48px;" />
+      <button type="submit" id="newsletterSubmit" style="background: var(--orange); color: var(--white); padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: 'Inter', sans-serif; min-height: 48px; transition: background 0.2s;">Subscribe</button>
+    </form>
+    <div id="newsletterStatus" role="alert" aria-live="polite" style="display: none; margin-top: 16px; font-size: 15px; color: var(--cream); font-weight: 500;"></div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1590,6 +1603,42 @@
   mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeNav);
   });
+
+  /* ── NEWSLETTER FORM ── */
+  (function() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
+    const input = document.getElementById('newsletterEmail');
+    const btn = document.getElementById('newsletterSubmit');
+    const status = document.getElementById('newsletterStatus');
+    form.addEventListener('submit', async function() {
+      const email = input.value.trim();
+      if (!email) return;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing…';
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (data && data.ok) {
+          form.style.display = 'none';
+          status.style.display = 'block';
+          status.textContent = 'Thanks — check your inbox to confirm.';
+        } else {
+          throw new Error((data && data.error) || 'Unknown error');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.color = '#fecaca';
+        status.textContent = 'Something went wrong. Try again in a moment.';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    });
+  })();
 
 </script>
 </body>
