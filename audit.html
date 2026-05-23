@@ -335,13 +335,6 @@
             platform: data.platform || null
           });
         }
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'audit_run', {
-            url: url,
-            score: (data.score != null) ? data.score : '',
-            platform: data.platform || ''
-          });
-        }
 
         renderResults(data);
       } catch (err) {
@@ -447,13 +440,6 @@
             url: lastAudit.url,
             score: (lastAudit.score != null) ? lastAudit.score : null,
             platform: lastAudit.platform || null
-          });
-        }
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'audit_email_captured', {
-            url: lastAudit.url,
-            score: (lastAudit.score != null) ? lastAudit.score : '',
-            platform: lastAudit.platform || ''
           });
         }
       } catch (err) {

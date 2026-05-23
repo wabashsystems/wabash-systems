@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -75,7 +75,7 @@
   }
   </script>
 
-  <!-- Organization schema (separate node — used as @id reference by other pages) -->
+  <!-- Organization schema (separate node â€” used as @id reference by other pages) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -119,7 +119,7 @@
     "@id": "https://www.wabashsystems.com/#website",
     "url": "https://www.wabashsystems.com",
     "name": "Wabash Systems",
-    "description": "E-commerce consulting for small and mid-size businesses nationwide — store setup, SEO, Google Ads, and monthly management.",
+    "description": "E-commerce consulting for small and mid-size businesses nationwide â€” store setup, SEO, Google Ads, and monthly management.",
     "publisher": { "@id": "https://www.wabashsystems.com/#organization" },
     "inLanguage": "en-US"
   }
@@ -145,8 +145,7 @@
         var srcs = [
           "/js/sentry-init.js",
           "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
-          "/js/posthog-init.js",
-          "/js/ga-init.js"
+          "/js/posthog-init.js"
         ];
         srcs.forEach(function (src) {
           var s = document.createElement("script");
@@ -181,7 +180,7 @@
       --navy-light: #1a4a6e;
       --orange: #c4622d;
       --orange-light: #e8834d;
-      /* Darker orange for text on light backgrounds — passes 4.5:1 on white */
+      /* Darker orange for text on light backgrounds â€” passes 4.5:1 on white */
       --orange-text: #a04e22;
       --orange-button: #ae5320;
       --cream: #f8f6f1;
@@ -200,7 +199,7 @@
       overflow-x: hidden;
     }
 
-    /* ── SKIP NAV ── */
+    /* â”€â”€ SKIP NAV â”€â”€ */
     .skip-nav {
       position: absolute;
       left: -100%;
@@ -217,7 +216,7 @@
     }
     .skip-nav:focus { left: 0; }
 
-    /* ── GLOBAL FOCUS STYLES ── */
+    /* â”€â”€ GLOBAL FOCUS STYLES â”€â”€ */
     :focus-visible {
       outline: 3px solid var(--orange);
       outline-offset: 3px;
@@ -225,7 +224,7 @@
     }
     :focus:not(:focus-visible) { outline: none; }
 
-    /* ── ANNOUNCEMENT BANNER ── */
+    /* â”€â”€ ANNOUNCEMENT BANNER â”€â”€ */
     .announcement-banner {
       background: var(--navy-mid);
       color: var(--white);
@@ -245,7 +244,7 @@
       margin-left: 8px;
     }
 
-    /* ── NAV ── */
+    /* â”€â”€ NAV â”€â”€ */
     nav {
       position: fixed;
       top: 38px; left: 0; right: 0;
@@ -314,7 +313,7 @@
     }
     .nav-cta:hover { background: var(--orange-light) !important; }
 
-    /* ── HAMBURGER BUTTON ── */
+    /* â”€â”€ HAMBURGER BUTTON â”€â”€ */
     .nav-toggle {
       display: none;
       background: transparent;
@@ -342,7 +341,7 @@
     .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ── MOBILE DRAWER ── */
+    /* â”€â”€ MOBILE DRAWER â”€â”€ */
     .mobile-overlay {
       position: fixed;
       inset: 0;
@@ -422,7 +421,7 @@
     }
     .mobile-close:hover { color: var(--orange-light); }
 
-    /* ── HERO ── */
+    /* â”€â”€ HERO â”€â”€ */
     .hero {
       min-height: 100vh;
       background: var(--navy);
@@ -550,7 +549,7 @@
       margin-top: 4px;
     }
 
-    /* ── SECTIONS ── */
+    /* â”€â”€ SECTIONS â”€â”€ */
     section { padding: 96px 5%; }
 
     .section-label {
@@ -580,7 +579,7 @@
       line-height: 1.7;
     }
 
-    /* ── INTRO ── */
+    /* â”€â”€ INTRO â”€â”€ */
     .intro {
       background: var(--white);
       display: grid;
@@ -621,7 +620,7 @@
     .intro-card-text { font-size: 14px; font-weight: 500; color: var(--navy); }
     .intro-card-sub { font-size: 12px; color: var(--gray-mid); margin-top: 2px; }
 
-    /* ── SERVICES ── */
+    /* â”€â”€ SERVICES â”€â”€ */
     .services-section { background: var(--gray-light); }
     .services-inner { max-width: 1200px; margin: 0 auto; }
     .services-header { margin-bottom: 56px; }
@@ -681,7 +680,7 @@
       color: var(--orange-text);
     }
 
-    /* ── PROCESS ── */
+    /* â”€â”€ PROCESS â”€â”€ */
     .process-section { background: var(--white); }
     .process-inner { max-width: 1000px; margin: 0 auto; }
 
@@ -730,7 +729,7 @@
     .step-title { font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .step-desc { font-size: 15px; color: var(--gray-mid); line-height: 1.7; }
 
-    /* ── ABOUT ── */
+    /* â”€â”€ ABOUT â”€â”€ */
     .about-section { background: var(--navy); }
     .about-inner {
       max-width: 1100px;
@@ -758,7 +757,7 @@
     .highlight-title { font-weight: 600; color: var(--cream); margin-bottom: 6px; font-size: 15px; }
     .highlight-desc { font-size: 13px; color: rgba(248,246,241,0.65); line-height: 1.6; }
 
-    /* ── PORTFOLIO ── */
+    /* â”€â”€ PORTFOLIO â”€â”€ */
     .portfolio-section { background: var(--gray-light); }
     .portfolio-inner { max-width: 1100px; margin: 0 auto; }
     .portfolio-grid {
@@ -805,7 +804,7 @@
     .portfolio-link { font-size: 14px; font-weight: 600; color: var(--orange-text); text-decoration: none; }
     .portfolio-link:hover { color: var(--orange); }
 
-    /* ── CTA BAND ── */
+    /* â”€â”€ CTA BAND â”€â”€ */
     .cta-section {
       background: var(--orange);
       text-align: center;
@@ -835,7 +834,7 @@
     }
     .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); }
 
-    /* ── CONTACT ── */
+    /* â”€â”€ CONTACT â”€â”€ */
     .contact-section { background: var(--white); }
     .contact-inner {
       max-width: 1100px;
@@ -866,7 +865,7 @@
     .contact-detail-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 4px; }
     .contact-detail-value { font-size: 15px; font-weight: 500; color: var(--navy); }
 
-    /* ── FORM ── */
+    /* â”€â”€ FORM â”€â”€ */
     .contact-form { display: flex; flex-direction: column; gap: 20px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -910,7 +909,7 @@
     .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
     .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    /* ── FOOTER ── */
+    /* â”€â”€ FOOTER â”€â”€ */
     footer {
       background: var(--navy);
       padding: 56px 5% 32px;
@@ -951,8 +950,8 @@
       gap: 12px;
     }
 
-    /* ── RESPONSIVE ── */
-    /* Explicit desktop rule — nav-toggle must never show above 900px */
+    /* â”€â”€ RESPONSIVE â”€â”€ */
+    /* Explicit desktop rule â€” nav-toggle must never show above 900px */
     @media (min-width: 901px) {
       .nav-toggle { display: none !important; }
       .nav-links { display: flex !important; }
@@ -966,7 +965,7 @@
       .footer-top { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
-      /* Banner wraps to 2 lines on mobile — push nav down to clear it */
+      /* Banner wraps to 2 lines on mobile â€” push nav down to clear it */
       nav { top: 58px; }
       .announcement-banner { font-size: 11px; padding: 8px 16px; }
     }
@@ -1008,12 +1007,12 @@
 
 <!-- ANNOUNCEMENT BANNER -->
 <div class="announcement-banner" role="region" aria-label="Site announcement">
-  <span aria-hidden="true">🚀</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
+  <span aria-hidden="true">ðŸš€</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
 </div>
 
 <!-- PRIMARY NAV -->
 <nav aria-label="Main navigation">
-  <a href="#" class="nav-logo" aria-label="Wabash Systems — return to top">
+  <a href="#" class="nav-logo" aria-label="Wabash Systems â€” return to top">
     <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
       <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
@@ -1073,7 +1072,7 @@
   <div class="hero-content">
     <span class="hero-eyebrow">E-Commerce Consulting</span>
     <h1 id="hero-heading">Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
-    <p class="hero-sub">Wabash Systems helps small and mid-size businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
+    <p class="hero-sub">Wabash Systems helps small and mid-size businesses launch, grow, and manage profitable online stores â€” without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
     <p class="hero-proof">Built on <strong>20+ years</strong> of building and operating high-traffic e-commerce. Based in the Wabash Valley, working with clients across the United States. <strong>Built for Midwest e-commerce operators</strong> &mdash; practical, no fluff, no coastal-agency overhead.</p>
     <div class="hero-actions">
       <a href="/booking" class="btn-primary">Book a Free Consultation</a>
@@ -1111,34 +1110,34 @@
     <div>
       <span class="section-label">Why Wabash Systems</span>
       <h2 class="section-title" id="intro-heading">Your Business Deserves More Than a Brochure Website</h2>
-      <p class="section-sub">Most small businesses in our region have no online sales presence — or worse, a site that looks outdated and doesn't convert visitors into customers. We fix that with a hands-on, results-driven approach built on two decades of real e-commerce experience.</p>
+      <p class="section-sub">Most small businesses in our region have no online sales presence â€” or worse, a site that looks outdated and doesn't convert visitors into customers. We fix that with a hands-on, results-driven approach built on two decades of real e-commerce experience.</p>
       <a href="/booking" class="btn-primary" style="margin-top: 32px;">Book a Free Consultation</a>
     </div>
-    <!-- Decorative feature list — duplicates services section, hidden from screen readers -->
+    <!-- Decorative feature list â€” duplicates services section, hidden from screen readers -->
     <div class="intro-visual" aria-hidden="true">
       <div class="intro-card">
-        <div class="intro-card-icon"><span aria-hidden="true">🛒</span></div>
+        <div class="intro-card-icon"><span aria-hidden="true">ðŸ›’</span></div>
         <div>
           <div class="intro-card-text">Store Setup &amp; Launch</div>
           <div class="intro-card-sub">Shopify, BigCommerce, WooCommerce</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon"><span aria-hidden="true">📈</span></div>
+        <div class="intro-card-icon"><span aria-hidden="true">ðŸ“ˆ</span></div>
         <div>
           <div class="intro-card-text">SEO &amp; Google Ads</div>
           <div class="intro-card-sub">Rank higher, drive qualified traffic</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon"><span aria-hidden="true">🔄</span></div>
+        <div class="intro-card-icon"><span aria-hidden="true">ðŸ”„</span></div>
         <div>
           <div class="intro-card-text">Platform Migration</div>
           <div class="intro-card-sub">Move without losing data or rankings</div>
         </div>
       </div>
       <div class="intro-card">
-        <div class="intro-card-icon"><span aria-hidden="true">📊</span></div>
+        <div class="intro-card-icon"><span aria-hidden="true">ðŸ“Š</span></div>
         <div>
           <div class="intro-card-text">Ongoing Monthly Management</div>
           <div class="intro-card-sub">Your e-commerce department, outsourced</div>
@@ -1154,41 +1153,41 @@
     <div class="services-header">
       <span class="section-label">What We Do</span>
       <h2 class="section-title" id="services-heading">Services Built for Real Business Growth</h2>
-      <p class="section-sub">Every service we offer is something we've done ourselves — not theory, not templates. Real e-commerce work with real results.</p>
+      <p class="section-sub">Every service we offer is something we've done ourselves â€” not theory, not templates. Real e-commerce work with real results.</p>
     </div>
     <div class="services-grid">
 
       <a class="service-card" href="/services/aeo" aria-label="Learn more about AEO AI Search Optimization" style="border: 2px solid var(--orange); position: relative;">
         <span style="position:absolute; top:-12px; right:16px; background:var(--orange); color:var(--white); padding:4px 12px; border-radius:999px; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;">New 2026</span>
-        <span class="service-icon" aria-hidden="true">🤖</span>
+        <span class="service-icon" aria-hidden="true">ðŸ¤–</span>
         <h3 class="service-title">AEO &mdash; AI Search Optimization</h3>
         <p class="service-desc">Get cited by ChatGPT, Google AI Overview, Perplexity, Claude, and Gemini when their users ask the questions you should be answering. Schema, content structure, AI crawler accessibility, author authority. The same playbook we just shipped on this site.</p>
         <div class="service-price">$1,500 audit &middot; from $500/mo ongoing</div>
       </a>
 
       <a class="service-card" href="/services/store-setup" aria-label="Learn more about Store Setup &amp; Launch">
-        <span class="service-icon" aria-hidden="true">🛒</span>
+        <span class="service-icon" aria-hidden="true">ðŸ›’</span>
         <h3 class="service-title">Store Setup &amp; Launch</h3>
-        <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce — product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
-        <div class="service-price">Starting at $1,500 — one-time</div>
+        <p class="service-desc">We build your online store from the ground up on Shopify, BigCommerce, or WooCommerce â€” product catalog, payment processing, shipping, and everything in between. Ready to sell from day one.</p>
+        <div class="service-price">Starting at $1,500 â€” one-time</div>
       </a>
 
       <a class="service-card" href="/services/platform-migration" aria-label="Learn more about Platform Migration">
-        <span class="service-icon" aria-hidden="true">🔄</span>
+        <span class="service-icon" aria-hidden="true">ðŸ”„</span>
         <h3 class="service-title">Platform Migration</h3>
-        <p class="service-desc">Outgrown your current platform? We migrate your store — products, customer data, order history, and SEO rankings — to a modern platform without downtime or data loss.</p>
+        <p class="service-desc">Outgrown your current platform? We migrate your store â€” products, customer data, order history, and SEO rankings â€” to a modern platform without downtime or data loss.</p>
         <div class="service-price">Custom quote based on catalog size</div>
       </a>
 
       <a class="service-card" href="/services/seo-management" aria-label="Learn more about SEO Management">
-        <span class="service-icon" aria-hidden="true">🔍</span>
+        <span class="service-icon" aria-hidden="true">ðŸ”</span>
         <h3 class="service-title">SEO Management</h3>
-        <p class="service-desc">We build organic traffic first — so your business isn't one paused ad campaign away from silence. On-page optimization, product descriptions, local SEO, and technical SEO, month after month. Over 20 years of doing this the right way.</p>
+        <p class="service-desc">We build organic traffic first â€” so your business isn't one paused ad campaign away from silence. On-page optimization, product descriptions, local SEO, and technical SEO, month after month. Over 20 years of doing this the right way.</p>
         <div class="service-price">From $500/month</div>
       </a>
 
       <a class="service-card" href="/services/monthly-management" aria-label="Learn more about Monthly Store Management">
-        <span class="service-icon" aria-hidden="true">📊</span>
+        <span class="service-icon" aria-hidden="true">ðŸ“Š</span>
         <h3 class="service-title">Monthly Store Management</h3>
         <p class="service-desc">Your outsourced e-commerce department. We handle product updates, promotions, analytics, and ongoing optimization so your store keeps growing without consuming your time.</p>
         <div class="service-price">From $750/month</div>
@@ -1206,27 +1205,27 @@
   <div class="process-inner">
     <span class="section-label">How It Works</span>
     <h2 class="section-title" id="process-heading">Simple. Transparent. No Surprises.</h2>
-    <p class="section-sub">We keep things straightforward — no jargon, no mystery invoices, no scope creep. Here's exactly what working with us looks like.</p>
+    <p class="section-sub">We keep things straightforward â€” no jargon, no mystery invoices, no scope creep. Here's exactly what working with us looks like.</p>
     <ol class="process-steps" aria-label="Our four-step process">
       <li class="process-step">
         <div class="step-number" aria-hidden="true">1</div>
         <div class="step-content">
           <h3 class="step-title">Free Discovery Call</h3>
-          <p class="step-desc">We start with a no-pressure conversation about your business, your goals, and where you are today. No sales pitch — just an honest assessment of what's possible and what it would take to get there.</p>
+          <p class="step-desc">We start with a no-pressure conversation about your business, your goals, and where you are today. No sales pitch â€” just an honest assessment of what's possible and what it would take to get there.</p>
         </div>
       </li>
       <li class="process-step">
         <div class="step-number" aria-hidden="true">2</div>
         <div class="step-content">
           <h3 class="step-title">Custom Proposal</h3>
-          <p class="step-desc">Based on our conversation, we put together a clear proposal — specific services, specific pricing, specific deliverables. You'll know exactly what you're getting before you sign anything.</p>
+          <p class="step-desc">Based on our conversation, we put together a clear proposal â€” specific services, specific pricing, specific deliverables. You'll know exactly what you're getting before you sign anything.</p>
         </div>
       </li>
       <li class="process-step">
         <div class="step-number" aria-hidden="true">3</div>
         <div class="step-content">
           <h3 class="step-title">Build &amp; Launch</h3>
-          <p class="step-desc">We get to work. You'll have a direct line to our team throughout the project — no account managers, no middlemen. Just the people doing the work keeping you updated.</p>
+          <p class="step-desc">We get to work. You'll have a direct line to our team throughout the project â€” no account managers, no middlemen. Just the people doing the work keeping you updated.</p>
         </div>
       </li>
       <li class="process-step">
@@ -1247,20 +1246,20 @@
       <span class="section-label">About Wabash Systems</span>
       <h2 class="section-title" id="about-heading">20+ Years in the Trenches. Pointed at Your Business.</h2>
       <div class="about-body">
-        <p>Wabash Systems was built on 20+ years of running e-commerce and IT operations at scale — not advising from the sidelines, but actually doing the work. Managing a $700–800K/month online store. Leading a solo platform migration from Magento to BigCommerce, and <strong>running that storefront every day for the last 16 years</strong>. Running SEO since before most small businesses had a website. Handling LTL freight logistics, ERP integrations, Google Ads, call center operations, and everything in between.</p>
-        <p>We've operated some of the most complex categories you can sell online — heavy freight, hundreds of variants, custom calculators, $2,000 shipping quotes. If we could build and run that profitably for two decades, we can help you sell just about anything.</p>
+        <p>Wabash Systems was built on 20+ years of running e-commerce and IT operations at scale â€” not advising from the sidelines, but actually doing the work. Managing a $700â€“800K/month online store. Leading a solo platform migration from Magento to BigCommerce, and <strong>running that storefront every day for the last 16 years</strong>. Running SEO since before most small businesses had a website. Handling LTL freight logistics, ERP integrations, Google Ads, call center operations, and everything in between.</p>
+        <p>We've operated some of the most complex categories you can sell online â€” heavy freight, hundreds of variants, custom calculators, $2,000 shipping quotes. If we could build and run that profitably for two decades, we can help you sell just about anything.</p>
         <p>Wabash Systems exists because small and mid-size businesses deserve the same caliber of e-commerce engineering that big retailers have had for years. Based in the Wabash Valley, we serve clients nationwide.</p>
         <p>When you work with Wabash Systems, you're working directly with our team. No account managers, no junior associates, no outsourced work. Just 20+ years of hard-won experience pointed at your business.</p>
       </div>
     </div>
     <div class="about-highlights">
       <div class="highlight-item">
-        <h3 class="highlight-title">$700–800K/Month in Managed Revenue</h3>
-        <p class="highlight-desc">20+ years running e-commerce at scale — not consulting about it. 16 years on a BigCommerce/Magento storefront. Shopify, WooCommerce, Google Ads, SEO, LTL freight, ERP integrations, and more.</p>
+        <h3 class="highlight-title">$700â€“800K/Month in Managed Revenue</h3>
+        <p class="highlight-desc">20+ years running e-commerce at scale â€” not consulting about it. 16 years on a BigCommerce/Magento storefront. Shopify, WooCommerce, Google Ads, SEO, LTL freight, ERP integrations, and more.</p>
       </div>
       <div class="highlight-item">
         <h3 class="highlight-title">20+ Years of Organic SEO</h3>
-        <p class="highlight-desc">We learned it the hard way — including what not to do. Now it's about doing it right: content, structure, descriptions, and titles that actually rank.</p>
+        <p class="highlight-desc">We learned it the hard way â€” including what not to do. Now it's about doing it right: content, structure, descriptions, and titles that actually rank.</p>
       </div>
       <div class="highlight-item">
         <h3 class="highlight-title">Boutique Consulting, Built to Last</h3>
@@ -1279,7 +1278,7 @@
   <div class="portfolio-inner">
     <span class="section-label">Portfolio</span>
     <h2 class="section-title" id="portfolio-heading">Work We're Proud Of</h2>
-    <p class="section-sub">We don't just consult — we build and run real stores. Here's a look at what we've done.</p>
+    <p class="section-sub">We don't just consult â€” we build and run real stores. Here's a look at what we've done.</p>
     <div class="portfolio-grid">
 
       <article class="portfolio-card">
@@ -1287,13 +1286,13 @@
           <svg class="portfolio-thumb-wave" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
             <path d="M0 100 Q150 40 300 80 Q450 120 600 60" fill="none" stroke="#c4622d" stroke-width="40"/>
           </svg>
-          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">🌿</span>
+          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">ðŸŒ¿</span>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-tag">E-Commerce Store</div>
           <h3 class="portfolio-name">WeatheredPorch.com</h3>
-          <p class="portfolio-desc">A drop-ship home décor and outdoor living store built from scratch — product curation, store setup, SEO foundation, and ongoing management. Our own live proof of concept.</p>
-          <a href="https://weatheredporch.com" target="_blank" rel="noopener noreferrer" class="portfolio-link">Visit Site <span aria-hidden="true">→</span></a>
+          <p class="portfolio-desc">A drop-ship home dÃ©cor and outdoor living store built from scratch â€” product curation, store setup, SEO foundation, and ongoing management. Our own live proof of concept.</p>
+          <a href="https://weatheredporch.com" target="_blank" rel="noopener noreferrer" class="portfolio-link">Visit Site <span aria-hidden="true">â†’</span></a>
         </div>
       </article>
 
@@ -1302,20 +1301,20 @@
           <svg class="portfolio-thumb-wave" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
             <path d="M0 100 Q150 40 300 80 Q450 120 600 60" fill="none" stroke="#c4622d" stroke-width="40" opacity="0.7"/>
           </svg>
-          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">⚙️</span>
+          <span aria-hidden="true" style="position:relative;z-index:1;font-size:56px;">âš™ï¸</span>
         </div>
         <div class="portfolio-info">
-          <div class="portfolio-tag">Lead-Gen Site · Industrial Services</div>
+          <div class="portfolio-tag">Lead-Gen Site Â· Industrial Services</div>
           <h3 class="portfolio-name">Titan Machine Service</h3>
-          <p class="portfolio-desc">A five-state lead-capture site for a Tulsa-based CNC service company — Astro static build, sub-second loads, urgency-segmented service request form, structured data for local SEO. Live and serving real dispatch traffic.</p>
-          <a href="/case-studies/titan-machine-service" class="portfolio-link">Read Case Study <span aria-hidden="true">→</span></a>
+          <p class="portfolio-desc">A five-state lead-capture site for a Tulsa-based CNC service company â€” Astro static build, sub-second loads, urgency-segmented service request form, structured data for local SEO. Live and serving real dispatch traffic.</p>
+          <a href="/case-studies/titan-machine-service" class="portfolio-link">Read Case Study <span aria-hidden="true">â†’</span></a>
         </div>
       </article>
 
     </div>
 
     <div style="text-align: center; margin-top: 36px;">
-      <a href="/case-studies/" class="portfolio-link" style="font-size: 15px;">See all case studies <span aria-hidden="true">→</span></a>
+      <a href="/case-studies/" class="portfolio-link" style="font-size: 15px;">See all case studies <span aria-hidden="true">â†’</span></a>
     </div>
   </div>
 </section>
@@ -1323,7 +1322,7 @@
 <!-- CTA BAND -->
 <section class="cta-section" aria-labelledby="cta-heading">
   <h2 class="section-title" id="cta-heading">Ready to Start Selling Online?</h2>
-  <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch — just an honest conversation about your business and what's possible.</p>
+  <p class="cta-sub">Book a free 30-minute consultation. No pressure, no pitch â€” just an honest conversation about your business and what's possible.</p>
   <a href="/booking" class="btn-white">Book Your Free Call</a>
 </section>
 
@@ -1335,7 +1334,7 @@
       <h2 class="section-title" id="contact-heading">Not Ready for a Call? Send a Message.</h2>
       <p class="section-sub">If a 30-minute call isn't your thing, drop a line below. We respond within one business day. Or <a href="/booking" style="color:var(--orange-text);font-weight:600;text-decoration:underline;text-underline-offset:3px;">book a call directly &rarr;</a></p>
       <div class="contact-detail">
-        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📧</span></div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">ðŸ“§</span></div>
         <div>
           <div class="contact-detail-label">Email</div>
           <div class="contact-detail-value">
@@ -1344,25 +1343,25 @@
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📍</span></div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">ðŸ“</span></div>
         <div>
           <div class="contact-detail-label">Service Area</div>
-          <div class="contact-detail-value">Robinson · Lawrenceville · Mt. Carmel · Olney · Bridgeport · Flora · Fairfield — and remote clients everywhere</div>
+          <div class="contact-detail-value">Robinson Â· Lawrenceville Â· Mt. Carmel Â· Olney Â· Bridgeport Â· Flora Â· Fairfield â€” and remote clients everywhere</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">⏱️</span></div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">â±ï¸</span></div>
         <div>
           <div class="contact-detail-label">Response Time</div>
           <div class="contact-detail-value">Within 1 business day</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">📅</span></div>
+        <div class="contact-detail-icon" aria-hidden="true"><span aria-hidden="true">ðŸ“…</span></div>
         <div>
           <div class="contact-detail-label">Schedule a Call</div>
           <div class="contact-detail-value">
-            <a href="/booking" style="color:var(--orange-text);font-weight:600;text-decoration:none;">Book a time →</a>
+            <a href="/booking" style="color:var(--orange-text);font-weight:600;text-decoration:none;">Book a time â†’</a>
           </div>
         </div>
       </div>
@@ -1398,7 +1397,7 @@
           <option>Google Ads Management</option>
           <option>Monthly Store Management</option>
           <option>Web Design &amp; Development</option>
-          <option>Not sure yet — just exploring</option>
+          <option>Not sure yet â€” just exploring</option>
         </select>
       </div>
       <div class="form-group">
@@ -1423,7 +1422,7 @@
         </div>
       </div>
       <div id="formStatus" role="alert" aria-live="polite" style="display:none; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;"></div>
-      <button type="submit" class="form-submit" id="formSubmit">Send Message <span aria-hidden="true">→</span></button>
+      <button type="submit" class="form-submit" id="formSubmit">Send Message <span aria-hidden="true">â†’</span></button>
     </form>
   </div>
 </section>
@@ -1480,20 +1479,20 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Wabash Systems LLC. All rights reserved.</span>
-    <span>Wabash Valley — Illinois &amp; Indiana · Remote E-Commerce Consulting</span>
+    <span>Â© 2026 Wabash Systems LLC. All rights reserved.</span>
+    <span>Wabash Valley â€” Illinois &amp; Indiana Â· Remote E-Commerce Consulting</span>
   </div>
 </footer>
 
 <script>
-  /* ── CONTACT FORM ── */
+  /* â”€â”€ CONTACT FORM â”€â”€ */
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('formSubmit');
     const status = document.getElementById('formStatus');
 
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = 'Sendingâ€¦';
     status.style.display = 'none';
 
     const payload = {
@@ -1533,13 +1532,6 @@
             service: payload.service || null
           });
         }
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'contact_submitted', {
-            source: 'contact_form',
-            business: payload.business || '',
-            service: payload.service || ''
-          });
-        }
 
         document.getElementById('contactForm').reset();
       } else {
@@ -1557,13 +1549,13 @@
     }
   });
 
-  /* ── SMS OPT-IN TOGGLE ── */
+  /* â”€â”€ SMS OPT-IN TOGGLE â”€â”€ */
   document.getElementById('smsOptIn').addEventListener('change', function() {
     document.getElementById('smsPhoneWrap').style.display = this.checked ? 'block' : 'none';
     document.getElementById('phone').required = this.checked;
   });
 
-  /* ── MOBILE NAV ── */
+  /* â”€â”€ MOBILE NAV â”€â”€ */
   const toggle    = document.getElementById('navToggle');
   const mobileNav = document.getElementById('mobileNav');
   const overlay   = document.getElementById('mobileOverlay');
@@ -1610,7 +1602,7 @@
     link.addEventListener('click', closeNav);
   });
 
-  /* ── NEWSLETTER FORM ── */
+  /* â”€â”€ NEWSLETTER FORM â”€â”€ */
   (function() {
     const form = document.getElementById('newsletterForm');
     if (!form) return;
@@ -1621,7 +1613,7 @@
       const email = input.value.trim();
       if (!email) return;
       btn.disabled = true;
-      btn.textContent = 'Subscribing…';
+      btn.textContent = 'Subscribingâ€¦';
       try {
         const res = await fetch('/api/newsletter', {
           method: 'POST',
@@ -1632,14 +1624,11 @@
         if (data && data.ok) {
           form.style.display = 'none';
           status.style.display = 'block';
-          status.textContent = 'Thanks — check your inbox to confirm.';
+          status.textContent = 'Thanks â€” check your inbox to confirm.';
 
           if (typeof posthog !== 'undefined') {
             posthog.identify(email, { email: email });
             posthog.capture('newsletter_signup', { source: 'footer' });
-          }
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'newsletter_signup', { source: 'footer' });
           }
         } else {
           throw new Error((data && data.error) || 'Unknown error');

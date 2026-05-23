@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -107,7 +107,7 @@
         "name": "Can I cancel anytime?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying — and I'll tell you that before you do."
+          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying â€” and I'll tell you that before you do."
         }
       }
     ]
@@ -146,8 +146,7 @@
         var srcs = [
           "/js/sentry-init.js",
           "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
-          "/js/posthog-init.js",
-          "/js/ga-init.js"
+          "/js/posthog-init.js"
         ];
         srcs.forEach(function (src) {
           var s = document.createElement("script");
@@ -282,7 +281,7 @@
 <a href="#main" class="skip-nav">Skip to main content</a>
 
 <div class="announcement-banner" role="region" aria-label="Site announcement">
-  <span aria-hidden="true">🚀</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
+  <span aria-hidden="true">ðŸš€</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
 </div>
 
 <nav class="site-nav" aria-label="Main navigation">
@@ -523,8 +522,8 @@
         $('roiLow').textContent  = res ? fmt(res.monthly_low)  : '$X,XXX';
         $('roiHigh').textContent = res ? fmt(res.monthly_high) : '$X,XXX';
         $('roiAnnual').textContent = res
-          ? `12-month projected lift: ${fmt(res.annual_low)} – ${fmt(res.annual_high)}`
-          : '12-month projected lift: $XX,XXX – $XX,XXX';
+          ? `12-month projected lift: ${fmt(res.annual_low)} â€“ ${fmt(res.annual_high)}`
+          : '12-month projected lift: $XX,XXX â€“ $XX,XXX';
         $('roiLow').style.filter    = blur;
         $('roiHigh').style.filter   = blur;
         $('roiAnnual').style.filter = blur;
@@ -548,7 +547,7 @@
           return;
         }
         $('roiUnlockBtn').disabled = true;
-        $('roiUnlockBtn').textContent = 'Sending…';
+        $('roiUnlockBtn').textContent = 'Sendingâ€¦';
         try {
           const resp = await fetch('/api/roi_capture', {
             method: 'POST',
@@ -580,11 +579,8 @@
             posthog.identify(email, { email: email });
             posthog.capture('roi_calculator_unlock', roiProps);
           }
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'roi_calculator_unlock', roiProps);
-          }
         } catch (err) {
-          status.textContent = 'Something hiccupped — try again or just email andy.gray@wabashsystems.com.';
+          status.textContent = 'Something hiccupped â€” try again or just email andy.gray@wabashsystems.com.';
           $('roiUnlockBtn').disabled = false;
           $('roiUnlockBtn').textContent = 'Unlock projection';
         }

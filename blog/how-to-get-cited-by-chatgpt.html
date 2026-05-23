@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -76,8 +76,7 @@
         var srcs = [
           "/js/sentry-init.js",
           "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
-          "/js/posthog-init.js",
-          "/js/ga-init.js"
+          "/js/posthog-init.js"
         ];
         srcs.forEach(function (src) {
           var s = document.createElement("script");
@@ -345,7 +344,7 @@
 <a href="#main" class="skip-nav">Skip to main content</a>
 
 <div class="announcement-banner" role="region" aria-label="Site announcement">
-  <span aria-hidden="true">🚀</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
+  <span aria-hidden="true">ðŸš€</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
 </div>
 
 <nav class="site-nav" aria-label="Main navigation">
@@ -393,7 +392,7 @@
 <p>ChatGPT's search functionality is powered partly by Bing's index and partly by web crawls executed by OpenAI's own bots: GPTBot, OAI-SearchBot, and ChatGPT-User. When a user asks a question that triggers search mode, the system retrieves a small set of candidate pages, summarizes them, and surfaces 3-5 with citations.</p>
 <p>Three things determine whether your page is in that candidate set:</p>
 <p>First, whether OpenAI's bots can crawl your site at all. If your CDN blocks them (Cloudflare's default in 2026) or your robots.txt disallows them, you're invisible from the start.</p>
-<p>Second, whether your content matches the query intent semantically. ChatGPT doesn't keyword-match the way Google does — it does semantic similarity over chunked content. Pages that directly answer the question, in clean prose, win.</p>
+<p>Second, whether your content matches the query intent semantically. ChatGPT doesn't keyword-match the way Google does â€” it does semantic similarity over chunked content. Pages that directly answer the question, in clean prose, win.</p>
 <p>Third, whether your domain is considered trustworthy. ChatGPT factors in Bing's trust signals (which roughly mirror Google's), citation patterns from existing trusted sources, and on-page signals like author identity, publication date, and structured data.</p>
 <h2>Step 1: Make sure GPTBot, OAI-SearchBot, and ChatGPT-User can crawl</h2>
 <p>Check your robots.txt. It should explicitly allow these user agents, or at minimum not block them.</p>
@@ -428,10 +427,10 @@ Allow: /</code></pre>
 <p>Measure by manually testing queries you'd want to rank for. Open ChatGPT, ask the question, see if you get cited. Tools like Otterly, Profound, and HubSpot's AI Search Grader are emerging to automate this monitoring, but the simple manual test still works.</p>
 <h2>What doesn't work (don't waste time on)</h2>
 <p>Some things people try that don't move the needle:</p>
-<ul><li>Forcing keywords into content unnaturally — semantic extraction doesn't reward this</li><li>Buying backlinks — ChatGPT's trust signals are different from Google's link graph</li><li>Submitting your URL directly to OpenAI — there's no submission portal, the bots find you</li><li>Stuffing FAQPage schema with questions that don't appear visibly on the page (Google flags as spam, ChatGPT ignores)</li><li>Hiding text from users while showing it to bots (cloaking) — modern AI engines detect and penalize this</li></ul>
+<ul><li>Forcing keywords into content unnaturally â€” semantic extraction doesn't reward this</li><li>Buying backlinks â€” ChatGPT's trust signals are different from Google's link graph</li><li>Submitting your URL directly to OpenAI â€” there's no submission portal, the bots find you</li><li>Stuffing FAQPage schema with questions that don't appear visibly on the page (Google flags as spam, ChatGPT ignores)</li><li>Hiding text from users while showing it to bots (cloaking) â€” modern AI engines detect and penalize this</li></ul>
 <h2>The case for starting now</h2>
 <p>ChatGPT's user base is approaching 400 million weekly active users in 2026. A meaningful fraction of those users are doing product research, local recommendations, and how-to lookups that previously went to Google. Being cited in the AI answer is the new equivalent of ranking on page one of search.</p>
-<p>Most of your competitors haven't started this work. The window is open. We offer it as a stand-alone service — see <a href="/services/aeo">AEO</a> for pricing and process.</p>
+<p>Most of your competitors haven't started this work. The window is open. We offer it as a stand-alone service â€” see <a href="/services/aeo">AEO</a> for pricing and process.</p>
   </article>
 </main>
 
@@ -493,7 +492,7 @@ Allow: /</code></pre>
   </div>
 </footer>
 
-<!-- ── SCROLL BUTTONS ── -->
+<!-- â”€â”€ SCROLL BUTTONS â”€â”€ -->
 <style>
   .scroll-btns { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 90; }
   .scroll-btn { width: 44px; height: 44px; border-radius: 8px; background: var(--navy); color: var(--white); border: 2px solid rgba(255,255,255,0.15); font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: opacity 0.2s, transform 0.15s, background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; font-family: inherit; }
