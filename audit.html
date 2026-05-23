@@ -35,6 +35,46 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://js.sentry-cdn.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.sentry-cdn.com" />
+  <link rel="preconnect" href="https://us.i.posthog.com" crossorigin />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <meta name="theme-color" content="#0d1a2a" />
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Deferred third-party analytics: load after interaction or 3.5s timeout
+       so Sentry + PostHog + Clarity don't block the initial render or inflate TBT. -->
+  <script>
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var srcs = [
+          "/js/sentry-init.js",
+          "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
+          "/js/posthog-init.js"
+        ];
+        srcs.forEach(function (src) {
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
+          document.head.appendChild(s);
+        });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadAnalytics, { timeout: 3500 });
+      } else {
+        setTimeout(loadAnalytics, 3500);
+      }
+    })();
+  </script>
+
   <style>
     @font-face {
       font-family: 'Inter';
@@ -576,7 +616,7 @@
   </p>
 
   <form id="auditForm" class="audit-form" onsubmit="event.preventDefault(); runAudit(); return false;">
-    <input type="url" id="auditUrl" name="url" value="https://www." placeholder="https://yourstore.com" required autocomplete="url" aria-label="Your site URL" onfocus="if(this.value==='https://www.'){const e=this.value.length;this.setSelectionRange(e,e);}" />
+    <input type="url" id="auditUrl" name="url" placeholder="https://yourstore.com" required autocomplete="url" aria-label="Your site URL" />
     <button type="submit" id="auditSubmit">Run free audit</button>
   </form>
   <div class="audit-form-hint">Takes 15&ndash;30 seconds. We don&rsquo;t store anything until you ask for the full report.</div>
@@ -610,11 +650,11 @@
     <div id="gateBlock">
       <div style="font-weight: 600; color: var(--navy); font-size: 17px;">Want the full report?</div>
       <div style="font-size: 14px; color: var(--gray3); margin-top: 4px;">
-        I&rsquo;ll send you the complete breakdown &mdash; every issue, severity-ranked, with fix recommendations. No spam, no follow-up sequence unless you ask.
+        We&rsquo;ll send you the complete breakdown &mdash; every issue, severity-ranked, with fix recommendations. No spam, no follow-up sequence unless you ask.
       </div>
       <form class="gate-row" onsubmit="event.preventDefault(); submitGate(); return false;">
         <input type="email" id="gateEmail" placeholder="you@yourbusiness.com" required autocomplete="email" />
-        <button type="submit" id="gateSubmit">Send me the full report</button>
+        <button type="submit" id="gateSubmit">Send us the full report</button>
       </form>
       <div id="gateStatus" role="alert" aria-live="polite" style="margin-top: 12px; font-size: 14px; color: var(--gray3); display: none;"></div>
     </div>
@@ -630,7 +670,7 @@
 <section class="end-cta">
   <h2>Want a human read on the audit?</h2>
   <p>
-    The free audit catches the obvious stuff. A 30-minute call with me catches the rest &mdash; the why behind the what, ordered by what would actually move revenue. No sales pitch.
+    The free audit catches the obvious stuff. A 30-minute call with us catches the rest &mdash; the why behind the what, ordered by what would actually move revenue. No sales pitch.
   </p>
   <a href="/booking" class="btn-orange">Book a Free Consultation</a>
   <a href="/pricing" class="btn-ghost">Or see pricing</a>
@@ -812,7 +852,7 @@
           status.style.color = '#b91c1c';
           status.textContent = 'Failed to submit. Try again, or email andy.gray@wabashsystems.com directly.';
           btn.disabled = false;
-          btn.textContent = 'Send me the full report';
+          btn.textContent = 'Send us the full report';
           return;
         }
         document.getElementById('gateBlock').style.display = 'none';
@@ -830,7 +870,7 @@
         status.style.color = '#b91c1c';
         status.textContent = 'Network hiccup. Try again.';
         btn.disabled = false;
-        btn.textContent = 'Send me the full report';
+        btn.textContent = 'Send us the full report';
       }
     };
   })();

@@ -22,6 +22,16 @@
 - [Google Ads Management](https://www.wabashsystems.com/services/google-ads) - Shopping, Performance Max, Search. Ad spend on your card, no markup. From $400/month.
 - [Monthly Store Management](https://www.wabashsystems.com/services/monthly-management) - Outsourced ops: products, conversion, content, integrations. From $750/month.
 - [Web Design & Development](https://www.wabashsystems.com/services/web-design) - Hand-coded custom websites that load fast and rank. From $800.
+- [Performance Audit](https://www.wabashsystems.com/services/performance-audit) - Flagship paid site audit with prioritized remediation plan. Covers AEO, SEO, Core Web Vitals, conversion blockers.
+
+## Free tools
+
+- [Free Site Audit](https://www.wabashsystems.com/audit) - Instant automated audit covering schema, AEO readiness, performance, and on-page SEO. No email required.
+
+## Company pages
+
+- [About Wabash Systems](https://www.wabashsystems.com/about) - Founder background, working approach, and the case for boutique e-commerce consulting.
+- [Pricing](https://www.wabashsystems.com/pricing) - Transparent pricing across every service. No "contact us for a quote."
 
 ## Geographic coverage
 
@@ -73,6 +83,16 @@ All prices are publicly listed on each service page. No "contact us for a quote"
 - Book a free consultation: https://www.wabashsystems.com/booking
 - Contact: https://www.wabashsystems.com/#contact
 - Sitemap: https://www.wabashsystems.com/sitemap.xml
+
+## Blog
+
+- [What is AEO (Answer Engine Optimization)?](https://www.wabashsystems.com/blog/what-is-aeo-answer-engine-optimization) - Primer on AEO: what changed, why it matters, and how to start optimizing for ChatGPT, Google AI Overview, Perplexity, and Claude.
+- [AEO vs SEO: What's Actually Different](https://www.wabashsystems.com/blog/aeo-vs-seo-whats-different) - Side-by-side breakdown of where AEO and SEO overlap, where they diverge, and which to invest in first.
+- [How to Get Cited by ChatGPT (Practical Guide)](https://www.wabashsystems.com/blog/how-to-get-cited-by-chatgpt) - Concrete playbook for becoming a source ChatGPT cites, with realistic timelines.
+- [Shopify vs BigCommerce for Small Businesses](https://www.wabashsystems.com/blog/shopify-vs-bigcommerce-small-business) - Honest comparison with real feature gaps, costs, and migration paths.
+- [What it actually costs to set up an online store in 2026](https://www.wabashsystems.com/blog/cost-to-set-up-online-store-wabash-valley) - Three realistic budget scenarios plus the hidden costs nobody warns you about.
+- [5 website fixes every small business should make](https://www.wabashsystems.com/blog/5-website-fixes-every-small-business-should-make) - Five high-impact fixes, each less than a day's work, most cost nothing.
+- [Why your Google Ads campaign isn't profitable](https://www.wabashsystems.com/blog/why-your-google-ads-campaign-isnt-profitable) - Five common reasons small-business Google Ads accounts lose money, and how to diagnose which one is killing yours.
 
 ## Booking and contact
 

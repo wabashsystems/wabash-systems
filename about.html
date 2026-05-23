@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -62,7 +62,7 @@
         "@id": "https://www.wabashsystems.com/#organization",
         "name": "Wabash Systems",
         "url": "https://www.wabashsystems.com",
-        "logo": "https://www.wabashsystems.com/brand-assets/wabash-logo.png",
+        "logo": "https://www.wabashsystems.com/brand-assets/wabash-logo-horizontal-1200x720.png",
         "email": "andy.gray@wabashsystems.com",
         "knowsAbout": [
           "E-commerce operations",
@@ -114,6 +114,8 @@
           if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
           document.head.appendChild(s);
         });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
       }
       // Load when browser is idle -- never blocks user interactions.
       // Fall back to a 3.5s timer for browsers without requestIdleCallback (Safari < 17).
@@ -482,9 +484,63 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* ── FOUNDER SECTION ── */
+    .founder-section {
+      padding: 64px 5%;
+      background: var(--cream);
+    }
+    .founder-content {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .founder-photo img {
+      width: 240px;
+      height: 240px;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+    }
+    .founder-text h2 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+    .founder-text h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-mid);
+      margin-bottom: 16px;
+    }
+    .founder-text .founder-lede {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: var(--navy);
+    }
+    .founder-text p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      color: var(--gray-mid);
+    }
+    .founder-text a {
+      color: var(--orange-text);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .founder-text a:hover { color: var(--orange); }
+    @media (max-width: 720px) {
+      .founder-content { grid-template-columns: 1fr; gap: 24px; }
+      .founder-photo img { width: 160px; height: 160px; margin: 0 auto; }
+    }
   </style>
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
 </head>
 <body>
 
@@ -634,6 +690,36 @@
         </div>
         <div class="cred-card-desc">UI/UX and conversion optimization are the part of this work we actually enjoy. The right layout, the right copy, the right CTA â€” these aren't decoration, they're revenue.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER BIO -->
+<section class="founder-section" id="founder" aria-labelledby="founder-heading">
+  <div class="founder-content">
+    <div class="founder-photo">
+      <!-- PHOTO TODO: upload to R2 via `wrangler r2 object put wabash-systems-assets/founder-andy-gray.jpg --file=<local-path>` then the URL below resolves. -->
+      <img src="https://assets.wabashsystems.com/founder-andy-gray.jpg"
+           alt="Andy Gray, founder of Wabash Systems"
+           width="240" height="240"
+           loading="lazy" />
+    </div>
+    <div class="founder-text">
+      <h2 id="founder-heading">About the founder</h2>
+      <h3>Andy Gray, Founder</h3>
+      <p class="founder-lede">
+        20+ years building and operating high-traffic e-commerce.
+        Based in the Wabash Valley, Illinois. Serving clients nationwide.
+      </p>
+      <p>
+        Andy started Wabash Systems to bring real e-commerce engineering &mdash;
+        not agency fluff &mdash; to small and mid-size businesses. The work is
+        principal-level, the engagement is direct, and the pricing is published.
+      </p>
+      <p>
+        Reach Andy directly: <a href="mailto:andy.gray@wabashsystems.com">andy.gray@wabashsystems.com</a>
+        or <a href="/booking">book a 30-minute call</a>.
+      </p>
     </div>
   </div>
 </section>

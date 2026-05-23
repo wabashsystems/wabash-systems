@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -99,7 +99,7 @@
         "name": "Do you take one-off projects?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, but selectively. The fix sprint at $8,000+ is a defined one-off. Platform migrations and store-setup engagements are also one-off by nature. Outside of those, I generally don't take small one-off work because the discovery and onboarding overhead eats most of the engagement. If you have a specific, scoped project, ask and I'll tell you straight whether it's a fit."
+          "text": "Yes, but selectively. The fix sprint at $8,000+ is a defined one-off. Platform migrations and store-setup engagements are also one-off by nature. Outside of those, we generally don't take small one-off work because the discovery and onboarding overhead eats most of the engagement. If you have a specific, scoped project, ask and we'll tell you straight whether it's a fit."
         }
       },
       {
@@ -107,7 +107,7 @@
         "name": "Can I cancel anytime?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying â€” and I'll tell you that before you do."
+          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying â€” and we'll tell you that before you do."
         }
       }
     ]
@@ -155,6 +155,8 @@
           if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
           document.head.appendChild(s);
         });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
       }
       if ('requestIdleCallback' in window) {
         requestIdleCallback(loadAnalytics, { timeout: 3500 });
@@ -363,6 +365,18 @@
       color: rgba(255,255,255,0.78);
       max-width: 720px;
       margin: 0 auto;
+    }
+    .pricing-atf-cta {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-atf-cta .atf-microcopy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.3px;
     }
     @media (max-width: 720px) {
       .svc-hero { padding: 48px 20px 64px; }
@@ -627,9 +641,6 @@
       .footer-top { grid-template-columns: 1fr; }
     }
   </style>
-
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
 </head>
 <body>
 
@@ -676,6 +687,10 @@
       with published pricing. No "contact us for pricing," no
       scope-shrouded ranges. Pick what fits.
     </p>
+    <div class="pricing-atf-cta">
+      <a href="/audit" class="btn-orange">Start with the Free Audit</a>
+      <span class="atf-microcopy">No card. No call. 30 seconds.</span>
+    </div>
   </div>
 </header>
 
@@ -687,7 +702,7 @@
       <div class="ladder-eyebrow">The Full Ladder &mdash; Free Audit Through Monthly Retainer</div>
       <h2>E-Commerce Performance Audit + Fix Sprint</h2>
       <p class="ladder-desc">
-        The work I do most. We start with a free technical audit of your
+        The work we do most. We start with a free technical audit of your
         store. If the gaps it surfaces are worth fixing, we book a paid
         strategy call. If the strategy lands, we run a 2 to 3 week fix
         sprint on the highest-leverage issues. If you want it ongoing,
@@ -960,12 +975,12 @@
 
       <div class="faq-item">
         <div class="faq-q">Do you take one-off projects?</div>
-        <p class="faq-a">Yes, but selectively. The fix sprint at $8,000+ is a defined one-off. Platform migrations and store-setup engagements are also one-off by nature. Outside of those, I generally don't take small one-off work because the discovery and onboarding overhead eats most of the engagement. If you have a specific, scoped project, ask and I'll tell you straight whether it's a fit.</p>
+        <p class="faq-a">Yes, but selectively. The fix sprint at $8,000+ is a defined one-off. Platform migrations and store-setup engagements are also one-off by nature. Outside of those, we generally don't take small one-off work because the discovery and onboarding overhead eats most of the engagement. If you have a specific, scoped project, ask and we'll tell you straight whether it's a fit.</p>
       </div>
 
       <div class="faq-item">
         <div class="faq-q">Can I cancel anytime?</div>
-        <p class="faq-a">Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying &mdash; and I'll tell you that before you do.</p>
+        <p class="faq-a">Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying &mdash; and we'll tell you that before you do.</p>
       </div>
 
     </div>
@@ -976,9 +991,9 @@
 <section class="end-cta">
   <h2>Not sure which fits?</h2>
   <p>
-    Free 30-minute consultation. Tell me what you're trying to do and
-    I'll point you to the right starting place &mdash; even if it's
-    something I don't offer myself.
+    Free 30-minute consultation. Tell us what you're trying to do and
+    we'll point you to the right starting place &mdash; even if it's
+    something we don't offer ourselves.
   </p>
   <a href="/booking" class="btn-orange">Book a Free Consultation</a>
   <a href="/#contact" class="btn-ghost">Or send a message</a>
