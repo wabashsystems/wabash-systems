@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Commerce Consulting | Wabash Systems</title>
-  <meta name="description" content="E-commerce consulting for SMBs nationwide — based in the Wabash Valley. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
+  <meta name="description" content="E-commerce consulting for Midwest-rooted SMBs and clients nationwide. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
   <link rel="canonical" href="https://www.wabashsystems.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.wabashsystems.com/" />
   <meta property="og:title" content="E-Commerce Consulting | Wabash Systems" />
-  <meta property="og:description" content="E-commerce consulting for SMBs nationwide — based in the Wabash Valley. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
+  <meta property="og:description" content="E-commerce consulting for Midwest-rooted SMBs and clients nationwide. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
   <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
   <meta property="og:site_name" content="Wabash Systems" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="E-Commerce Consulting | Wabash Systems" />
-  <meta name="twitter:description" content="E-commerce consulting for SMBs nationwide — based in the Wabash Valley. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
+  <meta name="twitter:description" content="E-commerce consulting for Midwest-rooted SMBs and clients nationwide. Store setup, SEO, Google Ads, AEO. Real pricing on every service." />
   <meta name="twitter:image" content="https://www.wabashsystems.com/og-image.png" />
 
   <!-- Local Business Schema -->
@@ -107,7 +107,7 @@
     "areaServed": {"@type": "Country", "name": "United States"},
     "image": "https://www.wabashsystems.com/favicon.svg",
     "description": "E-commerce consulting for small and mid-size businesses nationwide. Founded 2025 in Robinson, Illinois. Services include store setup, platform migration, SEO, Google Ads, web design, and monthly store management on Shopify, BigCommerce, and WooCommerce.",
-    "slogan": "E-commerce, built right the first time."
+    "slogan": "Midwest e-commerce consulting, nationwide service."
   }
   </script>
 
@@ -145,7 +145,8 @@
         var srcs = [
           "/js/sentry-init.js",
           "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
-          "/js/posthog-init.js"
+          "/js/posthog-init.js",
+          "/js/ga-init.js"
         ];
         srcs.forEach(function (src) {
           var s = document.createElement("script");
@@ -1073,7 +1074,7 @@
     <span class="hero-eyebrow">E-Commerce Consulting</span>
     <h1 id="hero-heading">Turn Your Small Business Into an <span>Online Revenue Machine</span></h1>
     <p class="hero-sub">Wabash Systems helps small and mid-size businesses launch, grow, and manage profitable online stores — without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
-    <p class="hero-proof">Built on <strong>20+ years</strong> of building and operating high-traffic e-commerce. Based in the Wabash Valley, working with clients across the United States.</p>
+    <p class="hero-proof">Built on <strong>20+ years</strong> of building and operating high-traffic e-commerce. Based in the Wabash Valley, working with clients across the United States. <strong>Built for Midwest e-commerce operators</strong> &mdash; practical, no fluff, no coastal-agency overhead.</p>
     <div class="hero-actions">
       <a href="/booking" class="btn-primary">Book a Free Consultation</a>
       <a href="#services" class="btn-secondary">See What We Do</a>
@@ -1521,6 +1522,25 @@
         status.style.color = '#166534';
         status.style.border = '1px solid #bbf7d0';
         status.textContent = "Message sent! We'll get back to you within one business day.";
+
+        // Post-success conversion events. Captured here (not in posthog-init's
+        // pre-submit listener) so they only fire on a confirmed API success.
+        if (typeof posthog !== 'undefined') {
+          posthog.identify(payload.email, { email: payload.email, name: (payload.fname + ' ' + payload.lname).trim() });
+          posthog.capture('contact_submitted', {
+            source: 'contact_form',
+            business: payload.business || null,
+            service: payload.service || null
+          });
+        }
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact_submitted', {
+            source: 'contact_form',
+            business: payload.business || '',
+            service: payload.service || ''
+          });
+        }
+
         document.getElementById('contactForm').reset();
       } else {
         throw new Error(data.error || 'Unknown error');
@@ -1613,6 +1633,14 @@
           form.style.display = 'none';
           status.style.display = 'block';
           status.textContent = 'Thanks — check your inbox to confirm.';
+
+          if (typeof posthog !== 'undefined') {
+            posthog.identify(email, { email: email });
+            posthog.capture('newsletter_signup', { source: 'footer' });
+          }
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup', { source: 'footer' });
+          }
         } else {
           throw new Error((data && data.error) || 'Unknown error');
         }
