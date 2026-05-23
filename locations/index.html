@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -50,6 +50,8 @@
           if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
           document.head.appendChild(s);
         });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
       }
       // Load when browser is idle -- never blocks user interactions.
       // Fall back to a 3.5s timer for browsers without requestIdleCallback (Safari < 17).
@@ -123,8 +125,6 @@
     @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
   </style>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
   
   <!-- BreadcrumbList schema (AEO + rich results) -->
   <script type="application/ld+json">
@@ -239,6 +239,36 @@
         <div class="city-desc">Largest market in this set. ISU + Rose-Hulman + Saint Mary-of-the-Woods. Sharper SEO competition, bigger payback.</div>
         <div class="city-link">See Terre Haute &rarr;</div>
       </a>
+      <a class="city-card" href="/locations/sullivan-in">
+        <div class="city-name">Sullivan</div>
+        <div class="city-county">Sullivan County, IN</div>
+        <div class="city-desc">County seat between Terre Haute and Vincennes. Tight Main Street retail core with a strong agricultural service base.</div>
+        <div class="city-link">See Sullivan &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/olney-il">
+        <div class="city-name">Olney</div>
+        <div class="city-county">Richland County, IL</div>
+        <div class="city-desc">Richland County seat known for the white squirrels, Holiday RV, and a steady downtown small-business community.</div>
+        <div class="city-link">See Olney &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/princeton-in">
+        <div class="city-name">Princeton</div>
+        <div class="city-county">Gibson County, IN</div>
+        <div class="city-desc">Toyota Indiana anchors the market. Downtown retail and service businesses sit alongside a strong manufacturing supply chain.</div>
+        <div class="city-link">See Princeton &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/washington-in">
+        <div class="city-name">Washington</div>
+        <div class="city-county">Daviess County, IN</div>
+        <div class="city-desc">Daviess County seat with a deep Amish-country trade area. Specialty retail and food businesses punch above their weight here.</div>
+        <div class="city-link">See Washington &rarr;</div>
+      </a>
+      <a class="city-card" href="/locations/linton-in">
+        <div class="city-name">Linton</div>
+        <div class="city-county">Greene County, IN</div>
+        <div class="city-desc">Small Greene County town with a Main Street retail core and an outsized Freedom Festival draw every June.</div>
+        <div class="city-link">See Linton &rarr;</div>
+      </a>
     </div>
 
     <div class="also-section">
@@ -251,14 +281,11 @@
         <span>Marshall, IL</span>
         <span>Bridgeport, IL</span>
         <span>Sumner, IL</span>
-        <span>Olney, IL</span>
         <span>Fairfield, IL</span>
         <span>Flora, IL</span>
         <span>Albion, IL</span>
         <span>Grayville, IL</span>
-        <span>Princeton, IN</span>
         <span>Bicknell, IN</span>
-        <span>Sullivan, IN</span>
         <span>Clinton, IN</span>
         <span>Brazil, IN</span>
         <span>Plus remote clients across the US</span>
@@ -269,7 +296,7 @@
 
 <section class="end-cta">
   <h2>Don&rsquo;t See Your Town?</h2>
-  <p>The five city pages above are dedicated landing pages with local context, but we serve businesses across the whole Wabash Valley and remote clients nationwide. Book a call and we&rsquo;ll talk about your specific situation.</p>
+  <p>The city pages above are dedicated landing pages with local context, but we serve businesses across the whole Wabash Valley and remote clients nationwide. Book a call and we&rsquo;ll talk about your specific situation.</p>
   <a href="/booking" class="btn-primary">Book a Free Consultation</a>
 </section>
 

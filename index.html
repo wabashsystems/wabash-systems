@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -27,8 +27,8 @@
     "name": "Wabash Systems",
     "url": "https://www.wabashsystems.com",
     "email": "info@wabashsystems.com",
-    "logo": "https://www.wabashsystems.com/favicon.svg",
-    "image": "https://www.wabashsystems.com/favicon.svg",
+    "logo": "https://www.wabashsystems.com/brand-assets/wabash-logo-horizontal-1200x720.png",
+    "image": "https://www.wabashsystems.com/brand-assets/wabash-logo-horizontal-1200x720.png",
     "description": "E-commerce consulting for small and mid-size businesses across the United States. Services include store setup, SEO management, Google Ads management, platform migration, and ongoing monthly store management.",
     "address": {
       "@type": "PostalAddress",
@@ -57,7 +57,12 @@
     ],
     "priceRange": "$$",
     "openingHours": "Mo-Fr 09:00-17:00",
-    "founder": { "@id": "https://www.wabashsystems.com/#organization" },
+    "founder": {
+      "@type": "Person",
+      "name": "Andy Gray",
+      "jobTitle": "Founder",
+      "url": "https://www.wabashsystems.com/about"
+    },
     "knowsAbout": [
       "Answer Engine Optimization (AEO)",
       "AI search optimization for ChatGPT, Google AI Overview, Perplexity, Claude",
@@ -86,9 +91,9 @@
     "url": "https://www.wabashsystems.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.wabashsystems.com/favicon.svg",
-      "width": 400,
-      "height": 240
+      "url": "https://www.wabashsystems.com/brand-assets/wabash-logo-horizontal-1200x720.png",
+      "width": 1200,
+      "height": 720
     },
     "email": "info@wabashsystems.com",
     "foundingDate": "2025",
@@ -96,7 +101,12 @@
       "@type": "Place",
       "name": "Robinson, Illinois"
     },
-    "founder": { "@id": "https://www.wabashsystems.com/#organization" },
+    "founder": {
+      "@type": "Person",
+      "name": "Andy Gray",
+      "jobTitle": "Founder",
+      "url": "https://www.wabashsystems.com/about"
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Robinson",
@@ -105,7 +115,7 @@
       "addressCountry": "US"
     },
     "areaServed": {"@type": "Country", "name": "United States"},
-    "image": "https://www.wabashsystems.com/favicon.svg",
+    "image": "https://www.wabashsystems.com/brand-assets/wabash-logo-horizontal-1200x720.png",
     "description": "E-commerce consulting for small and mid-size businesses nationwide. Founded 2025 in Robinson, Illinois. Services include store setup, platform migration, SEO, Google Ads, web design, and monthly store management on Shopify, BigCommerce, and WooCommerce.",
     "slogan": "Midwest e-commerce consulting, nationwide service."
   }
@@ -154,6 +164,8 @@
           if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
           document.head.appendChild(s);
         });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
       }
       // Load when browser is idle -- never blocks user interactions.
       // Fall back to a 3.5s timer for browsers without requestIdleCallback (Safari < 17).
@@ -757,6 +769,44 @@
     .highlight-title { font-weight: 600; color: var(--cream); margin-bottom: 6px; font-size: 15px; }
     .highlight-desc { font-size: 13px; color: rgba(248,246,241,0.65); line-height: 1.6; }
 
+    /* â”€â”€ MEET ANDY TILE â”€â”€ */
+    .meet-andy-section {
+      background: var(--white);
+      padding: 64px 5%;
+    }
+    .meet-andy-card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--gray-light);
+      border-radius: 14px;
+      padding: 32px 36px;
+      border-left: 4px solid var(--orange);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .meet-andy-card .meet-andy-title {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .meet-andy-card .meet-andy-desc {
+      font-size: 15px;
+      color: var(--gray-mid);
+      line-height: 1.6;
+    }
+    .meet-andy-card .meet-andy-link {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--orange-text);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      align-self: flex-start;
+    }
+    .meet-andy-card .meet-andy-link:hover { color: var(--orange); }
+
     /* â”€â”€ PORTFOLIO â”€â”€ */
     .portfolio-section { background: var(--gray-light); }
     .portfolio-inner { max-width: 1100px; margin: 0 auto; }
@@ -997,8 +1047,6 @@
     }
 
   </style>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
   </head>
 <body>
 
@@ -1012,7 +1060,7 @@
 
 <!-- PRIMARY NAV -->
 <nav aria-label="Main navigation">
-  <a href="#" class="nav-logo" aria-label="Wabash Systems â€” return to top">
+  <a href="#" class="nav-logo" aria-label="Wabash Systems â€” return to top" aria-current="page">
     <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <rect x="0" y="0" width="400" height="240" rx="4" fill="#0d1a2a"/>
       <clipPath id="nc"><rect x="0" y="0" width="400" height="240" rx="4"/></clipPath>
@@ -1075,8 +1123,8 @@
     <p class="hero-sub">Wabash Systems helps small and mid-size businesses launch, grow, and manage profitable online stores â€” without the guesswork. From store setup to SEO to Google Ads, we handle the digital side so you can focus on what you do best.</p>
     <p class="hero-proof">Built on <strong>20+ years</strong> of building and operating high-traffic e-commerce. Based in the Wabash Valley, working with clients across the United States. <strong>Built for Midwest e-commerce operators</strong> &mdash; practical, no fluff, no coastal-agency overhead.</p>
     <div class="hero-actions">
-      <a href="/booking" class="btn-primary">Book a Free Consultation</a>
-      <a href="#services" class="btn-secondary">See What We Do</a>
+      <a href="/audit" class="btn-primary">Run a Free Audit</a>
+      <a href="/booking" class="btn-secondary">Book a Free Consultation</a>
     </div>
     <!-- TODO(2026-05-22): replace placeholder quote with real one once Jeremiah grants permission. Today this is a stand-in to validate the layout. -->
     <div class="hero-testimonial" style="margin-top: 32px; padding: 20px; background: rgba(255,255,255,0.05); border-left: 3px solid var(--orange); border-radius: 0 6px 6px 0; max-width: 540px;">
@@ -1246,7 +1294,7 @@
       <span class="section-label">About Wabash Systems</span>
       <h2 class="section-title" id="about-heading">20+ Years in the Trenches. Pointed at Your Business.</h2>
       <div class="about-body">
-        <p>Wabash Systems was built on 20+ years of running e-commerce and IT operations at scale â€” not advising from the sidelines, but actually doing the work. Managing a $700â€“800K/month online store. Leading a solo platform migration from Magento to BigCommerce, and <strong>running that storefront every day for the last 16 years</strong>. Running SEO since before most small businesses had a website. Handling LTL freight logistics, ERP integrations, Google Ads, call center operations, and everything in between.</p>
+        <p>Wabash Systems was built on 20+ years of running e-commerce and IT operations at scale â€” not advising from the sidelines, but actually doing the work. Managing high-traffic e-commerce stores. Leading platform migrations between Magento, BigCommerce, Shopify, and WooCommerce. Running SEO since before most small businesses had a website. Handling LTL freight logistics, ERP integrations, Google Ads, call center operations, and everything in between.</p>
         <p>We've operated some of the most complex categories you can sell online â€” heavy freight, hundreds of variants, custom calculators, $2,000 shipping quotes. If we could build and run that profitably for two decades, we can help you sell just about anything.</p>
         <p>Wabash Systems exists because small and mid-size businesses deserve the same caliber of e-commerce engineering that big retailers have had for years. Based in the Wabash Valley, we serve clients nationwide.</p>
         <p>When you work with Wabash Systems, you're working directly with our team. No account managers, no junior associates, no outsourced work. Just 20+ years of hard-won experience pointed at your business.</p>
@@ -1254,8 +1302,8 @@
     </div>
     <div class="about-highlights">
       <div class="highlight-item">
-        <h3 class="highlight-title">$700â€“800K/Month in Managed Revenue</h3>
-        <p class="highlight-desc">20+ years running e-commerce at scale â€” not consulting about it. 16 years on a BigCommerce/Magento storefront. Shopify, WooCommerce, Google Ads, SEO, LTL freight, ERP integrations, and more.</p>
+        <h3 class="highlight-title">20+ Years in High-Traffic E-Commerce</h3>
+        <p class="highlight-desc">20+ years running e-commerce at scale â€” not consulting about it. Magento, BigCommerce, Shopify, WooCommerce, Google Ads, SEO, LTL freight, ERP integrations, and more.</p>
       </div>
       <div class="highlight-item">
         <h3 class="highlight-title">20+ Years of Organic SEO</h3>
@@ -1270,6 +1318,15 @@
         <p class="highlight-desc">Flat monthly retainers and clear project quotes. You know exactly what you're paying and what you're getting before we start.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- MEET ANDY TILE -->
+<section class="meet-andy-section" aria-labelledby="meet-andy-heading">
+  <div class="meet-andy-card">
+    <h2 id="meet-andy-heading" class="meet-andy-title">Meet Andy</h2>
+    <p class="meet-andy-desc">20+ years building high-traffic e-commerce. Based in the Wabash Valley.</p>
+    <a href="/about#founder" class="meet-andy-link">About Andy &rarr;</a>
   </div>
 </section>
 

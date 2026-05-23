@@ -28,6 +28,37 @@ export async function onRequestPost(context) {
     return new Response('Admin not configured. Missing one of: ADMIN_USERNAME, ADMIN_PASSWORD, SESSION_SECRET.', { status: 503 });
   }
 
+  // Per-IP login rate limit: 5 attempts / 15-minute sliding window.
+  // Runs BEFORE credential check so bad-password retries count toward the cap.
+  // Soft-fails (allows the attempt) if KV isn't bound — preferable to locking
+  // everyone out when the binding is misconfigured.
+  if (env.ADMIN_DATA) {
+    const ip      = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const key     = `login_rate:${ip}`;
+    const now     = Date.now();
+    const windowMs = 15 * 60 * 1000;
+    const max     = 5;
+
+    const stored   = await env.ADMIN_DATA.get(key, { type: 'json' });
+    const attempts = Array.isArray(stored) ? stored.filter(t => now - t < windowMs) : [];
+    if (attempts.length >= max) {
+      return new Response(
+        JSON.stringify({ error: 'rate_limited' }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': String(Math.ceil(windowMs / 1000)),
+          },
+        },
+      );
+    }
+    attempts.push(now);
+    await env.ADMIN_DATA.put(key, JSON.stringify(attempts), {
+      expirationTtl: Math.ceil(windowMs / 1000),
+    });
+  }
+
   let body;
   try {
     body = await request.formData();
@@ -79,8 +110,8 @@ function safeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
   if (a.length !== b.length) {
     // Still consume time proportional to `a` to avoid length oracle.
-    let diff = 0;
-    for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ 0;
+    let _diff = 0;
+    for (let i = 0; i < a.length; i++) _diff |= a.charCodeAt(i) ^ 0;
     return false;
   }
   let diff = 0;

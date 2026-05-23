@@ -140,7 +140,7 @@ async function checkRateLimit(env, ip) {
   return { ok: true, retry_after: 0 };
 }
 
-async function captureLead(env, normalized, email, audit_id, context) {
+async function captureLead(env, normalized, email, audit_id, _context) {
   // Pull cached audit summary so Klaviyo + lamp lead get the right data.
   let auditSummary = null;
   if (env.ADMIN_DATA) {

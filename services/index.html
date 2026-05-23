@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -51,6 +51,8 @@
           if (src.indexOf("sentry-cdn") !== -1) s.crossOrigin = "anonymous";
           document.head.appendChild(s);
         });
+        // Microsoft Clarity (deferred)
+        (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");
       }
       // Load when browser is idle -- never blocks user interactions.
       // Fall back to a 3.5s timer for browsers without requestIdleCallback (Safari < 17).
@@ -332,8 +334,6 @@
       .footer-top { grid-template-columns: 1fr; }
     }
   </style>
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wkk97tce6q");</script>
   
   <!-- BreadcrumbList schema (AEO + rich results) -->
   <script type="application/ld+json">
@@ -456,7 +456,7 @@
     <h1>A flagship audit. Seven add-ons. Hard numbers on all of them.</h1>
     <p class="lede">
       Most consultants tell you "it depends" when you ask what something
-      costs. I won't. The main offer is a four-step performance ladder
+      costs. We won't. The main offer is a four-step performance ladder
       that starts free. Below that, seven add-on services with published
       pricing. No "contact us for pricing," no scope-shrouded ranges.
       Pick what fits.
@@ -474,7 +474,7 @@
         <div class="svc-card-eyebrow">The Full Ladder &mdash; Free Audit Through Monthly Retainer</div>
         <h2 style="font-size: 28px;">E-Commerce Performance Audit + Fix Sprint</h2>
         <p class="desc" style="font-size: 16px; margin-bottom: 22px; max-width: 760px;">
-          The work I do most. We start with a free technical audit of your
+          The work we do most. We start with a free technical audit of your
           store. If the gaps it surfaces are worth fixing, we book a paid
           strategy call. If the strategy lands, we run a 2 to 3 week fix
           sprint on the highest-leverage issues. If you want it ongoing,
@@ -646,9 +646,9 @@
 <section class="end-cta">
   <h2>Not sure which service fits?</h2>
   <p>
-    Free 30-minute consultation. Tell me what you're trying to do and
-    I'll point you to the right starting place &mdash; even if it's
-    something I don't offer myself.
+    Free 30-minute consultation. Tell us what you're trying to do and
+    we'll point you to the right starting place &mdash; even if it's
+    something we don't offer ourselves.
   </p>
   <a href="/booking" class="btn-orange">Book a Free Consultation</a>
   <a href="/pricing" class="btn-ghost">See All Pricing</a>

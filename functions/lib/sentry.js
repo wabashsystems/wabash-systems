@@ -49,7 +49,7 @@ const parsed = (() => {
 export function captureException(context, err, opts = {}) {
   if (!parsed) return; // DSN unparseable - no-op
 
-  const { request, env } = context || {};
+  const { request } = context || {};
   const url = request ? new URL(request.url) : null;
   const hostname = url ? url.hostname : 'unknown';
 
