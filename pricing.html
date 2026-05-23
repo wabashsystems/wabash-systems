@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing &mdash; Wabash Systems</title>
-  <meta name="description" content="Transparent pricing for e-commerce consulting nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
+  <meta name="description" content="Transparent pricing for Midwest e-commerce consulting, serving clients nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
   <link rel="canonical" href="https://www.wabashsystems.com/pricing" />
   <meta name="robots" content="index,follow" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.wabashsystems.com/pricing" />
   <meta property="og:title" content="Pricing &mdash; Wabash Systems" />
-  <meta property="og:description" content="Transparent pricing for e-commerce consulting nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
+  <meta property="og:description" content="Transparent pricing for Midwest e-commerce consulting, serving clients nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
   <meta property="og:image" content="https://www.wabashsystems.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -20,7 +20,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pricing &mdash; Wabash Systems" />
-  <meta name="twitter:description" content="Transparent pricing for e-commerce consulting nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
+  <meta name="twitter:description" content="Transparent pricing for Midwest e-commerce consulting, serving clients nationwide. Free audit, $2,500 deep audit, $8,000+ fix sprint, $5,000/mo retainer. Plus the full add-on menu, all with published numbers." />
   <meta name="twitter:image" content="https://www.wabashsystems.com/og-image.png" />
   <meta name="twitter:url" content="https://www.wabashsystems.com/pricing" />
 
@@ -146,7 +146,8 @@
         var srcs = [
           "/js/sentry-init.js",
           "https://js.sentry-cdn.com/8b2571b52de8397c9d84aac021fd805a.min.js",
-          "/js/posthog-init.js"
+          "/js/posthog-init.js",
+          "/js/ga-init.js"
         ];
         srcs.forEach(function (src) {
           var s = document.createElement("script");
@@ -315,10 +316,11 @@
     <div class="svc-eyebrow">Pricing</div>
     <h1>Transparent pricing for e-commerce consulting.</h1>
     <p class="lede">
-      Hard numbers on every offering. The flagship is a four-step ladder
-      that starts free. Below it, seven add-on services with published
-      pricing. No "contact us for pricing," no scope-shrouded ranges.
-      Pick what fits.
+      Real pricing for real Midwest e-commerce operators &mdash; plus clients
+      coast-to-coast. Hard numbers on every offering. The flagship is a
+      four-step ladder that starts free. Below it, seven add-on services
+      with published pricing. No "contact us for pricing," no
+      scope-shrouded ranges. Pick what fits.
     </p>
   </div>
 </header>
@@ -566,6 +568,21 @@
           $('roiUnlock').style.display = 'none';
           status.style.color = 'var(--navy)';
           status.innerHTML = 'We just sent the full breakdown to your inbox. <a href="/booking.html" style="color: var(--orange); font-weight: 600;">Or book a call &rarr;</a>';
+
+          var roiProps = {
+            monthly_revenue: Number($('roiRevenue').value) || 0,
+            current_conv_rate: Number($('roiConv').value) || 0,
+            current_traffic: Number($('roiTraffic').value) || 0,
+            projected_lift_low: res.lift_low_pct,
+            projected_lift_high: res.lift_high_pct
+          };
+          if (typeof posthog !== 'undefined') {
+            posthog.identify(email, { email: email });
+            posthog.capture('roi_calculator_unlock', roiProps);
+          }
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'roi_calculator_unlock', roiProps);
+          }
         } catch (err) {
           status.textContent = 'Something hiccupped — try again or just email andy.gray@wabashsystems.com.';
           $('roiUnlockBtn').disabled = false;

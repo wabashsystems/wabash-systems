@@ -327,6 +327,22 @@
           return;
         }
         lastAudit = { url, ...data };
+
+        if (typeof posthog !== 'undefined') {
+          posthog.capture('audit_run', {
+            url: url,
+            score: (data.score != null) ? data.score : null,
+            platform: data.platform || null
+          });
+        }
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'audit_run', {
+            url: url,
+            score: (data.score != null) ? data.score : '',
+            platform: data.platform || ''
+          });
+        }
+
         renderResults(data);
       } catch (err) {
         showError('network_error', err && err.message);
@@ -424,6 +440,22 @@
         }
         document.getElementById('gateBlock').style.display = 'none';
         document.getElementById('successBlock').style.display = '';
+
+        if (typeof posthog !== 'undefined') {
+          posthog.identify(email, { email: email });
+          posthog.capture('audit_email_captured', {
+            url: lastAudit.url,
+            score: (lastAudit.score != null) ? lastAudit.score : null,
+            platform: lastAudit.platform || null
+          });
+        }
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'audit_email_captured', {
+            url: lastAudit.url,
+            score: (lastAudit.score != null) ? lastAudit.score : '',
+            platform: lastAudit.platform || ''
+          });
+        }
       } catch (err) {
         status.style.color = '#b91c1c';
         status.textContent = 'Network hiccup. Try again.';
