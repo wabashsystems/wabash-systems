@@ -107,7 +107,7 @@
         "name": "Can I cancel anytime?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying â€” and we'll tell you that before you do."
+          "text": "Monthly retainers run on a 6-month initial term, then month-to-month with 30 days notice. The 6-month minimum exists because the work genuinely doesn't show measurable results in 30 to 60 days. After the initial term, cancel anytime. If we're 6 months in and you don't see value, you shouldn't keep paying — and we'll tell you that before you do."
         }
       }
     ]
@@ -647,7 +647,7 @@
 <a href="#main" class="skip-nav">Skip to main content</a>
 
 <div class="announcement-banner" role="region" aria-label="Site announcement">
-  <span aria-hidden="true">ðŸš€</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
+  <span aria-hidden="true">🚀</span> E-commerce consulting nationwide<span class="thin">&mdash; Now Accepting New Clients</span>
 </div>
 
 <nav aria-label="Main navigation">
@@ -892,8 +892,8 @@
         $('roiLow').textContent  = res ? fmt(res.monthly_low)  : '$X,XXX';
         $('roiHigh').textContent = res ? fmt(res.monthly_high) : '$X,XXX';
         $('roiAnnual').textContent = res
-          ? `12-month projected lift: ${fmt(res.annual_low)} â€“ ${fmt(res.annual_high)}`
-          : '12-month projected lift: $XX,XXX â€“ $XX,XXX';
+          ? `12-month projected lift: ${fmt(res.annual_low)} – ${fmt(res.annual_high)}`
+          : '12-month projected lift: $XX,XXX – $XX,XXX';
         $('roiLow').style.filter    = blur;
         $('roiHigh').style.filter   = blur;
         $('roiAnnual').style.filter = blur;
@@ -917,7 +917,7 @@
           return;
         }
         $('roiUnlockBtn').disabled = true;
-        $('roiUnlockBtn').textContent = 'Sendingâ€¦';
+        $('roiUnlockBtn').textContent = 'Sending…';
         try {
           const resp = await fetch('/api/roi_capture', {
             method: 'POST',
@@ -950,7 +950,7 @@
             posthog.capture('roi_calculator_unlock', roiProps);
           }
         } catch (err) {
-          status.textContent = 'Something hiccupped â€” try again or just email andy.gray@wabashsystems.com.';
+          status.textContent = 'Something hiccupped — try again or just email andy.gray@wabashsystems.com.';
           $('roiUnlockBtn').disabled = false;
           $('roiUnlockBtn').textContent = 'Unlock projection';
         }
