@@ -25,6 +25,12 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://www.wabashsystems.com/audit</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.97</priority>
+  </url>
+  <url>
     <loc>https://www.wabashsystems.com/services/performance-audit</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
