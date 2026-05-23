@@ -182,7 +182,7 @@
   </p>
 
   <form id="auditForm" class="audit-form" onsubmit="event.preventDefault(); runAudit(); return false;">
-    <input type="url" id="auditUrl" name="url" placeholder="https://yourstore.com" required autocomplete="url" aria-label="Your site URL" />
+    <input type="url" id="auditUrl" name="url" value="https://www." placeholder="https://yourstore.com" required autocomplete="url" aria-label="Your site URL" onfocus="if(this.value==='https://www.'){const e=this.value.length;this.setSelectionRange(e,e);}" />
     <button type="submit" id="auditSubmit">Run free audit</button>
   </form>
   <div class="audit-form-hint">Takes 15&ndash;30 seconds. We don&rsquo;t store anything until you ask for the full report.</div>
