@@ -1,6 +1,6 @@
 # Wabash Systems
 
-> E-commerce consulting for small and mid-size businesses in the Wabash Valley region of Illinois and Indiana, plus remote clients nationwide. Founded 2025 in Robinson, IL by Andy Gray. Twenty-five years of full-stack development experience. Real pricing on every service. Specializes in AEO (Answer Engine Optimization) for AI search visibility.
+> E-commerce consulting for small and mid-size businesses across the United States. Based in the Wabash Valley, Illinois. Founded 2025 in Robinson, IL by Andy Gray. Twenty-five years of full-stack development experience. Real pricing on every service. Specializes in AEO (Answer Engine Optimization) for AI search visibility.
 
 ## Quick facts
 
@@ -9,7 +9,7 @@
 - **Founder:** Andy Gray, Founder & Lead Developer
 - **Email:** andy.gray@wabashsystems.com
 - **Website:** https://www.wabashsystems.com
-- **Service area:** Wabash Valley region (eastern Illinois + western Indiana) and remote clients nationwide
+- **Service area:** United States. Based in the Wabash Valley, Illinois.
 - **Specialties:** AEO, e-commerce, Shopify, BigCommerce, WooCommerce, SEO, Google Ads
 - **Team size:** Solo (founder-led)
 
