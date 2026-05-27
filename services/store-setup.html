@@ -431,7 +431,27 @@
     @media (max-width: 600px) {
       .footer-top { grid-template-columns: 1fr; }
     }
-  </style>
+  
+    /* â”€â”€ HAMBURGER + MOBILE DRAWER (standardized) â”€â”€ */
+    .nav-toggle { display: none; background: transparent; border: 2px solid rgba(248,246,241,0.3); border-radius: 6px; cursor: pointer; padding: 10px 12px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; pointer-events: none; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 299; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-nav { position: fixed; top: 0; right: 0; width: min(320px, 85vw); height: 100%; background: var(--navy-mid, #14253a); z-index: 300; display: flex; flex-direction: column; padding: 110px 40px 48px; gap: 4px; transform: translateX(100%); visibility: hidden; transition: transform 0.3s ease, visibility 0s linear 0.3s; box-shadow: -8px 0 40px rgba(0,0,0,0.5); overflow-y: auto; }
+    .mobile-nav.open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease, visibility 0s linear 0s; }
+    .mobile-nav a { color: var(--cream); text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s; display: block; }
+    .mobile-nav a:hover, .mobile-nav a:focus-visible { color: var(--orange-light); }
+    .mobile-nav a[aria-current="page"] { color: var(--orange-light); }
+    .mobile-nav .mobile-cta { margin-top: 24px; background: var(--orange); color: var(--white) !important; padding: 18px 24px !important; border-radius: 8px; text-align: center; font-weight: 600 !important; border-bottom: none !important; }
+    .mobile-nav .mobile-cta:hover { background: var(--orange-light); }
+    .mobile-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--cream); cursor: pointer; padding: 10px; border-radius: 6px; font-size: 24px; line-height: 1; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .mobile-close:hover { color: var(--orange-light); }
+    @media (min-width: 901px) { .nav-toggle { display: none !important; } .mobile-nav, .mobile-overlay { display: none !important; } }
+    @media (max-width: 900px) { .nav-links { display: none !important; } .nav-toggle { display: flex !important; } }
+</style>
   
   <!-- BreadcrumbList schema (AEO + rich results) -->
   <script type="application/ld+json">
@@ -486,13 +506,32 @@
     </div>
   </a>
   <ul class="nav-links" role="list">
-    <li><a href="/#services" class="is-active" aria-current="page">Services</a></li>
-    <li><a href="/about">About</a></li>
+    <li><a href="/services/" aria-current="page">Services</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/audit">Free Audit</a></li>
     <li><a href="/case-studies/">Case Studies</a></li>
+    <li><a href="/about">About</a></li>
     <li><a href="/blog/">Blog</a></li>
-    <li class="nav-cta-li"><a href="/booking" class="nav-cta">Free Consultation</a></li>
+    <li><a href="/booking" class="nav-cta">Free Consultation</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="/services/" aria-current="page">Services</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/audit">Free Audit</a>
+  <a href="/case-studies/">Case Studies</a>
+  <a href="/about">About</a>
+  <a href="/blog/">Blog</a>
+  <a href="/booking" class="mobile-cta">Free Consultation</a>
+</nav>
+
 
 <header class="svc-hero">
   <div class="svc-hero-inner">
@@ -753,5 +792,48 @@
   </div>
 </footer>
 
+
+<script>
+  (function() {
+    var toggle    = document.getElementById('navToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    var overlay   = document.getElementById('mobileOverlay');
+    var closeBtn  = document.getElementById('mobileClose');
+    if (!toggle || !mobileNav || !overlay || !closeBtn) return;
+    function openNav() {
+      if (window.innerWidth > 900) return;
+      mobileNav.classList.add('open');
+      mobileNav.removeAttribute('aria-hidden');
+      overlay.classList.add('open');
+      overlay.removeAttribute('aria-hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close navigation menu');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeNav() {
+      mobileNav.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+      document.body.style.overflow = '';
+      toggle.focus();
+    }
+    toggle.addEventListener('click', function() {
+      if (toggle.getAttribute('aria-expanded') === 'true') { closeNav(); } else { openNav(); }
+    });
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeNav();
+    });
+    mobileNav.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeNav); });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900 && toggle.getAttribute('aria-expanded') === 'true') closeNav();
+    });
+  })();
+</script>
 </body>
 </html>

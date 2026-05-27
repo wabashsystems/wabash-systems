@@ -569,10 +569,11 @@
     </div>
   </a>
   <ul class="nav-links" role="list">
-    <li><a href="/#services">Services</a></li>
-    <li><a href="/#process">Process</a></li>
-    <li><a href="/about" aria-current="page">About</a></li>
+    <li><a href="/services/">Services</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/audit">Free Audit</a></li>
     <li><a href="/case-studies/">Case Studies</a></li>
+    <li><a href="/about" aria-current="page">About</a></li>
     <li><a href="/blog/">Blog</a></li>
     <li><a href="/booking" class="nav-cta">Free Consultation</a></li>
   </ul>
@@ -585,10 +586,11 @@
 <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
   <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">&#x2715;</button>
-  <a href="/#services">Services</a>
-  <a href="/#process">Process</a>
-  <a href="/about" aria-current="page">About</a>
+  <a href="/services/">Services</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/audit">Free Audit</a>
   <a href="/case-studies/">Case Studies</a>
+  <a href="/about" aria-current="page">About</a>
   <a href="/blog/">Blog</a>
   <a href="/booking" class="mobile-cta">Free Consultation</a>
 </nav>
@@ -867,4 +869,58 @@
         <li><a href="/locations/">Locations</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/#contact">Contact</a></li>
-       
+        <li><a href="/booking">Free Consultation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Wabash Systems. All rights reserved.</span>
+    <span>Wabash Valley — Illinois &amp; Indiana · Remote E-Commerce Consulting</span>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var toggle    = document.getElementById('navToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    var overlay   = document.getElementById('mobileOverlay');
+    var closeBtn  = document.getElementById('mobileClose');
+    if (!toggle || !mobileNav || !overlay || !closeBtn) return;
+    function openNav() {
+      if (window.innerWidth > 900) return;
+      mobileNav.classList.add('open');
+      mobileNav.removeAttribute('aria-hidden');
+      overlay.classList.add('open');
+      overlay.removeAttribute('aria-hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close navigation menu');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeNav() {
+      mobileNav.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+      document.body.style.overflow = '';
+      toggle.focus();
+    }
+    toggle.addEventListener('click', function() {
+      if (toggle.getAttribute('aria-expanded') === 'true') { closeNav(); } else { openNav(); }
+    });
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeNav();
+    });
+    mobileNav.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeNav); });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900 && toggle.getAttribute('aria-expanded') === 'true') closeNav();
+    });
+  })();
+</script>
+
+</body>
+</html>
